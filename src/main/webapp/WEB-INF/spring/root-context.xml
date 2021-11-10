@@ -62,6 +62,6 @@
 	</bean>
 	
 	<!-- 추후 Service가 트랜잭션 관리를 위한 프록시객체 생성의 인터페이스로, Mapper로서도 등록되면 문제가 생긴다. -->
-	<mybatis-spring:scan base-package="com.kh.spring" annotation="org.apache.ibatis.annotations.Mapper"/>
+	<mybatis-spring:scan base-package="com.kh.hehyeop" annotation="org.apache.ibatis.annotations.Mapper"/>
 	
 </beans>

@@ -22,7 +22,7 @@
 	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/file/**" location="file:///C:/CODE/upload/"/>
+	<resources mapping="/file/**" location="file:///C:/Final_Project/upload/"/>
 	
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -31,12 +31,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<interceptors>
+	<!-- <interceptors>
 		<interceptor>
 			<mapping path="/**"/>
-			<beans:bean class="com.kh.spring.common.interceptor.AuthInterceptor"/>
+			<beans:bean class="com.kh.hehyeop.common.interceptor.AuthInterceptor"/>
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
 	
 	<!-- 트랜잭션 관리 Bean 등록 : DataSourceTransactionManager -->
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -75,12 +75,12 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:pointcut expression="execution(* com.kh.spring..*.*ServiceImpl.*(..))" id="txPointCut"/>
+		<aop:pointcut expression="execution(* com.kh.hehyeop..*.*ServiceImpl.*(..))" id="txPointCut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
 	</aop:config>
 	
 	<tx:annotation-driven/>
 	
-	<context:component-scan base-package="com.kh.spring" />
+	<context:component-scan base-package="com.kh.hehyeop" />
 	
 </beans:beans>
