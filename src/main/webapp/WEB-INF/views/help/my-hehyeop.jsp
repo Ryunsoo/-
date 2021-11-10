@@ -83,8 +83,8 @@
 		</div>
 
 		<div class="breakdown">
-			<button class="bk_btn" onclick="location.href='./myHeyeopDetail.html'">상세내역</button>
-			<button class="bk_btn" onclick="location.href='./myHeyeopEstimate.html'">견적내역</button>
+			<button class="bk_btn" onclick="detail()">상세내역</button>
+			<button class="bk_btn" onclick="estimate">견적내역</button>
 			<div class="bk_body">
 			<%@ include file="/WEB-INF/views/help/my-hehyeop-detail.jsp" %>
 			<%-- <%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %> --%>

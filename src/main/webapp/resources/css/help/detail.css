@@ -3,6 +3,7 @@
 	height: 650px;
 	padding: 20px;
 	float: left;
+	display: none;
 }
 
 .right_page {
@@ -10,6 +11,7 @@
 	height: 650px;
 	padding: 20px;
 	float: right;
+	display: none;
 }
 
 .req_img {
