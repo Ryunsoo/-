@@ -1,44 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-   href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-   crossorigin="anonymous" />
-
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="../../../resources/css/community/style.css"/>
 <link rel="stylesheet" href="../../../resources/css/community/search_page.css"/>
 </head>
 <body>
-    <!--헤더자리-->
-    <div class="wrap">
-      <header id="header">
-         <nav class="navbar">
-            <div class="logo">
-               <img src="../../../resources/image/main-logo.png" class="logo">
-            </div>
-            <div class="nav_group">
-               <div class="nav_info">
-                  <div class="userName">해협</div>
-                  <div class="nim">님</div>
-                  <div class="medal">
-                     <i class="fas fa-medal"></i>
-                  </div>
-                  <div class="mypage">마이페이지</div>
-                  <div class="logout">LOGOUT</div>
-               </div>
-               <div class="nav_title">
-                  <div class="help">해협신청</div>
-                  <div class="together">공구해협</div>
-                  <div class="manage">관리해협</div>
-                  <div class="talk">소통해협</div>
-               </div>
-            </div>
-         </nav>
-      </header>
-      
+<div class="wrap">
+   	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
@@ -130,7 +101,5 @@
     </footer>
 
    </div>
-   <!--wrap == container 끝-->
-  
 </body>
 </html>

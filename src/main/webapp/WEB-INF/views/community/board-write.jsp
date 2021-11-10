@@ -1,13 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>소통해협 - 게시글 작성</title>
-<link rel="stylesheet"
-   href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-   crossorigin="anonymous" />
-
 <link rel="stylesheet" href="../../../resources/css/community/style2.css"/>
 <link rel="stylesheet" href="../../../resources/css/community/write_board.css"/>
 
@@ -15,11 +10,11 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
-
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <script>
 
 	$(document).ready(function() {
@@ -31,36 +26,12 @@
 		});
 	});
 </script>
-
-
 </head>
 <body>
-    <!--//헤더자리-->
+
+   <!--//헤더자리-->
     <div class="wrap">
-      <header id="header">
-         <nav class="navbar">
-            <div class="logo">
-               <img src="../../../resources/image/main-logo.png" class="logo">
-            </div>
-            <div class="nav_group">
-               <div class="nav_info">
-                  <div class="userName">해협</div>
-                  <div class="nim">님</div>
-                  <div class="medal">
-                     <i class="fas fa-medal"></i>
-                  </div>
-                  <div class="mypage">마이페이지</div>
-                  <div class="logout">LOGOUT</div>
-               </div>
-               <div class="nav_title">
-                  <div class="help">해협신청</div>
-                  <div class="together">공구해협</div>
-                  <div class="manage">관리해협</div>
-                  <div class="talk">소통해협</div>
-               </div>
-            </div>
-         </nav>
-      </header>
+     <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
@@ -83,7 +54,7 @@
     <!--index페이지 body작업시작-->
     <div id="write_body_container">
          <div id="exp_of_write">
-            <p>------ 게시글 수정하기 ---------------------------------------------------------</p>
+            <p>------ 게시글 등록하기 ---------------------------------------------------------</p>
          </div>
          
          <div id="write_form">
@@ -116,7 +87,7 @@
                   <div align="right">
                      <input type="hidden" name="section" value="${ param.section }">
                      <input type="hidden" name="id" value="${ id }">
-                     <input type="button" id="bt" value="게시글 수정" onclick="history.go(-1)">
+                     <input type="button" id="bt" value="게시글 등록" onclick="history.go(-1)">
                   </div>
                   
 
@@ -131,6 +102,6 @@
     </div>
    </div>
    <!--wrap == container 끝-->
-  
+
 </body>
 </html>

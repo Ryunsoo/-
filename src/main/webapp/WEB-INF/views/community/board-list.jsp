@@ -3,12 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
+<link rel="stylesheet" href="../../../resources/css/community/style.css"/>
+<link rel="stylesheet" href="../../../resources/css/community/index_css.css"/>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 </head>
 <body>
  <div class="wrap">
-      
+     <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>

@@ -1,51 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-   href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-   crossorigin="anonymous" />
-<link rel="stylesheet" href="../../../resources/css/community/style.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="../../../resources/css/include/modal/modal.css">
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
+<link rel='stylesheet' href="../../../resources/css/community/style.css">
 <link rel="stylesheet" href="../../../resources/css/community/view_board.css"/>
-<script type="text/javascript" src="../../../resources/js/include/modal/init-modal.js"></script>
-<style type="text/css">
-/* 팝업창 */
-
-</style>
 </head>
 <body>
 <div id="modal"></div>
 
     <!--헤더자리-->
     <div class="wrap">
-      <header id="header">
-         <nav class="navbar">
-            <div class="logo">
-               <img src="../../../resources/image/main-logo.png" class="logo">
-            </div>
-            <div class="nav_group">
-               <div class="nav_info">
-                  <div class="userName">해협</div>
-                  <div class="nim">님</div>
-                  <div class="medal">
-                     <i class="fas fa-medal"></i>
-                  </div>
-                  <div class="mypage">마이페이지</div>
-                  <div class="logout">LOGOUT</div>
-               </div>
-               <div class="nav_title">
-                  <div class="help">해협신청</div>
-                  <div class="together">공구해협</div>
-                  <div class="manage">관리해협</div>
-                  <div class="talk">소통해협</div>
-               </div>
-            </div>
-         </nav>
-      </header>
+      <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
       
       <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
