@@ -6,8 +6,8 @@
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
-<meta charset="UTF-8">
 <link rel='stylesheet' href="../../../resources/css/purchase/purchase-mypurchase.css">
+<meta charset="UTF-8">
 
 
 </head>
@@ -19,8 +19,6 @@
 
 <body>
 
-
-	
 	<!-- 섹션 시작 -->
 	<div class="section">
 		

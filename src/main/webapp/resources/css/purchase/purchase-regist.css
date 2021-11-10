@@ -1,25 +1,25 @@
 
-	
-body, html{
-   /* heigth: 690px; */
-   position: relative;
-   min-height: 690px;
-   width: 1130px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   font-family: 'Han Sans, 본고딕';
+html {
+	width: 100%;
+	height: 1140px;
+	min-width: 1130px;
+	display: flex;
+	justify-content: center;
 }
 
+body {
+	width: 1130px;
+	height: 1140px;
+	min-width: 1130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
-
-/* 섹션 시작*/
 
 .section{
-	height: 100%;
-	width: 95%;
+	width: 1073px;
 }
-
 
 
 

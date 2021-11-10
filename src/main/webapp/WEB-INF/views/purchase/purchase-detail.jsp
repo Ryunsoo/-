@@ -4,20 +4,14 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
-
+<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel='stylesheet' href="../../../resources/css/purchase/purchase-detail.css">
+<meta charset="UTF-8">
 </head>
 
 
-
-
-
-
 <body>
-	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
@@ -124,7 +118,7 @@
 			
 			<!-- 재고/신청 현황 -->
 			<div class="stock-status">
-				<ul>
+				<ul id="stock-list">
 					<li>현재 남은 신청개수 : 5개</li>
 					<li>남은 개수 : 7개</li>
 				</ul>
