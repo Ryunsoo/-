@@ -1,19 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>소통해협 - 메인페이지</title>
-<link rel="stylesheet"
-   href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-   crossorigin="anonymous" />
-
-<link rel="stylesheet" href="../../../resources/css/community/style.css"/>
-<link rel="stylesheet" href="../../../resources/css/community/index_css.css"/>
+<%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <!--헤더자리-->
-    <div class="wrap">
+ <div class="wrap">
       
      <!--nav와 header 끝-->
     <div id="search_case">
@@ -316,6 +310,5 @@
     </footer>
    </div>
    <!--wrap == container 끝-->
-  
 </body>
 </html>
