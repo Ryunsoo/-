@@ -276,7 +276,7 @@ html, body {
 <body>
 <div id="bg" class="hidden"></div>
 	<div class="wrap">
-	<%@ include file="/WEB-INF/views/head/head.jsp" %>
+	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 		<div class="main">
 			<div class="btn">
 				<button class="icebox_btn" onclick="javascript:location.href='myIcebox.html'">
