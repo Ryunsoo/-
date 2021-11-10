@@ -116,7 +116,7 @@ html, body {
 }
 
 .click{
-	margin-top: 50px;
+	margin-top: 55px;
 }
 
 .postIt:hover{
@@ -156,8 +156,9 @@ html, body {
 	border-radius: 100%;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 20px;
-	margin-right: 10px;
+	margin-top: 10px;
+	right: 26px;
+	line-height: 1.4;
 }
 
 .bell_cnt:hover{
@@ -258,8 +259,9 @@ html, body {
 	border-radius: 100%;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-right: 10px;
+	line-height: 1.4;
 }
 
 .cart_cnt:hover{
