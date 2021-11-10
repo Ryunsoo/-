@@ -7,8 +7,7 @@
 <link rel='stylesheet' href="../../../resources/css/main/main.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick-theme.css">
-<script type="text/javascript" src="../../../resources/js/jquery.js"></script>
-<script type="text/javascript" src="../../../resources/js/weather.js?ver=1"></script>
+<script type="text/javascript" src="../../../resources/js/main/weather.js?ver=1"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
 </head>
 <body>
