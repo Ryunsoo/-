@@ -9,5 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@GetMapping("join-request")
-	public void test() {}
+	public void joinRequestForm() {}
+	
+	@GetMapping("finish-list")
+	public void finishListForm() {}
+	
+	@GetMapping("approval-first")
+	public void approvalFirstForm() {}
+	
+	@GetMapping("approval-second")
+	public void approvalSecondForm() {}
 }

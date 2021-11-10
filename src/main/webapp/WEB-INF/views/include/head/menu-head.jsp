@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>head</title>
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
