@@ -1,4 +1,3 @@
-<script>
         const go = document.querySelector("#go");
         const bg = document.querySelector("#bg");
         const popup = document.querySelector("#popup");
@@ -12,4 +11,3 @@
             bg.classList.add("hidden");
             popup.classList.add("hidden");
         });
-    </script>
