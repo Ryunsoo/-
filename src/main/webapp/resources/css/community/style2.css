@@ -1,23 +1,5 @@
 /*공용 css임 절대 수정하면 안됨 */
-nav, ul, li, a, span {
-	border: solid thin lightgray;
-	border: none;
-	display: flex;
-}
 
-div {
-	border: none;
-}
-
-#header {
-	background-color: white;
-	display: flex;
-	border: none;
-}
-
-#header div {
-	display: flex;
-}
 
 #search_case {
 	display: flex;
@@ -41,12 +23,7 @@ html, body {
 	justify-content: center;
 }
 
-#header {
-	height: 100px;
-	/* background-color: white;
-	display: flex;
-	border: none; */
-}
+
 
 #search_case {
    width: 1130px;
@@ -95,82 +72,10 @@ search_case_inner_div_1 > h3 {
    top: 10px;
 }
 
-.wrap {
-	display: block;
-	width: 1130px;
-	height: 1300px;
-	background-color: white;
-	/* 상단 바 맞추기 */
-	position: relative;
-	top: 13px;
-}
-
-.navbar {
-	width: 1130px;
-	height: 100px;
-	display: flex;
-	justify-content: space-around;
-	flex-shrink: 0;
-}
-
-.nav_group {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-}
-
-.nav_info {
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 75px;
-	font-size: 17px;
-}
-
-.userName {
-	margin-right: 6px;
-	font-weight: bolder;
-}
-
-.nim {
-	margin-right: 10px;
-	font-size: 13px;
-	align-self: center;
-	margin-top: 4px;
-	font-weight: bolder;
-}
-
-.medal {
-	margin-right: 20px;
-	align-self: center;
-	color: #e6bc14;
-}
-
-.mypage {
-	margin-right: 20px;
-	font-weight: bolder;
-}
-
-.logout {
-	font-weight: bolder;
-	color: #e67e00
-}
-
-.nav_title {
-	display: flex;
-	justify-content: space-around;
-	font-size: 20px;
-	font-weight: bolder;
-}
-
-.talk {
-	color: rgb(41, 128, 185);
-}
-
-/*로고*/
-.logo {
-	width: 200px;
-	align-self: center;
+.wrap{
+ 	width: 1130px;
+    height: 100%;
+    background-color: white;
 }
 
 #bt {

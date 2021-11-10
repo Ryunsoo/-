@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+body, html{
+	position: relative;
+	min-height: 690px;
+	weight: 1130px;
+	min-width: 1130px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'Han Sans, 본고딕';
+}
+
+a {
+  text-decoration: none;
+}
+  
+a:hover, a:focus {
+    color: #3b98c8;
+}
+
+button{
+	cursor: pointer;
+}
+
+.header{
+	display: flex;
+	height: 130px;
+	width: 1100px;
+}
+
+.logo{
+	height: 100%;
+	width: 260px;
+	margin: 0 50px 0 50px;
+	background-image: url("/resources/image/main-logo.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.header_right{
+	width: 740px;
+}
+
+.user_menu{
+	display: flex;
+	height: 20px;
+	width: 100%;
+	justify-content: flex-end;
+	margin: 0 5px 0 0;
+}
+
+.admin_mode{
+	margin: 0 5px 0 5px;
+	color: #d35400;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.logout{
+	margin: 0 20px 0 5px;
+}
+
+.logout>a{
+	color: #e67e00;
+	font-weight: bold;
+}
+
+
+.main_menu{
+	width: 280px;
+	height: 30px;
+	display: flex;
+	justify-content: space-between;
+	margin: 40px 0 0 0px;
+	padding-left: 50px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.main_menu>div>a{
+	color: #262626;
+	text-shadow: 2px 2px 4px #a6a6a6;
+}
+
+.main_menu>.current_page>a{
+	color: #2980b9;
+}
+
+.main_menu>div>a:hover{
+	color: #174869;
+	font-size: 22px;
+}

@@ -1,0 +1,138 @@
+.wrap {
+	width: 1130px;
+	height: 100%;
+}
+
+.banner {
+	width: 1130px;
+	height: 350px;
+	position: relative;
+	margin-bottom: 70px;
+}
+
+.banner_title {
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+}
+
+.banner img {
+	width: 1130px;
+	height: 350px;
+	margin-top: 50px;
+	margin-bottom: 100px;
+	opacity: 0.7;
+}
+
+.banner_name {
+	color: black;
+	font-size: 30px;
+	font-weight: bolder;
+}
+
+.title_div {
+	
+}
+
+.title {
+	color: black;
+	font-size: 30px;
+	font-weight: bolder;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.left_page {
+	width: 480px;
+	height: 800px;
+	padding: 20px;
+	float: left;
+}
+
+.right_page {
+	width: 480px;
+	height: 800px;
+	padding: 20px;
+	float: right;
+}
+
+.req_img {
+	margin-left: 30px;
+	margin-bottom: 30px;
+	width: 400px;
+	height: 250px;
+	border-radius: 20px;
+}
+
+.req_img img {
+	width: 400px;
+	height: 250px;
+	border-radius: 20px;
+}
+
+.upload_img{
+	width: 300px;
+	height: 50px;
+	margin-left: 70px;
+}
+
+.upload_icon input{
+	width: 40px;
+	height: 35px;
+	float: left;
+}
+
+.upload_input input{
+	width: 240px;
+	height: 30px;
+	margin-left: 10px;
+	float: right;
+	border-radius: 5px;
+}
+
+.info img{
+	margin-top: 30px;
+	margin-left: 30px;
+	height: 300px;
+}
+
+.text-area{
+	height: 70px;
+	margin-bottom: 30px;
+}
+
+.text-title{
+	color: rgb(242, 150, 97);
+	font-weight: bolder;
+	margin-bottom: 10px;
+}
+
+.text-input input{
+	width: 350px;
+	height: 35px;
+	border-radius: 5px;
+	border-color: rgb(213,213,213);
+}
+
+.text-input textarea{
+	width: 350px;
+	height: 100px;
+	border-radius: 5px;
+	border: 2px solid;
+	border-color: rgb(213,213,213);
+}
+
+.submit{
+	margin-top: 100px;
+}
+
+.submit button{
+	width: 357px;
+	height: 50px;
+	border-radius: 5px;
+	background-color: rgb(52,73,94);
+	color: white;
+	font-size: 20px;
+	font-weight: bolder;
+}

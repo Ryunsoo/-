@@ -4,7 +4,6 @@ html, body {
 	min-width: 1130px;
 	display: flex;
 	justify-content: center;
-	min-width: 1130px;
 }
 .navbar {
 	width: 1130px;
@@ -55,7 +54,7 @@ html, body {
 
 .logout {
 	font-weight: bolder;
-	color: #e67e00
+	color: #e67e00;
 }
 
 .nav_title {
@@ -87,8 +86,8 @@ html, body {
     width: 1130px;
     height: 200px;
     left: 0;
-    bottom: -200px;
-    z-index: 11;
+    bottom: -180px;
+    z-index: 2002;
 }
 
 .gnb__sub-category-wrap>div {
@@ -151,4 +150,23 @@ html, body {
 .gnb-2depth__item a:hover {
     color: black;
     font-weight: bolder;
+}
+
+a{
+   color:black;
+   text-decoration: none;   
+   cursor:pointer;
+   margin: 0;
+}
+
+li, a, ul {
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+ul {
+	list-style: none;
 }
