@@ -5,6 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel="stylesheet" href="${contextPath}/resources/css/include/head/admin-head.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<div class='header'>
