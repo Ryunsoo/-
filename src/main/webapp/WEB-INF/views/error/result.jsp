@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/include/head.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/include/head.jsp" %> --%>
 </head>
 <body>
 	<script type="text/javascript">

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>signUp-Corporation</title>
+<style type="text/css">
+/* div {
+	box-shadow: 0 0 2px black;
+} */
+
+html,body {
+	width: 100%;
+	height: 100%;
+	min-width: 1130px;
+	display: flex;
+	justify-content: center;
+}
+
+.wrap{
+	justify-content: center;
+	align-self: center;
+}
+/* .topBlank */
+
+/* 왼쪽 박스 기준 */
+.leftBox {
+	float: left;
+	width: 330px;
+}
+
+.MainLogoHelp {
+	height: 130px;
+	width: 280px;
+	margin: 0 25px 0 25px;
+	padding-top: 30px;
+	background-image: url('../../../resources/image/main-logo.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.login-page-left{
+	height: 590px;
+	width: 100%;
+	margin-right: 5px;
+	background-image: url('../../../resources/image/login-page-left.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+/* 오른쪽 박스 기준 */
+.rightBox {
+	float: left;
+	width: 750px;
+	background-color: rgb(210, 228, 249);
+	height: 780px;
+}
+
+.loginTopBlank {
+	height: 70px;
+}
+
+.loginleftBlank {
+	float: left;
+	height: 450px;
+	width: 70px;
+}
+
+.loginMainTitle {
+	float: left;
+	height: 450px;
+	width: 610px;
+	border-radius: 30px;
+}
+
+.progress_wrapper{
+	margin-top: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.progress_bar{
+	height: 13px;
+	width: 400px;
+	background-color: #d9d9d9;
+	border-radius: 20px;
+}
+
+.progress{
+	width: 33%;
+	height: 100%;
+	background-color: rgb(243, 156, 18);
+	border-radius: 20px;
+}
+
+
+
+.form-signin-heading {
+	text-align: center;
+}
+
+.loginRightBlank {
+	float: left;
+	height: 450px;
+	width: 70px;
+}
+
+.loginBottomBlank {
+	float: left;
+	height: 107px;
+	width: 750px;
+}
+
+/*  */
+@import "bourbon";
+
+.input_wrapper{
+	margin-left: 5px;
+}
+
+
+.wrapper {
+	/* margin-top: 80px; */
+	margin-bottom: 80px;
+}
+
+.form-signin {
+	box-shadow: 5px 5px 5px rgb(254, 227, 205);
+	border-radius: 20px;
+	height: 620px;
+	width: 530px;
+	padding: 20px 70px 35px;
+	margin: 0 auto;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-control_id {
+	margin:15px;
+	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
+	border-radius: 5px;
+	position: relative;
+	font-size: 13px;
+	width: 280px;
+	height: 15px;
+	padding: 10px;
+}
+
+.form-control_all {
+	margin:15px;
+	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
+	border-radius: 5px;
+	position: relative;
+	font-size: 13px;
+	width: 400px;
+	height: 15px;
+	padding: 10px;
+}
+
+.form-control-pw-top {
+	margin: 15px 15px 5px 15px;
+	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
+	border-radius: 5px;
+	position: relative;
+	font-size: 13px;
+	width: 400px;
+	height: 15px;
+	padding: 10px;
+}
+
+.form-control-pw-btm {
+	margin: 5px 15px 15px 15px;
+	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
+	border-radius: 5px;
+	position: relative;
+	font-size: 13px;
+	width: 400px;
+	height: 15px;
+	padding: 10px;
+	outline-color: lightgray;
+}
+
+/* 중복 확인 버튼 CSS */
+.btn-1 {
+	display: inline-block;
+	width: 200px;
+	height: 54px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 54px;
+	outline: none;
+	background-color: #59b1eb;
+	float: left;
+	margin: 10px;
+}
+
+/* 제목 타이틀 */
+.hr-sect {
+	padding-top: 15px;
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	font-size: 17px;
+	margin: 8px 0px;
+}
+
+.hr-sect::before, .hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 20px;
+	line-height: 0px;
+	margin: 0px 16px;
+}
+
+.btn-1 {
+	float: right; border-radius : 15px;
+	font-size: 20px;
+	width: 100px;
+	height: 60px;
+	background: #000;
+	color: #fff;
+	transition: all 0.3s ease;
+	border-radius: 15px;
+}
+
+.idMargin,
+.nameMargin,
+.tellMargin{
+	height:90px;
+	margin: 5px;
+}
+
+.passwordMargin{
+	height:140px;
+	margin: 5px;
+}
+
+.pw_top{
+	display: flex;
+}
+
+.pw_validator_bar{
+	width: 130px;
+	height: 13px;
+	display: flex;
+	margin: 0 15px 0 15px;
+	align-self: center;
+	background-color: transparent;
+}
+
+.pw_validator_bar>div{
+	width: 33.3%;
+}
+
+.low{
+	height: 100%;
+	background-color: red;
+	border-radius: 20px 0 0 20px;
+}
+
+.middle{
+	height: 100%;
+	background-color: #FBB117;
+}
+
+.high{
+	height: 100%;
+	background-color: #4CC417;
+	border-radius: 0 20px 20px 0;
+}
+
+.level{
+	float: left;
+}
+
+.next{
+	height: 60px;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.button_next{
+	border-radius: 12px;
+	background-color: rgba(52, 73, 94, 0.98);
+	width: 130px;
+	height: 100%;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 15px 2px;
+    cursor: pointer;
+}
+
+.button_next:hover{
+	background-color: #3f5973;
+	box-shadow: inset 0 0 5px 1px #243342;
+}
+
+.button_check{
+	float:right;
+	border-radius: 12px;
+	background-color: #E5E4E2;
+    border: none;
+    color: 0C090A;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.check{
+	margin-top: 9px;
+	margin-right:85px;
+	float: right;
+}
+
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+	<div class="topBar">
+		<div class="leftBox">
+			<div class="MainLogoHelp"></div>
+			<div class="login-page-left"></div>
+		</div>
+
+		<div class="rightBox">
+			<div class="loginTitle">
+				<div class="loginTopBlank"></div>
+					<div>
+						<form class="form-signin">
+							<div class='progress_wrapper'>
+								<div class='progress_bar'>
+									<div class='progress'></div>
+								</div>
+							</div>
+						<label style="float: right; margin-right: 40px; margin-top: 5px;">33%</label><br>
+						<div class="hr-sect">전문 &nbsp해협</div>
+						<div class='input_wrapper'>
+							<div class="idMargin">
+								<label>* 아이디</label><br> 
+									<input type="text" class="form-control_id" name="username" 
+									placeholder="아이디를 입력해주세요." required="" autofocus="" />
+									
+									<div class="check">
+										<button class="button_check">중복확인</button>
+									</div>
+							</div>
+							
+							<div class="passwordMargin">
+								<div class='pw_top'>
+									<label>* 비밀번호</label>
+									<div class='pw_validator_bar'>
+										<div class='low'></div><div class='middle'></div><div class='high'></div>
+									</div>
+									<div class="level">
+										<label style="color: red; font-weight: 1000">낮음</label>
+										<label style="color: #FBB117; font-weight: 1000">보통</label>
+										<label style="color: #4CC417; font-weight: 1000">높음</label>
+									</div>
+								</div>
+								<input type="password" class="form-control-pw-top" name="username" 
+								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required="" autofocus="" />
+								
+								<input type="password" class="form-control-pw-btm" name="password" 
+								placeholder="비밀번호 확인" required=""autofocus="" />
+							</div>
+							
+							<div class=nameMargin>
+								<label>* 대표자명</label><br>
+									<input type="text" class="form-control_all" name="username" placeholder="이름을 입력해주세요." required="" autofocus="" /><br><br>
+							</div>
+							
+							<div class=tellMargin>
+								<label>* 전화번호</label><br>
+									<input type="text" class="form-control_all" name="username" placeholder="010-1234-5678" required="" autofocus="" /><br>
+							</div>
+						</div>
+						
+						<div class="next">
+							<button class="button_next">다음 ></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
