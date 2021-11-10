@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>signUp-Corporation</title>
-<style type="text/css">
-/* div {
-	box-shadow: 0 0 2px black;
-} */
+@charset "UTF-8";
 
 html,body {
 	width: 100%;
@@ -89,7 +81,7 @@ html,body {
 }
 
 .progress{
-	width: 52%;
+	width: 33%;
 	height: 100%;
 	background-color: rgb(243, 156, 18);
 	border-radius: 20px;
@@ -137,14 +129,11 @@ html,body {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-input{
-	border: 1px solid lightgray;
-	outline-color: #d3d3d3;
-}
-
 .form-control_id {
 	margin:15px;
 	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
 	border-radius: 5px;
 	position: relative;
 	font-size: 13px;
@@ -156,6 +145,8 @@ input{
 .form-control_all {
 	margin:15px;
 	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
 	border-radius: 5px;
 	position: relative;
 	font-size: 13px;
@@ -167,6 +158,8 @@ input{
 .form-control-pw-top {
 	margin: 15px 15px 5px 15px;
 	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
 	border-radius: 5px;
 	position: relative;
 	font-size: 13px;
@@ -178,6 +171,8 @@ input{
 .form-control-pw-btm {
 	margin: 5px 15px 15px 15px;
 	float: left;
+	border: 1px solid lightgray;
+	outline-color: #d3d3d3;
 	border-radius: 5px;
 	position: relative;
 	font-size: 13px;
@@ -283,27 +278,11 @@ input{
 	float: left;
 }
 
-.form_bottom{
+.next{
 	height: 60px;
 	width: 100%;
 	display: flex;
-	justify-content: space-around;
-}
-
-.switch_company_join{
-	border: 0 none;
-	width: 300px;
-	cursor: pointer;
-	background: transparent;
-}
-
-.switch_company_join>div{
-	margin: 10px 0;
-	height: 65px;
-	background-image: url("../../../resources/image/Click!!.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
+	justify-content: flex-end;
 }
 
 .button_next{
@@ -346,81 +325,3 @@ input{
 	margin-right:85px;
 	float: right;
 }
-
-</style>
-
-
-</head>
-<body>
-<div class="wrap">
-	<div class="topBar">
-		<div class="leftBox">
-			<div class="MainLogoHelp"></div>
-			<div class="login-page-left"></div>
-		</div>
-
-		<div class="rightBox">
-			<div class="loginTitle">
-				<div class="loginTopBlank"></div>
-					<div>
-						<form class="form-signin">
-							<div class='progress_wrapper'>
-								<div class='progress_bar'>
-									<div class='progress'></div>
-								</div>
-							</div>
-						<label style="float: right; margin-right: 40px; margin-top: 5px;">50%</label><br>
-						<div class="hr-sect">함께 &nbsp해협</div>
-						<div class='input_wrapper'>
-							<div class="idMargin">
-								<label>* 아이디</label><br> 
-									<input type="text" class="form-control_id" name="username" 
-									placeholder="아이디를 입력해주세요." required="" autofocus="" />
-									
-									<div class="check">
-										<button class="button_check">중복확인</button>
-									</div>
-							</div>
-							
-							<div class="passwordMargin">
-								<div class='pw_top'>
-									<label>* 비밀번호</label>
-									<div class='pw_validator_bar'>
-										<div class='low'></div><div class='middle'></div><div class='high'></div>
-									</div>
-									<div class="level">
-										<label style="color: red; font-weight: 1000">낮음</label>
-										<label style="color: #FBB117; font-weight: 1000">보통</label>
-										<label style="color: #4CC417; font-weight: 1000">높음</label>
-									</div>
-								</div>
-								<input type="password" class="form-control-pw-top" name="username" 
-								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required="" autofocus="" />
-								
-								<input type="password" class="form-control-pw-btm" name="password" 
-								placeholder="비밀번호 확인" required=""autofocus="" />
-							</div>
-							
-							<div class=nameMargin>
-								<label>* 이름</label><br>
-									<input type="text" class="form-control_all" name="username" placeholder="이름을 입력해주세요." required="" autofocus="" /><br><br>
-							</div>
-							
-							<div class=tellMargin>
-								<label>* 전화번호</label><br>
-									<input type="text" class="form-control_all" name="username" placeholder="010-1234-5678" required="" autofocus="" /><br>
-							</div>
-						</div>
-						
-						<div class="form_bottom">
-							<button class='switch_company_join'><div></div></button>
-							<button class="button_next">다음 ></button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</body>
-</html>

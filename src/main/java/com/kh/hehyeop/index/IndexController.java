@@ -13,9 +13,9 @@ public class IndexController {
 
 	private final MainService mainService;
 	
-	@GetMapping("/")
+	@GetMapping("main")
 	public String index() {
-		return "main";
+		return "index";
 	}
 	
 }

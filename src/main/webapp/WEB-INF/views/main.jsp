@@ -4,7 +4,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <link rel='stylesheet' href="../../../resources/css/main/main.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick-theme.css">
@@ -17,7 +16,7 @@
 	<div class="wrap_head">
 		<div class="main_bar">
 			<div class="main_header">
-				<img id="main_logo" src="../../../resources/image/main_logo.png">
+				<img id="main_logo" src="../../../resources/image/main-logo.png">
 				<div class="search_div">
 					<div class="searchBox">
 						<input id="main_search" placeholder="세면대 뚫는 법을 검색해보세요." >
