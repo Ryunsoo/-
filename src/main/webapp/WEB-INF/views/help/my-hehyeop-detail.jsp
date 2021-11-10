@@ -9,13 +9,13 @@
 <body>
 	<div class="left_page">
 		<div class="req_img">
-			<img src="../../../resources/image/신청서-세면대.png">
+			<img src="../../../resources/image/신청서-세면대.PNG">
 		</div>
 		<div class="reg_img2">
-			<img src="../../../resources/image/신청서-세면대.png">
+			<img src="../../../resources/image/신청서-세면대.PNG">
 		</div>
 		<div class="reg_img3">
-			<img src="../../../resources/image/신청서-세면대.png">
+			<img src="../../../resources/image/신청서-세면대.PNG">
 		</div>
 	</div>
 	<div class="right_page">

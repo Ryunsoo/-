@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/help/my.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 </head>
