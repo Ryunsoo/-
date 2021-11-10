@@ -15,7 +15,7 @@ public class IndexController {
 	
 	@GetMapping("/")
 	public String index() {
-		System.out.println(mainService.test());
-		return "index";
+		return "main";
 	}
+	
 }
