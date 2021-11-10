@@ -25,18 +25,9 @@ public class HelpController {
 	public void help3() {
 		
 	}
+
 	
-	@GetMapping("my-hehyeop-detail")
-	public void help4() {
-		
-	}
-	
-	@GetMapping("my-hehyeop-estimate")
-	public void help5() {
-		
-	}
-	
-	@GetMapping("review-hehyeop")
+	@GetMapping("hehyeop-review")
 	public void help6() {
 		
 	}

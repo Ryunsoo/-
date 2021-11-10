@@ -1,0 +1,102 @@
+.wrap {
+	width: 1130px;
+	height: 100%;
+}
+
+.page_name {
+	margin: 50px 0 30px 0;
+	font-size: 23px;
+	color: rgb(170, 133, 20);
+	font-weight: bolder;
+	float: left;
+}
+
+.toggle_name {
+	margin: 50px 10px 30px 0;
+	float: right;
+	display: inline-flex;
+}
+
+.toggle_area {
+	margin: 50px 70px 30px 0;
+	float: right;
+}
+
+.toggle_area input {
+	display: none;
+}
+
+.toggle_area label {
+	width: 60px;
+	height: 25px;
+	background-color: #ccc;
+	display: block;
+	border-radius: 30px;
+	position: relative;
+	transition: 0.5s;
+	box-shadow: inset 3px 3px 2px rgba(0, 0, 0, .2);
+	cursor: pointer;
+}
+
+.toggle_area label span {
+	display: block;
+	width: 25px;
+	height: 25px;
+	background-color: #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 5px;
+	transform: translateY(-50%);
+	transition: 0.5s;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.toggle_area input:checked+label {
+	background: rgb(46, 204, 113);
+}
+
+.toggle_area input:checked+label span {
+	left: calc(100% - 30px);
+}
+
+.review_list {
+	width: 1100px;
+	margin-bottom: 70px;
+}
+
+.review_list table {
+	width: 1050px;
+	text-align: center;
+}
+
+.review_list th {
+	font-size: 18px;
+}
+
+.review_list th, .review_list td {
+	border-bottom: 1px solid;
+	border-bottom-color: rgb(213, 213, 213);
+	height: 35px;
+}
+
+.filter{
+	border: none;
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+.search{
+	text-align: center;
+}
+
+.search_bar{
+	width: 200px;
+	height: 27px;
+	border: none;
+}
+
+.search_icon{
+	width: 25px;
+	height: 25px;
+}
