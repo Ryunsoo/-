@@ -127,6 +127,8 @@
 	color: white;
 	font-size: 18px;
 	font-weight: bold;
+	border: none;
+	cursor: pointer;
 }
 
 .modal_left_btn{

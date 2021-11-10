@@ -1,0 +1,58 @@
+.address_modal_content {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   padding: 0 30px;
+}
+
+.do_div{
+	height: 100%;
+	width: 151px;
+	margin-left: 22px;
+	display: flex;
+	flex-wrap: wrap;
+	border-right: 1.5px solid gray;
+}
+
+.do_text{
+	width: 65px;
+	height: 29px;
+}
+
+.gu_div{
+	height: 100%;
+	width: 367px;
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 26px;
+	overflow: auto;
+}
+
+.gu_text{
+	width: 108px;
+	height: 28px;
+}
+
+.dong_div{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	margin-left: 30px;
+	flex-wrap: wrap;
+	overflow: auto;
+}
+
+.dong_text{
+	width: 108px;
+	height: 29px;
+	/* padding-top: 2px; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 25px;
+	border-radius: 5px;
+	color: white;
+	font-weight: bold;
+	background-color: rgb(243, 156, 18);;
+	/* text-align: center; */
+}

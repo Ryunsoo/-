@@ -167,6 +167,7 @@ html, body {
 	margin-left: 580px;
 	margin-top: 20px;
 	transform:rotate(20deg);
+	z-index: 1;
 }
 
 .paper{
@@ -483,3 +484,12 @@ html, body {
 	margin-bottom: 10px;
 	color: #333333;
 }
+.modal{
+	position: fixed;
+	
+}
+#modal{
+	height: 1285px;
+}
+
+

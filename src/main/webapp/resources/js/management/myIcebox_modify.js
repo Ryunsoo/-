@@ -54,22 +54,19 @@
         
         
         $('.cancel').click(function() {
-        	let createModal = () => {
-            	let sendModal = initModal('modal', 3);
-            	appendTitle(sendModal, '');
-            	setButton(sendModal, '삭제', '추가');
-            	setContent(sendModal, true, true);
-            	//addPiggyBackground(sendModal);
-            	modalBlock();
-            	
-            	let modalBody = $('<div class="add">최근 소진 목록에 추가하시겠습니까?<div><br>')
-				.addClass('send_modal_content');
-				$('.modal_content').append(modalBody);
-            	
-            	$('.modal_left_btn').click(function() {
-            		modalNone();
-            	})
-            }
-        	createModal();
+        	let sendModal = initModal('modal', 3);
+        	appendTitle(sendModal, '');
+        	setButton(sendModal, '삭제', '추가');
+        	setContent(sendModal, true, true);
+        	//addPiggyBackground(sendModal);
+        	modalBlock();
+        	
+        	let modalBody = $('<div class="add">최근 소진 목록에 추가하시겠습니까?<div><br>')
+			.addClass('send_modal_content');
+			$('.modal_content').append(modalBody);
+        	
+        	$('.modal_left_btn').click(function() {
+        		modalNone();
+        	})
     	})
         
