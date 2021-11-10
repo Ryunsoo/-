@@ -6,7 +6,6 @@
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel='stylesheet' href="../../../resources/css/community/style.css">
-<link rel="stylesheet" href="../../../resources/css/community/view_board.css"/>
 </head>
 <body>
 <div id="modal"></div>
@@ -14,6 +13,7 @@
     <!--헤더자리-->
     <div class="wrap">
       <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+      <link rel="stylesheet" href="../../../resources/css/community/view_board.css"/>
       
       <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
@@ -170,6 +170,7 @@
    <!--wrap == container 끝-->
   
   <script type="text/javascript">
+  
   deleteModal = () => {
       let sendModal = initModal('modal', 3);
       appendTitle(sendModal, '게시글을 삭제하시겠습니까?', true);
