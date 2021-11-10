@@ -397,7 +397,7 @@ html, body {
    background-position: center;
    border-radius: 100px;
    box-shadow: 2px 2px 5px 1px #666666;
-   z-index: 9999;
+   z-index: 1;
    cursor: pointer;
 }
 
