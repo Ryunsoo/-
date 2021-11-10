@@ -5,7 +5,7 @@
 <header id="header"> 
 	<nav class="navbar">
 		<!-- 상단 메뉴바 시작-->
-		<div id="mouse_off">
+		<div id="mouse_off"> 
 			<div class="gnb__sub-category-wrap">
 				<div>
 					<div class="gnb__sub-category-img-wrap">
