@@ -139,9 +139,8 @@ html, body {
 	border-radius: 100%;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 20px;
 	right: 26px;
-	line-height: 1.4;
 }
 
 .bell_cnt:hover{
@@ -429,9 +428,8 @@ html, body {
 	border-radius: 100%;
 	font-size: 20px;
 	text-align: center;
-	margin-top: 10px;
+	margin-top: 20px;
 	margin-right: 10px;
-	line-height: 1.4;
 }
 
 .cart_cnt:hover{
