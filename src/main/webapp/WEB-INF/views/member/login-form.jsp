@@ -7,6 +7,7 @@
 <link href="../../../resources/css/all.css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/member/login-form.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 <div id="modal"></div>
