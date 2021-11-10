@@ -43,25 +43,25 @@
 	float: right;
 }
 
-.text-area {
+.detail-text-area {
 	height: 70px;
 	margin-bottom: 30px;
 }
 
-.text-title {
+.detail-text-title {
 	color: rgb(242, 150, 97);
 	font-weight: bolder;
 	margin-bottom: 10px;
 }
 
-.text-input input {
+.detail-text-input input {
 	width: 350px;
 	height: 35px;
 	border-radius: 5px;
 	border-color: rgb(213, 213, 213);
 }
 
-.text-input textarea {
+.detail-text-input textarea {
 	width: 350px;
 	height: 100px;
 	border-radius: 5px;

@@ -3,6 +3,7 @@
 	width: 930px;
 	height: 130px;
 	overflow: hidden auto;
+	display: none;
 }
 
 .company_list table {
@@ -38,6 +39,7 @@
 	border: 1px solid rgb(213, 213, 213);
 	overflow: auto;
 	margin-left: 50px;
+	display: none;
 }
 
 .detail_body {
@@ -45,7 +47,7 @@
 	height: 80px;
 }
 
-.text-area {
+.estilmate-text-area {
 	height: 70px;
 	width: 200px;
 	margin: 10px 80px 30px 10px;
@@ -53,14 +55,14 @@
 	margin: 10px 80px 30px 10px;
 }
 
-.text-title {
+.estilmate-text-title {
 	color: rgb(242, 150, 97);
 	font-weight: bolder;
 	font-size: 15px;
 	margin-bottom: 10px;
 }
 
-.text-input input {
+.estilmate-text-input input {
 	width: 200px;
 	height: 35px;
 	border-radius: 5px;

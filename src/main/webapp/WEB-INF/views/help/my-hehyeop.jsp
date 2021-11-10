@@ -5,6 +5,7 @@
 <head>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/help/my.css" type="text/css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 </head>
 <body>
@@ -84,10 +85,10 @@
 
 		<div class="breakdown">
 			<button class="bk_btn" onclick="detail()">상세내역</button>
-			<button class="bk_btn" onclick="estimate">견적내역</button>
+			<button class="bk_btn" onclick="estimate()">견적내역</button>
 			<div class="bk_body">
 			<%@ include file="/WEB-INF/views/help/my-hehyeop-detail.jsp" %>
-			<%-- <%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %> --%>
+			<%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %>
 			</div>
 		</div>
 
@@ -196,7 +197,19 @@ let createReviewModal = () => {
 	})
 }
 
+let detail = () => {
+	$('.company_list').css('display','none');
+	$('.company_detail').css('display','none');
+	$('.left_page').css('display','block');
+	$('.right_page').css('display','block');
+}
 
+let estimate = () => {
+	$('.left_page').css('display','none');
+	$('.right_page').css('display','none');
+	$('.company_list').css('display','block');
+	$('.company_detail').css('display','block');
+}
 
 </script>
 

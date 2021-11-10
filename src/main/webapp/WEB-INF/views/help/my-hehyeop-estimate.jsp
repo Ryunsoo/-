@@ -47,27 +47,27 @@
 
 	<div class="company_detail">
 		<div class="detail_body">
-			<div class="text-area">
-				<div class="text-title">
+			<div class="estilmate-text-area">
+				<div class="estilmate-text-title">
 					*연락처
-					<div class="text-input">
+					<div class="estilmate-text-input">
 						<input type="text" disabled="disabled" placeholder="01011112222">
 					</div>
 				</div>
 			</div>
-			<div class="text-area">
-				<div class="text-title">
+			<div class="estilmate-text-area">
+				<div class="estilmate-text-title">
 					*방문시간
-					<div class="text-input">
+					<div class="estilmate-text-input">
 						<input type="text" disabled="disabled"
 							placeholder="2021-12-02 오전 00:00">
 					</div>
 				</div>
 			</div>
-			<div class="text-area">
-				<div class="text-title">
+			<div class="estilmate-text-area">
+				<div class="estilmate-text-title">
 					*희망금액
-					<div class="text-input">
+					<div class="estilmate-text-input">
 						<input type="text" disabled="disabled" placeholder="100,000,000">
 					</div>
 				</div>
