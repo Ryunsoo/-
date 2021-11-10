@@ -6,12 +6,6 @@ html, body {
 	justify-content: center;
 	min-width: 1130px;
 }
-
-.wrap {
-	width: 1130px;
-	height: 100%;
-}
-
 .navbar {
 	width: 1130px;
 	height: 100px;

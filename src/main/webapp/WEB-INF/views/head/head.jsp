@@ -12,8 +12,6 @@
 
 </head>
 <body>
-	<div class="wrap">
-	
 		<!-- header -->
 		<header id="header">
 			<nav class="navbar">
@@ -102,22 +100,8 @@
 			</nav>
 		</header>
 
-	</div>
 
 </body>
-<script type="text/javascript">
-document.querySelector(".nav_title").addEventListener('mouseover', e => {
-	document.querySelector(".gnb__sub-category-wrap").style.display = 'block';
-})
-document.querySelector("#mouse_off").addEventListener('mouseleave', e => {
-	document.querySelector(".gnb__sub-category-wrap").style.display = 'none';
-})
-document.querySelector(".nav_info").addEventListener('mouseover', e => {
-	document.querySelector(".gnb__sub-category-wrap").style.display = 'none';
-})
-document.querySelector(".logo").addEventListener('mouseover', e => {
-	document.querySelector(".gnb__sub-category-wrap").style.display = 'none';
-})
-</script>
+<script type="text/javascript" src="../../../resources/js/include/head/menu_head.js"></script>
 
 </html>
