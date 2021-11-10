@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
     
-<header id="header">
+<header id="header"> 
 	<nav class="navbar">
 		<!-- 상단 메뉴바 시작-->
 		<div id="mouse_off">
