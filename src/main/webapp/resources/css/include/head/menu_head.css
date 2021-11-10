@@ -54,7 +54,7 @@ html, body {
 
 .logout {
 	font-weight: bolder;
-	color: #e67e00
+	color: #e67e00;
 }
 
 .nav_title {
@@ -87,7 +87,7 @@ html, body {
     height: 200px;
     left: 0;
     bottom: -200px;
-    z-index: 11;
+    z-index: 2002;
 }
 
 .gnb__sub-category-wrap>div {
