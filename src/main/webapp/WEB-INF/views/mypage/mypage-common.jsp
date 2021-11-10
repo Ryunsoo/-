@@ -9,6 +9,7 @@
 <link href="../../../resources/css/mypage/mypage_common_css.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/mypage/bootstrap.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>

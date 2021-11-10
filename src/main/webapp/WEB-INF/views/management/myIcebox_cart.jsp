@@ -4,16 +4,19 @@
 <html>
 <head>
 <link rel="stylesheet" href="${contextPath}/resources/css/include/head/menu_head.css">
-<link rel="stylesheet" href="${contextPath}/resources/css/management/myIcebox_cart.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/management/jquery-ui.min.css">
 <meta charset="UTF-8">
 <title>myIcebox_cart</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/jquery.js"></script>
 </head>
 <body>
 <div id='modal'></div>
 <div id="bg" class="hidden"></div>
 	<div class="wrap">
 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp"%>
+		<link rel="stylesheet" href="${contextPath}/resources/css/management/myIcebox_cart.css">
 		<div class="main">
 			<div class="btn">
 				<button class="icebox_btn" onclick="javascript:location.href='myIcebox'">나의 냉장고</button>
@@ -200,7 +203,4 @@
 	</div>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/management/myIcebox_cart.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </html>
