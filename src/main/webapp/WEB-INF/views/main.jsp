@@ -5,15 +5,16 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel='stylesheet' href="../../../resources/css/main/main.css">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick-theme.css">
 <script type="text/javascript" src="../../../resources/js/main/weather.js?ver=1"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 <div class="wrap_content">
-	<!-- <div id="frogue-container" style="display: none" 
-	class="position-right-bottom" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div> -->
 	<div class="wrap_head">
 		<div class="main_bar">
 			<div class="main_header">
@@ -257,30 +258,7 @@
 				</div>
 			</div>
 		</div>
-		
-		<div id="chatting_main" style="display: none;">
-			<div id="chatting_title">
-				<img src="../../../resources/image/chatting.png">
-				<div>채 팅 해 협</div>
-			</div>
-			<div id="chatting_body">
-				<div id="chatbot" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com" onclick="viewChatbot()"><p>챗 봇</p></div>
-				<div id="myChat" onclick="viewChatList()"><p>나의 채팅</p></div>
-			</div>
-			<div id="chatting_list" style="display: none;">
-				<p>채팅방 목록</p>
-				<div id="myList">
-					<div id="chatItem">구려서 죄송해요</div>
-					<div id="chatItem">제가 미적 감각이 없어서..</div>
-					<div id="chatItem">양해 부탁드려요..</div>
-					<div id="chatItem">이게 정말 힘들어요..</div>
-					<div id="chatItem">아몰랑</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class='chatting' onclick="viewChatting()"></div>
-		
+		<div id="frogue-container" style="display: none" class="position-right-bottom" onclick="closeChat()" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div>
 		<div class='footer'>
 	      <div class='footer_logo'><img src="../../../resources/image/footer_logo.png" class='logo-icon'></div>
 	      
@@ -330,7 +308,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 </body>
 
 <script type="text/javascript">
-	
 	function enterWeather(){
 		document.getElementById("today_weather").style.display = "none";
 		document.getElementById("detail_weather").style.display = "flex";
@@ -359,45 +336,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		document.getElementById("detail_icon").innerHTML = "";
 		document.getElementById("weak_loc").innerHTML = "";
 	}
-	
-	function viewChatting(){
-		
-		let viewChat = document.getElementById("chatting_main");
-		
-		if (viewChat.style.display == "none"){
-			viewChat.style.display = "flex";
-		} else {
-			viewChat.style.display = "none";
-			document.getElementById("chatting_body").style.display = "flex";
-			document.getElementById("chatting_list").style.display = "none";
-		}
-		
-	}
-	
-	function viewChatList(){
-		document.getElementById("chatting_body").style.display = "none";
-		document.getElementById("chatting_list").style.display = "flex";
-	}
-	
-	/* function viewChatbot(){
-		document.getElementById("frogue-container").style.display = "flex";
-	} */
-	
-
 </script>
-
-<!-- 챗봇 -->
-<script>
-let viewChatbot = () => {
-	(function viewChatbot(d, s, id){
-	    var js, fjs = d.getElementsByTagName(s)[0];
-	    if (d.getElementById(id)) {return;}
-	    js = d.createElement(s); js.id = id;
-	    js.src = "https:\/\/danbee.ai/js/plugins/frogue-embed/frogue-embed.min.js";
-	    fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'frogue-embed'));	
-}
-
-</script>
-
+<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </html>

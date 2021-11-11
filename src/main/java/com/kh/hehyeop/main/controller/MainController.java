@@ -11,18 +11,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main() {
-		
 		return "main";
-		
 	}
-	
-	@GetMapping("/2")
-	public String main2() {
-		return "main2";
-	}
-	
-	@GetMapping("/3")
-	public String main3() {
-		return "main3";
-	}
+
 }

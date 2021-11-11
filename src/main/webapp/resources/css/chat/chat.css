@@ -1,0 +1,82 @@
+@charset "UTF-8";
+div {
+	animation-duration: 1s;
+}
+
+.chatting{
+   position: fixed;
+   height: 80px;
+   width: 80px;
+   background-image: url("../../../resources/image/chatting.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   right: 20px;
+   bottom: 20px;
+   border-radius: 100px;
+   box-shadow: 2px 2px 5px 1px #666666;
+   z-index: 99;
+}
+
+.chatting2{
+   position: fixed;
+   height: 58px;
+   width: 58px;
+   background-image: url("../../../resources/image/chatting.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   right: 95px;
+   bottom: 25px;
+   border-radius: 100px;
+   box-shadow: 2px 2px 5px 1px #666666;
+   z-index: 99;
+}
+
+.chatting:hover{
+   background-color: #e3d79c;
+}
+
+#chatting_main{
+	border-style: none;
+	border-width: 2px;
+	position: fixed;
+	right: 100px;
+   	bottom: 100px;
+	width: 430px;
+	height: 380px;
+	border-radius: 35px;
+	background-color: rgba(250, 248, 245, 0.78);
+	box-shadow: 0 0 5px 0;
+	flex-direction: column;
+	align-items: center;
+}
+
+#chatting_title{
+	display: flex;
+	width: 400px;
+	height: 80px;
+	justify-content: flex-start;
+	margin: 10px 0 0 0;
+}
+
+#chatting_title>img{
+	width: 66px;
+	height: 66px;
+	margin-right: 20px;
+}
+
+#chatting_title>div{
+	font-size: 20px;
+	margin-top: 20px;
+	color: rgb(51, 51, 51);
+	font-weight: bold;
+}
+
+#chatting_list{
+	flex-direction: column;
+}
+
+#chatting_list>p{
+	font-size: 20px;
+}
