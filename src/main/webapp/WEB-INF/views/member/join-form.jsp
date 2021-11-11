@@ -6,6 +6,17 @@
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel='stylesheet' href="../../../resources/css/member/join-form.css">
 </head>
+
+
+<style type="text/css">
+	.pw_validator_bar {
+		display: none;
+	}
+	.level {
+		display: none;
+	}
+</style>
+
 <body>
 <div class="wrap">
 	<div class="topBar">
@@ -78,5 +89,35 @@
 	</div>
 </div>
 
+
+<script>
+	let passwordInput = document.querySelector('.form-control-pw-top');
+	let pwValidatorBarLow = document.querySelector('.low');
+	let pwValidatorBarMiddle = document.querySelector('.middle');
+	let pwValidatorBarHigh = document.querySelector('.high');
+	let pwValidatorLevel = document.querySelector('.level');
+
+	document.querySelector(".form-control-pw-top").addEventListener('input', e => {
+		
+	
+// 	if(passwordInput.value.size >= 8) {
+// 		pwValidatorBarLow.style.display = 'block';
+// 		if(passwordInput.value.size >= 10) {
+// 			pwValidatorBarMiddle.style.display = 'block';
+// 			if(passwordInput.value.size >= 12) {
+// 				pwValidatorBarHigh.style.display = 'block';
+// 			}
+// 		}
+		console.dir(passwordInput.length);
+		return;
+	
+})
+
+	
+</script>
+
+
 </body>
+
+
 </html>
