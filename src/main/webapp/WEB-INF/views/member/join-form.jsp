@@ -8,15 +8,6 @@
 </head>
 
 
-<style type="text/css">
-	.pw_validator_bar {
-		display: none;
-	}
-	.level {
-		display: none;
-	}
-</style>
-
 <body>
 <div class="wrap">
 	<div class="topBar">
@@ -52,12 +43,12 @@
 								<div class='pw_top'>
 									<label>* 비밀번호</label>
 									<div class='pw_validator_bar'>
-										<div class='low'></div><div class='middle'></div><div class='high'></div>
+										<div class='low'></div>
+										<div class='middle'></div>
+										<div class='high'></div>
 									</div>
 									<div class="level">
-										<label style="color: red; font-weight: 1000">낮음</label>
-										<label style="color: #FBB117; font-weight: 1000">보통</label>
-										<label style="color: #4CC417; font-weight: 1000">높음</label>
+										<label id="validator_bar_text" style="font-weight: 1000"></label>
 									</div>
 								</div>
 								<input type="password" class="form-control-pw-top" name="username" 
@@ -90,31 +81,8 @@
 </div>
 
 
-<script>
-	let passwordInput = document.querySelector('.form-control-pw-top');
-	let pwValidatorBarLow = document.querySelector('.low');
-	let pwValidatorBarMiddle = document.querySelector('.middle');
-	let pwValidatorBarHigh = document.querySelector('.high');
-	let pwValidatorLevel = document.querySelector('.level');
 
-	document.querySelector(".form-control-pw-top").addEventListener('input', e => {
-		
-	
-// 	if(passwordInput.value.size >= 8) {
-// 		pwValidatorBarLow.style.display = 'block';
-// 		if(passwordInput.value.size >= 10) {
-// 			pwValidatorBarMiddle.style.display = 'block';
-// 			if(passwordInput.value.size >= 12) {
-// 				pwValidatorBarHigh.style.display = 'block';
-// 			}
-// 		}
-		console.dir(passwordInput.length);
-		return;
-	
-})
-
-	
-</script>
+<script type="text/javascript" src="${contextPath}/resources/js/member/joinForm.js"></script>
 
 
 </body>
