@@ -29,7 +29,8 @@
 				<div class="join_btn">
 					회원가입
 				</div>
-			</div>
+
+			</div> 
 			<div class="cate_wrap">
 				<div>신청해협</div>
 				<div>공구해협</div>
