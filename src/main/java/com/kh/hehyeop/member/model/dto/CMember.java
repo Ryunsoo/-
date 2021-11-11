@@ -19,4 +19,5 @@ public class CMember {
 	private int isPermit;
 	private Date permitDate;
 	private String cIdx;
+	
 }
