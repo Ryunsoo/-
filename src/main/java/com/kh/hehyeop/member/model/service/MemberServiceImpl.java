@@ -1,9 +1,12 @@
 package com.kh.hehyeop.member.model.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import com.kh.hehyeop.main.model.repository.MainRepository;
+import com.kh.hehyeop.common.mail.MailSender;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.repository.MemberRepository;
 import com.kh.hehyeop.member.validator.JoinForm;
 
 import lombok.RequiredArgsConstructor;
@@ -11,6 +14,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
+	
+	private final MemberRepository memberRepository;
+	private final MailSender mailSender;
+	private final RestTemplate restTemplate;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public void insertMember(JoinForm form) {
@@ -20,8 +28,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public Member authenticateUser(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberRepository.authenticateUser(member);
 	}
 
 	@Override

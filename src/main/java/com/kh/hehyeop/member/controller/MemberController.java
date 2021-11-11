@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +33,8 @@ import com.kh.hehyeop.member.validator.JoinFormValidator;
 @RequestMapping("member")
 public class MemberController {
 	
-	@Autowired
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private MemberService memberService;
 	private JoinFormValidator joinFormValidator;
 
@@ -42,7 +45,25 @@ public class MemberController {
 	}
 
 	@GetMapping("login-form")
-	public void loginTest() {}
+	public void loginForm() {}
+	
+	@PostMapping("login")
+	public String loginImpl(Member member, HttpSession session, RedirectAttributes redirectAttr) {
+		
+		Member certifiedUser = memberService.authenticateUser(member);
+		
+		if(certifiedUser == null) {
+			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
+			return "redirect:/member/login-form";
+		}
+
+		
+		session.setAttribute("authentication", certifiedUser);
+
+		logger.debug(certifiedUser.toString());
+
+		return "redirect:/"; 
+	}
 	
 	@InitBinder(value = "joinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
 	public void initBinder(WebDataBinder webDataBinder) {

@@ -8,10 +8,32 @@
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/member/login-form.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+// 로그인 실패
+function failLogin(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	//addPiggyBackround(sendModal);
+	modalBlock();
+	
+	let modalBody = $('<div class="loginFail">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+
+</script>
 </head>
 <body>
 <div id="modal"></div>
-<div class="wrap">
+<form class="wrap" action="/member/login" method="post">
 		<div class="topBar">
 			<div class="leftBox">
 				<div class="MainLogoHelp"></div>
@@ -21,10 +43,13 @@
 				<div class="loginTitle">
 					<div class="login_body">
 						<div class="hr-sect">자취해협 로그인</div>
-						<input type="text" class="form-control" name="username"
-							placeholder="ID"> <input type="password"
+						<input type="text" class="form-control" name="id"
+							placeholder="ID" autocomplete="none"> <input type="password"
 							class="form-control" name="password" placeholder="Password">
-						<button class="login_btn">LOGIN</button>
+						<c:if test="${not empty message}">
+							<script>failLogin('${message}')</script>
+						</c:if>
+						<button type="submit" class="login_btn">LOGIN</button>
 						<div class="txt_find">
 							<div class="sign">
 								<a href="/member/join-form">회원가입</a>
@@ -45,7 +70,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 <script type="text/javascript">
 
 //아이디 찾기
@@ -232,7 +257,6 @@ let createFindPwModal = () => {
 		modalNone();
 	})
 }
-
 
 
 </script>
