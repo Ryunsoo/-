@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
@@ -28,6 +31,7 @@ import com.kh.hehyeop.member.validator.JoinFormValidator;
 @RequestMapping("member")
 public class MemberController {
 	
+	@Autowired
 	private MemberService memberService;
 	private JoinFormValidator joinFormValidator;
 
@@ -47,7 +51,16 @@ public class MemberController {
 	
 	@GetMapping("join-form")
 	public void joinMember(Model model) {
+		
 		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+		
+	}
+	
+	@GetMapping("join-form-next")
+	public void joinFormNextMember(Model model) {
+		
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+		
 	}
 
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
@@ -91,9 +104,7 @@ public class MemberController {
 		session.removeAttribute("persistUser");
 		return "redirect:/member/login";
 	}
-	
-	@GetMapping("join-form-next")
-	public void JoinNextTest() {}
+
 	
 	@GetMapping("cojoin-form")
 	public void coJoinTest() {}
@@ -103,5 +114,17 @@ public class MemberController {
 	
 	@GetMapping("cojoin-form-last")
 	public void coJoinLastTest() {}
+	
+	@GetMapping("id-check")
+	@ResponseBody
+	public String nickNameCheck(String userId) {
+		Member member = memberService.selectMemberByUserId(userId);
+
+		if (member == null) {
+			return "available";
+		} else {
+			return "disable";
+		}
+	}
 	
 }

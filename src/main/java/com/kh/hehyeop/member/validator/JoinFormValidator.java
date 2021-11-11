@@ -49,7 +49,11 @@ public class JoinFormValidator implements Validator{
 		valid = Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}", form.getEmail());
 		
 		if (!valid) {
-			errors.rejectValue("email", "errror-email", "이메일 형식을 확인하세요!");
+			errors.rejectValue("email", "error-email", "이메일 형식을 확인하세요!");
+		}
+		
+		if(memberRepository.selectMemberByNickname(form.getNickname()) != null) {
+			errors.rejectValue("nickname", "error-nickname", "닉네임이 중복되었습니다.");
 		}
 	}
 

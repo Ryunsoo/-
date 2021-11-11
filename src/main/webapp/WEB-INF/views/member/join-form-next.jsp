@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form class="form-signin">
+						<form:form modelAttribute="joinForm" action="/member/join" method="post" class="form-signin">
 							<div class='progress_wrapper'>
                                 <div class='progress_bar'>
                                     <div class='progress'></div>
@@ -28,18 +28,29 @@
 						<div class="hr-sect">함께 &nbsp해협</div>
 						
 						<div class="idMargin">
-							<label>* 이메일</label><br> 								
+							<label>* 이메일</label><form:errors path="email"/><br>								
 								<input type="text" class="form-control_all" name="username" placeholder="이메일을 입력하세요." 
-									required="" autofocus="" /><br><br>
+									<c:if test="${empty error.email}">
+										value = "${joinForm.email}"
+									</c:if>
+									required autofocus autocomplete="none"/><br><br>
 						</div>
 						
 						<div class="idMargin">
 							<label>* 닉네임</label><br> 
 								<input type="text" class="form-control_id" name="username" 
-								placeholder="닉네임을 입력해주세요." required="" autofocus="" />
+								placeholder="닉네임을 입력해주세요." 
+								<c:if test="${empty error.nickname}">
+									value="${joinForm.nickname}"
+								</c:if>
+								required="" autofocus="" />
 								
 								<div class="check">
-									<button class="button_check">중복확인</button>
+									<button id="btnNickCheck" class="button_check">중복확인</button>
+									<c:if test="${empty error.nickname}">
+										<span id="nicknameCheck" class="valid-msg"></span>
+									</c:if>
+									<form:errors path="nickname"/>
 								</div>
 						</div>
 						
@@ -60,7 +71,7 @@
 						</div>
 						
 						<div>
-							<button class="custom-btn btn-1">J O I N &nbsp U S</button>
+							<button type="submit" class="custom-btn btn-1">J O I N &nbsp U S</button>
 						</div>
 						
 						
@@ -68,7 +79,7 @@
 							<button class="button_next">< 이전</button>
 						</div>
 						
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

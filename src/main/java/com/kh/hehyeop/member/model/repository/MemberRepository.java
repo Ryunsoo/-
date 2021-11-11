@@ -42,4 +42,6 @@ public interface MemberRepository {
 	@Select("select password from member where name = #{name} and id = #{id} and email = #{email}")
 	Member C_selectPasswordByEmail(String userId);
 
+	Object selectMemberByNickname(String nickname);
+
 }
