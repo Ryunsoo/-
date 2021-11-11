@@ -12,6 +12,8 @@
 </head>
 <body>
 <div class="wrap_content">
+	<!-- <div id="frogue-container" style="display: none" 
+	class="position-right-bottom" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div> -->
 	<div class="wrap_head">
 		<div class="main_bar">
 			<div class="main_header">
@@ -262,7 +264,7 @@
 				<div>채 팅 해 협</div>
 			</div>
 			<div id="chatting_body">
-				<div id="chatbot"><p>챗 봇</p></div>
+				<div id="chatbot" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com" onclick="viewChatbot()"><p>챗 봇</p></div>
 				<div id="myChat" onclick="viewChatList()"><p>나의 채팅</p></div>
 			</div>
 			<div id="chatting_list" style="display: none;">
@@ -303,7 +305,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 	</div>
 		
 	</div>
-	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="../../../resources/slick/slick.min.js"></script>
@@ -378,6 +379,25 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		document.getElementById("chatting_list").style.display = "flex";
 	}
 	
+	/* function viewChatbot(){
+		document.getElementById("frogue-container").style.display = "flex";
+	} */
+	
 
 </script>
+
+<!-- 챗봇 -->
+<script>
+let viewChatbot = () => {
+	(function viewChatbot(d, s, id){
+	    var js, fjs = d.getElementsByTagName(s)[0];
+	    if (d.getElementById(id)) {return;}
+	    js = d.createElement(s); js.id = id;
+	    js.src = "https:\/\/danbee.ai/js/plugins/frogue-embed/frogue-embed.min.js";
+	    fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'frogue-embed'));	
+}
+
+</script>
+
 </html>
