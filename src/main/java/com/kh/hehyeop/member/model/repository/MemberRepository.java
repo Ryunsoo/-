@@ -5,13 +5,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.JoinForm;
 
 @Mapper
 public interface MemberRepository {
 
 	@Insert("insert into member(id, password, name, tell, email, nickname, address, old_address, point, grade, reg_date, is_leave) "
 			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{nickname}, #{address}, #{oldAddress}, #{point}, #{grade}, #{reg_date}, #{is_leave})")
-	void insertMember(Member member);
+	void insertMember(JoinForm form);
 
 	@Select("select * from member where id = #{id} and password = #{password}")
 	Member authenticateUser(Member member);
@@ -21,6 +22,8 @@ public interface MemberRepository {
 	
 	@Select("select password from member where name = #{name} and id = #{id} and email = #{email}")
 	Member selectPasswordByEmail(String userId);
+	
+	Member selectMemberByUserId(String id);
 	
 	
 	
