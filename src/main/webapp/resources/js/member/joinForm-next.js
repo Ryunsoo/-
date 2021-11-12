@@ -34,3 +34,4 @@ let btnNickCheck = document.querySelector("#btnNickCheck");
 		}
 			
 	})
+

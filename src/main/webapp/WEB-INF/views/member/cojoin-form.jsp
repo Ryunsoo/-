@@ -37,49 +37,51 @@
 						<div class="hr-sect">전문 &nbsp해협</div>
 						<div class='input_wrapper'>
 							<div class="idMargin">
-								<label>* 아이디</label>
-								<form:errors path="id" cssClass="valid-msg"/><br> 
-									<input type="text" class="form-control_id" name="id" 
-									placeholder="아이디를 입력해주세요." required autocomplete="off"/>
-									
+								<label>* 아이디 &nbsp&nbsp 
+								<span style="font-size: 13px; color: red;" id="idCheck"></span>
+								<form:errors path="id" cssClass="valid-msg"/></label><br> 
+									<input type="text" id="id" class="form-control_id" name="id" value="15151515151"
+									placeholder="아이디를 입력해주세요." required autocomplete="off" 
+									<c:if test="${empty error.id}">
+										value = "${joinForm.id}"
+									</c:if>/>
 									<div class="check">
-										<button class="button_check">중복확인</button>
+										<button type="button" id="btnIdCheck" class="button_check">중복확인</button>
 									</div>
 							</div>
 							
 							<div class="passwordMargin">
 								<div class='pw_top'>
-									<label>* 비밀번호 
-									<form:errors path="password" cssClass="valid-msg"/></label>
+									<label>* 비밀번호</label>
 									<div class='pw_validator_bar'>
-										<div class='low'></div><div class='middle'></div><div class='high'></div>
+										<div class='low'></div>
+										<div class='middle'></div>
+										<div class='high'></div>
 									</div>
 									<div class="level">
-										<label style="color: red; font-weight: 1000">낮음</label>
-										<label style="color: #FBB117; font-weight: 1000">보통</label>
-										<label style="color: #4CC417; font-weight: 1000">높음</label>
+										<label id="validator_bar_text" style="font-weight: 1000"></label>
 									</div>
+									<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>
+									<form:errors path="password" cssClass="valid-msg"/>
 								</div>
-								<input type="password" class="form-control-pw-top" name="password" 
-								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required="" autofocus="" />
-								
-								<input type="password" class="form-control-pw-btm" name="confirmPw" 
-								placeholder="비밀번호 확인" required=""autofocus="" />
+								<input type="password" id="password" class="form-control-pw-top" name="password"
+								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
+								<input type="password" id="password_check" class="form-control-pw-btm" placeholder="비밀번호 확인" required/>
 							</div>
 							
 							<div class=nameMargin>
 								<label>* 대표자명</label><br>
-									<input type="text" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required="" autofocus="" /><br><br>
+									<input type="text" class="form-control_all" id="name" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" /><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호<form:errors path="tell" cssClass="valid-msg"/></label><br>
-									<input type="text" class="form-control_all" name="tell" placeholder="010-1234-5678" required="" autofocus="" /><br>
+									<input type="text" class="form-control_all" id="tell" name="tell" placeholder="010-1234-5678" required autocomplete="off" /><br>
 							</div>
 						</div>
 						
 						<div class="next">
-							<button class="button_next" type="submit">다음 ></button>
+							<button class="button_next" id="next_btn" type="submit">다음 ></button>
 						</div>
 					</form:form>
 				</div>
@@ -87,5 +89,8 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="${contextPath}/resources/js/member/cojoin-form.js"></script>
+
 </body>
 </html>
