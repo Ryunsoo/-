@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link href="../../../resources/css/mypage/modal.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/mypage/mypage_common_css.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/mypage/bootstrap.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -159,12 +159,9 @@
 		</div>
 	</div>
 
-
-<div class='chatting'></div>
 </div>
 <div style="display:none" class="temp_address"></div>
 
-<script type="text/javascript" src="../../../resources/js/include/head/menu_head.js"></script>
 <script type="text/javascript">
 /* 이웃리스트 추가  */
 document.querySelector("#title2").addEventListener('click', e => {
@@ -262,71 +259,11 @@ document.querySelector("#title2").addEventListener('click', e => {
 		}
 	}
 }) */
-/* 충전하기 모달 */
-let createChargingModal = () => {
-	let modal = initModal('modal', 1);
-	appendTitle(modal, '충전하기');
-	setButton(modal, '그만두기', '충전하기');
-	setContent(modal, true, true);
-	addPiggyBackground(modal);
-	
-	let modalBody = $('<div class="charging">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><div class="chargeMoney">충전할 금액 <input placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
-					.addClass('send_modal_content');
-	$('.modal_content').append(modalBody);
-	
-	
-	
-	modalBlock();
-	
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-}
-
-
-/* 송금하기-인증 전 모달 */
-let beforeSendModal = () => {
-	let modal = initModal('modal', 1);
-	appendTitle(modal, '송금하기');
-	setButton(modal, '그만두기', '인증하기');
-	setContent(modal, true, true);
-	addPiggyBackground(modal);
-	
-	let modalBody = $('<br><div class="sendBefore">"첫 송금이신가요?<br>계좌 인증을 진행해주세요!"<div>').height('10px')
-					.addClass('send_modal_content');
-	$('.modal_content').append(modalBody);
-	
-	
-	
-	modalBlock();
-	
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-}
-
-/* 송금하기-인증 후 모달 */
-let afterSendModal = () => {
-	let modal = initModal('modal', 2);
-	appendTitle(modal, '송금하기');
-	setButton(modal, '그만두기', '인증하기');
-	setContent(modal, true, true);
-	addPiggyBackground(modal);
-	
-	let modalBody = $('<br><div class="send">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><br><div class="chargeMoney">인증 계좌 <input placeholder="&nbsp&nbsp 123-456789-5463"> <br><br>송금할 금액<input placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
-					.addClass('send_modal_content');
-	$('.modal_content').append(modalBody);
-	
-	
-	
-	modalBlock();
-	
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-}
 
 </script>
-<script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+<script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </html>
