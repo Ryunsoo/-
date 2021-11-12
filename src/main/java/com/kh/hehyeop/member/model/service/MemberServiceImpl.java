@@ -1,9 +1,14 @@
 package com.kh.hehyeop.member.model.service;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.kh.hehyeop.common.code.Config;
 import com.kh.hehyeop.common.mail.MailSender;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
@@ -18,7 +23,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	private final MemberRepository memberRepository;
 	private final MailSender mailSender;
-	private final RestTemplate restTemplate;
+	private final RestTemplate http;
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
@@ -57,7 +62,20 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void authenticateByEmail(JoinForm form, String token) {
-		// TODO Auto-generated method stub
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("mailTemplate", "join-auth-mail");
+		body.add("id", form.getId());
+		body.add("persistToken", token);
+		
+		RequestEntity<MultiValueMap<String, String>> request = 
+				RequestEntity.post(Config.DOMAIN.DESC + "/mail")
+				.accept(MediaType.APPLICATION_FORM_URLENCODED)
+				.body(body);
+		
+		String htmlTxt = http.exchange(request, String.class).getBody();
+		
+		mailSender.send(form.getEmail(), "회원가입을 축하합니다.", htmlTxt);
 		
 	}
 
