@@ -127,10 +127,10 @@ public class MemberController {
 		
 		memberService.insertMember(form);
 		
-		// memberService.authenticateByEmail(form, token);
+		memberService.authenticateByEmail(form, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
-		return "redirect:/";
+		return "redirect:/member/login-form";
 	}
 	
 	@GetMapping("join-impl/{token}")
