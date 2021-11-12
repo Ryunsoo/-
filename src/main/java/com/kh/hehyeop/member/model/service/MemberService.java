@@ -19,4 +19,6 @@ public interface MemberService {
 	void selectPasswordByEmail(Member member, String token);
 
 	void authenticateByEmail(JoinForm form, String token);
+	
+	Member selectMemberByNickname(String nickname);
 }

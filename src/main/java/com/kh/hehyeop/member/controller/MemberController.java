@@ -163,6 +163,19 @@ public class MemberController {
 		}
 	}
 	
+	@GetMapping("nick-check")
+	@ResponseBody
+	public String nickCheck(String nickname) {
+		Member member = memberService.selectMemberByNickname(nickname);
+		
+		if (member != null) {
+			logger.debug(member.toString());
+			return "disable";
+		} else {
+			return "available";
+		}
+	}
+	
 	@InitBinder(value = "cjoinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
 	public void cinitBinder(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(joinFormValidator);

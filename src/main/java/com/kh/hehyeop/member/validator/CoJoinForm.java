@@ -4,6 +4,7 @@ public class CoJoinForm {
 
 	private String id;
 	private String password;
+	private String name;
 	private String tell;
 	private String email;
 	private String company;
@@ -18,6 +19,7 @@ public class CoJoinForm {
 	public void setId(String cId) {
 		this.id = cId;
 	}
+	
 
 	public String getPassword() {
 		return password;
@@ -25,6 +27,14 @@ public class CoJoinForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getTell() {

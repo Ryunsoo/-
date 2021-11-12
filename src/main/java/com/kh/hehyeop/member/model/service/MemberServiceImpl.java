@@ -79,4 +79,9 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	@Override
+	public Member selectMemberByNickname(String nickname) {
+		return memberRepository.selectMemberByNickname(nickname);
+	}
+
 }

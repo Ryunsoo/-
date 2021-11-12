@@ -3,7 +3,7 @@ let confirmNick = '';
 
 let btnNickCheck = document.querySelector("#btnNickCheck");
 
-	btnIdxCheck.addEventListener('click', e => {
+	btnNickCheck.addEventListener('click', e => {
 		let userNickname = nickname.value;
 
 		if(userNickname) {
@@ -13,13 +13,13 @@ let btnNickCheck = document.querySelector("#btnNickCheck");
 				console.dir(text);
 				
 				if(text == 'available'){
-					document.querySelector('#nickCheck').innerHTML ='사용 가능한 아이디 입니다.';   
+					document.querySelector('#nickCheck').innerHTML ='사용 가능한 닉네임입니다.';   
 					document.querySelector('#nickCheck').style.color = 'green';
 					document.querySelector('#nickname').style.border = '1px solid green';
 					confirmNick = userNickname;
 					btnNickCheck = true;
 				}else if(text == 'disable'){
-					document.querySelector('#nickCheck').innerHTML ='사용 불가능한 아이디 입니다.';   
+					document.querySelector('#nickCheck').innerHTML ='사용 불가능한 닉네임입니다.';   
 					document.querySelector('#nickCheck').style.color = 'red';
 					document.querySelector('#nickname').style.border = '1px solid red';	
 					btnNickCheck = false;					
