@@ -55,4 +55,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberRepository.authenticateCUser(cmember);
 	}
 
+	@Override
+	public void authenticateByEmail(JoinForm form, String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
