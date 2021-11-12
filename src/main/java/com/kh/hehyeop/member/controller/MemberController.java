@@ -95,7 +95,7 @@ public class MemberController {
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "redirect:/member/join-form";
+			return "member/join-form";
 		}
 		
 		session.setAttribute("joinInfo", form);
@@ -125,8 +125,6 @@ public class MemberController {
 		session.setAttribute("persistUser", form);
 		session.setAttribute("persistToken", token);
 		
-		memberService.insertMember(form);
-		
 		memberService.authenticateByEmail(form, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
@@ -148,7 +146,7 @@ public class MemberController {
 		redirectAttrs.addFlashAttribute("message", "회원가입을 환영합니다. 로그인 해주세요");
 		session.removeAttribute("persistToken");
 		session.removeAttribute("persistUser");
-		return "redirect:/member/login";
+		return "redirect:/member/login-form";
 	}
 
 	

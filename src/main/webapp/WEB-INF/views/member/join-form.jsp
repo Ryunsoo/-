@@ -13,6 +13,8 @@
   color: red;
 }
 
+input:focus {outline:none;}
+
 </style>
 
 </head>
@@ -64,9 +66,9 @@
 									</div>
 									<div class="level">
 										<label id="validator_bar_text" style="font-weight: 1000"></label>
-										<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>
-										<form:errors path="password" cssClass="valid-msg"/>
 									</div>
+									<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>
+									<form:errors path="password" cssClass="valid-msg"/>
 								</div>
 								<input type="password" id="password" class="form-control-pw-top" name="password" 
 								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
