@@ -258,7 +258,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="frogue-container" style="display: none" class="position-right-bottom" onclick="closeChat()" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div>
 		<div class='footer'>
 	      <div class='footer_logo'><img src="../../../resources/image/footer_logo.png" class='logo-icon'></div>
 	      
