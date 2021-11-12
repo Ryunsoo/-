@@ -24,6 +24,7 @@ public interface MemberRepository {
 	@Select("select password from member where name = #{name} and id = #{id} and email = #{email}")
 	Member selectPasswordByEmail(String userId);
 	
+	@Select("select * from member where id = #{id}")
 	Member selectMemberByUserId(String id);
 	
 	@Select("select * from member_c where id = #{id} and password = #{password}")

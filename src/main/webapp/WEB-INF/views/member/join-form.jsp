@@ -5,6 +5,13 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel='stylesheet' href="../../../resources/css/member/join-form.css">
+<script type="text/javascript">
+
+/* document.querySelector("#next_btn").addEventListener('click', e => {
+	let id = document.querySelector('#id').value;
+   	let password = document.querySelector('#password').value;
+}) */
+</script>
 </head>
 
 
@@ -20,7 +27,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form class="form-signin">
+						<form class="form-signin" action="/member/join" method="post">
 							<div class='progress_wrapper'>
 								<div class='progress_bar'>
 									<div class='progress'></div>
@@ -31,11 +38,14 @@
 						<div class='input_wrapper'>
 							<div class="idMargin">
 								<label>* 아이디</label><br> 
-									<input type="text" class="form-control_id" name="username" 
+								<div id="idCheck"></div>
+									<input type="text" id="id" class="form-control_id" name="id" 
 									placeholder="아이디를 입력해주세요." required="" autofocus="" />
-									
+									<c:if test="${not empty persistUser}">
+										${persistUser}
+									</c:if>
 									<div class="check">
-										<button class="button_check">중복확인</button>
+										<button type="button" id="btnIdCheck" class="button_check">중복확인</button>
 									</div>
 							</div>
 							
@@ -51,27 +61,27 @@
 										<label id="validator_bar_text" style="font-weight: 1000"></label>
 									</div>
 								</div>
-								<input type="password" class="form-control-pw-top" name="username" 
+								<input type="password" id="password" class="form-control-pw-top" name="password" 
 								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required="" autofocus="" />
 								
-								<input type="password" class="form-control-pw-btm" name="password" 
+								<input type="password" id="password_check" class="form-control-pw-btm" name="passwordCheck" 
 								placeholder="비밀번호 확인" required=""autofocus="" />
 							</div>
 							
 							<div class=nameMargin>
 								<label>* 이름</label><br>
-									<input type="text" class="form-control_all" name="username" placeholder="이름을 입력해주세요." required="" autofocus="" /><br><br>
+									<input type="text" id="name" class="form-control_all" name="uname" placeholder="이름을 입력해주세요." required="" autofocus="" /><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호</label><br>
-									<input type="text" class="form-control_all" name="username" placeholder="010-1234-5678" required="" autofocus="" /><br>
+									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="010-1234-5678" required="" autofocus="" /><br>
 							</div>
 						</div>
 						
 						<div class="form_bottom">
 							<button class='switch_company_join' onclick="location.href = '/member/cojoin-form'"><div></div></button>
-							<button class="button_next" onclick="location.href = '/member/join-form-next'">다음 ></button>
+							<button type="submit" class="button_next" id="next_btn" onclick="location.href = '/member/join-form-next'">다음 ></button>
 						</div>
 					</form>
 				</div>

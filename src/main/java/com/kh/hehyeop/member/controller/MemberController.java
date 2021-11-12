@@ -90,13 +90,16 @@ public class MemberController {
 	@PostMapping("join")
 	public String join(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
 
-		ValidateResult vr = new ValidateResult();
-		model.addAttribute("error", vr.getError());
-		
-		if (errors.hasErrors()) {
-			vr.addErrors(errors);
-			return "member/join";
-		}
+			
+		/*
+		 * ValidateResult vr = new ValidateResult();
+		 * model.addAttribute("error", vr.getError());
+		 * 
+		 * if (errors.hasErrors()) {
+		 * vr.addErrors(errors);
+		 * return "member/join";
+		 * }
+		 */
 		
 		// token 생성
 		String token = UUID.randomUUID().toString();
@@ -140,13 +143,13 @@ public class MemberController {
 	
 	@GetMapping("id-check")
 	@ResponseBody
-	public String nickNameCheck(String userId) {
+	public String idCheck(String userId, RedirectAttributes redirectAttr) {
 		Member member = memberService.selectMemberByUserId(userId);
 
-		if (member == null) {
-			return "available";
-		} else {
+		if (member != null) {
 			return "disable";
+		} else {
+			return "available";
 		}
 	}
 	

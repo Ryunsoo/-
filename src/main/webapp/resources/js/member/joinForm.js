@@ -44,6 +44,52 @@
 		}
 		return;
 	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		let confirmId = '';
+		
+		let btnIdxCheck = document.querySelector("#btnIdCheck");
+		console.dir(btnIdxCheck);
+		if(btnIdxCheck) {
+			btnIdxCheck.addEventListener('click', e => {
+
+					 fetch('/member/id-check?id=' + id)  	
+					.then(response => response.text())
+					.then(text => {
+						console.dir(text);
+						
+						if(text == 'available'){
+							document.querySelector('#idCheck').innerHTML ='사용 가능한 아이디 입니다.';   	
+							confirmId = id;
+						}else if(text == 'disable'){
+							document.querySelector('#idCheck').innerHTML ='사용 불가능한 아이디 입니다.';   						
+						}else {
+							document.querySelector('#idCheck').innerHTML ='시스템 장애 입니다.'; 
+						}
+					})
+					
+	   		})
+			
+			
+		}
+		
+   		
+   	
+	
 
 })();
 

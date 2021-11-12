@@ -76,7 +76,7 @@
 						
 						
 						<div class="next">
-							<button class="button_next">< 이전</button>
+							<button class="button_next" onclick="location.href = '/member/join-form'">< 이전</button>
 						</div>
 						
 				</form:form>
