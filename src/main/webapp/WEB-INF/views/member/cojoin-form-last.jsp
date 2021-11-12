@@ -78,9 +78,9 @@
 								</div>
 								
 								<div class="bathroom_check">
-									<label><input type="checkbox" name="bathroom" value="bathroom">음식</label>
-									<label><input type="checkbox" name="sink" value="sink">청소</label>
-									<label><input type="checkbox" name="product" value="product">잡동사니</label>							
+									<label><input type="checkbox" name="bathroom" value="bathroom">청소</label>
+									<label><input type="checkbox" name="sink" value="sink">세탁</label>
+									<label><input type="checkbox" name="product" value="product">식품 정기배송</label>							
 								</div>
 								
 							</div>

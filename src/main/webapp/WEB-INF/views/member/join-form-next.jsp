@@ -37,9 +37,10 @@
 						</div>
 						
 						<div class="idMargin">
-							<label>* 닉네임</label><br> 
+							<label>* 닉네임</label> &nbsp&nbsp
+							<span style="font-size: 13px; color: red;" id="nickCheck"></span><br> 
 								<input type="text" class="form-control_id" name="nickname" 
-								placeholder="닉네임을 입력해주세요." 
+								id="nickname" placeholder="닉네임을 입력해주세요." 
 								<c:if test="${empty error.nickname}">
 									value="${joinForm.nickname}"
 								</c:if>
