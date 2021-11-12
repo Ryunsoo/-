@@ -6,6 +6,7 @@
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/help/my.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <meta charset="UTF-8">
 </head>
 <body>
@@ -213,6 +214,7 @@ let estimate = () => {
 
 </script>
 
-
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </html>

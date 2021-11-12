@@ -4,6 +4,7 @@
 <html>
 <head>
 <link href="../../../resources/css/help/review.css" type="text/css" rel="stylesheet">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -86,5 +87,7 @@
 
 
 	</div>
+	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </html>
