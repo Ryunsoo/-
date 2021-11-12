@@ -87,6 +87,7 @@
 </div>
 </body>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/member/joinForm-next.js"></script>
 <script>
 
 function searchAddr(){

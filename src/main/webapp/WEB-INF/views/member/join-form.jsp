@@ -46,7 +46,7 @@ input:focus {outline:none;}
 								<label>* 아이디 &nbsp&nbsp 
 								<span style="font-size: 13px; color: red;" id="idCheck"></span>
 								<form:errors path="id" cssClass="valid-msg"/></label><br> 
-									<input type="text" id="id" class="form-control_id" name="id" 
+									<input type="text" id="id" class="form-control_id" name="id" value="15151515151"
 									placeholder="아이디를 입력해주세요." required autocomplete="off" 
 									<c:if test="${empty error.id}">
 										value = "${joinForm.id}"
@@ -70,19 +70,19 @@ input:focus {outline:none;}
 									<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>
 									<form:errors path="password" cssClass="valid-msg"/>
 								</div>
-								<input type="password" id="password" class="form-control-pw-top" name="password" 
+								<input type="password" id="password" class="form-control-pw-top" name="password" value="asdf1234!@#$"
 								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
-								<input type="password" id="password_check" class="form-control-pw-btm" placeholder="비밀번호 확인" required/>
+								<input type="password" id="password_check" class="form-control-pw-btm" placeholder="비밀번호 확인" value="asdf1234!@#$" required/>
 							</div>
 							
 							<div class=nameMargin>
 								<label>* 이름</label><br>
-									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off"/><br><br>
+									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" value="123"/><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호 <form:errors path="tell" cssClass="valid-msg"/></label><br>
-									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off"/><br>
+									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off" value="01011111111"/><br>
 							</div>
 						</div>
 						
