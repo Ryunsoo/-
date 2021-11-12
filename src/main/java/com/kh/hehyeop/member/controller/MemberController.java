@@ -81,31 +81,6 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("cojoin-form")
-	public void joinFormNextMember(Model model, HttpSession session) {
-		
-		model.addAttribute(new CoJoinForm()).addAttribute("error", new ValidateResult().getError());
-		
-	}
-	
-	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
-	@PostMapping("cojoin-form-next")
-	public String coJoinNext(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
-
-		ValidateResult vr = new ValidateResult();
-		model.addAttribute("error", vr.getError());
-
-		if (errors.hasErrors()) {
-			vr.addErrors(errors);
-			return "member/cojoin-form";
-		}
-
-		session.setAttribute("CoJoinFrom", form);
-		logger.debug(form.toString());
-		return "member/cojoin-form-next";
-
-	}
-
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("join-form-next")
 	public String joinNext(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
@@ -186,6 +161,63 @@ public class MemberController {
 		} else {
 			return "available";
 		}
+	}
+	
+	@InitBinder(value = "cjoinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
+	public void cinitBinder(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(joinFormValidator);
+	}
+	
+	@GetMapping("cojoin-form")
+	public void joinFormNextMember(Model model, HttpSession session) {
+		
+		model.addAttribute(new CoJoinForm()).addAttribute("error", new ValidateResult().getError());
+		
+	}
+	
+	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
+	@PostMapping("cojoin-form-next")
+	public String coJoinNext(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "member/cojoin-form";
+		}
+
+		session.setAttribute("CoJoinFrom", form);
+		logger.debug(form.toString());
+		return "member/cojoin-form-next";
+
+	}
+	
+	@PostMapping("cjoin")
+	public String cjoin(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
+	
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/member/join-form";
+		}
+		
+		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinFrom");
+		  
+		form.setId(infoForm.getId());
+		form.setPassword(infoForm.getPassword());
+		form.setTell(infoForm.getTell());
+		
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistUser", form);
+		session.setAttribute("persistToken", token);
+		
+		//memberService.authenticateByEmail(form, token);
+		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		 		
+		return "redirect:/member/login-form";
 	}
 	
 }

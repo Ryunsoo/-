@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form:form modelAttribute="cJoinForm" action="/member/cojoin-form-last" method="post" class="form-signin">
+						<form:form modelAttribute="cjoinForm" action="/member/cojoin-form-last" method="post" class="form-signin">
 							<div class='progress_wrapper'>
                                 <div class='progress_bar'>
                                     <div class='progress'></div>
@@ -50,7 +50,7 @@
 								placeholder="우편번호	" required="" autofocus="" />
 								
 								<div class="check">
-									<button class="button_adress_check">주소 찾기</button>
+									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
 								<input type="text" class="form-control_detail_adress" name="oldAddress" 
@@ -63,11 +63,11 @@
 						
 						
 						<div class="before_left">
-							<button class="button_next">< 이전</button>
+							<button class="button_next" onclick="backspace()">< 이전</button>
 						</div>
 						
 						<div class="next_right">
-							<button class="button_next" onclick="location.href='/member/cojoin-form-last'">다음 ></button>
+							<button class="button_next" type="submit" >다음 ></button>
 						</div>
 						
 				</form:form>
@@ -77,4 +77,30 @@
 </div>
 </div>
 </body>
+<script type="text/javascript" src="${contextPath}/resources/js/member/joinForm.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+function backspace(){
+	history.back();
+}
+
+function searchAddr(){
+	
+	new daum.Postcode({
+        oncomplete: function(data) {
+        	var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 참고 항목 변수
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('form-addressNo').value = data.zonecode;
+            document.getElementById("form-address").value = roadAddr;
+            document.getElementById("form-oldAddress").value = jibunAddr;
+        }
+           
+    }).open();
+	
+}
+
+</script>
 </html>
