@@ -15,7 +15,7 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 
 <script>
 
@@ -103,6 +103,6 @@
     </div>
    </div>
    <!--wrap == container 끝-->
-   <script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
+   <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
 </html>

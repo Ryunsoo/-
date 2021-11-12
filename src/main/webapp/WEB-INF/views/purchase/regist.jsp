@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="${contextPath}/resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="${contextPath}/resources/css/purchase/purchase-regist.css">
-<link rel='stylesheet' href="${contextPath}/resources/css/chat/chat.css">
+<link rel='stylesheet' href="${contextPath}/resources/css/include/chat/chat.css">
 
 
 
@@ -132,5 +132,5 @@
 
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
-<script type="text/javascript" src="${contextPath}/resources/js/chat/chat.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
 </html>

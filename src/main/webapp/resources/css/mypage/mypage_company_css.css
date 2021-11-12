@@ -193,6 +193,116 @@ html, body {
 	top: -50px;
 }
 
+#push {
+	position: absolute;
+	font-size: 22px;
+	right: 10px;
+	top: -35px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#push>div {
+	margin-right: 10px;
+}
+
+#bell {
+	color: gold;
+}
+
+#setting {
+	color: black;
+}
+
+#push_info:hover .balloon3{
+	display: block;
+}
+
+.balloon3 {  
+  display: none;
+  position: absolute;
+  right: -19px;
+  bottom: -87px;
+  width:363px; 
+  height:79px;
+  background: gray; 
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  font-weight: bolder;
+}
+
+.balloon3:after { 
+ border-top:0px solid transparent; 
+ border-left: 10px solid transparent; 
+ border-right: 10px solid transparent; 
+ border-bottom: 10px solid gray; 
+ content:""; 
+ position:absolute;
+ top:-10px;
+ right:30px;  
+}
+
+#push_btn1 {
+	width: 80px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	margin-left: 10px;
+	background-color: rgb(102, 205, 170);
+}
+
+#push_btn1:hover {
+	font-weight: bolder;
+	color: black;
+}
+
+#push_btn2 {
+	width: 80px;
+	height: 30px;
+	color: white;
+	border-radius: 10px;
+	margin-left: 10px;
+	background-color: rgb(240, 128, 128);
+} 
+
+#push_btn2:hover {
+	font-weight: bolder;
+	color: black;
+}
+
+.push_wrap {
+	display: flex;
+	margin-left: 20px;
+}
+
+.device {
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+	margin-left: 20px;
+	margin-bottom: 15px;
+}
+
+.push_text1 {
+	font-size: 25px;
+	font-weight: bold;
+	margin-right: 44px;
+}
+
+.push_text2 {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.push_text3 {
+	font-size: 22px;
+	font-weight: bold;
+	margin-left: 20px;
+}
+
 #company_user {
 	position: absolute;
 	font-size: 16px;

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="../../../resources/css/community/style.css"/>
 <link rel="stylesheet" href="../../../resources/css/community/index_css.css"/>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
@@ -311,6 +311,6 @@
     </footer>
    </div>
    <!--wrap == container 끝-->
-   <script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
+   <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.js" integrity="sha512-11Z4MD9csmC3vH8Vd0eIPJBQu3uEHEqeznWEt3sLBCdQx3zm9mJbBcJH8WTcyGY9EXDE81BNpjE2vLosPK8cFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -25,6 +25,21 @@
 		<div class="box1">
 			<img src="../../../resources/image/돼지저금통.png" class="pig">
 			<div id="infoicon"><i class="fas fa-clipboard-user"></i></div>
+			<div id="push">
+				<div id="bell"><i class="fas fa-bell"></i></div>
+				<div id="basic">푸시알림</div>
+				<div id="setting" onclick="createPushModal()"><i class="fas fa-cog"></i></div>
+				<div id="push_info">
+					<i class="fas fa-question-circle"></i>
+					<div class="balloon3">
+						푸시알림 설정은 현재 접속환경의 설정만
+						<br>
+						변경하실 수 있습니다.
+						<br><br>
+						*자세한 안내는 챗봇을 통해 확인하실 수 있습니다.
+					</div>
+				</div>
+			</div>
 			<div id="company_user">업체 회원</div>
 			<div class="myinfo">
 				<div id="name">
@@ -436,8 +451,25 @@ let changeNomal = () => {
     			modalNone();
     		})
     	}
+        
+        /* 푸시알림 모달 */
+        let createPushModal = () => {
+        	let modal = initModal('modal', 1);
+        	appendTitle(modal, '푸시알림 설정');
+        	setButton(modal, '설정완료');
+        	setContent(modal, true, true);
+        	
+        	let modalBody = $('<div class="device">*현재 접속한 기기설정만 변경가능</div><br><br><div class="push_wrap"><div class="push_text1">PC 알림허용</div><button id="push_btn1" onclick="pcPushOn()">알림켜기</button><button id="push_btn2" onclick="pcPushOff()">알림끄기</button></div><br><br><div class="push_wrap"><div class="push_text2">모바일 알림허용</div><button id="push_btn1" onclick="mobilePushOn()">알림켜기</button><button id="push_btn2" onclick="mobilePushOff()">알림끄기</button></div>').height('10px')
+        					.addClass('send_modal_content');
+        	$('.modal_content').append(modalBody);
+        	modalBlock();
+        	$('.modal_left_btn').click(function() {
+        		modalNone();
+        	})
+        }
 </script>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
-<script type="text/javascript" src="../../../resources/js/chat/chat2.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
+<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
 </html>
