@@ -21,4 +21,16 @@ public class MypageServiceImpl implements MypageService{
 		return null;
 	}
 
+	@Override
+	public void insertMobileToken(String token, String id) {
+		mypageRepository.insertMobileToken(token, id);
+		
+	}
+
+	@Override
+	public void insertPcToken(String token, String id) {
+		mypageRepository.insertPcToken(token, id);
+		
+	}
+
 }
