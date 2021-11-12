@@ -57,17 +57,17 @@
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
 								<input type="text" class="form-control_adress" name="address" 
-								placeholder="기본 주소를 입력해주세요." required="" autofocus="" />
+								placeholder="기본 주소를 입력해주세요." required autocomplete="off" />
 								
-								<input type="text" class="form-control_adress_check" name="username" 
-								placeholder="우편번호	" required="" autofocus="" />
+								<input type="text" class="form-control_adress_check" name="addressNo" 
+								placeholder="우편번호	" required autocomplete="off" />
 								
 								<div class="check">
 									<button class="button_adress_check">주소 찾기</button>
 								</div>
 								
-								<input type="text" class="form-control_detail_adress" name="oldAddress" 
-								placeholder="상세 주소를 입력해주세요." required="" autofocus="" />
+								<input type="text" class="form-control_detail_adress" name="detailAddress" 
+								placeholder="상세 주소를 입력해주세요." required autocomplete="off"/>
 						</div>
 						
 						<div>
