@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="${contextPath}/resources/css/include/head/menu_head.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/management/jquery-ui.min.css">
-<link rel='stylesheet' href="${contextPath}/resources/css/chat/chat.css">
+<link rel='stylesheet' href="${contextPath}/resources/css/include/chat/chat.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/jquery.js"></script>
@@ -203,5 +203,5 @@
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/management/myIcebox_cart.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/chat/chat.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
 </html>

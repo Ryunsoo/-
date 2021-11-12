@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/company-head.jsp" %>
 <link rel="stylesheet" href="${contextPath}/resources/css/company/ongoing-help.css">
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
@@ -94,6 +94,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		</div>
 	</div>
 	<!-- </footer> -->
-	<script type="text/javascript" src="../../../resources/js/chat/chat2.js"></script>
+	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
 </html>

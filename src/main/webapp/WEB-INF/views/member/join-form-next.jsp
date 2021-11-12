@@ -76,7 +76,7 @@
 						
 						
 						<div class="next">
-							<button class="button_next" onclick="location.href = '/member/join-form'">< 이전</button>
+							<button class="button_next" onclick="backspace()">< 이전</button>
 						</div>
 						
 				</form:form>
@@ -86,9 +86,14 @@
 </div>
 </div>
 </body>
+<script type="text/javascript" src="${contextPath}/resources/js/member/joinForm.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/member/joinForm-next.js"></script>
 <script>
+
+function backspace(){
+	history.back();
+}
 
 function searchAddr(){
 	

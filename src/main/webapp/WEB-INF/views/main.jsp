@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel='stylesheet' href="../../../resources/css/main/main.css">
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick-theme.css">
 <script type="text/javascript" src="../../../resources/js/main/weather.js?ver=1"></script>
@@ -336,5 +336,5 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		document.getElementById("weak_loc").innerHTML = "";
 	}
 </script>
-<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
+<script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

@@ -8,7 +8,7 @@
 <link href="../../../resources/css/mypage/mypage_common_css.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/mypage/bootstrap.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -21,6 +21,21 @@
 		<div class="box1">
 			<img src="../../../resources/image/돼지저금통.png" class="pig">
 			<div id="infoicon"><i class="fas fa-clipboard-user"></i></div>
+			<div id="push">
+				<div id="bell"><i class="fas fa-bell"></i></div>
+				<div id="basic">푸시알림</div>
+				<div id="setting" onclick="createPushModal()"><i class="fas fa-cog"></i></div>
+				<div id="push_info">
+					<i class="fas fa-question-circle"></i>
+					<div class="balloon3">
+						푸시알림 설정은 현재 접속환경의 설정만
+						<br>
+						변경하실 수 있습니다.
+						<br><br>
+						*자세한 안내는 챗봇을 통해 확인하실 수 있습니다.
+					</div>
+				</div>
+			</div>
 			<div class="myinfo">
 				<div id="name">
 					<div id="nameicon"><i class="far fa-user"></i></div>
@@ -265,5 +280,6 @@ document.querySelector("#title2").addEventListener('click', e => {
 </body>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
-<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
+<script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

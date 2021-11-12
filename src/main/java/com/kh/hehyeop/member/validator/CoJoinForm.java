@@ -2,7 +2,7 @@ package com.kh.hehyeop.member.validator;
 
 public class CoJoinForm {
 
-	private String cId;
+	private String id;
 	private String password;
 	private String tell;
 	private String email;
@@ -11,12 +11,12 @@ public class CoJoinForm {
 	private String oldAddress;
 	private String cIdx;
 
-	public String getcId() {
-		return cId;
+	public String getId() {
+		return id;
 	}
 
-	public void setcId(String cId) {
-		this.cId = cId;
+	public void setId(String cId) {
+		this.id = cId;
 	}
 
 	public String getPassword() {
@@ -77,7 +77,7 @@ public class CoJoinForm {
 
 	@Override
 	public String toString() {
-		return "CoJoinForm [cId=" + cId + ", password=" + password + ", tell=" + tell + ", email=" + email
+		return "CoJoinForm [id=" + id + ", password=" + password + ", tell=" + tell + ", email=" + email
 				+ ", company=" + company + ", address=" + address + ", oldAddress=" + oldAddress + ", cIdx=" + cIdx
 				+ "]";
 	}

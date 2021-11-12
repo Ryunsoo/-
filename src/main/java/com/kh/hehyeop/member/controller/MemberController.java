@@ -2,6 +2,7 @@ package com.kh.hehyeop.member.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
+import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
 
@@ -79,12 +81,30 @@ public class MemberController {
 		
 	}
 	
-//	@GetMapping("join-form-next")
-//	public void joinFormNextMember(Model model, HttpSession session) {
-//		
-//		model.addAttribute((JoinForm) session.getAttribute("joinInfo")).addAttribute("error", new ValidateResult().getError());
-//		
-//	}
+	@GetMapping("cojoin-form")
+	public void joinFormNextMember(Model model, HttpSession session) {
+		
+		model.addAttribute(new CoJoinForm()).addAttribute("error", new ValidateResult().getError());
+		
+	}
+	
+	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
+	@PostMapping("cojoin-form-next")
+	public String coJoinNext(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "member/cojoin-form";
+		}
+
+		session.setAttribute("CoJoinFrom", form);
+		logger.debug(form.toString());
+		return "member/cojoin-form-next";
+
+	}
 
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("join-form-next")
@@ -148,10 +168,6 @@ public class MemberController {
 		session.removeAttribute("persistUser");
 		return "redirect:/member/login-form";
 	}
-
-	
-	@GetMapping("cojoin-form")
-	public void coJoinTest() {}
 	
 	@GetMapping("cojoin-form-next")
 	public void coJoinNextTest() {}
