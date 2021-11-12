@@ -1,8 +1,24 @@
 package com.kh.hehyeop.mypage.model.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.mypage.model.repository.MypageRepository;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class MypageServiceImpl implements MypageService{
+
+	private final MypageRepository mypageRepository;
+	
+	@Override
+	public List<String> getValidTokens(String userId) {
+		
+		
+		return null;
+	}
 
 }
