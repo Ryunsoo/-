@@ -63,6 +63,13 @@
 		    <version>1.9.7</version>
 		</dependency>
 		
+		<!-- Firebase -->
+		<dependency>
+		    <groupId>com.google.firebase</groupId>
+		    <artifactId>firebase-admin</artifactId>
+		    <version>8.1.0</version>
+		</dependency>
+		
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
