@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="${contextPath}/resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="${contextPath}/resources/css/purchase/purchase-regist.css">
