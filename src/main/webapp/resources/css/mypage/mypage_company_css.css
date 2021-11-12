@@ -782,27 +782,6 @@ html, body {
 	margin-right: 10px;
 }
 
-/* 륜수님이 만든 채팅 */
-.chatting{
-   position: fixed;
-   display: inline-flex;
-   right: 150px;
-   bottom: 75px;
-   height: 80px;
-   width: 80px;
-   background-image: url("../../../resources/image/chatting.png");
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: center;
-   border-radius: 100px;
-   box-shadow: 2px 2px 5px 1px #666666;
-   z-index: 99;
-}
-
-.chatting:hover{
-   background-color: #e3d79c;
-}
-
 .star-rating {
 	width:158px; 
 }

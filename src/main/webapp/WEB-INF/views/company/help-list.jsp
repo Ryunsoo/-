@@ -5,8 +5,10 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/company-head.jsp" %>
 <link rel="stylesheet" href="${contextPath}/resources/css/company/help-list.css">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
 	<div class='main'>
 	
 		<!-- 사이트 메뉴(조회해협 & MY 해협) -->
@@ -71,7 +73,6 @@
 	</div>
 	
 	<div class='back'></div>
-	<div class='chatting'></div>
 		
 	<!-- 자취해협 정보 footer -->
 	<!-- <footer> -->
@@ -94,5 +95,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		</div>
 	</div>
 	<!-- </footer> -->
+	<script type="text/javascript" src="../../../resources/js/chat/chat2.js"></script>
 </body>
 </html>

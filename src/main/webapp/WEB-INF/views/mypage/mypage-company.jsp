@@ -11,12 +11,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.js" integrity="sha512-11Z4MD9csmC3vH8Vd0eIPJBQu3uEHEqeznWEt3sLBCdQx3zm9mJbBcJH8WTcyGY9EXDE81BNpjE2vLosPK8cFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <div id='modal'></div>
 <div id="bg" class="hidden"></div>
+<%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
 <div class="wrap">
 	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 	<div class="main">
@@ -237,8 +239,6 @@
 		</div>
 	</div>
 
-
-<div class='chatting'></div>
 </div>
 
 <script type="text/javascript" src="../../../resources/js/include/head/menu_head.js"></script>
@@ -438,5 +438,6 @@ let changeNomal = () => {
     	}
 </script>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/chat/chat2.js"></script>
 </body>
 </html>

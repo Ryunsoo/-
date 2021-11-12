@@ -280,25 +280,6 @@ tr>td>i{
 	z-index: -1
 }
 
-.chatting{
-	position: fixed;
-	height: 80px;
-	width: 80px;
-	background-image: url("../../../resources/image/chatting.png");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	transform: translate(550%, 700%);
-	border-radius: 100px;
-	box-shadow: 2px 2px 5px 1px #666666;
-	z-index: 99;
-}
-
-.chatting:hover{
-	background-color: #e3d79c;
-	cursor: pointer;
-}
-
 .footer{
 	height: 250px;
 	width: 1130px;
