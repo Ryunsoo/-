@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/management/myAccountBook.css">
 <link rel="stylesheet" href='${contextPath}/resources/css/management/main.css'>
 <link rel="stylesheet" href="${contextPath}/resources/css/management/jquery-ui.min.css">
-<meta charset="UTF-8">
-<title>myAccountBook</title>
+<link rel='stylesheet' href="${contextPath}/resources/css/chat/chat.css">
 </head>
 <body>
 <div id="bg" class="hidden"></div>
@@ -88,13 +87,13 @@
 			</div>
 		</div>
 		<footer style="height: 50px;"></footer>
-		<div class='chatting'></div>
 	</div>
+	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
-<script type="text/javascript" src="${contextPath}/resources/js/jquery.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/management/main.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/management/myAccountBook.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/chat/chat.js"></script>
 </html>
