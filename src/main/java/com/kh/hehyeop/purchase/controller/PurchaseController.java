@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("purchase")
 public class PurchaseController {
 
-	@GetMapping("purchase-detail")
+	@GetMapping("detail")
 	public void purchaseDetailTest() {}
 	
-	@GetMapping("purchase-detail-writer")
+	@GetMapping("detail-writer")
 	public void purchaseDetailWriterTest() {}
 	
-	@GetMapping("purchase-main")
+	@GetMapping("main")
 	public void purchaseMainTest() {}
 	
-	@GetMapping("purchase-mypurchase")
+	@GetMapping("my-purchase")
 	public void purchaseMypurchaseTest() {}
 	
-	@GetMapping("purchase-regist")
+	@GetMapping("regist")
 	public void purchaseRegistTest() {}
 	
-	@GetMapping("purchase-request")
+	@GetMapping("request")
 	public void purchaseRequestTest() {}
 	
 }

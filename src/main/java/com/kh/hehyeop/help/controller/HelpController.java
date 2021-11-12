@@ -11,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("help")
 public class HelpController {
 	
-	@GetMapping("hehyeop-main")
+	@GetMapping("main")
 	public void help1() {
 		
 	}
 	
-	@GetMapping("hehyeop-request")
+	@GetMapping("request")
 	public void help2() {
 		
 	}
@@ -27,8 +27,8 @@ public class HelpController {
 	}
 
 	
-	@GetMapping("hehyeop-review")
-	public void help6() {
+	@GetMapping("review")
+	public void help4() {
 		
 	}
 	
