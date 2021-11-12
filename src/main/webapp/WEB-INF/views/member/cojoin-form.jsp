@@ -80,6 +80,7 @@
 							</div>
 						</div>
 						
+						
 						<div class="next">
 							<button class="button_next" id="next_btn" type="submit">다음 ></button>
 						</div>
