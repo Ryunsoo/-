@@ -273,7 +273,7 @@ document.querySelector("#title2").addEventListener('click', e => {
 			})
 		}
 	}
-}) */
+}) */ 
 
 </script>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
@@ -282,38 +282,7 @@ document.querySelector("#title2").addEventListener('click', e => {
 <script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
-<script>
-let pcPushOn = () => {
-	var firebaseConfig = {
-		apiKey: "AIzaSyBm8HfRS1qzvn23KxVwDNLbZsOLHMAizBw",
-		authDomain: "jachwi-haehyeop.firebaseapp.com",
-		projectId: "jachwi-haehyeop",
-		storageBucket: "jachwi-haehyeop.appspot.com",
-		messagingSenderId: "767605215947",
-		appId: "1:767605215947:web:d5c0f17a7829b9f0edc14e",
-		measurementId: "G-KQVW6W128C"	
-	};
+<script src="../../../resources/js/include/push/push-fcm.js"></script>
 
-	firebase.initializeApp(firebaseConfig);
-
-	const messaging = firebase.messaging();
-
-	messaging.requestPermission()
-	.then(function(){
-	    console.log("Have permission");
-	    return messaging.getToken();
-	})
-	.then(function(token){
-		document.querySelector('#token').value = token;
-	    console.log(token);
-	})
-	.catch(function(arr){
-	    console.log("Error Occured");
-	});
-}
-
-
-</script>
 </html>
