@@ -30,8 +30,8 @@
 						<div class="idMargin">
 							<label>* 이메일</label><form:errors path="email"/><br>								
 								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
-									<c:if test="${empty error.id}">
-										value = "${joinForm.id}"
+									<c:if test="${empty error.email}">
+										value = "${joinForm.email}"
 									</c:if>
 									required autofocus autocomplete="none"/><br><br>
 						</div>
@@ -56,18 +56,18 @@
 						
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
-								<input type="text" class="form-control_adress" name="address" 
-								placeholder="기본 주소를 입력해주세요." required autocomplete="off" />
+								<input type="text" class="form-control_adress" id="form-address" name="address" 
+								placeholder="도로명주소" required autocomplete="off" />
 								
-								<input type="text" class="form-control_adress_check" name="addressNo" 
+								<input type="text" class="form-control_adress_check" id="form-addressNo" name="addressNo" 
 								placeholder="우편번호	" required autocomplete="off" />
 								
 								<div class="check">
-									<button class="button_adress_check">주소 찾기</button>
+									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
-								<input type="text" class="form-control_detail_adress" name="detailAddress" 
-								placeholder="상세 주소를 입력해주세요." required autocomplete="off"/>
+								<input type="text" class="form-control_detail_adress" id="form-oldAddress" name="oldAddress" 
+								placeholder="지번주소" required autocomplete="off"/>
 						</div>
 						
 						<div>
@@ -86,4 +86,25 @@
 </div>
 </div>
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+function searchAddr(){
+	
+	new daum.Postcode({
+        oncomplete: function(data) {
+        	var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 참고 항목 변수
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('form-addressNo').value = data.zonecode;
+            document.getElementById("form-address").value = roadAddr;
+            document.getElementById("form-oldAddress").value = jibunAddr;
+        }
+           
+    }).open();
+	
+}
+
+</script>
 </html>

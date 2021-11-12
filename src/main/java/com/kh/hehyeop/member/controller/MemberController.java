@@ -95,7 +95,7 @@ public class MemberController {
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "redirect:/member/join-form";
+			return "member/join-form";
 		}
 		
 		session.setAttribute("joinInfo", form);
