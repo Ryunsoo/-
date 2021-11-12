@@ -1,4 +1,4 @@
-let pcPushOn = () => {
+let pcPushOnSuccess = () => {
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal, 'PC 푸시알림 설정');
@@ -12,7 +12,7 @@ let pcPushOn = () => {
 		modalNone();
 	})
 }
-let pcPushOff = () => {
+let pcPushOffSuccess = () => {
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal, 'PC 푸시알림 설정');
@@ -26,7 +26,7 @@ let pcPushOff = () => {
 		modalNone();
 	})
 }
-let mobilePushOn = () => {
+let mobilePushOnSuccess = () => {
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal, '모바일 푸시알림 설정');
@@ -40,7 +40,7 @@ let mobilePushOn = () => {
 		modalNone();
 	})
 }
-let mobilePushOff = () => {
+let mobilePushOffSuccess = () => {
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal, '모바일 푸시알림 설정');
