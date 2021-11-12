@@ -50,6 +50,7 @@ div {
 	box-shadow: 0 0 5px 0;
 	flex-direction: column;
 	align-items: center;
+	z-index: 20000000;
 }
 
 #chatting_title{
@@ -79,4 +80,22 @@ div {
 
 #chatting_list>p{
 	font-size: 20px;
+}
+
+#myList{
+	width: 380px;
+	height: 200px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0 0 3px 0;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#chatItem{
+	width: 350px;
+	margin: 20px 0 0 0; 
+	border-bottom: 1px solid #bcbcbc;
 }

@@ -307,11 +307,10 @@
 						<div><span>1</span>&nbsp;<span>2</span>&nbsp;<span>3</span>&nbsp;<span>4</span>&nbsp;<span>5</span>&nbsp;<span>6</span>&nbsp;<span>7</span></div>&nbsp;
 						<i class="fas fa-caret-right"></i>
 				</div>
-                <img width="100px" height="80px" src="../../../resources/image/chatting.png" name="footer_logo">
-                
         </div>
     </footer>
    </div>
    <!--wrap == container 끝-->
+   <script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </body>
 </html>
