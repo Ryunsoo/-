@@ -79,38 +79,58 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("join-form-next")
-	public void joinFormNextMember(Model model) {
-		
-		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
-		
-	}
+//	@GetMapping("join-form-next")
+//	public void joinFormNextMember(Model model, HttpSession session) {
+//		
+//		model.addAttribute((JoinForm) session.getAttribute("joinInfo")).addAttribute("error", new ValidateResult().getError());
+//		
+//	}
 
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
+	@PostMapping("join-form-next")
+	public String joinNext(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
+			
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/member/join-form";
+		}
+		
+		session.setAttribute("joinInfo", form);
+		return "member/join-form-next";
+
+	}
+	
 	@PostMapping("join")
 	public String join(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
-
-			
-		/*
-		 * ValidateResult vr = new ValidateResult();
-		 * model.addAttribute("error", vr.getError());
-		 * 
-		 * if (errors.hasErrors()) {
-		 * vr.addErrors(errors);
-		 * return "member/join";
-		 * }
-		 */
+	
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
 		
-		// token 생성
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/member/join-form";
+		}
+		
+		JoinForm infoForm = (JoinForm) session.getAttribute("joinInfo");
+		  
+		form.setId(infoForm.getId());
+		form.setPassword(infoForm.getPassword());
+		form.setName(infoForm.getName());
+		form.setTell(infoForm.getTell());
+		
 		String token = UUID.randomUUID().toString();
 		session.setAttribute("persistUser", form);
 		session.setAttribute("persistToken", token);
 		
+		memberService.insertMember(form);
+		
 		// memberService.authenticateByEmail(form, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
-		
+		 		
 		return "redirect:/";
-
 	}
 	
 	@GetMapping("join-impl/{token}")
@@ -143,10 +163,11 @@ public class MemberController {
 	
 	@GetMapping("id-check")
 	@ResponseBody
-	public String idCheck(String userId, RedirectAttributes redirectAttr) {
-		Member member = memberService.selectMemberByUserId(userId);
-
+	public String idCheck(String id) {
+		Member member = memberService.selectMemberByUserId(id);
+		
 		if (member != null) {
+			logger.debug(member.toString());
 			return "disable";
 		} else {
 			return "available";

@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void insertMember(JoinForm form) {
-		// TODO Auto-generated method stub
-		
+		form.setPassword(passwordEncoder.encode(form.getPassword()));
+		memberRepository.insertMember(form);
 	}
 
 	@Override
@@ -33,9 +33,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member selectMemberByUserId(String userId) {
+	public Member selectMemberByUserId(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberRepository.selectMemberByUserId(id);
 	}
 
 	@Override

@@ -26,34 +26,47 @@ public class JoinFormValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		
 		JoinForm form = (JoinForm) target;
+		boolean valid = true;
 		
-		// 1. 아이디 존재 유무
-		if(memberRepository.selectMemberByUserId(form.getId()) != null) {
-			errors.rejectValue("userId", "error-userId", "이미 존재하는 아이디입니다.");
+		if(form.getId() != null) {
+			// 1. 아이디 존재 유무
+			if(memberRepository.selectMemberByUserId(form.getId()) != null) {
+				errors.rejectValue("id", "error-id", "이미 존재하는 아이디입니다.");
+			}
 		}
 		
-		// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
-		boolean valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", form.getPassword());
-		
-		if(!valid) {
-			errors.rejectValue("password", "error-password", "비밀번호는 8글자 이상의 숫자 영문자 특수문자 조합입니다.");
+		if(form.getPassword() != null) {
+			// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
+			valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", form.getPassword());
+			
+			if(!valid) {
+				errors.rejectValue("password", "error-password", "비밀번호는 8글자 이상의 숫자 영문자 특수문자 조합입니다.");
+			}
 		}
 		
-		// 3. 휴대폰 존재 유무
-		valid = Pattern.matches("^\\d{9,11}$", form.getTell());
 		
-		if(!valid) {
-			errors.rejectValue("tell", "error-tell", "전화번호는 9~11자리의 숫자입니다.");
+		if(form.getTell() != null) {
+			// 3. 휴대폰 존재 유무
+			valid = Pattern.matches("^\\d{9,11}$", form.getTell());
+			
+			if(!valid) {
+				errors.rejectValue("tell", "error-tell", "전화번호는 9~11자리의 숫자입니다.");
+			}
+		}
+	
+		
+		if(form.getEmail() != null) {
+			valid = Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}", form.getEmail());
+			
+			if (!valid) {
+				errors.rejectValue("email", "error-email", "이메일 형식을 확인하세요!");
+			}
 		}
 		
-		valid = Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}", form.getEmail());
-		
-		if (!valid) {
-			errors.rejectValue("email", "error-email", "이메일 형식을 확인하세요!");
-		}
-		
-		if(memberRepository.selectMemberByNickname(form.getNickname()) != null) {
-			errors.rejectValue("nickname", "error-nickname", "닉네임이 중복되었습니다.");
+		if(form.getNickname() != null) {
+			if(memberRepository.selectMemberByNickname(form.getNickname()) != null) {
+				errors.rejectValue("nickname", "error-nickname", "닉네임이 중복되었습니다.");
+			}
 		}
 	}
 

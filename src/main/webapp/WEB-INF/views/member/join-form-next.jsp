@@ -29,16 +29,16 @@
 						
 						<div class="idMargin">
 							<label>* 이메일</label><form:errors path="email"/><br>								
-								<input type="text" class="form-control_all" name="username" placeholder="이메일을 입력하세요." 
-									<c:if test="${empty error.email}">
-										value = "${joinForm.email}"
+								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
+									<c:if test="${empty error.id}">
+										value = "${joinForm.id}"
 									</c:if>
 									required autofocus autocomplete="none"/><br><br>
 						</div>
 						
 						<div class="idMargin">
 							<label>* 닉네임</label><br> 
-								<input type="text" class="form-control_id" name="username" 
+								<input type="text" class="form-control_id" name="nickname" 
 								placeholder="닉네임을 입력해주세요." 
 								<c:if test="${empty error.nickname}">
 									value="${joinForm.nickname}"
@@ -56,7 +56,7 @@
 						
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
-								<input type="text" class="form-control_adress" name="username" 
+								<input type="text" class="form-control_adress" name="address" 
 								placeholder="기본 주소를 입력해주세요." required="" autofocus="" />
 								
 								<input type="text" class="form-control_adress_check" name="username" 
@@ -66,7 +66,7 @@
 									<button class="button_adress_check">주소 찾기</button>
 								</div>
 								
-								<input type="text" class="form-control_detail_adress" name="username" 
+								<input type="text" class="form-control_detail_adress" name="oldAddress" 
 								placeholder="상세 주소를 입력해주세요." required="" autofocus="" />
 						</div>
 						

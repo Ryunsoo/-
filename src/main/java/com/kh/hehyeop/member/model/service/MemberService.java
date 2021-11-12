@@ -12,7 +12,7 @@ public interface MemberService {
 	
 	CMember authenticateCUser(CMember cmember);
 
-	Member selectMemberByUserId(String userId);
+	Member selectMemberByUserId(String id);
 
 	void selectIdByEmail(Member member, String token);
 	

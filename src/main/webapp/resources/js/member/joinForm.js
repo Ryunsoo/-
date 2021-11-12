@@ -45,6 +45,22 @@
 		return;
 	})
 	
+	document.querySelector("#password_check").addEventListener('input', e => {
+		
+		let passwordInput = document.querySelector('.form-control-pw-top').value;
+		let inputMsg = document.querySelector("#pwCheck");
+		let confirmInput = document.querySelector('#password_check').value;
+		
+		
+		if (confirmInput.length > 0){
+			if (confirmInput == passwordInput) {
+				inputMsg.innerHTML = "비밀번호 일치";
+			} else {
+				inputMsg.innerHTML = "비밀번호 일치하지 않아요";
+			}	
+		}
+		
+	})
 	
 	
 	
@@ -60,21 +76,23 @@
 	
 	
 	
-		let confirmId = '';
+	
+	let confirmId = '';
 		
 		let btnIdxCheck = document.querySelector("#btnIdCheck");
-		console.dir(btnIdxCheck);
-		if(btnIdxCheck) {
+		
 			btnIdxCheck.addEventListener('click', e => {
-
-					 fetch('/member/id-check?id=' + id)  	
+				let userId = id.value;
+		
+				if(userId) {
+					 fetch('/member/id-check?id=' + userId)  	
 					.then(response => response.text())
 					.then(text => {
 						console.dir(text);
 						
 						if(text == 'available'){
 							document.querySelector('#idCheck').innerHTML ='사용 가능한 아이디 입니다.';   	
-							confirmId = id;
+							confirmId = userId;
 						}else if(text == 'disable'){
 							document.querySelector('#idCheck').innerHTML ='사용 불가능한 아이디 입니다.';   						
 						}else {
@@ -82,14 +100,10 @@
 						}
 					})
 					
+				}
+					
 	   		})
-			
-			
-		}
-		
-   		
-   	
-	
+
 
 })();
 
