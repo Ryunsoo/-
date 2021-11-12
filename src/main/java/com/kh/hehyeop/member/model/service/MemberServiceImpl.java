@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.kh.hehyeop.common.mail.MailSender;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
 import com.kh.hehyeop.member.validator.JoinForm;
@@ -47,6 +48,11 @@ public class MemberServiceImpl implements MemberService{
 	public void selectPasswordByEmail(Member member, String token) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public CMember authenticateCUser(CMember cmember) {
+		return memberRepository.authenticateCUser(cmember);
 	}
 
 }

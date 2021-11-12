@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.validator.JoinForm;
 
@@ -25,9 +26,8 @@ public interface MemberRepository {
 	
 	Member selectMemberByUserId(String id);
 	
-	
-	
-	
+	@Select("select * from member_c where id = #{id} and password = #{password}")
+	CMember authenticateCUser(CMember cmember);
 	
 	@Insert("insert into member(id, password, name, tell, email, nickname, address, old_address, point, grade, reg_date, is_leave) "
 			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{nickname}, #{address}, #{oldAddress}, #{point}, #{grade}, #{reg_date}, #{is_leave})")

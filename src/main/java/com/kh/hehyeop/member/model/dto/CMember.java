@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CMember {
-	private String cId;
+	private String id;
 	private String password;
 	private String name;
 	private String tell;
