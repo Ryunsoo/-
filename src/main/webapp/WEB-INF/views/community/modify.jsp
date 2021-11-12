@@ -15,6 +15,7 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 
 <script>
 
@@ -29,6 +30,7 @@
 </script>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 <div class="wrap">
     <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
@@ -101,5 +103,6 @@
     </div>
    </div>
    <!--wrap == container 끝-->
+   <script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </body>
 </html>

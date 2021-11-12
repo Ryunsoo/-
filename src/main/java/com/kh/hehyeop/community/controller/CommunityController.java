@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("community")
 public class CommunityController {
 
-	@GetMapping("board-list")
+	@GetMapping("list")
 	public void boardListTest() {}
 	
-	@GetMapping("board-view")
+	@GetMapping("view")
 	public void boardViewTest() {}
 	
-	@GetMapping("board-search")
+	@GetMapping("search")
 	public void boardSearchTest() {}
 	
-	@GetMapping("board-write")
+	@GetMapping("write")
 	public void boardWriteTest() {}
 	
-	@GetMapping("board-modify")
+	@GetMapping("modify")
 	public void boardModifyTest() {}
 
 	

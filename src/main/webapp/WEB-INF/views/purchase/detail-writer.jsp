@@ -3,21 +3,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/purchase/purchase-detail.css">
+<link rel='stylesheet' href="../../../resources/css/purchase/purchase-detail-writer.css">
+<link rel='stylesheet' href="../../../resources/css/chat/chat.css">
 <meta charset="UTF-8">
 </head>
 
 
 <body>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+	
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
 		<!-- 페이지 제목 -->
 		<div class="title">
-			<div id="this-page-name">&nbsp&nbsp조회해협</div>
+			<div class="page-title-wrapper">
+				<div id="this-page-name">&nbsp&nbsp조회해협</div>
+				<div id="update-delete-icon">
+					<i class="fas fa-pen"></i>
+					<i class="fas fa-trash"></i>
+				</div>
+			</div>
 			
 			<!-- 구분선 -->
 			<div id="line-wrapper">
@@ -131,22 +139,14 @@
 			
 			<div class="submit-ask">
 				<div>
-					<p>신청해협</p>
-				</div>
-				<div>
-					<p>문의해협</p>
+					<p>구매확정</p>
 				</div>
 			</div>
 			
 			
 		</div>
 		
-		
-		
-		
-		
-	
-	
+
 	
 	</div>
 	<!-- 섹션 끝 -->
@@ -157,12 +157,6 @@
 	</div>
 
 
-
-
-
-
-
-
-
+<script type="text/javascript" src="../../../resources/js/chat/chat.js"></script>
 </body>
 </html>
