@@ -33,4 +33,16 @@ public class MypageServiceImpl implements MypageService{
 		
 	}
 
+	@Override
+	public void deleteMobileToken(String id) {
+		mypageRepository.deleteMobileToken(id);
+		
+	}
+
+	@Override
+	public void deletePcToken(String id) {
+		mypageRepository.deletePcToken(id);
+		
+	}
+
 }

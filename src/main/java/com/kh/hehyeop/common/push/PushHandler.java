@@ -33,5 +33,20 @@ public class PushHandler {
 		return "mypage";
 	}
 	
+	@PostMapping("delete-token")
+	public String deleteToken(HttpSession session, String device) {
+		Member member = new Member();
+		member.setId("tokentest");
+		device = "mobile";
+		
+		if(device == "mobile") {	
+			mypageService.deleteMobileToken(member.getId());
+		}else {
+			mypageService.deletePcToken(member.getId());
+		}
+		
+		return "mypage";
+	}
+	
 	
 }

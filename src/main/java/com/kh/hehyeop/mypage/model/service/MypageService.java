@@ -7,5 +7,7 @@ public interface MypageService {
 	List<String> getValidTokens(String userId);
 	void insertMobileToken(String token, String id);
 	void insertPcToken(String token, String id);
+	void deleteMobileToken(String id);
+	void deletePcToken(String id);
 	
 }

@@ -17,5 +17,13 @@ public interface MypageRepository {
 
 	@Update("update push_token set pc_token=#{token} where id=#{id}")
 	void insertPcToken(String token, String id);
+
+	@Update("update push_token set mobile_token=null where id=#{id}")
+	void deleteMobileToken(String id);
+
+	@Update("update push_token set pc_token=null where id=#{id}")
+	void deletePcToken(String id);
+
+
 	
 }
