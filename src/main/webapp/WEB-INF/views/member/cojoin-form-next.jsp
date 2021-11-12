@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form class="form-signin">
+						<form:form modelAttribute="cJoinForm" action="/member/cojoin-form-last" method="post" class="form-signin">
 							<div class='progress_wrapper'>
                                 <div class='progress_bar'>
                                     <div class='progress'></div>
@@ -29,13 +29,13 @@
 						
 						<div class="idMargin">
 							<label>* 이메일</label><br> 								
-								<input type="text" class="form-control_all" name="username" placeholder="이메일을 입력하세요." 
+								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
 									required="" autofocus="" /><br><br>
 						</div>
 						
 						<div class="idMargin">
 							<label>* 업체명</label><br> 
-								<input type="text" class="form-control_id" name="username" 
+								<input type="text" class="form-control_id" name="company" 
 								placeholder="업체명을 작성해주세요" required="" autofocus="" />
 								
 								
@@ -43,17 +43,17 @@
 						
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
-								<input type="text" class="form-control_adress" name="username" 
+								<input type="text" class="form-control_adress" name="address" 
 								placeholder="기본 주소를 입력해주세요." required="" autofocus="" />
 								
-								<input type="text" class="form-control_adress_check" name="username" 
+								<input type="text" class="form-control_adress_check" name="addressNo" 
 								placeholder="우편번호	" required="" autofocus="" />
 								
 								<div class="check">
 									<button class="button_adress_check">주소 찾기</button>
 								</div>
 								
-								<input type="text" class="form-control_detail_adress" name="username" 
+								<input type="text" class="form-control_detail_adress" name="oldAddress" 
 								placeholder="상세 주소를 입력해주세요." required="" autofocus="" />
 						</div>
 						
@@ -70,7 +70,7 @@
 							<button class="button_next" onclick="location.href='/member/cojoin-form-last'">다음 ></button>
 						</div>
 						
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

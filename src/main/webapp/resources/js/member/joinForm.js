@@ -201,38 +201,33 @@
 	/*전화번호 입력창 테두리*/
 	document.querySelector("#tell").addEventListener('input', e => {
 		let tellInput = document.querySelector('#tell');
-		let tellExpr = /^\\d{9,11}$/;
+//		let tellExpr = /^\\d{9,11}/;
 		if(tellInput.value == "") {
 			tellInput.style.border = '1px solid lightgray';
 			confirmTellCheck = false;
 			return;
 		}
 		
-		if(!teellExpr.test(tellInput.value)) {
-			tellInput.style.border = '1px solid red';
-			confirmTellCheck = false;
-			return;
-		}
-		
-		if(tellInput.value != "") {
+//		if(!tellExpr.test(tellInput.value)) {
+//			tellInput.style.border = '1px solid red';
+//			confirmTellCheck = false;
+//			return;
+//		}
+//		
+//		if(tellExpr.test(tellInput.value)) {
+//			tellInput.style.border = '1px solid green';
+//			confirmTellCheck = true;
+//		}
+
+		if(tellInput != "") {
 			tellInput.style.border = '1px solid green';
 			confirmTellCheck = true;
 		}
+
+
 	})
 	
-	
-	
-	if(testExpr.test(passwordInput)) {
-			document.querySelector('.form-control-pw-top').style.border = '1px solid green';
-		}
-		
-		if(!testExpr.test(passwordInput)) {
-			document.querySelector('.form-control-pw-top').style.border = '1px solid red';
-		}
-		
-		if(passwordInput == "") {
-			pwInputTopReset();
-		}
+
 	
 	
 	/*제출버튼 검증*/
