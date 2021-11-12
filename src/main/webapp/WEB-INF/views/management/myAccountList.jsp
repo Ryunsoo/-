@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="${contextPath}/resources/css/include/head/menu_head.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/management/myAccountList.css">
-<title>myAccountList</title>
+<link rel='stylesheet' href="${contextPath}/resources/css/chat/chat.css">
 </head>
 <body>
 	<div id="bg" class="hidden"></div>
@@ -167,5 +167,7 @@
 		
 		</footer>
 	</div>
+	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+<script type="text/javascript" src="${contextPath}/resources/js/chat/chat.js"></script>
 </html>

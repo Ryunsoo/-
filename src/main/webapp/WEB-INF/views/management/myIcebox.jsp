@@ -5,8 +5,7 @@
 <head>
 <link rel="stylesheet" href="${contextPath}/resources/css/include/head/menu_head.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/management/myIcebox.css">
-<meta charset="UTF-8">
-<title>myIcebox</title>
+<link rel='stylesheet' href="${contextPath}/resources/css/chat/chat.css">
 </head>
 <body>
 <div id="bg" class="hidden"></div>
@@ -91,8 +90,8 @@
 		</div>
 	</div>
 
-
+	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/management/myIcebox.js"></script>
-
+<script type="text/javascript" src="${contextPath}/resources/js/chat/chat.js"></script>
 </html>
