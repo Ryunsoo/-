@@ -32,7 +32,7 @@ public interface MemberRepository {
 	
 	@Insert("insert into member(id, password, name, tell, email, nickname, address, old_address, point, grade, reg_date, is_leave) "
 			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{nickname}, #{address}, #{oldAddress}, #{point}, #{grade}, #{reg_date}, #{is_leave})")
-	void C_insertMember(Member member);
+	void insertCMember(Member member);
 	
 	@Select("select * from member where id = #{id} and password = #{password}")
 	Member C_authenticateUser(Member member);

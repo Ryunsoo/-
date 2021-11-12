@@ -126,23 +126,6 @@ public class MemberController {
 		return "redirect:/member/login-form";
 	}
 	
-	@GetMapping("join-impl/{token}")
-	public String joinImpl(@PathVariable String token
-			, @SessionAttribute(value = "persistToken", required = false) String persistToken
-			, @SessionAttribute(value = "persistUser", required = false) JoinForm form
-			, HttpSession session
-			, RedirectAttributes redirectAttrs) {
-		
-		if(!persistToken.equals(persistToken)) {
-			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
-		}
-		
-		memberService.insertMember(form);
-		redirectAttrs.addFlashAttribute("message", "회원가입을 환영합니다. 로그인 해주세요");
-		session.removeAttribute("persistToken");
-		session.removeAttribute("persistUser");
-		return "redirect:/member/login-form";
-	}
 	
 	@GetMapping("cojoin-form-next")
 	public void coJoinNextTest() {}
@@ -200,10 +183,35 @@ public class MemberController {
 			return "member/cojoin-form";
 		}
 
-		session.setAttribute("CoJoinFrom", form);
+		session.setAttribute("CoJoinForm", form);
 		logger.debug(form.toString());
 		return "member/cojoin-form-next";
 
+	}
+	
+	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
+	@PostMapping("cojoin-form-last")
+	public String coJoinLast(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "member/cojoin-form";
+		}
+		
+		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinForm");
+		  
+		form.setId(infoForm.getId());
+		form.setPassword(infoForm.getPassword());
+		form.setName(infoForm.getName());
+		form.setTell(infoForm.getTell());
+		
+		session.setAttribute("CoJoinLastForm", form);
+		logger.debug(form.toString());
+		return "member/cojoin-form-last";
+		
 	}
 	
 	@PostMapping("cjoin")
@@ -214,22 +222,43 @@ public class MemberController {
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "redirect:/member/join-form";
+			return "redirect:/member/cojoin-form";
 		}
 		
-		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinFrom");
-		  
-		form.setId(infoForm.getId());
-		form.setPassword(infoForm.getPassword());
-		form.setTell(infoForm.getTell());
 		
 		String token = UUID.randomUUID().toString();
-		session.setAttribute("persistUser", form);
+		session.setAttribute("persistCUser", form);
 		session.setAttribute("persistToken", token);
 		
-		//memberService.authenticateByEmail(form, token);
+		memberService.co_authenticateByEmail(form, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
+		return "redirect:/member/login-form";
+	}
+	
+	@GetMapping("join-impl/{token}")
+	public String joinImpl(@PathVariable String token
+			, @SessionAttribute(value = "persistToken", required = false) String persistToken
+			, @SessionAttribute(value = "persistUser", required = false) JoinForm form
+			, @SessionAttribute(value = "persistCUser", required = false) CoJoinForm coForm
+			, HttpSession session
+			, RedirectAttributes redirectAttrs) {
+		
+		if(!persistToken.equals(persistToken)) {
+			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
+		
+		if(form != null) {
+			memberService.insertMember(form);
+			session.removeAttribute("persistUser");
+		}else if(coForm != null){
+			memberService.insertCMember(coForm);
+			session.removeAttribute("persistCUser");
+		}
+		
+		redirectAttrs.addFlashAttribute("message", "회원가입을 환영합니다. 로그인 해주세요");
+		session.removeAttribute("persistToken");
+	
 		return "redirect:/member/login-form";
 	}
 	

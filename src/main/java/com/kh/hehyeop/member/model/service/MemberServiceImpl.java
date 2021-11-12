@@ -13,6 +13,7 @@ import com.kh.hehyeop.common.mail.MailSender;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
+import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
 import lombok.RequiredArgsConstructor;
@@ -82,6 +83,18 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
+	}
+
+	@Override
+	public void co_authenticateByEmail(CoJoinForm form, String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertCMember(CoJoinForm coForm) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
