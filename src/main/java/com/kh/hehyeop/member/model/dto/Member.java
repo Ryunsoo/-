@@ -3,9 +3,12 @@ package com.kh.hehyeop.member.model.dto;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
 
 @Data
-public class Member {
+@EqualsAndHashCode(callSuper = false)
+public class Member extends User {
 	
 	private String id;
 	private String password;
@@ -19,5 +22,14 @@ public class Member {
 	private String grade;
 	private Date regDate;
 	private int isLeave;
+
+	public Member() {
+		super();
+	}
+
+	public Member(String id, String name, String email, String nickname, String address, String oldAddress,
+			String grade) {
+		super(id, name, email, nickname, address, oldAddress, grade);
+	}
 	
 }

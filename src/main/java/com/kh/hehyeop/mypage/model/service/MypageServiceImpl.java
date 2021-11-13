@@ -1,6 +1,8 @@
 package com.kh.hehyeop.mypage.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class MypageServiceImpl implements MypageService{
 	
 	@Override
 	public List<String> getValidTokens(String userId) {
+		List<String> validTokens = new ArrayList<String>();
+		Map<String, String> allTokens = mypageRepository.selectPushTokensById(userId);
+		
+		
 		
 		
 		return null;

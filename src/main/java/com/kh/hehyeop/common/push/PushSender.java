@@ -1,5 +1,7 @@
 package com.kh.hehyeop.common.push;
 
+import java.util.List;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +9,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,11 @@ public class PushSender {
 	public void send(String userId, String title, String body) {
 		Notification noti = getNotification(title, body);
 		Message message = getMessage(noti, userId);
+		
+		
+		
+		
+		
 		
 		try {
 			FirebaseMessaging.getInstance().send(message);

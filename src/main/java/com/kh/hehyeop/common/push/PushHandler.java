@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,11 @@
 package com.kh.hehyeop.member.model.dto;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CMember {
+@EqualsAndHashCode(callSuper = false)
+public class CMember extends User {
 	private String id;
 	private String password;
 	private String name;
@@ -19,5 +21,14 @@ public class CMember {
 	private int isPermit;
 	private Date permitDate;
 	private String cIdx;
-	
+
+	public CMember() {
+		super();
+	}
+
+	public CMember(String id, String name, String email, String nickname, String address, String oldAddress,
+			String grade) {
+		super(id, name, email, nickname, address, oldAddress, grade);
+	}
+
 }
