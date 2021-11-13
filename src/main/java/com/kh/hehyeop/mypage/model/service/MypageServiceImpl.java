@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,26 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<String> getValidTokens(String userId) {
 		List<String> validTokens = new ArrayList<String>();
-		Map<String, String> allTokens = mypageRepository.selectPushTokensById(userId);
 		
+		Token token = mypageRepository.selectPushTokensById(userId);
+		if(token.getMobileToken() != null) validTokens.add(token.getMobileToken());
+		if(token.getPcToken() != null) validTokens.add(token.getPcToken());
 		
+		return validTokens;
+	}
+	
+	@Override
+	public List<String> getValidTokens(List<String> userIdList) {
+		List<String> validTokens = new ArrayList<String>();
+		List<Token> tokenList = mypageRepository.selectPushTokensByManyId(userIdList);
+		System.out.println(tokenList);
 		
+		for (Token token : tokenList) {
+			if(token.getMobileToken() != null) validTokens.add(token.getMobileToken());
+			if(token.getPcToken() != null) validTokens.add(token.getPcToken());
+		}
 		
-		return null;
+		return validTokens;
 	}
 
 	@Override
@@ -39,6 +54,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 
+
+	
 
 
 }

@@ -28,6 +28,14 @@
   			</if>
   		</set> 	
   	</update>
+	
+	<select id="selectPushTokensByManyId" resultType="Token">
+		select * from push_token where id in
+		<foreach collection="list" item="userId" open="(" close=")" separator=",">
+			#{userId}
+		</foreach>
+	</select>
+  	
   	
   
   
