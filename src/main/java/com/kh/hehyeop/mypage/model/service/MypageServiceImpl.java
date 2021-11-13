@@ -28,15 +28,10 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void insertMobileToken(String token, String id) {
-		mypageRepository.insertMobileToken(token, id);
-		
-	}
-
-	@Override
-	public void insertPcToken(String token, String id) {
-		mypageRepository.insertPcToken(token, id);
-		
+	public void insertToken(String token, String device, String id) {
+		System.out.println("service = " + token);
+		System.out.println("service = " + device);
+		mypageRepository.insertToken(Map.of("token",token,"device",device,"id",id));
 	}
 
 	@Override
@@ -50,5 +45,6 @@ public class MypageServiceImpl implements MypageService{
 		mypageRepository.deletePcToken(id);
 		
 	}
+
 
 }
