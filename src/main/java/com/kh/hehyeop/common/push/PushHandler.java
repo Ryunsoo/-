@@ -30,13 +30,13 @@ public class PushHandler {
 		return "success";
 	}
 	
-	@PostMapping("delete-token")
+	@GetMapping("delete-token")
 	@ResponseBody
 	public String deleteToken(HttpSession session, String device) {
 		User user = (User) session.getAttribute("authentication");
 		mypageService.deleteToken(device,user.getId());
 
-	return "success";
+		return "success";
 	}
 	
 	

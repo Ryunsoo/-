@@ -1,6 +1,7 @@
 let pcPushOn = () => {
-	getToken(pc);
+	getToken("pc");
 }
 let mobilePushOn = () => {
-	getToken(mobile);
+	getToken("mobile");
 }
+

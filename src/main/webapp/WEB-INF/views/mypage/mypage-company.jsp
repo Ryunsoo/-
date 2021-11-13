@@ -36,7 +36,7 @@
 						<br>
 						변경하실 수 있습니다.
 						<br><br>
-						*자세한 안내는 챗봇을 통해 확인하실 수 있습니다.
+						*버튼이 동작하지 않을 시 새로고침을 눌러주세요.
 					</div>
 				</div>
 			</div>
@@ -432,44 +432,19 @@ let changeNomal = () => {
         	delete_user.classList.add("hidden");
         });	
         
-        /* 탈퇴 완료 확인 모달 */
-        let real_delete_confirm = () => {
-    		let modal = initModal('modal', 3);
-    		appendTitle(modal, '회원탈퇴');
-    		setButton(modal, '확인');
-    		setContent(modal,true,true);
-    		
-    		
-    		let modalBody = $('<div class="bye">탈퇴되었습니다.<div><br>')
-    						.addClass('send_modal_content');
-    		$('.modal_content').append(modalBody);
-    		
-    		
-    		modalBlock();
-    		
-    		$('.modal_left_btn').click(function() {
-    			modalNone();
-    		})
-    	}
-        
-        /* 푸시알림 모달 */
-        let createPushModal = () => {
-        	let modal = initModal('modal', 1);
-        	appendTitle(modal, '푸시알림 설정');
-        	setButton(modal, '설정완료');
-        	setContent(modal, true, true);
-        	
-        	let modalBody = $('<div class="device">*현재 접속한 기기설정만 변경가능</div><br><br><div class="push_wrap"><div class="push_text1">PC 알림허용</div><button id="push_btn1" onclick="pcPushOn()">알림켜기</button><button id="push_btn2" onclick="pcPushOff()">알림끄기</button></div><br><br><div class="push_wrap"><div class="push_text2">모바일 알림허용</div><button id="push_btn1" onclick="mobilePushOn()">알림켜기</button><button id="push_btn2" onclick="mobilePushOff()">알림끄기</button></div>').height('10px')
-        					.addClass('send_modal_content');
-        	$('.modal_content').append(modalBody);
-        	modalBlock();
-        	$('.modal_left_btn').click(function() {
-        		modalNone();
-        	})
-        }
 </script>
+</body>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
-</body>
+
+<script type="text/javascript" src="../../../resources/js/mypage/company_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/requestToken.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/requestDelete.js"></script>
+<!-- 토큰발급 -->
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script src="../../../resources/js/include/push/getToken.js"></script>
+<script src="../../../resources/js/include/push/tokenFetch.js"></script>
+<script src="../../../resources/js/include/push/deleteFetch.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/resultPush.js"></script>
 </html>

@@ -32,7 +32,7 @@
 						<br>
 						변경하실 수 있습니다.
 						<br><br>
-						*자세한 안내는 챗봇을 통해 확인하실 수 있습니다.
+						*버튼이 동작하지 않을 시 새로고침을 눌러주세요.
 					</div>
 				</div>
 			</div>
@@ -278,20 +278,15 @@ document.querySelector("#title2").addEventListener('click', e => {
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
-<script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
-
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
-<script type="text/javascript">
-let pcPushOn = () => {
-	getToken("pc");
-}
-let mobilePushOn = () => {
-	getToken("mobile");
-}
-</script>
+
+<script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/requestToken.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/requestDelete.js"></script>
 <!-- 토큰발급 -->
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
-<script src="../../../resources/js/include/push/push-fcm.js"></script>
+<script src="../../../resources/js/include/push/getToken.js"></script>
 <script src="../../../resources/js/include/push/tokenFetch.js"></script>
+<script src="../../../resources/js/include/push/deleteFetch.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/resultPush.js"></script>
 </html>
