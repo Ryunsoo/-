@@ -17,8 +17,17 @@
   		</set> 	
   	</update>
   	
-
-  	
+  	<update id="deleteToken">
+  		update push_token 
+  		<set>
+  			<if test="device=='pc'">
+  				pc_token=null where id=#{id}
+  			</if>
+  			<if test="device=='mobile'">
+  				mobile_token=null where id=#{id}
+  			</if>
+  		</set> 	
+  	</update>
   	
   
   

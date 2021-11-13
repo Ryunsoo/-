@@ -14,12 +14,7 @@ public interface MypageRepository {
 
 	void insertToken(Map<String, Object> tokenMap);
 
-	@Update("update push_token set mobile_token=null where id=#{id}")
-	void deleteMobileToken(String id);
-
-	@Update("update push_token set pc_token=null where id=#{id}")
-	void deletePcToken(String id);
-
+	void deleteToken(Map<String, Object> tokenMap);
 
 	
 }

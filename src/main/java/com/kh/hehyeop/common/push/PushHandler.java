@@ -23,11 +23,9 @@ public class PushHandler {
 	
 	@GetMapping("save-token")
 	@ResponseBody
-	public String saveToken(String token, HttpSession session, String device){
-		Member member = new Member();
-		member.setId("token");
-			
-			mypageService.insertToken(token,device,member.getId());
+	public String saveToken(String token, HttpSession session, String device){		
+		User user = (User) session.getAttribute("authentication");
+			mypageService.insertToken(token,device,user.getId());
 
 		return "success";
 	}
@@ -35,17 +33,10 @@ public class PushHandler {
 	@PostMapping("delete-token")
 	@ResponseBody
 	public String deleteToken(HttpSession session, String device) {
-		Member member = new Member();
-		member.setId("tokentest");
-		device = "mobile";
-		
-		if(device == "mobile") {	
-			mypageService.deleteMobileToken(member.getId());
-		}else {
-			mypageService.deletePcToken(member.getId());
-		}
-		
-		return "mypage";
+		User user = (User) session.getAttribute("authentication");
+		mypageService.deleteToken(device,user.getId());
+
+	return "success";
 	}
 	
 	
