@@ -279,11 +279,19 @@ document.querySelector("#title2").addEventListener('click', e => {
 </body>
 <script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
-<script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
-<script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 
+<script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+<script type="text/javascript">
+let pcPushOn = () => {
+	getToken("pc");
+}
+let mobilePushOn = () => {
+	getToken("mobile");
+}
+</script>
 <!-- 토큰발급 -->
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script src="../../../resources/js/include/push/push-fcm.js"></script>
-
+<script src="../../../resources/js/include/push/tokenFetch.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/resultPush.js"></script>
 </html>

@@ -1,4 +1,4 @@
-let pcPushOn = () => {
+let getToken = (device) => {
 	// Initialize Firebase
     var config = {
           apiKey: "AIzaSyBm8HfRS1qzvn23KxVwDNLbZsOLHMAizBw",
@@ -20,26 +20,11 @@ let pcPushOn = () => {
             return messaging.getToken();
         })
         .then(function(token){
-			document.querySelector('#token').innerHTML = token;
             console.log(token);
+            fetchToken(token,device);
+            
         })
         .catch(function(arr){
             console.log("Error Occured");
         });
-    
-    let token = document.querySelector('#token').innerHTML;
-    if(token){
-       fetch('/경로?token=' + token)
-       .then(response => {
-       return response.text();
-    }).then(text => {
-          if(text == 'success'){
-             pcPushOnSuccess();
-          }else if(text == 'fail'){
-             pcPushOnFail();                    
-          }
-       }).catch(error => {
-       		pcPushOnFail();
-    })
-    }
 }
