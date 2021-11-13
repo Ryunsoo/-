@@ -173,10 +173,9 @@
 			</div>	
 		</div>
 	</div>
-
 </div>
 <div style="display:none" class="temp_address"></div>
-
+<div id="token" style="display:none"></div>
 <script type="text/javascript">
 /* 이웃리스트 추가  */
 document.querySelector("#title2").addEventListener('click', e => {
@@ -282,6 +281,8 @@ document.querySelector("#title2").addEventListener('click', e => {
 <script type="text/javascript" src="../../../resources/js/mypage/common_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+
+<!-- 토큰발급 -->
 <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
 <script src="../../../resources/js/include/push/push-fcm.js"></script>
 
