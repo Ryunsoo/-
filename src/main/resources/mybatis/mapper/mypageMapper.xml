@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.kh.hehyeop.mypage.model.repository.MypageRepository"> 
+  
+  	<update id="insertToken">
+  		update push_token 
+  		<set>
+  			<if test="device=='pc'">
+  				pc_token=#{token} where id=#{id}
+  			</if>
+  			<if test="device=='mobile'">
+  				mobile_token=#{token} where id=#{id}
+  			</if>
+  		</set> 	
+  	</update>
+  	
+
+  	
+  	
+  
+  
+  </mapper>

@@ -5,8 +5,7 @@ import java.util.List;
 public interface MypageService {
 
 	List<String> getValidTokens(String userId);
-	void insertMobileToken(String token, String id);
-	void insertPcToken(String token, String id);
+	void insertToken(String token,String device, String id);
 	void deleteMobileToken(String id);
 	void deletePcToken(String id);
 	

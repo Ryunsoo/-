@@ -18,24 +18,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PushHandler {
 
-	private static MypageService mypageService;
+	private final MypageService mypageService;
 	
 	@GetMapping("save-token")
 	@ResponseBody
 	public String saveToken(String token, HttpSession session, String device){
 		Member member = new Member();
 		member.setId("token");
-		if(device == "mobile") {	
-			mypageService.insertMobileToken(token,member.getId());
-		}else {
-			//mypageService.insertPcToken(token,member.getId());
-			return "success";
-		}
-	
-		return "mypage";
+			
+			mypageService.insertToken(token,device,member.getId());
+
+		return "success";
 	}
 	
 	@PostMapping("delete-token")
+	@ResponseBody
 	public String deleteToken(HttpSession session, String device) {
 		Member member = new Member();
 		member.setId("tokentest");
