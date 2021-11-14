@@ -9,6 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.WebpushConfig;
+import com.google.firebase.messaging.WebpushNotification;
 import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
@@ -40,6 +45,23 @@ public class PushHandlerTest {
 		member2.setId("token");
 		
 		sender.send(List.of(member1, member2), "여러명한테 보낸다", "하하하하ㅏ");
+	}
+	
+	@Test
+	public void webPushNotification() throws FirebaseMessagingException {
+		
+		WebpushConfig config =  WebpushConfig.builder()
+			.setNotification(WebpushNotification.builder()
+					.setTitle("웹푸시노티")
+					.setBody("으아아아아....")
+					.build())
+			.build();
+		
+		Message message = Message.builder().setWebpushConfig(config)
+			.setToken("c2A2yT1g5Fw:APA91bG6LmTaiSoHRCvRztpSdUwstgvGMvCr_fkMcpq3IMtdc_dGxhZmUkpZ8J2Ravk0QrTwsBgdrsRbXuYZ1IjaA4R0TPSnS8JDubx3Fc0Ix-MUCPoFSP6ltDe0B1KsD6iwkHVCLopU")
+			.build();
+		
+		FirebaseMessaging.getInstance().send(message);
 	}
 	
 }

@@ -13,13 +13,17 @@ var config = {
 
 firebase.initializeApp(config);
 
-const messaging = firebase.messaging();
+//const messaging = firebase.messaging();
+const messaging = getMessaging(firebaseApp);
+
 messaging.setBackgroundMessageHandler(function(payload){
- 
-    const title = "Hello World";
-    const options = {
-            body: payload.data.status
-    };
- 
-    return self.registration.showNotification(title,options);
+
+	var notification = payload.notification;
+	var notificationTitle = notification.title;
+	var notificationOptions = {
+		body: notification.body,
+		icon: '/resources/image/logo-icon.png'
+	};
+	
+    return self.registration.showNotification(notificationTitle, notificationOptions);
 });

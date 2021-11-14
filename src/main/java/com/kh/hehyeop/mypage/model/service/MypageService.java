@@ -10,4 +10,5 @@ public interface MypageService {
 	void deleteToken(String device,String id);
 	
 	
+	
 }
