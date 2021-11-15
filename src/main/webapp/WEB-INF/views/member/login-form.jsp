@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link href="../../../resources/css/all.css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/member/login-form.css">
+<link rel='stylesheet' href="../../../resources/css/member/social-join-form.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -187,6 +187,7 @@ let createFindIdModal = () => {
 
 //비밀번호찾기
 let createFindPwModal = () => {
+	
 	let modal = initModal('modal', 2);
 	appendTitle(modal,'비밀번호 찾기');
 	setButton(modal,'그만두기','비밀번호 찾기');
