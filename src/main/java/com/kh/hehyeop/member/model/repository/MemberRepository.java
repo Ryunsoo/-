@@ -31,7 +31,7 @@ public interface MemberRepository {
 
 //	member find password
 	@Select("select email from (select name, id, email from member union select name, id, email from member_c) where name = 'test' and id = 'test' and email = 'alssgo70051@gmail.com'")
-	String selectPasswordByEmail(String name, String id, String email);
+	String changePasswordByEmail(String name, String id, String email);
 	
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
 	Member selectMemberByUserId(String id);

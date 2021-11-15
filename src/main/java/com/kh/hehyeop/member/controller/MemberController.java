@@ -89,10 +89,16 @@ public class MemberController {
 	@ResponseBody
 	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
 		System.out.println("돌고있냐? : " + name + id + email);
-		String certifiedId = memberService.selectPasswordByEmail(name, id, email);
+		String certifiedId = memberService.changePasswordByEmail(name, id, email);
+		
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistUser", certifiedId);
+		session.setAttribute("persistToken", token);
+		
 
 		if (certifiedId != null) {
-			session.setAttribute("findingId", certifiedId);
+			memberService.findPasswordByEmail(email, token);
+			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 			return certifiedId;
 		}
 		return null;

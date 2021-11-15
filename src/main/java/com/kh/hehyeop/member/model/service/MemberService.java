@@ -17,10 +17,8 @@ public interface MemberService {
 
 	String selectIdByEmail(String name, String tell, String email);
 	
-	String selectPasswordByEmail(String name, String id, String email);
+	String changePasswordByEmail(String name, String id, String email);
 	
-	CMember selectPasswordByEmail(CMember cmember);
-
 	void authenticateByEmail(JoinForm form, String token);
 	
 	Member selectMemberByNickname(String nickname);
@@ -38,5 +36,8 @@ public interface MemberService {
 	ArrayList<String> selectCategory();
 
 	void insertFields(String id, List<String> fields);
+
+	void findPasswordByEmail(String email, String token);
+
 
 }

@@ -136,13 +136,26 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String selectPasswordByEmail(String name, String id, String email) {
-		return memberRepository.selectPasswordByEmail(name, id, email);
+	public String changePasswordByEmail(String name, String id, String email) {
+		return memberRepository.changePasswordByEmail(name, id, email);
 	}
 
 	@Override
-	public CMember selectPasswordByEmail(CMember cmember) {
-		return memberRepository.C_selectPasswordByEmail(cmember);
+	public void findPasswordByEmail(String email, String token) {
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("mailTemplate", "join-auth-mail");
+		body.add("persistToken", token);
+		
+		RequestEntity<MultiValueMap<String, String>> request = 
+				RequestEntity.post(Config.DOMAIN.DESC + "/mail")
+				.accept(MediaType.APPLICATION_FORM_URLENCODED)
+				.body(body);
+		
+		String htmlTxt = http.exchange(request, String.class).getBody();
+		
+		mailSender.send(email, "회원가입을 축하합니다.", htmlTxt);
+		
 	}
+
 }
 
