@@ -1,5 +1,8 @@
 package com.kh.hehyeop.member.model.service;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +21,7 @@ import com.kh.hehyeop.member.validator.JoinForm;
 
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -26,42 +30,56 @@ public class MemberServiceImpl implements MemberService{
 	private final MailSender mailSender;
 	private final RestTemplate http;
 	private final PasswordEncoder passwordEncoder;
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Override
+
+
 	public void insertMember(JoinForm form) {
 		form.setPassword(passwordEncoder.encode(form.getPassword()));
 		memberRepository.insertMember(form);
 	}
 
-	@Override
+	
 	public Member authenticateUser(Member member) {
-		return memberRepository.authenticateUser(member);
+		
+		Member storedMember = memberRepository.selectMemberByUserId(member.getId());
+		
+		if(storedMember != null && passwordEncoder.matches(member.getPassword(), storedMember.getPassword())) {
+			return storedMember;
+		}
+		return null;
+	}
+	
+	public CMember authenticateCUser(CMember cmember) {
+		
+		CMember storedCMember = memberRepository.selectCMemberByUserId(cmember.getId());
+		if(storedCMember != null && passwordEncoder.matches(cmember.getPassword(), storedCMember.getPassword())){
+			return storedCMember;
+		}
+		
+		return null;
 	}
 
-	@Override
+	
 	public Member selectMemberByUserId(String id) {
 		// TODO Auto-generated method stub
 		return memberRepository.selectMemberByUserId(id);
 	}
 
-	@Override
+	
 	public void selectIdByEmail(Member member, String token) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void selectPasswordByEmail(Member member, String token) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public CMember authenticateCUser(CMember cmember) {
-		return memberRepository.authenticateCUser(cmember);
-	}
 
-	@Override
+	
 	public void authenticateByEmail(JoinForm form, String token) {
 		
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
@@ -80,18 +98,18 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
-	@Override
+	
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
 	}
 
-	@Override
+	
 	public void co_authenticateByEmail(CoJoinForm form, String token) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void insertCMember(CoJoinForm coForm) {
 		// TODO Auto-generated method stub
 		

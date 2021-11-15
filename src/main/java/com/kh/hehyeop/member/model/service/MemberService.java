@@ -9,10 +9,6 @@ public interface MemberService {
 
 	void insertMember(JoinForm form);
 
-	Member authenticateUser(Member member);
-	
-	CMember authenticateCUser(CMember cmember);
-
 	Member selectMemberByUserId(String id);
 
 	void selectIdByEmail(Member member, String token);
@@ -26,4 +22,9 @@ public interface MemberService {
 	void co_authenticateByEmail(CoJoinForm form, String token);
 
 	void insertCMember(CoJoinForm coForm);
+
+	Member authenticateUser(Member member);
+	
+	CMember authenticateCUser(CMember cmember);
+
 }

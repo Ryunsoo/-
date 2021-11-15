@@ -80,8 +80,8 @@ public class MemberControllerTest {
 	@Test
 	public void loginImpl() throws Exception {
 		mockMvc.perform(post("/member/login")
-				.param("userId", "DEV")
-				.param("password", "00009999"))
+				.param("userId", "test")
+				.param("password", "xptmxm123!"))
 		.andExpect(status().is3xxRedirection())  //redirect
 		.andDo(print());
 	}
