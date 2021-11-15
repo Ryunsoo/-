@@ -163,7 +163,7 @@ let createFindIdModal = () => {
 						modalNone();
 					})
 					
-				}else if (text='fail') {
+				}else {
 					setModalTitle('modal2','이메일로 아이디 찾기');
 					setModalBody('modal2','<b style="color:red;">입력하신 정보와 일치하는 회원이 없습니다.</b><br>이름과 이메일 정보를 다시 한번 확인해주세요');
 					removeModalFnc("okay");
@@ -198,7 +198,7 @@ let createFindPwModal = () => {
 	
 	
 	let findPwName = $('<div>').addClass('find_modal_body');
-	let findPwNametext = $('<div>이름<div>').height('20px').addClass('find_modal_Text');
+	let findPwNametext = $('<div id="name">이름<div>').height('20px').addClass('find_modal_Text');
 	let findPwNameInput = $('<div>').height('30px');
 	let findPwNameInputBox = $('<input>').attr('placeholder','이름을 입력하세요');
 	ModalBody.append(findPwName);
@@ -208,7 +208,7 @@ let createFindPwModal = () => {
 	
 	
 	let findPwId = $('<div>').addClass('find_modal_body');
-	let findPwIdtext = $('<div>아이디<div>').height('20px').addClass('find_modal_Text');
+	let findPwIdtext = $('<div id="id">아이디<div>').height('20px').addClass('find_modal_Text');
 	let findPwIdInput = $('<div>').height('30px');
 	let findPwIdInputBox = $('<input>').attr('placeholder','아이디를 입력하세요');
 	ModalBody.append(findPwId);
@@ -218,7 +218,7 @@ let createFindPwModal = () => {
 	
 	
 	let findPwEmail = $('<div>').addClass('find_modal_body');
-	let findPwEmailtext = $('<div>이메일<div>').height('20px').addClass('find_modal_Text');
+	let findPwEmailtext = $('<div id="email">이메일<div>').height('20px').addClass('find_modal_Text');
 	let findPwEmailInput = $('<div>').height('30px');
 	let findPwEmailInputBox = $('<input>').attr('placeholder','가입 시 저장한 이메일을 입력하세요');
 	ModalBody.append(findPwEmail);
@@ -230,20 +230,41 @@ let createFindPwModal = () => {
 	
 	$('.modal_right_btn').click(function() {
 		modalNone();
+		
+		let name = document.querySelector("#name").value;
+		let id = document.querySelector("#id").value;
+		let email = document.querySelector("#email").value;
+		console.dir(name);
+		console.dir(tell);
+		console.dir(email);
+		
 		let modal = initModal('modal', 1);
 		appendTitle(modal,'비밀번호 찾기');
 		setButton(modal,'닫기','이메일 확인하기');
 		setContent(modal,true,true);
 		
-		let ModalBody = $('<div>').addClass('findIdIsOk_modal');
-		$('.modal_content').append(ModalBody); 
-		let findIdIsOk1 = $('<div>입력하신<div>').addClass('findIdIsOk_text1');
-		let findIdIsOk2 = $('<div>babyfox225@naver.com<div>').addClass('findIdIsOk_text2');
-		let findIdIsOk3 = $('<div>&nbsp로 인증 메일이 발송되었습니다.<div>').addClass('findIdIsOk_text1');
-		ModalBody.append(findIdIsOk1);
-		ModalBody.append(findIdIsOk2);
-		ModalBody.append(findIdIsOk3);
-		modalBlock();
+		
+		fetch('/member/finding-pw?name='+name+'&id='+id+'&email='+email)
+		.then(res=> res.text())
+		.then(text=> {
+			
+				if(text) {
+					let ModalBody = $('<div>').addClass('findIdIsOk_modal');
+					$('.modal_content').append(ModalBody); 
+					let findIdIsOk1 = $('<div>입력하신<div>').addClass('findIdIsOk_text1');
+					let findIdIsOk2 = $('<div>babyfox225@naver.com<div>').addClass('findIdIsOk_text2');
+					let findIdIsOk3 = $('<div>&nbsp로 인증 메일이 발송되었습니다.<div>').addClass('findIdIsOk_text1');
+					ModalBody.append(findIdIsOk1);
+					ModalBody.append(findIdIsOk2);
+					ModalBody.append(findIdIsOk3);
+					modalBlock();
+				}else {
+					setModalTitle('modal2','이메일로 비밀번호 찾기');
+					setModalBody('modal2','<b style="color:red;">입력하신 정보와 일치하는 회원이 없습니다.</b><br>이름과 이메일 정보를 다시 한번 확인해주세요');
+					removeModalFnc("okay");
+					modal2();
+				}
+		});
 		
 		$('.modal_right_btn').click(function(){
 			window.open("https://www.naver.com");
