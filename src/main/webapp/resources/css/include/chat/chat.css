@@ -100,3 +100,17 @@ div {
 	border-bottom: 1px solid #bcbcbc;
 }
 
+#chattingRoom {
+	width: 487px;
+	height: 741px;
+	position: fixed;
+	right: 100px;
+   	bottom: 100px;
+   	border: none;
+   	z-index: 9999999;
+   	background-color: rgba(250, 248, 245, 0.78); 
+	border-width: 0px; 
+	border-style: none; 
+	border-radius: 35px; 
+	box-shadow: rgba(0, 0, 0, 0.28) 0px 0px 10px 1px;
+}

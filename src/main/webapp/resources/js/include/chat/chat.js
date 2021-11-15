@@ -6,8 +6,12 @@ function clickChatting(){
 
 function clickChatting2(){
 	let viewChat = document.getElementById("chatting_main");
+	let viewChatRoom = document.querySelector("#chattingRoom");
 	if(document.querySelector('body').classList.contains('frogue-opened')) {
 		return;
+	}
+	if (viewChatRoom.style.display == "flex"){
+		viewChatRoom.style.display = "none";
 	}
 	if (viewChat.style.display == "none"){
 		viewChat.style.display = "flex";
@@ -18,9 +22,18 @@ function clickChatting2(){
 
 function closeChat(){
 	let viewChat = document.getElementById("chatting_main");
+	let viewChatRoom = document.querySelector("#chattingRoom");
 	if (viewChat.style.display == "flex"){
 		viewChat.style.display = "none";
 	}
+	if (viewChatRoom.style.display == "flex"){
+		viewChatRoom.style.display = "none";
+	}
+}
+
+function openChattingRoom() {
+	document.querySelector("#chattingRoom").style.display = "flex";
+	document.getElementById("chatting_main").style.display = "none";
 }
 
 (function(d, s, id){

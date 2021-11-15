@@ -1,8 +1,13 @@
 package com.kh.hehyeop.test;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -14,6 +19,10 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @ServerEndpoint(value="/echo.do")
@@ -25,6 +34,14 @@ public class WebSocketChat {
         // TODO Auto-generated constructor stub
         System.out.println("웹소켓(서버) 객체생성");
     }
+    
+    @GetMapping(value = "/loginProcess.do")
+	public String loginProcess(HttpSession session) {
+		String userId = "이호준";
+		logger.info("Welcome "+userId);
+    	session.setAttribute("id", userId);
+		return "chat-room";
+	}
     
     @OnOpen
     public void onOpen(Session session) {
