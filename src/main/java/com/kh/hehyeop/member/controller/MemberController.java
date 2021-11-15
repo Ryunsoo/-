@@ -147,7 +147,7 @@ public class MemberController {
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "redirect:/member/social-join-form";
+			return "member/social-join-form";
 		}
 		
 		form.setId((String)session.getAttribute("id"));

@@ -8,13 +8,15 @@
 
 <style type="text/css">
 
-.valid-msg{
-  font-size: 13px; 
-  color: red;
+.valid-msg {
+	font-size: 13px;
+	color: red;
+	margin-left: 10px;
 }
 
-input:focus {outline:none;}
-
+input:focus {
+	outline: none;
+}
 </style>
 
 </head>
@@ -49,12 +51,12 @@ input:focus {outline:none;}
 							</div>
 							
 							<div class=tellMargin>
-								<label>* 전화번호 <form:errors path="tell" cssClass="valid-msg"/></label><br>
+								<label>* 전화번호<form:errors path="tell" cssClass="valid-msg"/></label><br>
 									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off" value="01011111111"/><br>
 							</div>
 						</div>
 						<div class="idMargin">
-							<label>* 이메일</label><form:errors path="email"/><br>								
+							<label>* 이메일<form:errors path="email" cssClass="valid-msg"/></label><br>								
 								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
 									<c:if test="${empty error.email}">
 										value = "${joinForm.email}"
@@ -75,7 +77,7 @@ input:focus {outline:none;}
 								<div class="check">
 									<button id="btnNickCheck" class="button_check">중복확인</button>
 									<c:if test="${empty error.nickname}">
-										<span id="nicknameCheck" class="valid-msg"></span>
+										<span id="nicknameCheck" class="valid-msg" cssClass="valid-msg"></span>
 									</c:if>
 									<form:errors path="nickname"/>
 								</div>
