@@ -133,8 +133,10 @@ public class MemberController {
 	public void coJoinLastTest(HttpSession session) {
 		
 		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<String> categoryList = memberService.selectCategory();
 		
 		session.setAttribute("fieldList", fieldList);
+		session.setAttribute("categoryList", categoryList);
 		
 		logger.debug(fieldList.toString());
 		
