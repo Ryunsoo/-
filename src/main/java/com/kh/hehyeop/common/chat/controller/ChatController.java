@@ -29,6 +29,10 @@ public class ChatController {
 	public List<ChatLog> chatList(HttpSession session){		
 		User user = (User) session.getAttribute("authentication");
 		
+		if(user == null) {
+			return null;
+		}
+		
 		List<ChatLog> chatLog = chatService.selectChatListById(user.getId());
 		session.setAttribute("chatLog", chatLog);
 		return chatLog;
