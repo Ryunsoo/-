@@ -45,7 +45,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 		User user = (User) session.getAttribute("authentication");
 		
 		switch (uriArr[2]) {
-		case "char-room":
+		case "chat-room":
 			if(user == null) {
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR.setURL(""));
 			}
