@@ -19,8 +19,6 @@
 		
 		<div class="room_main">
 			<div class="chatting_wrap">
-				
-				
 				<div class="input_wrap">
 					<input type="text" id="input_box" placeholder="내용을 입력하세요">
 					<div type="button" id="send_btn" onclick="send()"><div><i class="fas fa-paper-plane"></i></div></div>
@@ -39,10 +37,8 @@
     
 <!-- websocket javascript -->
 <script type="text/javascript">
+
       var ws;
-      var eventMsg = document.querySelector(".event_wrap");
-      var senderMsg = document.querySelector("#sender_msg");
-      var myMsg = document.querySelector("#my_msg");
       
       function openSocket(){
           if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
@@ -64,12 +60,14 @@
               console.log(event.data);
               let message = event.data;
               let loc = message.indexOf(':');
-              if(!loc) myResponse(message.substring(1));
-              if(loc) senderResponse(message.substring(loc + 1));
-              
-              //누가 보내도 여기로 온닷
-              //eventResponse(event.data);
-              
+              console.dir(typeof(loc));
+              if(loc < 0) {
+            	  eventResponse(message);
+              }else if(!loc) {
+            	  myResponse(message.substring(1));
+              }else {
+            	  senderResponse(message.substring(0, loc-1),message.substring(loc + 1));
+              }
           };
           
           ws.onclose = function(event){
@@ -77,6 +75,14 @@
           }
           
       }
+      
+      document.getElementById("input_box").addEventListener('keypress', function(event) {
+    	    console.dir("나 잘 탔어!!");
+    	    if(event.keyCode == 13) {
+    	    	console.dir("나도 잘 탔어!!");
+				send();
+    	    }
+      })
       
       function send(){
           var text = document.getElementById("input_box").value+","+document.getElementById("sender").value;
@@ -93,11 +99,11 @@
     	  let chattingWrap = document.querySelector('.chatting_wrap');
           let eventWrap = document.createElement("div");
           eventWrap.setAttribute("class","event_wrap");
-          eventMsg.innerHTML += text+"<br/>";
+          eventWrap.innerHTML = text+"<br>";
           chattingWrap.appendChild(eventWrap);
       }
       
-      function senderResponse(text){
+      function senderResponse(sender,text){
           let chattingWrap = document.querySelector('.chatting_wrap');
           let senderWrap = document.createElement("div");
           senderWrap.setAttribute("class","sender_wrap");
@@ -105,11 +111,12 @@
           
           let senderName =  document.createElement("div");
           senderName.setAttribute("id","sender_name");
+          senderName.innerHTML = sender;
           senderWrap.appendChild(senderName);
           
           let senderMsg =  document.createElement("div");
-          senderName.setAttribute("id","sender_msg");
-          senderName.innerHTML = text;
+          senderMsg.setAttribute("id","sender_msg");
+          senderMsg.innerHTML = text;
           senderWrap.appendChild(senderMsg);
           
           let sendTime =  document.createElement("div");
