@@ -27,4 +27,18 @@ let getToken = (device) => {
         .catch(function(arr){
             console.log("Error Occured");
         });
+   
+   messaging.onMessage((payload) => {
+		navigator.serviceWorker.register('/firebase-messaging-sw.js');
+		
+		navigator.serviceWorker.ready.then(function(registration) {
+			let title = payload.notification.title;
+			let option = {
+				body: payload.notification.body,
+				icon: '/resources/image/logo-icon.png'
+			};
+			
+			registration.showNotification(title, option);
+		})
+	})
 }

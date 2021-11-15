@@ -31,7 +31,7 @@ public class PushHandlerTest {
 	@Test
 	public void pushToOneUser() {
 		Member member = new Member();
-		member.setId("ddd");
+		member.setId("test");
 		
 		sender.send(member, "나는 자취해협이당", "무엇을 원하는가");
 	}

@@ -13,8 +13,7 @@ var config = {
 
 firebase.initializeApp(config);
 
-//const messaging = firebase.messaging();
-const messaging = getMessaging(firebaseApp);
+const messaging = firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function(payload){
 
