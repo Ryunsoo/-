@@ -18,6 +18,14 @@ function clickChatting2(){
 	}else {
 		viewChat.style.display = "none";
 	}
+	
+	let chatList = () => {
+	   fetch('/chat/chat-room')
+       .then(response => {
+       return response.text();
+    })
+   }
+	
 }
 
 function closeChat(){
@@ -34,6 +42,10 @@ function closeChat(){
 function openChattingRoom() {
 	document.querySelector("#chattingRoom").style.display = "flex";
 	document.getElementById("chatting_main").style.display = "none";
+}
+
+function closeIframe() {
+	document.querySelector("#chattingRoom").style.display = "none";
 }
 
 (function(d, s, id){

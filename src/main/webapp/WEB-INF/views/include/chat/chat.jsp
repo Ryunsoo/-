@@ -8,11 +8,9 @@
 	<div id="chatting_list">
 		<p>채팅방 목록</p>
 		<div id="myList">
-			<div id="chatItem" onclick="openChattingRoom()">구려서 죄송해요</div>
-			<div id="chatItem">제가 미적 감각이 없어서..</div>
-			<div id="chatItem">양해 부탁드려요..</div>
-			<div id="chatItem">이게 정말 힘들어요..</div>
-			<div id="chatItem">아몰랑</div>
+			<c:forEach items="${chatLog}" var="cl">
+				<div id="chatItem" onclick="openChattingRoom()">${cl.roomName}</div>
+			</c:forEach>	
 		</div>
 	</div>
 </div>
