@@ -1,5 +1,7 @@
 package com.kh.hehyeop.member.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.CoJoinForm;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
 
@@ -130,7 +133,15 @@ public class MemberController {
 	public void coJoinNextTest() {}
 	
 	@GetMapping("cojoin-form-last")
-	public void coJoinLastTest() {}
+	public void coJoinLastTest(HttpSession session) {
+		
+		ArrayList<FieldForm> fieldList = memberService.selectField();
+		
+		session.setAttribute("fieldList", fieldList);
+		
+		logger.debug(fieldList.toString());
+		
+	}
 	
 	@GetMapping("id-check")
 	@ResponseBody

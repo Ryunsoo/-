@@ -1,11 +1,15 @@
 package com.kh.hehyeop.member.model.repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
 @Mapper
@@ -48,5 +52,11 @@ public interface MemberRepository {
 
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
 	CMember selectCMemberByUserId(String id);
+	
+	@Select("select * from pro_field")
+	ArrayList<FieldForm> selectField();
+	
+	@Select("select distinct field_category from pro_field")
+	ArrayList<String> selectCategory();
 
 }

@@ -30,37 +30,16 @@
 										<label style="font-size: 13px">* 전문 분야</label><br>
 									</div>
 									
-									<div class="repair">
-											<label>수리 | 보수</label>
-									</div>
-									
-									<div class="bathroom_check">
-										<label><input type="checkbox" name="bathroom" value="bathroom"> 욕실</label>
-										<label><input type="checkbox" name="sink" value="sink"> 싱크대</label>
-										<label><input type="checkbox" name="product" value="product"> 제품</label>							
-									</div>
-									
-									<div class="interior">
-											<label>인테리어</label>
-									</div>
-									
-									<div class="interior_check">
-											<label><input type="checkbox" name="tile" value="tile"> 타일</label>
-											<label><input type="checkbox" name="paint" value="paint"> 페인트</label>
-											<label><input type="checkbox" name="papering" value="papering"> 도배</label>
-											<label><input type="checkbox" name="dragon" value="dragon"> 용달</label>
-											<label><input type="checkbox" name="furnitureAssembly" value="furnitureAssembly"> 가구조립</label>
-									</div>
-									
-									<div class="security">
-											<label>보안 | 방충</label><br>
-									</div>
-									
-									<div class="security_check">
-											<label><input type="checkbox" name="closedCircuit" value="closedCircuit"> 폐쇄회로</label>
-											<label><input type="checkbox" name="doorLock" value="doorLock"> 도어락</label>
-											<label><input type="checkbox" name="insectScreen" value="insectScreen"> 방충</label>
-									</div>
+									<c:forEach items="${fieldList}" var="fm" varStatus="status">
+										<c:if test="${fieldList[status.index].fieldCategory ne fieldList[status.index + 1].fieldCategory}">
+											<div class="repair">
+												<label>${fm.fieldCategory}</label>
+											</div>
+										</c:if>	
+											<div class="bathroom_check">
+												<label><input type="checkbox" name="bathroom" value="bathroom">${fm.field}</label>
+											</div>
+									</c:forEach>
 								</div>
 								<div id="next_page" style="cursor: pointer" onclick="next()">></div>
 							</div>
@@ -74,7 +53,7 @@
 								</div>
 								
 								<div class="repair">
-										<label>생활</label>
+										<label>${category[3]}</label>
 								</div>
 								
 								<div class="bathroom_check">

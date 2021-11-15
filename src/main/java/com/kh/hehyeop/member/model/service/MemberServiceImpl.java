@@ -1,6 +1,9 @@
 package com.kh.hehyeop.member.model.service;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -17,6 +20,7 @@ import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
 import com.kh.hehyeop.member.validator.CoJoinForm;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
 import lombok.RequiredArgsConstructor;
@@ -113,6 +117,14 @@ public class MemberServiceImpl implements MemberService{
 	public void insertCMember(CoJoinForm coForm) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public ArrayList<FieldForm> selectField() {
+		return memberRepository.selectField();
+	}
+
+	public ArrayList<String> selectCategory() {
+		return memberRepository.selectCategory();
 	}
 
 }
