@@ -6,8 +6,9 @@
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link href="../../../resources/css/all.css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/member/login-form.css">
+<link rel='stylesheet' href="../../../resources/css/member/social-join-form.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
 
 // 로그인 실패
@@ -64,6 +65,8 @@ function failLogin(msg){
 						<div class="hr-sect">간편 로그인</div>
 						<button class="kakao_btn">카카오로 로그인</button>
 						<button class="naver_btn">네이버로 로그인</button>
+						
+					<div><a href="javascript:kakaoLogin()">카카오로 회원가입/로그인</a></div>
 						<div class="txt_find">
 							<div class="sign">
 								<a href="/member/join-form">소셜 회원가입</a>
@@ -75,6 +78,8 @@ function failLogin(msg){
 			</div>
 		</div>
 	</form>
+	
+	
 <script type="text/javascript">
 
 let createFindIdModal = () => {
@@ -290,6 +295,68 @@ let createFindPwModal = () => {
 		modalNone();
 	})
 }
+
+
+// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('11e9e48ce1a5512abfa0b01c1dbf2cdd');
+
+// SDK 초기화 여부를 판단합니다.
+console.log(Kakao.isInitialized());
+
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+        	  let kakaoId = response.id;
+        	  fetch('/member/id-check?id='+kakaoId)
+        	  .then(response=>response.text())
+        	  .then(text => {
+        		  if(text=="available"){
+        			  location.href="/member/social-join-form?id="+kakaoId;
+        			  console.log(text);
+        		  }else{
+        			  location.href="/member/";
+        			  console.log(text);
+        		  }
+        	  })
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+//카카오로그아웃  
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+  }  
 
 
 </script>

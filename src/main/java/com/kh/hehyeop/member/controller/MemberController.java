@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -106,7 +107,6 @@ public class MemberController {
 	public void joinMember(Model model) {
 		
 		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
-		
 	}
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
@@ -125,6 +125,48 @@ public class MemberController {
 		return "member/join-form-next";
 
 	}
+	
+	
+	@GetMapping("social-join-form")
+	public void socialJoinMember(Model model
+								,@RequestParam(value="id", required=false)  String id 
+								,HttpSession session) {
+		session.setAttribute("id", id);
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+	}
+	
+	@PostMapping("social-join")
+	public String socialJoin(@Validated JoinForm form
+							, Errors errors
+							, Model model
+							, HttpSession session
+							, RedirectAttributes redirectAttr) {
+		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/member/social-join-form";
+		}
+		
+		form.setId((String)session.getAttribute("id"));
+		form.setPassword(UUID.randomUUID().toString());
+		
+		
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistUser", form);
+		session.setAttribute("persistToken", token);
+		
+		memberService.authenticateByEmail(form, token);
+		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		 		
+		return "redirect:/member/login-form";
+	}
+	
+	
+	
+	
 	
 	@PostMapping("join")
 	public String join(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
@@ -155,6 +197,8 @@ public class MemberController {
 	}
 	
 	
+	
+	
 	@GetMapping("cojoin-form-next")
 	public void coJoinNextTest() {}
 	
@@ -167,7 +211,6 @@ public class MemberController {
 	@ResponseBody
 	public String idCheck(String id) {
 		Member member = memberService.selectMemberByUserId(id);
-		
 		if (member != null) {
 			logger.debug(member.toString());
 			return "disable";
@@ -283,6 +326,7 @@ public class MemberController {
 		if(!persistToken.equals(persistToken)) {
 			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 		}
+		
 		
 		if(form != null) {
 			memberService.insertMember(form);

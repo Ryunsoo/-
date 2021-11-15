@@ -12,6 +12,8 @@
   color: red;
 }
 
+input:focus {outline:none;}
+
 </style>
 </head>
 <body>
@@ -40,7 +42,7 @@
 								<label>* 아이디 &nbsp&nbsp 
 								<span style="font-size: 13px; color: red;" id="idCheck"></span>
 								<form:errors path="id" cssClass="valid-msg"/></label><br> 
-									<input type="text" id="id" class="form-control_id" name="id" value="15151515151"
+									<input type="text" id="id" class="form-control_id" name="id"
 									placeholder="아이디를 입력해주세요." required autocomplete="off" 
 									<c:if test="${empty error.id}">
 										value = "${joinForm.id}"
