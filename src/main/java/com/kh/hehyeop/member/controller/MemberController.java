@@ -60,13 +60,12 @@ public class MemberController {
 			session.setAttribute("authentication", certifiedUser);
 			return "redirect:/"; 
 		} else if (certifiedCUser != null){
-			session.setAttribute("authentication", certifiedCUser);
+			session.setAttribute("C_authentication", certifiedCUser);
 			return "redirect:/company/all-help"; 
 		} else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
 			return "redirect:/member/login-form";
 		}
-
 	}
 	
 	@InitBinder(value = "joinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행

@@ -11,7 +11,54 @@
 <script type="text/javascript" src="../../../resources/js/main/weather.js?ver=1"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+.nav_info {
+   display: flex;
+   justify-content: flex-end;
+   margin-right: 75px;
+   font-size: 17px;
+   width: 870px;
+}
+
+.userName {
+   margin-right: 6px;
+   font-weight: bolder;
+}
+
+.nim {
+   margin-right: 10px;
+   font-size: 13px;
+   align-self: center;
+   margin-top: 4px;
+   font-weight: bolder;
+}
+
+.medal {
+   margin-right: 20px;
+   align-self: center;
+   color: #e6bc14;
+}
+
+.mypage {
+   margin-right: 20px;
+   font-weight: bolder;
+   cursor: pointer;
+}
+
+.logout {
+   font-weight: bolder;
+   color: #e67e00;
+   cursor: pointer;
+}
+
+.info_wrap{
+	display: flex;
+	flex-direction: column;
+}
+
+</style>
 </head>
+
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 <div class="wrap_content">
@@ -19,6 +66,19 @@
 		<div class="main_bar">
 			<div class="main_header">
 				<img id="main_logo" src="../../../resources/image/main-logo.png">
+				<div class="info_wrap">
+				
+				<c:if test="${not empty authentication}">
+					<div class="nav_info">
+				    	<div class="userName">${authentication.id}</div>
+				        <div class="nim">님</div>
+				        <div class="medal">
+				        	<i class="fas fa-medal"></i>
+				        </div>
+				        <div class="mypage">마이페이지</div>
+				        <div class="logout">LOGOUT</div>
+	        		</div>
+				</c:if>
 				<div class="search_div">
 					<div class="searchBox">
 						<input id="main_search" placeholder="세면대 뚫는 법을 검색해보세요." >
@@ -26,12 +86,15 @@
 					</div>
 					<span id="top_res">인기 검색어 | 1. 세면대 뚫는 법   2. 자취 필수템   3. 흰 옷에 얼룩 지우기</span>
 				</div>
-				<div class="login_btn">
-					LOGIN
 				</div>
-				<div class="join_btn">
-					회원가입
-				</div>
+				<c:if test="${empty authentication}">
+					<div class="login_btn">
+						LOGIN
+					</div>
+					<div class="join_btn">
+						회원가입
+					</div>
+				</c:if>
 			</div>
 			<div class="cate_wrap">
 				<div>신청해협</div>

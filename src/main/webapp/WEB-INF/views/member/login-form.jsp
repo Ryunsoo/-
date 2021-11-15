@@ -64,7 +64,11 @@ function failLogin(msg){
 						<div class="hr-sect">간편 로그인</div>
 						<button class="kakao_btn">카카오로 로그인</button>
 						<button class="naver_btn">네이버로 로그인</button>
-
+						<div class="txt_find">
+							<div class="sign">
+								<a href="/member/join-form">소셜 회원가입</a>
+							</div>
+						</div>
 					</div>
 
 				</div>
