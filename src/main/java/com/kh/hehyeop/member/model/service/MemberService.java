@@ -2,6 +2,7 @@ package com.kh.hehyeop.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
@@ -34,5 +35,7 @@ public interface MemberService {
 	ArrayList<FieldForm> selectField();
 
 	ArrayList<String> selectCategory();
+
+	void insertFields(String id, List<String> fields);
 
 }

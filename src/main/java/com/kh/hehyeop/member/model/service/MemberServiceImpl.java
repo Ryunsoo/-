@@ -3,6 +3,7 @@ package com.kh.hehyeop.member.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,6 +126,11 @@ public class MemberServiceImpl implements MemberService{
 
 	public ArrayList<String> selectCategory() {
 		return memberRepository.selectCategory();
+	}
+
+
+	public void insertFields(String id, List<String> fields) {
+		memberRepository.insertFields(id, fields);
 	}
 
 }

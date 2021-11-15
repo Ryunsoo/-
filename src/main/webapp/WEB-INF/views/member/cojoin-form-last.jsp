@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form class="form-signin">
+						<form class="form-signin" action="/member/cjoin" method="post">
 							<progress class="signUpProgressBar" value='100' max='100'></progress><br>
 							<label style="float: right; margin-right: 70px; margin-top: 5px;">100%</label><br>
 							
@@ -30,15 +30,19 @@
 										<label style="font-size: 13px">* 전문 분야</label><br>
 									</div>
 									
-									<c:forEach items="${fieldList}" var="fm" varStatus="status">
-										<c:if test="${fieldList[status.index].fieldCategory ne fieldList[status.index + 1].fieldCategory}">
-											<div class="repair">
-												<label>${fm.fieldCategory}</label>
-											</div>
-										</c:if>	
-											<div class="bathroom_check">
-												<label><input type="checkbox" name="bathroom" value="bathroom">${fm.field}</label>
-											</div>
+									<c:forEach items="${categoryList}" var="cl" end="2">
+										<div class="category">
+											<label>${cl}</label>
+										</div>
+										
+										<div class="bathroom_check">
+											<c:forEach items="${fieldList}" var="fl">
+												<c:if test="${cl eq fl.fieldCategory}">
+														<label><input type="checkbox" name="fieldName" 
+														value="${fl.field}"> ${fl.field}</label>							
+												</c:if>
+											</c:forEach>
+										</div>
 									</c:forEach>
 								</div>
 								<div id="next_page" style="cursor: pointer" onclick="next()">></div>
@@ -52,15 +56,19 @@
 									<label style="font-size: 13px">* 전문 분야</label><br>
 								</div>
 								
-								<div class="repair">
-										<label>${category[3]}</label>
-								</div>
-								
-								<div class="bathroom_check">
-									<label><input type="checkbox" name="bathroom" value="bathroom">청소</label>
-									<label><input type="checkbox" name="sink" value="sink">세탁</label>
-									<label><input type="checkbox" name="product" value="product">식품 정기배송</label>							
-								</div>
+								<c:forEach items="${categoryList}" var="cl" begin="3">
+										<div class="category">
+											<label>${cl}</label>
+										</div>
+										
+										<div class="bathroom_check">
+											<c:forEach items="${fieldList}" var="fl">
+												<c:if test="${cl eq fl.fieldCategory}">
+														<label><input type="checkbox" name="bathroom" value="bathroom"> ${fl.field}</label>							
+												</c:if>
+											</c:forEach>
+										</div>
+								</c:forEach>
 								
 							</div>
 							<div id="next_page" style="cursor: pointer; visibility: hidden;" >></div>
@@ -83,7 +91,7 @@
 							
 							<div>
 								<div>
-									<button class="custom-btn btn-1">J O I N &nbsp U S</button>
+									<button type="submit" class="custom-btn btn-1">J O I N &nbsp U S</button>
 								</div>
 								<div class="before_left">
 									<button class="button_next">< 이전</button>

@@ -1,10 +1,11 @@
 package com.kh.hehyeop.member.model.repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.member.model.dto.CMember;
@@ -58,5 +59,8 @@ public interface MemberRepository {
 	
 	@Select("select distinct field_category from pro_field")
 	ArrayList<String> selectCategory();
+
+	void insertFields(@Param("id") String id, @Param("fields") List<String> fields);
+	
 
 }

@@ -5,9 +5,9 @@
   
   <mapper namespace="com.kh.hehyeop.member.model.repository.MemberRepository"> <!-- namespace는 프록시객체명이 된다. -->
   
-  	<!-- <select id="selectPasswordByUserId" resultType="java.lang.String">
-  		select password from member where user_id = #{userId}
-  	</select> -->
+  	<insert id="insertFields">
+  		{call sp_field_insert(#{id, mode=IN}, #{fields, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.FieldTypeHandler})}
+  	</insert>
   	
   	
   	
