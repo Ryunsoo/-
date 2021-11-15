@@ -1,4 +1,4 @@
-package com.kh.hehyeop.test;
+package com.kh.hehyeop.common.chat;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.hehyeop.member.model.dto.User;
+
 @Controller
-@ServerEndpoint(value="/echo.do")
+@ServerEndpoint(value="/chat/*")
 public class WebSocketChat {
     
     private static final List<Session> sessionList=new ArrayList<Session>();;
@@ -37,9 +39,9 @@ public class WebSocketChat {
     
     @GetMapping(value = "/loginProcess.do")
 	public String loginProcess(HttpSession session) {
-		String userId = "이호준";
-		logger.info("Welcome "+userId);
-    	session.setAttribute("id", userId);
+    	User user = (User) session.getAttribute("authentication");
+		logger.info("Welcome " + user.getNickname());
+    	session.setAttribute("id", user.getNickname());
 		return "chat-room";
 	}
     

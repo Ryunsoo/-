@@ -7,7 +7,7 @@
           return;
       }
       //웹소켓 객체 만드는 코드
-      ws = new WebSocket("ws://localhost:9090/echo.do");
+      ws = new WebSocket("ws://localhost:9090/chat/${roomNo}");
       
       ws.onopen = function(event){
           if(event.data === undefined){
