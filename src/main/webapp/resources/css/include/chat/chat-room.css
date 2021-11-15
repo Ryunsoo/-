@@ -1,0 +1,157 @@
+@charset "UTF-8";
+body{
+ -ms-overflow-style: none;
+ }
+ 
+::-webkit-scrollbar {
+  display: none;
+}
+.room_con {
+	position: relative;
+	width: 487px;
+	height: 741px;
+	background-color: rgba(250, 248, 245, 0.78); 
+	border-width: 0px; 
+	border-style: none; 
+	border-radius: 35px; 
+	box-shadow: rgba(0, 0, 0, 0.28) 0px 0px 10px 1px;
+}
+
+#back {
+	position: absolute;
+	top: 10px;
+	right:17.5px;
+	font-size: 20px;
+	cursor: pointer;
+	color: red;
+}
+
+.room_wrap {
+	width: 100%;
+	height: 100%;
+}
+
+.room_head {
+	display: flex;
+	height: 90px;
+	align-items: center;
+	margin-left: 17.5px;
+}
+#room_img {
+	width: 67px;
+	height: 67px;
+}
+#room_title {
+	font-size: 20px;
+	margin-left: 17.5px;
+	cursor: pointer;
+}
+
+.room_main {
+	position: relative;
+	margin-bottom: 32px;
+	width: 452px;
+	height: 618px;
+	background-image: url("../../../../resources/image/채팅바탕.PNG"); 
+	border-radius: 25px; 
+	box-shadow: rgba(0, 0, 0, 0.18) 0px 0px 5px 1px;
+	margin-left: 17.5px;
+}
+
+.chatting_wrap {
+	width: 422px;
+	height: 588px;
+	padding: 15px;
+	overflow: auto;
+}
+
+.event_wrap {
+	margin-bottom: 15px;
+}
+
+.sender_wrap {
+	display: flex;
+	margin-bottom: 15px;
+	
+}
+#sender_name {
+	margin-right: 15px;
+	font-weight: bold;
+}
+#sender_msg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 30px;
+	max-width: 300px;
+	position: relative;
+	background-color: rgb(237, 237, 237);
+	border-radius: 5px;
+	margin-right: 10px;
+}
+#sender_msg_tail {
+	position:absolute;
+	width:0;
+	height:0;
+	left:0;
+	top:50%;
+	margin-left:-15px;
+	border-top:8px solid transparent;
+	border-bottom:8px solid transparent;
+	border-right:16px solid rgb(237, 237, 237);
+}
+#send_time {
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+}
+
+.my_wrap {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-bottom: 15px;
+	margin-right: 15px;
+	
+}
+#my_msg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 30px;
+	max-width: 300px;
+	position: relative;
+	background-color: rgb(131, 221, 169);
+	border-radius: 5px;
+	margin-left: 10px;
+}
+#my_msg_tail {
+	position:absolute;
+	width:0;
+	height:0;
+	right:0;
+	top:50%;
+	margin-right:-15px;
+	border-top:8px solid transparent;
+	border-bottom:8px solid transparent;
+	border-left:16px solid rgb(131, 221, 169);
+}
+
+.input_wrap {
+	display: flex;
+	position: absolute; 
+	width: 100%;
+	height: 46px;
+	bottom: 20px;
+}
+#input_box {
+	width: 358px; 
+	height: 40px;
+}
+#send_btn {
+	width: 59px;
+	height: 46px;
+	background-color: rgb(241, 196, 15);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
