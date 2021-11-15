@@ -31,12 +31,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- <interceptors>
+	<interceptors>
 		<interceptor>
 			<mapping path="/**"/>
 			<beans:bean class="com.kh.hehyeop.common.interceptor.AuthInterceptor"/>
 		</interceptor>
-	</interceptors> -->
+	</interceptors>
 	
 	<!-- 트랜잭션 관리 Bean 등록 : DataSourceTransactionManager -->
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
