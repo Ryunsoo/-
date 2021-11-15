@@ -7,19 +7,6 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body>
-<%--     <div>
-        <button type="button" onclick="openSocket();">대화방 참여</button>
-        <button type="button" onclick="closeSocket();">대회방 나가기</button>
-    	<br/><br/><br/>
-  		메세지 입력 : 
-        <input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
-        <input type="text" id="messageinput">
-        <button type="button" onclick="send();">메세지 전송</button>
-    </div>
-    <!-- Server responses get written here -->
-    <div id="messages">
-    </div>
---%>
 
 <div class="room_con">
 	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
@@ -33,81 +20,6 @@
 		<div class="room_main">
 			<div class="chatting_wrap">
 				
-				<!-- 이벤트 발생 채팅 -->
-				<div class="event_wrap"></div>
-			
-				<!-- 상대방 채팅 -->
-				<div class="sender_wrap">
-					<div id="sender_name">홍길동</div>
-					<div id="sender_msg">
-						
-						반가워요!!!!!!!
-						
-						<span id="sender_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>	
-				
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
-				<!-- 내 채팅 -->
-				<div class="my_wrap">
-					<div id="my_msg">
-						
-						길게쓰면 어떻게 될까요오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오오
-						
-						<span id="my_msg_tail"></span>
-					</div>
-					<div id="send_time">오후 3:43</div>
-				</div>		
 				
 				<div class="input_wrap">
 					<input type="text" id="input_box" placeholder="내용을 입력하세요">
@@ -150,7 +62,14 @@
           ws.onmessage = function(event){
               console.log('writeResponse');
               console.log(event.data);
-              eventResponse(event.data);
+              let message = event.data;
+              let loc = message.indexOf(':');
+              if(!loc) myResponse(message.substring(1));
+              if(loc) senderResponse(message.substring(loc + 1));
+              
+              //누가 보내도 여기로 온닷
+              //eventResponse(event.data);
+              
           };
           
           ws.onclose = function(event){
@@ -171,16 +90,50 @@
       }
       
       function eventResponse(text){
+    	  let chattingWrap = document.querySelector('.chatting_wrap');
+          let eventWrap = document.createElement("div");
+          eventWrap.setAttribute("class","event_wrap");
           eventMsg.innerHTML += text+"<br/>";
+          chattingWrap.appendChild(eventWrap);
       }
       
       function senderResponse(text){
-          senderMsg.innerHTML += text;
-      }
-      
-      function myResponse(text){
-          myMsg.innerHTML += text;
-      }
+          let chattingWrap = document.querySelector('.chatting_wrap');
+          let senderWrap = document.createElement("div");
+          senderWrap.setAttribute("class","sender_wrap");
+          chattingWrap.appendChild(senderWrap);
+          
+          let senderName =  document.createElement("div");
+          senderName.setAttribute("id","sender_name");
+          senderWrap.appendChild(senderName);
+          
+          let senderMsg =  document.createElement("div");
+          senderName.setAttribute("id","sender_msg");
+          senderName.innerHTML = text;
+          senderWrap.appendChild(senderMsg);
+          
+          let sendTime =  document.createElement("div");
+          sendTime.setAttribute("id","send_time");
+          sendTime.innerHTML = '오후 3:43';
+          senderWrap.appendChild(sendTime);
+       }
+       
+       function myResponse(text){
+          let chattingWrap = document.querySelector('.chatting_wrap');
+          let myWrap = document.createElement("div");
+          myWrap.setAttribute("class","my_wrap");
+          chattingWrap.appendChild(myWrap);
+
+          let myMsg =  document.createElement("div");
+          myMsg.setAttribute("id","my_msg");
+          myMsg.innerHTML = text;
+          myWrap.appendChild(myMsg);
+          
+          let sendTime =  document.createElement("div");
+          sendTime.setAttribute("id","send_time");
+          sendTime.innerHTML = '오후 3:43';
+          myWrap.appendChild(sendTime);
+       }
 
 </script>
 </body>
