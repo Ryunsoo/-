@@ -77,7 +77,6 @@ function failLogin(msg){
 	</form>
 <script type="text/javascript">
 
-//아이디 찾기
 let createFindIdModal = () => {
 	let modal = initModal('modal', 2);
 	appendTitle(modal,'아이디 찾기');
@@ -91,7 +90,7 @@ let createFindIdModal = () => {
 	let findIdName = $('<div>').addClass('find_modal_body');
 	let findIdNametext = $('<div>이름<div>').height('20px').addClass('find_modal_Text');
 	let findIdNameInput = $('<div>').height('30px');
-	let findIdNameInputBox = $('<input>').attr('placeholder','이름을 입력하세요');
+	let findIdNameInputBox = $('<input id="name" name="name">').attr('placeholder','이름을 입력하세요');
 	ModalBody.append(findIdName);
 	findIdName.append(findIdNametext);
 	findIdName.append(findIdNameInput);
@@ -101,7 +100,7 @@ let createFindIdModal = () => {
 	let findIdTell = $('<div>').addClass('find_modal_body');
 	let findIdTelltext = $('<div>전화번호<div>').height('20px').addClass('find_modal_Text');
 	let findIdTellInput = $('<div>').height('30px');
-	let findIdTellInputBox = $('<input>').attr('placeholder','가입 시 저장한 전화번호를 입력하세요');
+	let findIdTellInputBox = $('<input id="tell" name="tell">').attr('placeholder','가입 시 저장한 전화번호를 입력하세요');
 	ModalBody.append(findIdTell);
 	findIdTell.append(findIdTelltext);
 	findIdTell.append(findIdTellInput);
@@ -111,7 +110,7 @@ let createFindIdModal = () => {
 	let findIdEmail = $('<div>').addClass('find_modal_body');
 	let findIdEmailtext = $('<div>이메일<div>').height('20px').addClass('find_modal_Text');
 	let findIdEmailInput = $('<div>').height('30px');
-	let findIdEmailInputBox = $('<input>').attr('placeholder','가입 시 저장한 이메일을 입력하세요');
+	let findIdEmailInputBox = $('<input id="email" name="email">').attr('placeholder','가입 시 저장한 이메일을 입력하세요');
 	ModalBody.append(findIdEmail);
 	findIdEmail.append(findIdEmailtext);
 	findIdEmail.append(findIdEmailInput);
@@ -119,31 +118,61 @@ let createFindIdModal = () => {
 	
 	modalBlock();
 	
+	
 	$('.modal_right_btn').click(function() {
-		modalNone();
-		let modal = initModal('modal', 1);
-		appendTitle(modal,'아이디 찾기');
-		setButton(modal,'비밀번호 찾기','확인');
-		setContent(modal,true,true);
 		
-		let ModalBody = $('<div>').addClass('findIdIsOk_modal');
-		$('.modal_content').append(ModalBody); 
-		let findIdIsOk1 = $('<div>입력하신 정보로 등록된 아이디는<div>').addClass('findIdIsOk_text1');
-		let findIdIsOk2 = $('<div>babyfox2**<div>').addClass('findIdIsOk_text2');
-		let findIdIsOk3 = $('<div>&nbsp입니다.<div>').addClass('findIdIsOk_text1');
-		ModalBody.append(findIdIsOk1);
-		ModalBody.append(findIdIsOk2);
-		ModalBody.append(findIdIsOk3);
-		modalBlock();
+		let name = document.querySelector("#name").value;
+		let tell = document.querySelector("#tell").value;
+		let email = document.querySelector("#email").value;
+		console.dir(name);
+		console.dir(tell);
+		console.dir(email);
 		
-		$('.modal_left_btn').click(function(){
-			modalNone();
-			createFindPwModal();
-		})
+		fetch('/member/finding-id?name='+name+'&tell='+tell+'&email='+email)
+		.then(res=> res.text())
+		.then(text=> {
+			
+				if(text) {
+					modalNone();
+					console.dir(text);
+					let testId = '<div>' + text + '<div>';
+					
+					let modal = initModal('modal', 1);
+					appendTitle(modal,'아이디 찾기');
+					setButton(modal,'비밀번호 찾기','확인');
+					setContent(modal,true,true);
+					
+					let ModalBody = $('<div>').addClass('findIdIsOk_modal');
+					$('.modal_content').append(ModalBody); 
+					let findIdIsOk1 = $('<div>입력하신 정보로 등록된 아이디는<div>').addClass('findIdIsOk_text1');
+					let findIdIsOk2 = $(testId).addClass('findIdIsOk_text2');
+					let findIdIsOk3 = $('<div>&nbsp입니다.<div>').addClass('findIdIsOk_text1');
+					ModalBody.append(findIdIsOk1);
+					ModalBody.append(findIdIsOk2);
+					ModalBody.append(findIdIsOk3);
+					modalBlock();
+					
+					$('.modal_left_btn').click(function(){
+						modalNone();
+						createFindPwModal();
+					})
+					
+					$('.modal_right_btn').click(function(){
+						modalNone();
+					})
+					
+				}else if (text='fail') {
+					setModalTitle('modal2','이메일로 아이디 찾기');
+					setModalBody('modal2','<b style="color:red;">입력하신 정보와 일치하는 회원이 없습니다.</b><br>이름과 이메일 정보를 다시 한번 확인해주세요');
+					removeModalFnc("okay");
+					modal2();
+				}
 		
-		$('.modal_right_btn').click(function(){
-			modalNone();
-		})
+		});
+		
+		
+		
+		
 	})
 	
 	$('.modal_left_btn').click(function(){

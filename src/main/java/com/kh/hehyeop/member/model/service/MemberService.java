@@ -1,7 +1,6 @@
 package com.kh.hehyeop.member.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.kh.hehyeop.member.model.dto.CMember;
@@ -16,9 +15,11 @@ public interface MemberService {
 
 	Member selectMemberByUserId(String id);
 
-	void selectIdByEmail(Member member, String token);
+	String selectIdByEmail(String name, String tell, String email);
 	
-	void selectPasswordByEmail(Member member, String token);
+	String selectPasswordByEmail(String name, String id, String email);
+	
+	CMember selectPasswordByEmail(CMember cmember);
 
 	void authenticateByEmail(JoinForm form, String token);
 	

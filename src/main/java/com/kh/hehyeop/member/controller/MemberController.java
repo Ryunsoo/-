@@ -1,5 +1,6 @@
 package com.kh.hehyeop.member.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -68,6 +69,32 @@ public class MemberController {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
 			return "redirect:/member/login-form";
 		}
+	}
+	
+	@GetMapping("finding-id")
+	@ResponseBody
+	public String findingId(String name, String tell, String email, HttpSession session, RedirectAttributes redirectAttr) {
+		System.out.println("돌고있냐? : " + name + tell + email);
+		String certifiedId = memberService.selectIdByEmail(name, tell, email);
+
+		if (certifiedId != null) {
+			session.setAttribute("findingId", certifiedId);
+			return certifiedId;
+		}
+			return null;
+	}
+
+	@GetMapping("finding-pw")
+	@ResponseBody
+	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
+		System.out.println("돌고있냐? : " + name + id + email);
+		String certifiedId = memberService.selectPasswordByEmail(name, id, email);
+
+		if (certifiedId != null) {
+			session.setAttribute("findingId", certifiedId);
+			return certifiedId;
+		}
+		return null;
 	}
 	
 	@InitBinder(value = "joinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행

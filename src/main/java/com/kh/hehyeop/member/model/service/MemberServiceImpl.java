@@ -2,7 +2,6 @@ package com.kh.hehyeop.member.model.service;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -44,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 		memberRepository.insertMember(form);
 	}
 
-	
+//	member login
 	public Member authenticateUser(Member member) {
 		
 		Member storedMember = memberRepository.selectMemberByUserId(member.getId());
@@ -55,6 +54,7 @@ public class MemberServiceImpl implements MemberService{
 		return null;
 	}
 	
+//	C member login
 	public CMember authenticateCUser(CMember cmember) {
 		
 		CMember storedCMember = memberRepository.selectCMemberByUserId(cmember.getId());
@@ -65,26 +65,13 @@ public class MemberServiceImpl implements MemberService{
 		return null;
 	}
 
-	
+//	member join id check
 	public Member selectMemberByUserId(String id) {
 		// TODO Auto-generated method stub
 		return memberRepository.selectMemberByUserId(id);
 	}
 
-	
-	public void selectIdByEmail(Member member, String token) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	public void selectPasswordByEmail(Member member, String token) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	
+//	member join send email	
 	public void authenticateByEmail(JoinForm form, String token) {
 		
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
@@ -103,21 +90,9 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
-	
+//	member join nickname check	
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
-	}
-
-	
-	public void co_authenticateByEmail(CoJoinForm form, String token) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	public void insertCMember(CoJoinForm coForm) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public ArrayList<FieldForm> selectField() {
@@ -128,9 +103,35 @@ public class MemberServiceImpl implements MemberService{
 		return memberRepository.selectCategory();
 	}
 
-
 	public void insertFields(String id, List<String> fields) {
 		memberRepository.insertFields(id, fields);
 	}
+	@Override
+	public String selectIdByEmail(String name, String tell, String email) {
+		return memberRepository.selectIdByEmail(name, tell, email);
+	}
+	
+	@Override
+	public String selectPasswordByEmail(String name, String id, String email) {
+		return memberRepository.selectPasswordByEmail(name, id, email);
+	}
 
+
+	@Override
+	public void co_authenticateByEmail(CoJoinForm form, String token) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertCMember(CoJoinForm coForm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public CMember selectPasswordByEmail(CMember cmember) {
+		return memberRepository.C_selectPasswordByEmail(cmember);
+	}
 }
+
