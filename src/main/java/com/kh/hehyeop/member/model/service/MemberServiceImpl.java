@@ -94,7 +94,31 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
 	}
+	
+	public void co_authenticateByEmail(CoJoinForm form, String token) {
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("mailTemplate", "join-auth-mail");
+		body.add("id", form.getId());
+		body.add("persistToken", token);
+		
+		RequestEntity<MultiValueMap<String, String>> request = 
+				RequestEntity.post(Config.DOMAIN.DESC + "/mail")
+				.accept(MediaType.APPLICATION_FORM_URLENCODED)
+				.body(body);
+		
+		String htmlTxt = http.exchange(request, String.class).getBody();
+		
+		mailSender.send(form.getEmail(), "회원가입을 축하합니다.", htmlTxt);
+		
+	}
 
+	
+	public void insertCMember(CoJoinForm coForm) {
+		memberRepository.insertCMember(coForm);
+		
+	}
+	
 	public ArrayList<FieldForm> selectField() {
 		return memberRepository.selectField();
 	}
@@ -114,19 +138,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String selectPasswordByEmail(String name, String id, String email) {
 		return memberRepository.selectPasswordByEmail(name, id, email);
-	}
-
-
-	@Override
-	public void co_authenticateByEmail(CoJoinForm form, String token) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertCMember(CoJoinForm coForm) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

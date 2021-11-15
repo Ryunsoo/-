@@ -159,13 +159,7 @@ public class MemberController {
 	public void coJoinNextTest() {}
 	
 	@GetMapping("cojoin-form-last")
-	public void coJoinLastTest(HttpSession session) {
-		
-		ArrayList<FieldForm> fieldList = memberService.selectField();
-		ArrayList<String> categoryList = memberService.selectCategory();
-		
-		session.setAttribute("fieldList", fieldList);
-		session.setAttribute("categoryList", categoryList);
+	public void coJoinLastTest() {
 		
 	}
 	
@@ -245,39 +239,35 @@ public class MemberController {
 		form.setTell(infoForm.getTell());
 		
 		session.setAttribute("CoJoinLastForm", form);
-		logger.debug(form.toString());
+		
+		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<String> categoryList = memberService.selectCategory();
+		
+		session.setAttribute("fieldList", fieldList);
+		session.setAttribute("categoryList", categoryList);
+		
 		return "member/cojoin-form-last";
 		
 	}
 	
 	@PostMapping("cjoin")
-	public String cjoin(@Validated CoJoinForm form, Errors errors, Model model, 
-						HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
+	public String cjoin(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
 		
+		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinLastForm");	
 		List<String> fieldList = new ArrayList<String>();
 		String[] fieldParam = request.getParameterValues("fieldName");
-		
+
 		for (String field : fieldParam) {
 			fieldList.add(field);
 		}
 		
-		memberService.insertFields("fieldTest", fieldList);
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistCUser", infoForm);
+		session.setAttribute("persistToken", token);
+		session.setAttribute("fieldList", fieldList);
 		
-//		ValidateResult vr = new ValidateResult();
-//		model.addAttribute("error", vr.getError());
-//		
-//		if (errors.hasErrors()) {
-//			vr.addErrors(errors);
-//			return "redirect:/member/cojoin-form";
-//		}
-		
-		
-//		String token = UUID.randomUUID().toString();
-//		session.setAttribute("persistCUser", form);
-//		session.setAttribute("persistToken", token);
-//		
-//		memberService.co_authenticateByEmail(form, token);
-//		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		memberService.co_authenticateByEmail(infoForm, token);
+		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
 		return "redirect:/member/login-form";
 	}
@@ -298,7 +288,9 @@ public class MemberController {
 			memberService.insertMember(form);
 			session.removeAttribute("persistUser");
 		}else if(coForm != null){
+			List<String> fieldList = (List<String>) session.getAttribute("fieldList");
 			memberService.insertCMember(coForm);
+			memberService.insertFields(coForm.getId(), fieldList);
 			session.removeAttribute("persistCUser");
 		}
 		
