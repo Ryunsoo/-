@@ -159,7 +159,7 @@ public class MemberController {
 	@ResponseBody
 	public String nickCheck(String nickname) {
 		Member member = memberService.selectMemberByNickname(nickname);
-		
+		 
 		if (member != null) {
 			logger.debug(member.toString());
 			return "disable";
@@ -280,5 +280,6 @@ public class MemberController {
 	
 		return "redirect:/member/login-form";
 	}
+
 	
 }
