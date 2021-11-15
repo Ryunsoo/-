@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -89,18 +90,19 @@ public class MemberController {
 	@ResponseBody
 	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
 		System.out.println("돌고있냐? : " + name + id + email);
-		String certifiedId = memberService.changePasswordByEmail(name, id, email);
+		Member certifiedUser = memberService.changePasswordByEmail(name, id, email);
 		
 		String token = UUID.randomUUID().toString();
-		session.setAttribute("persistUser", certifiedId);
+		session.setAttribute("persistUser", certifiedUser);
 		session.setAttribute("persistToken", token);
 		
 
-		if (certifiedId != null) {
+		if (certifiedUser != null) {
 			memberService.findPasswordByEmail(email, token);
 			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
-			return certifiedId;
+			return certifiedUser.getEmail();
 		}
+		
 		return null;
 	}
 	
@@ -321,6 +323,22 @@ public class MemberController {
 		return "redirect:/member/login-form";
 	}
 	
+	@GetMapping("findpw-impl/{token}")
+	public String findPwImpl(@PathVariable String token
+			, @SessionAttribute(value = "persistToken", required = false) String persistToken
+			, @SessionAttribute(value = "persistUser", required = false) String email
+			, HttpSession session
+			, RedirectAttributes redirectAttrs) {
+		
+		if(!persistToken.equals(persistToken)) {
+			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
+		
+		session.removeAttribute("persistToken");
+	
+		return "redirect:/member/login-form?email=1";
+	}
+	
 	@GetMapping("join-impl/{token}")
 	public String joinImpl(@PathVariable String token
 			, @SessionAttribute(value = "persistToken", required = false) String persistToken
@@ -348,6 +366,23 @@ public class MemberController {
 		session.removeAttribute("persistToken");
 	
 		return "redirect:/member/login-form";
+	}
+	
+	@GetMapping("update-pw")
+	@ResponseBody
+	public String updatePw(String newPw, HttpSession session) {
+		
+		boolean valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", newPw);
+		
+		if(valid) {
+			Member member = (Member) session.getAttribute("persistUser");
+			memberService.updatePassword(member, newPw);
+			
+			return "change";
+		} else {
+			
+			return "disable";
+		}
 	}
 
 	

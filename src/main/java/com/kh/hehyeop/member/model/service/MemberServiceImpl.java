@@ -136,14 +136,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String changePasswordByEmail(String name, String id, String email) {
+	public Member changePasswordByEmail(String name, String id, String email) {
 		return memberRepository.changePasswordByEmail(name, id, email);
 	}
 
 	@Override
 	public void findPasswordByEmail(String email, String token) {
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("mailTemplate", "join-auth-mail");
+		body.add("mailTemplate", "test");
 		body.add("persistToken", token);
 		
 		RequestEntity<MultiValueMap<String, String>> request = 
@@ -154,6 +154,19 @@ public class MemberServiceImpl implements MemberService{
 		String htmlTxt = http.exchange(request, String.class).getBody();
 		
 		mailSender.send(email, "회원가입을 축하합니다.", htmlTxt);
+		
+	}
+
+	@Override
+	public CMember C_changePasswordByEmail(String name, String id, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePassword(Member member, String newPw) {
+		
+		memberRepository.updatePassword(member, newPw);
 		
 	}
 

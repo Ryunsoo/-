@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
@@ -30,8 +31,8 @@ public interface MemberRepository {
 	String selectIdByEmail(@Param("name") String name, @Param("tell") String tell, @Param("email") String email);
 
 //	member find password
-	@Select("select email from (select name, id, email from member union select name, id, email from member_c) where name = 'test' and id = 'test' and email = 'alssgo70051@gmail.com'")
-	String changePasswordByEmail(String name, String id, String email);
+	@Select("select * from member where name = #{name} and id = #{id} and email = #{email}")
+	Member changePasswordByEmail(@Param("name") String name, @Param("id") String id, @Param("email") String email);
 	
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
 	Member selectMemberByUserId(String id);
@@ -48,8 +49,8 @@ public interface MemberRepository {
 	@Select("select * from member_c where id = #{id} and password = #{password}")
 	CMember authenticateCUser(CMember cmember);
 	
-	@Select("select password from c_member where name = #{name} and id = #{id} and email = #{email}")
-	CMember C_selectPasswordByEmail(CMember cmember);
+	@Select("select * from c_member where name = #{name} and id = #{id} and email = #{email}")
+	CMember C_changePasswordByEmail(String name, String id, String email);
 	
 
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
@@ -62,6 +63,9 @@ public interface MemberRepository {
 	ArrayList<String> selectCategory();
 
 	void insertFields(@Param("id") String id, @Param("fields") List<String> fields);
+	
+	@Update("update member set password = #{newPw} where id = #{id} and email = #{email}")
+	void updatePassword(Member member, @Param("newPw") String newPw);
 	
 
 

@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link href="../../../resources/css/all.css" rel="stylesheet">
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
-<link rel='stylesheet' href="../../../resources/css/member/social-join-form.css">
+<link rel='stylesheet' href="../../../resources/css/member/login-form.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript">
@@ -198,9 +198,9 @@ let createFindPwModal = () => {
 	
 	
 	let findPwName = $('<div>').addClass('find_modal_body');
-	let findPwNametext = $('<div id="name">이름<div>').height('20px').addClass('find_modal_Text');
+	let findPwNametext = $('<div>이름<div>').height('20px').addClass('find_modal_Text');
 	let findPwNameInput = $('<div>').height('30px');
-	let findPwNameInputBox = $('<input>').attr('placeholder','이름을 입력하세요');
+	let findPwNameInputBox = $('<input id="name">').attr('placeholder','이름을 입력하세요');
 	ModalBody.append(findPwName);
 	findPwName.append(findPwNametext);
 	findPwName.append(findPwNameInput);
@@ -208,9 +208,9 @@ let createFindPwModal = () => {
 	
 	
 	let findPwId = $('<div>').addClass('find_modal_body');
-	let findPwIdtext = $('<div id="id">아이디<div>').height('20px').addClass('find_modal_Text');
+	let findPwIdtext = $('<div>아이디<div>').height('20px').addClass('find_modal_Text');
 	let findPwIdInput = $('<div>').height('30px');
-	let findPwIdInputBox = $('<input>').attr('placeholder','아이디를 입력하세요');
+	let findPwIdInputBox = $('<input id="id">').attr('placeholder','아이디를 입력하세요');
 	ModalBody.append(findPwId);
 	findPwId.append(findPwIdtext);
 	findPwId.append(findPwIdInput);
@@ -218,9 +218,9 @@ let createFindPwModal = () => {
 	
 	
 	let findPwEmail = $('<div>').addClass('find_modal_body');
-	let findPwEmailtext = $('<div id="email">이메일<div>').height('20px').addClass('find_modal_Text');
+	let findPwEmailtext = $('<div>이메일<div>').height('20px').addClass('find_modal_Text');
 	let findPwEmailInput = $('<div>').height('30px');
-	let findPwEmailInputBox = $('<input>').attr('placeholder','가입 시 저장한 이메일을 입력하세요');
+	let findPwEmailInputBox = $('<input id="email">').attr('placeholder','가입 시 저장한 이메일을 입력하세요');
 	ModalBody.append(findPwEmail);
 	findPwEmail.append(findPwEmailtext);
 	findPwEmail.append(findPwEmailInput);
@@ -229,14 +229,15 @@ let createFindPwModal = () => {
 	modalBlock();
 	
 	$('.modal_right_btn').click(function() {
-		modalNone();
 		
 		let name = document.querySelector("#name").value;
 		let id = document.querySelector("#id").value;
 		let email = document.querySelector("#email").value;
 		console.dir(name);
-		console.dir(tell);
+		console.dir(id);
 		console.dir(email);
+		
+		modalNone();
 		
 		let modal = initModal('modal', 1);
 		appendTitle(modal,'비밀번호 찾기');
@@ -249,10 +250,13 @@ let createFindPwModal = () => {
 		.then(text=> {
 			
 				if(text) {
+					
+					let findingEmail = '<div>' + text + '<div>'
+					
 					let ModalBody = $('<div>').addClass('findIdIsOk_modal');
 					$('.modal_content').append(ModalBody); 
 					let findIdIsOk1 = $('<div>입력하신<div>').addClass('findIdIsOk_text1');
-					let findIdIsOk2 = $('<div>babyfox225@naver.com<div>').addClass('findIdIsOk_text2');
+					let findIdIsOk2 = $(findingEmail).addClass('findIdIsOk_text2');
 					let findIdIsOk3 = $('<div>&nbsp로 인증 메일이 발송되었습니다.<div>').addClass('findIdIsOk_text1');
 					ModalBody.append(findIdIsOk1);
 					ModalBody.append(findIdIsOk2);
@@ -269,39 +273,6 @@ let createFindPwModal = () => {
 		$('.modal_right_btn').click(function(){
 			window.open("https://www.naver.com");
 			modalNone();
-			let modal = initModal('modal', 1);
-			appendTitle(modal,'비밀번호 변경');
-			setButton(modal,'비밀번호 변경');
-			setContent(modal,true,true);
-
-			let ModalBody = $('<div>');
-			$('.modal_content').append(ModalBody); 
-			
-			let changePwName = $('<div>').addClass('change_modal_body');
-			let changePwNametext = $('<div>변경할 비밀번호<div>').addClass('change_modal_Text');
-			let changePwNameInput = $('<div>').height('30px');
-			let changePwNameInputBox = $('<input>').attr('placeholder','새로운 비밀번호를 입력하세요');
-			ModalBody.append(changePwName);
-			changePwName.append(changePwNametext);
-			changePwName.append(changePwNameInput);
-			changePwNameInput.append(changePwNameInputBox);
-			
-			let changePwName2 = $('<div>').addClass('change_modal_body');
-			let changePwNametext2 = $('<div>비밀번호 확인<div>').addClass('change_modal_Text');
-			let changePwNameInput2 = $('<div>').height('30px');
-			let changePwNameInputBox2 = $('<input>').attr('placeholder','비밀번호를 한번 더 입력하세요');
-			ModalBody.append(changePwName2);
-			changePwName2.append(changePwNametext2);
-			changePwName2.append(changePwNameInput2);
-			changePwNameInput2.append(changePwNameInputBox2);
-			
-			modalBlock();
-			
-			$('.modal_left_btn').click(function(){
-				modalNone();
-				alert('비밀번호가 변경되었습니다.');
-			})
-			
 		})
 		
 		$('.modal_left_btn').click(function(){
@@ -314,7 +285,6 @@ let createFindPwModal = () => {
 		modalNone();
 	})
 }
-
 
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 Kakao.init('11e9e48ce1a5512abfa0b01c1dbf2cdd');

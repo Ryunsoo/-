@@ -17,7 +17,9 @@ public interface MemberService {
 
 	String selectIdByEmail(String name, String tell, String email);
 	
-	String changePasswordByEmail(String name, String id, String email);
+	Member changePasswordByEmail(String name, String id, String email);
+	
+	CMember C_changePasswordByEmail(String name, String id, String email);
 	
 	void authenticateByEmail(JoinForm form, String token);
 	
@@ -38,6 +40,8 @@ public interface MemberService {
 	void insertFields(String id, List<String> fields);
 
 	void findPasswordByEmail(String email, String token);
+
+	void updatePassword(Member member, String newPw);
 
 
 }
