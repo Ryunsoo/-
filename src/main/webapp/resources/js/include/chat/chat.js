@@ -4,11 +4,8 @@ function clickChatting(){
 	document.getElementById("frogue-container").style.display = "flex";
 } 
 
-let clickChatting2 = async () => {
-	await getChattingList();
-	
-	console.dir('${chatLog.roomNo}');
-	
+function clickChatting2() {
+	getChattingList();
 	let viewChat = document.getElementById("chatting_main");
 	let viewChatRoom = document.querySelector("#chattingRoom");
 	if(document.querySelector('body').classList.contains('frogue-opened')) {
@@ -24,14 +21,12 @@ let clickChatting2 = async () => {
 	}
 }
 
-let getChattingList = async () => {
-	let datas = await 
+function getChattingList() {
 	fetch('/chat/chat-room')
    		 .then(function(response) {
    		 return response.json();
          })
          .then(function(myJson) {
-		 console.log("우와");
  		 console.log(JSON.stringify(myJson));
 	     }); 
 }
