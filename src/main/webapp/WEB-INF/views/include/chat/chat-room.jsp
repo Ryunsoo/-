@@ -9,7 +9,7 @@
 <body>
 
 <div class="room_con">
-	<input type="text" id="sender" value="${sessionScope.authentication.id}" style="display: none;">
+	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
 	<div id="back" onclick="closeSocket()"><i class="fas fa-times-circle"></i></div>
 	<div class="room_wrap">
 		<div class="room_head">
@@ -18,11 +18,10 @@
 		</div>
 		
 		<div class="room_main">
-			<div class="chatting_wrap">
-				<div class="input_wrap">
-					<input type="text" id="input_box" placeholder="내용을 입력하세요">
-					<div type="button" id="send_btn" onclick="send()"><div><i class="fas fa-paper-plane"></i></div></div>
-				</div>
+			<div class="chatting_wrap"></div>
+			<div class="input_wrap">
+				<input type="text" id="input_box" placeholder="내용을 입력하세요" autocomplete="off">
+				<div type="button" id="send_btn" onclick="send()"><div><i class="fas fa-paper-plane"></i></div></div>
 			</div>
 		</div>
 	</div>

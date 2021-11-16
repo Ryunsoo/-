@@ -5,7 +5,7 @@ function clickChatting(){
 		return;
 	}
 	if (viewChatRoom.style.display == "flex"){
-		viewChatRoom.style.display = "none";
+		return;
 	}
 	if (viewChat.style.display == "none"){
 		viewChat.style.display = "flex";
@@ -16,11 +16,8 @@ function clickChatting(){
 
 function closeChat(){
 	let viewChat = document.getElementById("chatting_main");
-	if (viewChat.style.display == "flex"){
+	if (viewChat.style.display == "flex") {
 		viewChat.style.display = "none";
-	}
-	if (viewChatRoom.style.display == "flex"){
-		viewChatRoom.style.display = "none";
 	}
 }
 
