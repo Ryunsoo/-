@@ -55,9 +55,7 @@ let createList = async (data) => {
 		chatItem.addEventListener('click', function(e) {
 			document.getElementById("chatting_main").style.display = "none";
 			document.querySelector("#chattingRoom").style.display = "flex";
-			/*window.frames['chattingRoom'].document.getElementById('sender').value = '${sessionScope.id}';*/
-			let id = '${sessionScope.id}';
-			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo, id);
+			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo);
 		})
 		
 		let myList = document.getElementById('myList');

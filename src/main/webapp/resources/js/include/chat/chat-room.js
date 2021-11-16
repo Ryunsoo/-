@@ -1,17 +1,17 @@
   var objDiv = document.querySelector(".chatting_wrap"); 
   var ws;
+  let room;
   
-  function openSocket(roomNo, id){
+  function openSocket(roomNo){
       if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
           writeResponse("WebSocket is already opened.");
           return;
       }
+      room = roomNo;
       //웹소켓 객체 만드는 코드
-      ws = new WebSocket("ws://localhost:9090/chat.echo?no=" + roomNo);
+      ws = new WebSocket("ws://localhost:9090/chat.echo/" + roomNo);
       
       ws.onopen = function(event){
-		  document.querySelector('#sender').value = id;
-		  
           if(event.data === undefined){
         		return;
           }
@@ -35,7 +35,31 @@
       };
       
       ws.onclose = function(event){
+		//chatting_wrap의 innerHTML을 서버단으로 보내주고
+		let chatLog = document.querySelector('.chatting_wrap').innerHTML;
+		console.dir(chatLog);
+		let header = new Headers({
+			'Content-Type': 'application/json'
+		});
 		
+		let init = { 
+					 method: 'POST',
+					 headers: header,
+					 body: JSON.stringify({
+								room: room,
+								chatLog: chatLog
+							})
+					}
+		
+		console.dir(init);
+		let saveRequest = new Request('/chat/chat-save', init);
+		
+		console.dir(saveRequest.headers);
+		
+		let response = fetch(saveRequest);
+		
+		
+		//안에 내용을 초기화해주기
       }
       
   }
@@ -48,10 +72,20 @@
 	    }
   })
   
+  
   function send(){
 	  let inputText = document.getElementById("input_box").value;
+	  let text;
 	  if(inputText.replace(/\s|　/gi, "").length != 0) {
-		  var text = document.getElementById("input_box").value+","+document.getElementById("sender").value; 
+		  let content = document.getElementById("input_box").value;
+		  let sender = document.getElementById("sender").value;
+		  
+		  let json = {
+				content: content,
+				sender: sender,
+				roomNo : room
+		  };
+		  text = JSON.stringify(json);
 	  } else {
 		  return;
 	  }
