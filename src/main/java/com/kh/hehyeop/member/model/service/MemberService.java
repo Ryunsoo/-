@@ -3,6 +3,8 @@ package com.kh.hehyeop.member.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.validator.CoJoinForm;
@@ -42,6 +44,10 @@ public interface MemberService {
 	void findPasswordByEmail(String email, String token);
 
 	void updatePassword(Member member, String newPw);
+
+	CMember selectCMember(String id);
+
+	void uploadFile(List<MultipartFile> files, String cIdx);
 
 
 }

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.validator.CoJoinForm;
@@ -52,6 +53,8 @@ public interface MemberRepository {
 	@Select("select * from c_member where name = #{name} and id = #{id} and email = #{email}")
 	CMember C_changePasswordByEmail(String name, String id, String email);
 	
+	@Select("select * from member_c where id = #{id}")
+	CMember selectCMember(String id);
 
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
 	CMember selectCMemberByUserId(String id);
@@ -66,6 +69,10 @@ public interface MemberRepository {
 	
 	@Update("update member set password = #{newPw} where id = #{id} and email = #{email}")
 	void updatePassword(Member member, @Param("newPw") String newPw);
+
+	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
+			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{cIdx}")
+	void uploadFile(FileDTO fileDTO, String cIdx);
 	
 
 

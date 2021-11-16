@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form class="form-signin" action="/member/cjoin" method="post">
+						<form class="form-signin" action="/member/cjoin" method="post" enctype="multipart/form-data">
 							<progress class="signUpProgressBar" value='100' max='100'></progress><br>
 							<label style="float: right; margin-right: 70px; margin-top: 5px;">100%</label><br>
 							
@@ -77,15 +77,15 @@
 							<div class="businessRegistration">
 									<label style="font-size: 13px">* 사업자 등록증 및 자격증명서</label>
 									<div class="inputMargin">
-										<input type="text" class="form-control_id" name="username" 
+										<input type="text" class="form-control_id" id="filename" name="username" 
 											placeholder="파일을 첨부해주세요" required autofocus readonly />
 									</div>
 									
 									<div>
 										<div class="check">
-											<button type="button" class="button_adress_check" onclick="document.all.file.click()">파일 첨부</button>
+											<button type="button" id="fileCheck" class="button_adress_check" onclick="document.all.file.click()">파일 첨부</button>
 										</div>
-										<input type="file" style="display: none" id='file' name='file'>
+										<input type="file" style="display: none" id='file' name='files' multiple/>
 									</div>
 							</div>
 							
@@ -117,6 +117,10 @@
 		document.getElementById("onepage").style.display = "flex";
 		document.getElementById("twopage").style.display = "none";
 	}
+	
+	document.getElementById("file").addEventListener("change", e => {
+		document.getElementById("filename").value = e.target.files[0].name;
+	});
 	
 
 	

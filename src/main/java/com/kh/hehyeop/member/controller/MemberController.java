@@ -1,7 +1,8 @@
 package com.kh.hehyeop.member.controller;
 
-import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.ErrorCode;
@@ -304,7 +306,8 @@ public class MemberController {
 	}
 	
 	@PostMapping("cjoin")
-	public String cjoin(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
+	public String cjoin(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr, 
+						@RequestParam List<MultipartFile> files) {
 		
 		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinLastForm");	
 		List<String> fieldList = new ArrayList<String>();
@@ -318,10 +321,11 @@ public class MemberController {
 		session.setAttribute("persistCUser", infoForm);
 		session.setAttribute("persistToken", token);
 		session.setAttribute("fieldList", fieldList);
+		session.setAttribute("fileList", files);
 		
 		memberService.co_authenticateByEmail(infoForm, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
-		 		
+		
 		return "redirect:/member/login-form";
 	}
 	
@@ -359,9 +363,15 @@ public class MemberController {
 			session.removeAttribute("persistUser");
 		}else if(coForm != null){
 			List<String> fieldList = (List<String>) session.getAttribute("fieldList");
+			List<MultipartFile> files = (List<MultipartFile>) session.getAttribute("fileList");
+			
 			memberService.insertCMember(coForm);
 			memberService.insertFields(coForm.getId(), fieldList);
+			
+			CMember newMember = memberService.selectCMember(coForm.getId());
+			memberService.uploadFile(files, newMember.getCIdx());
 			session.removeAttribute("persistCUser");
+			session.removeAttribute("fileList");
 		}
 		
 		redirectAttrs.addFlashAttribute("message", "회원가입을 환영합니다. 로그인 해주세요");

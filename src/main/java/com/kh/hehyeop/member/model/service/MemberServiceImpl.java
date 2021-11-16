@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.code.Config;
 import com.kh.hehyeop.common.mail.MailSender;
+import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
@@ -168,6 +170,21 @@ public class MemberServiceImpl implements MemberService{
 		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		memberRepository.updatePassword(member, newPw);
 		
+		
+	}
+
+	public CMember selectCMember(String id) {
+		return memberRepository.selectCMember(id);
+	}
+
+	public void uploadFile(List<MultipartFile> files, String cIdx) {
+		
+		FileUtil util = new FileUtil();
+		for (MultipartFile multipartFile : files) {
+			if(!multipartFile.isEmpty()) {
+				memberRepository.uploadFile(util.fileUpload(multipartFile), cIdx);
+			}
+		}
 		
 	}
 
