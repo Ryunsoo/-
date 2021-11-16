@@ -27,7 +27,7 @@ public interface MemberRepository {
 	@Select("select * from member where id = #{id} and password = #{password}")
 	Member authenticateUser(Member member);
 
-//	member find id
+//	find id
 	@Select("select id from (select id, name, tell, email from member union select id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email}")
 	String selectIdByEmail(@Param("name") String name, @Param("tell") String tell, @Param("email") String email);
 
@@ -51,7 +51,7 @@ public interface MemberRepository {
 	CMember authenticateCUser(CMember cmember);
 	
 	@Select("select * from c_member where name = #{name} and id = #{id} and email = #{email}")
-	CMember C_changePasswordByEmail(String name, String id, String email);
+	CMember C_changePasswordByEmail(@Param("name") String name, @Param("id") String id, @Param("email") String email);
 	
 	@Select("select * from member_c where id = #{id}")
 	CMember selectCMember(String id);
@@ -67,12 +67,15 @@ public interface MemberRepository {
 
 	void insertFields(@Param("id") String id, @Param("fields") List<String> fields);
 	
-	@Update("update member set password = #{newPw} where id = #{id} and email = #{email}")
-	void updatePassword(Member member, @Param("newPw") String newPw);
+	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
+	void updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
+	
+	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
+	void c_updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
-			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{cIdx}")
-	void uploadFile(FileDTO fileDTO, String cIdx);
+			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
+	void uploadFile(FileDTO fileDTO);
 	
 
 

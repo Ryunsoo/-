@@ -44,6 +44,8 @@ public interface MemberService {
 	void findPasswordByEmail(String email, String token);
 
 	void updatePassword(Member member, String newPw);
+	
+	void c_updatePassword(CMember cMember, String newPw);
 
 	CMember selectCMember(String id);
 

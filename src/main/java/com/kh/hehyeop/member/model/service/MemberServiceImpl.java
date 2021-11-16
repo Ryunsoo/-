@@ -155,7 +155,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String htmlTxt = http.exchange(request, String.class).getBody();
 		
-		mailSender.send(email, "회원가입을 축하합니다.", htmlTxt);
+		mailSender.send(email, "자취해협 비빌번호 재설정", htmlTxt);
 		
 	}
 
@@ -167,9 +167,22 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void updatePassword(Member member, String newPw) {
-		member.setPassword(passwordEncoder.encode(member.getPassword()));
-		memberRepository.updatePassword(member, newPw);
+		member.setPassword(passwordEncoder.encode(newPw));
+		String id = member.getId();
+		String email = member.getEmail();
+		String password = member.getPassword();
+		memberRepository.updatePassword(password, id, email);
 		
+	}
+	
+
+	@Override
+	public void c_updatePassword(CMember cMember, String newPw) {
+		cMember.setPassword(passwordEncoder.encode(newPw));
+		String id = cMember.getId();
+		String email = cMember.getEmail();
+		String password = cMember.getPassword();
+		memberRepository.c_updatePassword(password, id, email);
 		
 	}
 
@@ -182,7 +195,7 @@ public class MemberServiceImpl implements MemberService{
 		FileUtil util = new FileUtil();
 		for (MultipartFile multipartFile : files) {
 			if(!multipartFile.isEmpty()) {
-				memberRepository.uploadFile(util.fileUpload(multipartFile), cIdx);
+				memberRepository.uploadFile(util.fileUpload(multipartFile, cIdx));
 			}
 		}
 		
