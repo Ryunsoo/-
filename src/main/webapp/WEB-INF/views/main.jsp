@@ -88,7 +88,7 @@
 				</div>
 				</div>
 				<c:if test="${empty authentication}">
-					<div class="login_btn">
+					<div class="login_btn" onclick="location.href='/member/login-form'">
 						LOGIN
 					</div>
 					<div class="join_btn">

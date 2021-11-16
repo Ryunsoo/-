@@ -32,7 +32,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 				//boardAuthorize(httpRequest, httpResponse, uriArr);
 				break;
 			case "mypage":
-				//mypageAuthorize(httpRequest, httpResponse, uriArr);
+				mypageAuthorize(httpRequest, httpResponse, uriArr);
 				break;
 			default:
 				break;

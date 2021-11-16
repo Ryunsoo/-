@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
 	}
-
+	
 	
 	public void insertCMember(JoinForm form) {
 		form.setPassword(passwordEncoder.encode(form.getPassword()));

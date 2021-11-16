@@ -345,9 +345,33 @@ html, body {
 	align-items: center;
 }
 
+#normal {
+	font-weight: bolder;
+	color: black;
+	margin-left: 30px;
+}
+
+#bronze {
+	font-weight: bolder;
+	color: bronze;
+	margin-left: 30px;
+}
+
+#silver {
+	font-weight: bolder;
+	color: silver;
+	margin-left: 30px;
+}
+
 #gold {
 	font-weight: bolder;
 	color: gold;
+	margin-left: 30px;
+}
+
+#dia {
+	font-weight: bolder;
+	color: blue;
 	margin-left: 30px;
 }
 

@@ -39,11 +39,27 @@
 			<div class="myinfo">
 				<div id="name">
 					<div id="nameicon"><i class="far fa-user"></i></div>
-					<div id="user_name">권구현님&nbsp(GuHyun)</div>
+					<div id="user_name">${authentication.name} 님</div>
 					<div><button type="button" class="btn btn-info" id="namebtn">내정보&nbsp<i class="fas fa-chevron-down"></i></button></div>
 				</div>
 				<div id="grade">
-					<div id="gold">GOLD</div>
+					<c:choose>
+						<c:when test="${authentication.grade eq 'NORMAL'}">
+							<div id="normal">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'BRONZE'}">
+							<div id="bronze">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'SILVER'}">
+							<div id="silver">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'GOLD'}">
+							<div id="gold">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'DIA'}">
+							<div id="dia">${authentication.grade}</div>
+						</c:when>
+					</c:choose>
 					<div id="gradetext">회원</div>
 					<div id="gradeicon" type="button">
 						<i class="fas fa-question-circle"></i>
@@ -160,7 +176,7 @@
 						<div id="townlist_con">
 							<div id="list_wrap">
 								<div id="listidx">1</div>
-								<div id="listbody"><div id="address">성남시 중원구 성남동</div></div>
+								<div id="listbody"><div id="address">${authentication.oldAddress}</div></div>
 								<div id="empty" type="button"><i class="fas fa-times-circle"></i></div>
 							</div>
 						</div>	
