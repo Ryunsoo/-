@@ -50,7 +50,7 @@
 								placeholder="우편번호	" readonly required/>
 								
 								<div class="check">
-									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
+									<button type="button" class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
 								<input type="text" class="form-control_detail_adress" id="form-oldAddress" name="oldAddress" 

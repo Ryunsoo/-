@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
@@ -27,9 +26,7 @@ public interface MemberService {
 	
 	Member selectMemberByNickname(String nickname);
 
-	void co_authenticateByEmail(CoJoinForm form, String token);
-
-	void insertCMember(CoJoinForm coForm);
+	void insertCMember(JoinForm form);
 
 	Member authenticateUser(Member member);
 	

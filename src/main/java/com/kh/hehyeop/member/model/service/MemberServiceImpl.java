@@ -21,7 +21,6 @@ import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
-import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
@@ -48,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
 //	member login
 	public Member authenticateUser(Member member) {
 		
-		Member storedMember = memberRepository.selectMemberByUserId(member.getId());
+		Member storedMember = memberRepository.selectMember(member.getId());
 		
 		if(storedMember != null && passwordEncoder.matches(member.getPassword(), storedMember.getPassword())) {
 			return storedMember;
@@ -59,7 +58,8 @@ public class MemberServiceImpl implements MemberService{
 //	C member login
 	public CMember authenticateCUser(CMember cmember) {
 		
-		CMember storedCMember = memberRepository.selectCMemberByUserId(cmember.getId());
+		CMember storedCMember = memberRepository.selectCMember(cmember.getId());
+		
 		if(storedCMember != null && passwordEncoder.matches(cmember.getPassword(), storedCMember.getPassword())){
 			return storedCMember;
 		}
@@ -96,28 +96,9 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
 	}
-	
-	public void co_authenticateByEmail(CoJoinForm form, String token) {
-		
-		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("mailTemplate", "join-auth-mail2");
-		body.add("id", form.getId());
-		body.add("persistToken", token);
-		
-		RequestEntity<MultiValueMap<String, String>> request = 
-				RequestEntity.post(Config.DOMAIN.DESC + "/mail")
-				.accept(MediaType.APPLICATION_FORM_URLENCODED)
-				.body(body);
-		
-		String htmlTxt = http.exchange(request, String.class).getBody();
-		
-		mailSender.send(form.getEmail(), "전문해협 회원가입을 축하합니다.", htmlTxt);
-		
-	}
 
-	
-	public void insertCMember(CoJoinForm coForm) {
-		memberRepository.insertCMember(coForm);
+	public void insertCMember(JoinForm form) {
+		memberRepository.insertCMember(form);
 		
 	}
 	
