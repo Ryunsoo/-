@@ -1,7 +1,6 @@
 package com.kh.hehyeop.member.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.kh.hehyeop.member.model.dto.CMember;
@@ -16,10 +15,12 @@ public interface MemberService {
 
 	Member selectMemberByUserId(String id);
 
-	void selectIdByEmail(Member member, String token);
+	String selectIdByEmail(String name, String tell, String email);
 	
-	void selectPasswordByEmail(Member member, String token);
-
+	Member changePasswordByEmail(String name, String id, String email);
+	
+	CMember C_changePasswordByEmail(String name, String id, String email);
+	
 	void authenticateByEmail(JoinForm form, String token);
 	
 	Member selectMemberByNickname(String nickname);
@@ -37,5 +38,10 @@ public interface MemberService {
 	ArrayList<String> selectCategory();
 
 	void insertFields(String id, List<String> fields);
+
+	void findPasswordByEmail(String email, String token);
+
+	void updatePassword(Member member, String newPw);
+
 
 }

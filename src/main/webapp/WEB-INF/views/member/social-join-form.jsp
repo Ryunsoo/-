@@ -4,18 +4,24 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
-<link rel='stylesheet' href="../../../resources/css/member/join-form-next.css">
+<link rel='stylesheet' href="../../../resources/css/member/social-join-form.css">
+
 <style type="text/css">
 
-.valid-msg{
-  font-size: 13px; 
-  color: red;
+.valid-msg {
+	font-size: 13px;
+	color: red;
+	margin-left: 10px;
 }
 
-input:focus {outline:none;}
-
+input:focus {
+	outline: none;
+}
 </style>
+
 </head>
+
+
 <body>
 <div class="wrap">
 	<div class="topBar">
@@ -28,17 +34,29 @@ input:focus {outline:none;}
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form:form modelAttribute="joinForm" action="/member/join" method="post" class="form-signin">
+						<form:form modelAttribute="joinForm"
+						class="form-signin" action="/member/social-join" method="post">
 							<div class='progress_wrapper'>
-                                <div class='progress_bar'>
-                                    <div class='progress'></div>
-                                </div>
-                            </div>
-							<label style="float: right; margin-right: 40px; margin-top: 5px;">100%</label><br>
+								<div class='progress_bar'>
+									<div class='progress'></div>
+								</div>
+							</div>
+						<label style="float: right; margin-right: 40px; margin-top: 5px;">50%</label><br>
 						<div class="hr-sect">함께 &nbsp해협</div>
-						
+						<div class='input_wrapper'>
+							
+							<div class=nameMargin>
+								<label>* 이름</label><br>
+									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" value="123"/><br><br>
+							</div>
+							
+							<div class=tellMargin>
+								<label>* 전화번호<form:errors path="tell" cssClass="valid-msg"/></label><br>
+									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off" value="01011111111"/><br>
+							</div>
+						</div>
 						<div class="idMargin">
-							<label>* 이메일</label><form:errors path="email"/><br>								
+							<label>* 이메일<form:errors path="email" cssClass="valid-msg"/></label><br>								
 								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
 									<c:if test="${empty error.email}">
 										value = "${joinForm.email}"
@@ -59,7 +77,7 @@ input:focus {outline:none;}
 								<div class="check">
 									<button id="btnNickCheck" class="button_check">중복확인</button>
 									<c:if test="${empty error.nickname}">
-										<span id="nicknameCheck" class="valid-msg"></span>
+										<span id="nicknameCheck" class="valid-msg" cssClass="valid-msg"></span>
 									</c:if>
 									<form:errors path="nickname"/>
 								</div>
@@ -85,22 +103,18 @@ input:focus {outline:none;}
 							<button type="submit" class="custom-btn btn-1">J O I N &nbsp U S</button>
 						</div>
 						
-						
-						<div class="next">
-							<button class="button_next" onclick="backspace()">< 이전</button>
-						</div>
-						
-				</form:form>
+					</form:form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-</div>
-</body>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/member/joinForm-next.js"></script>
-<script>
 
+
+
+<script type="text/javascript" src="${contextPath}/resources/js/member/socialJoinForm.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
 function backspace(){
 	history.back();
 }
@@ -121,6 +135,9 @@ function searchAddr(){
     }).open();
 	
 }
-
 </script>
+
+</body>
+
+
 </html>

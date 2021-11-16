@@ -1,8 +1,10 @@
 package com.kh.hehyeop.member.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -70,6 +73,39 @@ public class MemberController {
 		}
 	}
 	
+	@GetMapping("finding-id")
+	@ResponseBody
+	public String findingId(String name, String tell, String email, HttpSession session, RedirectAttributes redirectAttr) {
+		System.out.println("돌고있냐? : " + name + tell + email);
+		String certifiedId = memberService.selectIdByEmail(name, tell, email);
+
+		if (certifiedId != null) {
+			session.setAttribute("findingId", certifiedId);
+			return certifiedId;
+		}
+			return null;
+	}
+
+	@GetMapping("finding-pw")
+	@ResponseBody
+	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
+		System.out.println("돌고있냐? : " + name + id + email);
+		Member certifiedUser = memberService.changePasswordByEmail(name, id, email);
+		
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistUser", certifiedUser);
+		session.setAttribute("persistToken", token);
+		
+
+		if (certifiedUser != null) {
+			memberService.findPasswordByEmail(email, token);
+			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+			return certifiedUser.getEmail();
+		}
+		
+		return null;
+	}
+	
 	@InitBinder(value = "joinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
 	public void initBinder(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(joinFormValidator);
@@ -79,7 +115,6 @@ public class MemberController {
 	public void joinMember(Model model) {
 		
 		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
-		
 	}
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
@@ -98,6 +133,48 @@ public class MemberController {
 		return "member/join-form-next";
 
 	}
+	
+	
+	@GetMapping("social-join-form")
+	public void socialJoinMember(Model model
+								,@RequestParam(value="id", required=false)  String id 
+								,HttpSession session) {
+		session.setAttribute("id", id);
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+	}
+	
+	@PostMapping("social-join")
+	public String socialJoin(@Validated JoinForm form
+							, Errors errors
+							, Model model
+							, HttpSession session
+							, RedirectAttributes redirectAttr) {
+		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "member/social-join-form";
+		}
+		
+		form.setId((String)session.getAttribute("id"));
+		form.setPassword(UUID.randomUUID().toString());
+		
+		
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistUser", form);
+		session.setAttribute("persistToken", token);
+		
+		memberService.authenticateByEmail(form, token);
+		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		 		
+		return "redirect:/member/login-form";
+	}
+	
+	
+	
+	
 	
 	@PostMapping("join")
 	public String join(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
@@ -128,17 +205,13 @@ public class MemberController {
 	}
 	
 	
+	
+	
 	@GetMapping("cojoin-form-next")
 	public void coJoinNextTest() {}
 	
 	@GetMapping("cojoin-form-last")
-	public void coJoinLastTest(HttpSession session) {
-		
-		ArrayList<FieldForm> fieldList = memberService.selectField();
-		ArrayList<String> categoryList = memberService.selectCategory();
-		
-		session.setAttribute("fieldList", fieldList);
-		session.setAttribute("categoryList", categoryList);
+	public void coJoinLastTest() {
 		
 	}
 	
@@ -146,7 +219,6 @@ public class MemberController {
 	@ResponseBody
 	public String idCheck(String id) {
 		Member member = memberService.selectMemberByUserId(id);
-		
 		if (member != null) {
 			logger.debug(member.toString());
 			return "disable";
@@ -218,41 +290,53 @@ public class MemberController {
 		form.setTell(infoForm.getTell());
 		
 		session.setAttribute("CoJoinLastForm", form);
-		logger.debug(form.toString());
+		
+		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<String> categoryList = memberService.selectCategory();
+		
+		session.setAttribute("fieldList", fieldList);
+		session.setAttribute("categoryList", categoryList);
+		
 		return "member/cojoin-form-last";
 		
 	}
 	
 	@PostMapping("cjoin")
-	public String cjoin(@Validated CoJoinForm form, Errors errors, Model model, 
-						HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
+	public String cjoin(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
 		
+		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinLastForm");	
 		List<String> fieldList = new ArrayList<String>();
 		String[] fieldParam = request.getParameterValues("fieldName");
-		
+
 		for (String field : fieldParam) {
 			fieldList.add(field);
 		}
 		
-		memberService.insertFields("fieldTest", fieldList);
+		String token = UUID.randomUUID().toString();
+		session.setAttribute("persistCUser", infoForm);
+		session.setAttribute("persistToken", token);
+		session.setAttribute("fieldList", fieldList);
 		
-//		ValidateResult vr = new ValidateResult();
-//		model.addAttribute("error", vr.getError());
-//		
-//		if (errors.hasErrors()) {
-//			vr.addErrors(errors);
-//			return "redirect:/member/cojoin-form";
-//		}
-		
-		
-//		String token = UUID.randomUUID().toString();
-//		session.setAttribute("persistCUser", form);
-//		session.setAttribute("persistToken", token);
-//		
-//		memberService.co_authenticateByEmail(form, token);
-//		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		memberService.co_authenticateByEmail(infoForm, token);
+		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
 		return "redirect:/member/login-form";
+	}
+	
+	@GetMapping("findpw-impl/{token}")
+	public String findPwImpl(@PathVariable String token
+			, @SessionAttribute(value = "persistToken", required = false) String persistToken
+			, @SessionAttribute(value = "persistUser", required = false) String email
+			, HttpSession session
+			, RedirectAttributes redirectAttrs) {
+		
+		if(!persistToken.equals(persistToken)) {
+			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
+		
+		session.removeAttribute("persistToken");
+	
+		return "redirect:/member/login-form?email=1";
 	}
 	
 	@GetMapping("join-impl/{token}")
@@ -267,11 +351,14 @@ public class MemberController {
 			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 		}
 		
+		
 		if(form != null) {
 			memberService.insertMember(form);
 			session.removeAttribute("persistUser");
 		}else if(coForm != null){
+			List<String> fieldList = (List<String>) session.getAttribute("fieldList");
 			memberService.insertCMember(coForm);
+			memberService.insertFields(coForm.getId(), fieldList);
 			session.removeAttribute("persistCUser");
 		}
 		
@@ -279,6 +366,24 @@ public class MemberController {
 		session.removeAttribute("persistToken");
 	
 		return "redirect:/member/login-form";
+	}
+
+	
+	@GetMapping("update-pw")
+	@ResponseBody
+	public String updatePw(String newPw, HttpSession session) {
+		
+		boolean valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", newPw);
+		
+		if(valid) {
+			Member member = (Member) session.getAttribute("persistUser");
+			memberService.updatePassword(member, newPw);
+			
+			return "change";
+		} else {
+			
+			return "disable";
+		}
 	}
 
 	

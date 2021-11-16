@@ -4,12 +4,7 @@
 	let confirmPasswordCheck = false;
 	let confirmNameCheck = false;
 	let confirmTellCheck = false;
-	
-	
-	
-	
-	
-	
+
 	
 		/*id  검증*/
 		let confirmId = '';
