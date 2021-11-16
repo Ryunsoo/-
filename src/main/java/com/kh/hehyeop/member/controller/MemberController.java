@@ -93,6 +93,7 @@ public class MemberController {
 	@ResponseBody
 	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
 		System.out.println("돌고있냐? : " + name + id + email);
+		
 		Member certifiedUser = memberService.changePasswordByEmail(name, id, email);
 		CMember certifiedCUser = memberService.C_changePasswordByEmail(name, id, email);
 		
@@ -106,6 +107,10 @@ public class MemberController {
 			memberService.findPasswordByEmail(email, token);
 			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 			return certifiedUser.getEmail();
+		}else if(certifiedCUser != null) {
+			memberService.findPasswordByEmail(email, token);
+			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+			return certifiedCUser.getEmail();
 		}
 		
 		return null;

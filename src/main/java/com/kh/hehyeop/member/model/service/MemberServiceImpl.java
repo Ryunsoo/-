@@ -97,7 +97,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberRepository.selectMemberByNickname(nickname);
 	}
 
+	
 	public void insertCMember(JoinForm form) {
+		form.setPassword(passwordEncoder.encode(form.getPassword()));
 		memberRepository.insertCMember(form);
 		
 	}
@@ -142,8 +144,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public CMember C_changePasswordByEmail(String name, String id, String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberRepository.C_changePasswordByEmail(name, id, email);
 	}
 
 	@Override

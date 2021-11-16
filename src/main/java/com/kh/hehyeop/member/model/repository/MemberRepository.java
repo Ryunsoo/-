@@ -52,7 +52,7 @@ public interface MemberRepository {
 	@Select("select * from member_c where id = #{id} and password = #{password}")
 	CMember authenticateCUser(CMember cmember);
 	
-	@Select("select * from c_member where name = #{name} and id = #{id} and email = #{email}")
+	@Select("select * from member_c where name = #{name} and id = #{id} and email = #{email}")
 	CMember C_changePasswordByEmail(@Param("name") String name, @Param("id") String id, @Param("email") String email);
 	
 	@Select("select * from member_c where id = #{id}")
