@@ -18,7 +18,7 @@
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form:form modelAttribute="cjoinForm" action="/member/cojoin-form-last" method="post" class="form-signin">
+						<form:form modelAttribute="joinForm" action="/member/cojoin-form-last" method="post" class="form-signin">
 							<div class='progress_wrapper'>
                                 <div class='progress_bar'>
                                     <div class='progress'></div>
@@ -35,7 +35,7 @@
 						
 						<div class="idMargin">
 							<label>* 업체명</label><br> 
-								<input type="text" class="form-control_id" name="company" 
+								<input type="text" class="form-control_id" name="nickname" 
 								placeholder="업체명을 작성해주세요" required="" autofocus="" />
 								
 								
@@ -44,17 +44,17 @@
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
 								<input type="text" class="form-control_adress" id="form-address" name="address" 
-								placeholder="기본 주소를 입력해주세요." required="" autofocus="" />
+								placeholder="기본 주소를 입력해주세요." readonly required/>
 								
 								<input type="text" class="form-control_adress_check" id="form-addressNo" name="addressNo" 
-								placeholder="우편번호	" required="" autofocus="" />
+								placeholder="우편번호	" readonly required/>
 								
 								<div class="check">
-									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
+									<button type="button" class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
 								<input type="text" class="form-control_detail_adress" id="form-oldAddress" name="oldAddress" 
-								placeholder="상세 주소를 입력해주세요." required="" autofocus="" />
+								placeholder="상세 주소를 입력해주세요." readonly required/>
 						</div>
 						
 						<div>

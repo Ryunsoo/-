@@ -28,7 +28,7 @@ input:focus {outline:none;}
 			<div class="loginTitle">
 				<div class="loginTopBlank"></div>
 					<div>
-						<form:form modelAttribute="cjoinForm" class="form-signin"
+						<form:form modelAttribute="joinForm" class="form-signin"
 						 method="post" action="/member/cojoin-form-next">
 							<div class='progress_wrapper'>
 								<div class='progress_bar'>
@@ -72,13 +72,22 @@ input:focus {outline:none;}
 							</div>
 							
 							<div class=nameMargin>
-								<label>* 대표자명</label><br>
-									<input type="text" class="form-control_all" id="name" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" /><br><br>
+								<label>* 대표자명
+								<form:errors path="name" cssClass="valid-msg"/></label><br>
+									<input type="text" class="form-control_all" id="name" name="name" placeholder="이름을 입력해주세요." 
+									<c:if test="${empty error.name}">
+										value = "${joinForm.name}"
+									</c:if>
+									required autocomplete="off" /><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호<form:errors path="tell" cssClass="valid-msg"/></label><br>
-									<input type="text" class="form-control_all" id="tell" name="tell" placeholder="010-1234-5678" required autocomplete="off" /><br>
+									<input type="text" class="form-control_all" id="tell" name="tell" 
+									<c:if test="${empty error.tell}">
+										value = "${joinForm.tell}"
+									</c:if>
+									placeholder="숫자만 입력해주세요." required autocomplete="off" /><br>
 							</div>
 						</div>
 						

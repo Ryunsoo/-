@@ -40,7 +40,16 @@ public class JoinFormValidator implements Validator{
 			valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", form.getPassword());
 			
 			if(!valid) {
-				errors.rejectValue("password", "error-password", "비밀번호는 8글자 이상의 숫자 영문자 특수문자 조합입니다.");
+				errors.rejectValue("password", "error-password", "다시 입력해주세요");
+			}
+		}
+		
+		if(form.getName() != null) {
+			// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
+			valid = Pattern.matches("^[가-힣]{2,4}$", form.getName());
+			
+			if(!valid) {
+				errors.rejectValue("name", "error-name", "이름은 2~4글자의 한글만 가능합니다.");
 			}
 		}
 		
@@ -66,6 +75,12 @@ public class JoinFormValidator implements Validator{
 		if(form.getNickname() != null) {
 			if(memberRepository.selectMemberByNickname(form.getNickname()) != null) {
 				errors.rejectValue("nickname", "error-nickname", "닉네임이 중복되었습니다.");
+			}
+			
+			valid = Pattern.matches("^[\\w\\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$", form.getNickname());
+			
+			if (!valid) {
+				errors.rejectValue("nickname", "error-nickname", "닉네임은 2~10자리만 가능합니다.");
 			}
 		}
 	}

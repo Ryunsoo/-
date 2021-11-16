@@ -95,9 +95,40 @@ div {
 }
 
 #chatItem{
-	width: 350px;
-	margin: 20px 0 0 0; 
-	border-bottom: 1px solid #bcbcbc;
+	width: 358px;
+    height: 48px;
+    margin: 10px 0 5px 0;    
+    border: 1px solid #bcbcbc;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: lightgoldenrodyellow;
+    box-shadow: 0 1px 1px 1px lightgrey;
+}
+
+#chatItemTitle {
+	font-weight: bolder;
+    font-size: 15px;
+    margin-left: 20px;
+}
+
+#chatItemBtn {
+	width: 70px;
+    height: 32px;
+    font-weight: bolder;
+    font-size: 17px;
+    color: black;
+    margin-right: 20px;
+    background: lightgoldenrodyellow;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 2px 2px 2px lightgrey;
+}
+
+#chatItemBtn:hover {
+	background: rgb(255, 228, 181);
+	box-shadow: 0 4px 4px 4px lightgrey;
 }
 
 #chattingRoom {

@@ -34,7 +34,6 @@ import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
-import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
@@ -199,6 +198,7 @@ public class MemberController {
 		form.setPassword(infoForm.getPassword());
 		form.setName(infoForm.getName());
 		form.setTell(infoForm.getTell());
+		form.setStatus(0);
 		
 		String token = UUID.randomUUID().toString();
 		session.setAttribute("persistUser", form);
@@ -246,21 +246,17 @@ public class MemberController {
 		}
 	}
 	
-	@InitBinder(value = "cjoinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
-	public void cinitBinder(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(joinFormValidator);
-	}
 	
 	@GetMapping("cojoin-form")
 	public void joinFormNextMember(Model model, HttpSession session) {
 		
-		model.addAttribute(new CoJoinForm()).addAttribute("error", new ValidateResult().getError());
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
 		
 	}
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("cojoin-form-next")
-	public String coJoinNext(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+	public String coJoinNext(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
 
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
@@ -278,7 +274,7 @@ public class MemberController {
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("cojoin-form-last")
-	public String coJoinLast(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+	public String coJoinLast(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
@@ -288,12 +284,13 @@ public class MemberController {
 			return "member/cojoin-form";
 		}
 		
-		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinForm");
+		JoinForm infoForm = (JoinForm) session.getAttribute("CoJoinForm");
 		  
 		form.setId(infoForm.getId());
 		form.setPassword(infoForm.getPassword());
 		form.setName(infoForm.getName());
 		form.setTell(infoForm.getTell());
+		form.setStatus(1);
 		
 		session.setAttribute("CoJoinLastForm", form);
 		
@@ -311,21 +308,23 @@ public class MemberController {
 	public String cjoin(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr, 
 						@RequestParam List<MultipartFile> files) {
 		
-		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinLastForm");	
+		JoinForm infoForm = (JoinForm) session.getAttribute("CoJoinLastForm");	
 		List<String> fieldList = new ArrayList<String>();
 		String[] fieldParam = request.getParameterValues("fieldName");
-
+		
+		logger.debug(infoForm.toString());
+		
 		for (String field : fieldParam) {
 			fieldList.add(field);
 		}
 		
 		String token = UUID.randomUUID().toString();
-		session.setAttribute("persistCUser", infoForm);
+		session.setAttribute("persistUser", infoForm);
 		session.setAttribute("persistToken", token);
 		session.setAttribute("fieldList", fieldList);
 		session.setAttribute("fileList", files);
 		
-		memberService.co_authenticateByEmail(infoForm, token);
+		memberService.authenticateByEmail(infoForm, token);
 		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		
 		return "redirect:/member/login-form";
@@ -351,7 +350,6 @@ public class MemberController {
 	public String joinImpl(@PathVariable String token
 			, @SessionAttribute(value = "persistToken", required = false) String persistToken
 			, @SessionAttribute(value = "persistUser", required = false) JoinForm form
-			, @SessionAttribute(value = "persistCUser", required = false) CoJoinForm coForm
 			, HttpSession session
 			, RedirectAttributes redirectAttrs) {
 		
@@ -360,17 +358,17 @@ public class MemberController {
 		}
 		
 		
-		if(form != null) {
+		if(form.getStatus() == 0) {
 			memberService.insertMember(form);
 			session.removeAttribute("persistUser");
-		}else if(coForm != null){
+		}else if(form.getStatus() == 1){
 			List<String> fieldList = (List<String>) session.getAttribute("fieldList");
 			List<MultipartFile> files = (List<MultipartFile>) session.getAttribute("fileList");
 			
-			memberService.insertCMember(coForm);
-			memberService.insertFields(coForm.getId(), fieldList);
+			memberService.insertCMember(form);
+			memberService.insertFields(form.getId(), fieldList);
 
-			CMember newMember = memberService.selectCMember(coForm.getId());
+			CMember newMember = memberService.selectCMember(form.getId());
 			 
 			memberService.uploadFile(files, newMember.getCIdx());
 			session.removeAttribute("persistCUser");

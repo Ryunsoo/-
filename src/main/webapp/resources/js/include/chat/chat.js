@@ -21,7 +21,7 @@ async function clickChatting2() {
 		return;
 	}
 	if (viewChatRoom.style.display == "flex"){
-		viewChatRoom.style.display = "none";
+		return;
 	}
 	
 }
@@ -49,14 +49,22 @@ let createList = async (data) => {
 	for (var i = 0; i < data.length; i++) {
 		let chatItem = document.createElement("div");
 		chatItem.setAttribute('id','chatItem');
-		chatItem.setAttribute('data-room-no', data[i].roomNo);
-		chatItem.innerHTML = data[i].roomName;
+		let chatItemTitle = document.createElement("div");
+		chatItemTitle.setAttribute('id','chatItemTitle');
+		chatItem.appendChild(chatItemTitle);
+		let chatItemBtn = document.createElement("div");
+		chatItemBtn.setAttribute('id','chatItemBtn');
+		chatItemBtn.innerHTML = '입장';
+		chatItem.appendChild(chatItemBtn);
 		
-		chatItem.addEventListener('click', function(e) {
+		chatItemBtn.setAttribute('data-room-no', data[i].roomNo);
+		chatItemTitle.innerHTML = data[i].roomName;
+		
+		chatItemBtn.addEventListener('click', function(e) {
 			document.getElementById("chatting_main").style.display = "none";
 			document.querySelector("#chattingRoom").style.display = "flex";
 			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo);
-		})
+		}) 
 		
 		let myList = document.getElementById('myList');
 		myList.appendChild(chatItem);
@@ -65,12 +73,8 @@ let createList = async (data) => {
 
 function closeChat(){
 	let viewChat = document.getElementById("chatting_main");
-	let viewChatRoom = document.querySelector("#chattingRoom");
 	if (viewChat.style.display == "flex"){
 		viewChat.style.display = "none";
-	}
-	if (viewChatRoom.style.display == "flex"){
-		viewChatRoom.style.display = "none";
 	}
 }
 

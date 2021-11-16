@@ -68,17 +68,17 @@ input:focus {outline:none;}
 						<div class="adressMargin">
 							<label>* 주소</label><br> 
 								<input type="text" class="form-control_adress" id="form-address" name="address" 
-								placeholder="도로명주소" required autocomplete="off" />
+								placeholder="도로명주소" readonly required autocomplete="off" />
 								
 								<input type="text" class="form-control_adress_check" id="form-addressNo" name="addressNo" 
-								placeholder="우편번호	" required autocomplete="off" />
+								placeholder="우편번호	" readonly required autocomplete="off" />
 								
 								<div class="check">
 									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
 								<input type="text" class="form-control_detail_adress" id="form-oldAddress" name="oldAddress" 
-								placeholder="지번주소" required autocomplete="off"/>
+								placeholder="지번주소" readonly required autocomplete="off"/>
 						</div>
 						
 						<div>

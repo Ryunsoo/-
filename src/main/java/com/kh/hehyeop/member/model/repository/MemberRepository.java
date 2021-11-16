@@ -13,7 +13,6 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.CoJoinForm;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 
@@ -26,6 +25,9 @@ public interface MemberRepository {
 
 	@Select("select * from member where id = #{id} and password = #{password}")
 	Member authenticateUser(Member member);
+	
+	@Select("select * from member where id = #{id}")
+	Member selectMember(String id);
 
 //	find id
 	@Select("select id from (select id, name, tell, email from member union select id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email}")
@@ -44,8 +46,8 @@ public interface MemberRepository {
 //	cmember
 	
 	@Insert("insert into member_c(id, password, name, tell, email, company, address, old_address, c_idx) "
-			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{company}, #{address}, #{oldAddress}, sc_c_idx.nextval)")
-	void insertCMember(CoJoinForm coForm);
+			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{nickname}, #{address}, #{oldAddress}, sc_c_idx.nextval)")
+	void insertCMember(JoinForm form);
 	
 	@Select("select * from member_c where id = #{id} and password = #{password}")
 	CMember authenticateCUser(CMember cmember);
@@ -70,7 +72,7 @@ public interface MemberRepository {
 	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
 	void updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
 	
-	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
+	@Update("update member_c set password = #{password} where id = #{id} and email = #{email}")
 	void c_updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
