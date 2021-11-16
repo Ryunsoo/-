@@ -35,6 +35,7 @@ import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.CoJoinForm;
+import com.kh.hehyeop.member.validator.CoJoinFormValidator;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
@@ -47,6 +48,7 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private JoinFormValidator joinFormValidator;
+	private CoJoinFormValidator cojoinFormValidator;
 
 	public MemberController(MemberService memberService, JoinFormValidator joinFormValidator) {
 		super();
@@ -199,6 +201,7 @@ public class MemberController {
 		form.setPassword(infoForm.getPassword());
 		form.setName(infoForm.getName());
 		form.setTell(infoForm.getTell());
+		form.setStatus(0);
 		
 		String token = UUID.randomUUID().toString();
 		session.setAttribute("persistUser", form);
@@ -246,21 +249,17 @@ public class MemberController {
 		}
 	}
 	
-	@InitBinder(value = "cjoinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
-	public void cinitBinder(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(joinFormValidator);
-	}
 	
 	@GetMapping("cojoin-form")
 	public void joinFormNextMember(Model model, HttpSession session) {
 		
-		model.addAttribute(new CoJoinForm()).addAttribute("error", new ValidateResult().getError());
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
 		
 	}
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("cojoin-form-next")
-	public String coJoinNext(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+	public String coJoinNext(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
 
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
@@ -278,7 +277,7 @@ public class MemberController {
 	
 	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("cojoin-form-last")
-	public String coJoinLast(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session) {
+	public String coJoinLast(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
@@ -288,7 +287,7 @@ public class MemberController {
 			return "member/cojoin-form";
 		}
 		
-		CoJoinForm infoForm = (CoJoinForm) session.getAttribute("CoJoinForm");
+		JoinForm infoForm = (JoinForm) session.getAttribute("CoJoinForm");
 		  
 		form.setId(infoForm.getId());
 		form.setPassword(infoForm.getPassword());

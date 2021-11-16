@@ -10,6 +10,7 @@ public class JoinForm {
 	private String nickname;
 	private String address;
 	private String oldAddress;
+	private int status;
 
 	public String getId() {
 		return id;
@@ -75,10 +76,19 @@ public class JoinForm {
 		this.oldAddress = oldAddress;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "JoinForm [id=" + id + ", password=" + password + ", name=" + name + ", tell=" + tell + ", email="
-				+ email + ", nickname=" + nickname + ", address=" + address + ", oldAddress=" + oldAddress + "]";
+				+ email + ", nickname=" + nickname + ", address=" + address + ", oldAddress=" + oldAddress + ", status="
+				+ status + "]";
 	}
 
 }

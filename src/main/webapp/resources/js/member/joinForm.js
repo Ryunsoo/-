@@ -135,7 +135,7 @@
 				inputMsg.innerHTML = "비밀번호 일치";
 				inputMsg.style.color = 'green';
 			} else {
-				inputMsg.innerHTML = "비밀번호 일치하지 않아요";
+				inputMsg.innerHTML = "비밀번호 불일치";
 				inputMsg.style.color = 'red';
 			}	
 		}

@@ -19,7 +19,7 @@ public class CoJoinFormValidator implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return JoinForm.class.equals(clazz);
+		return CoJoinForm.class.equals(clazz);
 	}
 
 	@Override
@@ -41,6 +41,15 @@ public class CoJoinFormValidator implements Validator{
 			
 			if(!valid) {
 				errors.rejectValue("password", "error-password", "비밀번호는 8글자 이상의 숫자 영문자 특수문자 조합입니다.");
+			}
+		}
+		
+		if(form.getName() != null) {
+			// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
+			valid = Pattern.matches("^[가-힣]{2,4}$", form.getName());
+			
+			if(!valid) {
+				errors.rejectValue("name", "error-name", "이름은 2~4글자의 한글만 가능합니다.");
 			}
 		}
 		

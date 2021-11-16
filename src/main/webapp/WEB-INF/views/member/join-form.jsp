@@ -46,7 +46,7 @@ input:focus {outline:none;}
 								<label>* 아이디 &nbsp&nbsp 
 								<span style="font-size: 13px; color: red;" id="idCheck"></span>
 								<form:errors path="id" cssClass="valid-msg"/></label><br> 
-									<input type="text" id="id" class="form-control_id" name="id" value="15151515151"
+									<input type="text" id="id" class="form-control_id" name="id"
 									placeholder="아이디를 입력해주세요." required autocomplete="off" 
 									<c:if test="${empty error.id}">
 										value = "${joinForm.id}"
@@ -58,7 +58,7 @@ input:focus {outline:none;}
 							
 							<div class="passwordMargin">
 								<div class='pw_top'>
-									<label>* 비밀번호</label>
+									<label>* 비밀번호 </label>
 									<div class='pw_validator_bar'>
 										<div class='low'></div>
 										<div class='middle'></div>
@@ -68,21 +68,29 @@ input:focus {outline:none;}
 										<label id="validator_bar_text" style="font-weight: 1000"></label>
 									</div>
 									<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>
-									<form:errors path="password" cssClass="valid-msg"/>
 								</div>
-								<input type="password" id="password" class="form-control-pw-top" name="password" value="asdf1234!@#$"
+								<input type="password" id="password" class="form-control-pw-top" name="password"
 								placeholder="비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
-								<input type="password" id="password_check" class="form-control-pw-btm" placeholder="비밀번호 확인" value="asdf1234!@#$" required/>
+								<input type="password" id="password_check" class="form-control-pw-btm" placeholder="비밀번호 확인" required/>
 							</div>
 							
 							<div class=nameMargin>
-								<label>* 이름</label><br>
-									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" value="123"/><br><br>
+								<label>* 이름
+								<form:errors path="name" cssClass="valid-msg"/>
+								</label><br>
+									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." 
+									<c:if test="${empty error.name}">
+										value = "${joinForm.name}"
+									</c:if> required autocomplete="off"/><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호 <form:errors path="tell" cssClass="valid-msg"/></label><br>
-									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off" value="01011111111"/><br>
+									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." 
+									<c:if test="${empty error.tell}">
+										value = "${joinForm.tell}"
+									</c:if>
+									required autocomplete="off" /><br>
 							</div>
 						</div>
 						
