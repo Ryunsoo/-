@@ -334,7 +334,8 @@ if(link[1] != null) {
 	         .then(res=> res.text())
 	         .then(text=> {
 	            if(text) {
-	               alert("야호 ~~ !");
+	            	alert('비밀번호 변경이 완료되었습니다.');
+	            	location.href='/member/login-form';
 	            }else {
 	               setModalTitle('modal2','이메일로 비밀번호 찾기');
 	               setModalBody('modal2','<b style="color:red;">입력하신 정보와 일치하는 회원이 없습니다.</b><br>이름과 이메일 정보를 다시 한번 확인해주세요');

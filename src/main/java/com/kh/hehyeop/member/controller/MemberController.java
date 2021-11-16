@@ -95,9 +95,11 @@ public class MemberController {
 	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
 		System.out.println("돌고있냐? : " + name + id + email);
 		Member certifiedUser = memberService.changePasswordByEmail(name, id, email);
+		CMember certifiedCUser = memberService.C_changePasswordByEmail(name, id, email);
 		
 		String token = UUID.randomUUID().toString();
 		session.setAttribute("persistUser", certifiedUser);
+		session.setAttribute("c_persistUser", certifiedCUser);
 		session.setAttribute("persistToken", token);
 		
 
@@ -385,22 +387,34 @@ public class MemberController {
 	@GetMapping("update-pw")
 	@ResponseBody
 	public String updatePw(String newPw, HttpSession session) {
-		
+
 		boolean valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", newPw);
-		
-		if(valid) {
+
+		if (valid) {
 			Member member = (Member) session.getAttribute("persistUser");
-			member.setId(member.getId());
-			member.setEmail(member.getEmail());
-			System.out.println(member);
-			memberService.updatePassword(member, newPw);
-			System.out.println("바꼈냐");
-			return "change";
+			CMember cMember = (CMember) session.getAttribute("c_persistUser");
+
+			if (member != null) {
+				member.setId(member.getId());
+				member.setEmail(member.getEmail());
+				memberService.updatePassword(member, newPw);
+				System.out.println("member 바꼈냐");
+				session.removeAttribute("persistUser");
+				return "change";
+				
+			} else if (cMember != null) {
+				cMember.setId(cMember.getId());
+				cMember.setEmail(cMember.getEmail());
+				memberService.c_updatePassword(cMember, newPw);
+				System.out.println("c_member 바꼈냐");
+				session.removeAttribute("c_persistUser");
+				return "change";
+			}
+			return null;
 		} else {
-			
+
 			return null;
 		}
 	}
 
-	
 }
