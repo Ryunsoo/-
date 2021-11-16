@@ -30,6 +30,8 @@ public interface MemberService {
 
 	Member authenticateUser(Member member);
 	
+	Member authenticateSocialUser(Member member);
+	
 	CMember authenticateCUser(CMember cmember);
 
 	ArrayList<FieldForm> selectField();

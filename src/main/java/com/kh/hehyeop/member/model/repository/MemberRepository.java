@@ -79,6 +79,7 @@ public interface MemberRepository {
 			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	void uploadFile(FileDTO fileDTO);
 	
-
+	@Select("select * from member where id = #{id}")
+	Member selectSocialMemberByUserId(String id);
 
 }

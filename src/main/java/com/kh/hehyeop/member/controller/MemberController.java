@@ -145,6 +145,29 @@ public class MemberController {
 	}
 	
 	
+	
+	@GetMapping("social-login")
+	public String socialLoginImpl(Member member
+								,@RequestParam(value="id", required=false)  String id 
+								, HttpSession session
+								, RedirectAttributes redirectAttr) {
+		member.setId(id);
+		member.setPassword(UUID.randomUUID().toString());
+		Member certifiedUser = memberService.authenticateSocialUser(member);
+		
+		if(certifiedUser != null) {
+			session.setAttribute("authentication", certifiedUser);
+			return "redirect:/"; 
+		} else {
+			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
+			return "redirect:/member/login-form";
+		}
+	}
+	
+	
+
+
+	
 	@GetMapping("social-join-form")
 	public void socialJoinMember(Model model
 								,@RequestParam(value="id", required=false)  String id 

@@ -9,7 +9,12 @@
 <link rel='stylesheet' href="../../../resources/css/member/login-form.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
+
+
+
+
 
 // 로그인 실패
 function failLogin(msg){
@@ -30,7 +35,37 @@ function failLogin(msg){
 	})
 }
 
+
+
+
+
+
+
 </script>
+
+<style type="text/css">
+
+.kakao_btn{
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+
+.naver_btn{
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+}
+
+#naver_id_login> .img{
+	width: 400px;
+	height: 45px;
+}
+
+</style>
+
 </head>
 <body>
 <div id="modal"></div>
@@ -63,12 +98,10 @@ function failLogin(msg){
 							</div>
 						</div>
 						<div class="hr-sect">간편 로그인</div>
-						<button class="kakao_btn" onclick="kakaoLogin()">카카오로 로그인/회원가입</button>
-						<button class="naver_btn">네이버로 로그인/회원가입</button>
-						<div class="txt_find">
-							<div class="sign">
-							</div>
+						<div>
+							<div class="kakao_btn" onclick="kakaoLogin()">카카오로 로그인/회원가입</div>
 						</div>
+						<div class="txt_find">
 					</div>
 
 				</div>
@@ -351,66 +384,60 @@ if(link[1] != null) {
 }
 
 
-// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+
+//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 Kakao.init('11e9e48ce1a5512abfa0b01c1dbf2cdd');
 
-// SDK 초기화 여부를 판단합니다.
+//SDK 초기화 여부를 판단합니다.
 console.log(Kakao.isInitialized());
 
 function kakaoLogin() {
-    Kakao.Auth.login({
-      success: function (response) {
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function (response) {
-        	  let kakaoId = response.id;
-        	  fetch('/member/id-check?id='+kakaoId)
-        	  .then(response=>response.text())
-        	  .then(text => {
-        		  if(text=="available"){
-        			  location.href="/member/social-join-form?id="+kakaoId;
-        			  console.log(text);
-        		  }else{
-        			  location.href="/member/";
-        			  console.log(text);
-        		  }
-        	  })
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
-      },
-      fail: function (error) {
-        console.log(error)
-      },
-    })
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+Kakao.Auth.login({
+ success: function (response) {
+   Kakao.API.request({
+     url: '/v2/user/me',
+     success: function (response) {
+   	  let kakaoId = response.id;
+   	  fetch('/member/id-check?id='+kakaoId)
+   	  .then(response=>response.text())
+   	  .then(text => {
+   		  if(text=="available"){
+   			  location.href="/member/social-join-form?id="+kakaoId;
+   			  console.log(text);
+   		  }else{
+   			  location.href="/member/social-login?id="+kakaoId;
+   			  console.log(text);
+   		  }
+   	  })
+     },
+     fail: function (error) {
+       console.log(error)
+     },
+   })
+ },
+ fail: function (error) {
+   console.log(error)
+ },
+})
+}
+
 //카카오로그아웃  
 function kakaoLogout() {
-    if (Kakao.Auth.getAccessToken()) {
-      Kakao.API.request({
-        url: '/v1/user/unlink',
-        success: function (response) {
-        	console.log(response)
-        },
-        fail: function (error) {
-          console.log(error)
-        },
-      })
-      Kakao.Auth.setAccessToken(undefined)
-    }
-  }  
+if (Kakao.Auth.getAccessToken()) {
+ Kakao.API.request({
+   url: '/v1/user/unlink',
+   success: function (response) {
+   	console.log(response)
+   },
+   fail: function (error) {
+     console.log(error)
+   },
+ })
+ Kakao.Auth.setAccessToken(undefined)
+}
+}  
+
+	
 
 
 </script>

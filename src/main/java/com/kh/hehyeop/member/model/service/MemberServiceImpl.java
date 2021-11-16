@@ -66,6 +66,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return null;
 	}
+	
+// Social member login
+	public Member authenticateSocialUser(Member member) {
+		Member storedMember = memberRepository.selectSocialMemberByUserId(member.getId());
+		
+		if(storedMember != null) {
+			return storedMember;
+		}
+		return null;
+	}
 
 //	member join id check
 	public Member selectMemberByUserId(String id) {
