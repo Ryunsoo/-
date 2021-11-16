@@ -40,8 +40,11 @@ public class WebSocketChat {
     @GetMapping(value = "/loginProcess.do")
 	public String loginProcess(HttpSession session) {
     	User user = (User) session.getAttribute("authentication");
-		logger.info("Welcome " + user.getNickname());
-    	session.setAttribute("id", user.getNickname());
+
+		//logger.info("Welcome " + user.getNickname());
+		//session.setAttribute("id", user.getNickname());
+		session.setAttribute("id", "asdf");
+
 		return "chat-room";
 	}
     

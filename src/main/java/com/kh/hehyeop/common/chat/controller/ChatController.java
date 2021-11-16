@@ -16,7 +16,7 @@ import com.kh.hehyeop.member.model.dto.User;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
+@Controller
 @RequestMapping("chat")
 @RequiredArgsConstructor
 public class ChatController {
@@ -36,5 +36,10 @@ public class ChatController {
 		List<ChatLog> chatLog = chatService.selectChatListById(user.getId());
 		session.setAttribute("chatLog", chatLog);
 		return chatLog;
+	}
+	
+	@GetMapping("chatting")
+	public String chatting() {
+		return "include/chat/chat-room";
 	}
 }

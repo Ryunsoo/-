@@ -11,6 +11,10 @@ async function clickChatting2() {
 	if(viewChat.style.display == "none") {
 		let success = await getChattingList();
 		if(!success) return;
+		
+		viewChat.style.display = "flex";
+	}else {
+		viewChat.style.display = "none";
 	}
 	
 	if(document.querySelector('body').classList.contains('frogue-opened')) {
@@ -19,11 +23,7 @@ async function clickChatting2() {
 	if (viewChatRoom.style.display == "flex"){
 		viewChatRoom.style.display = "none";
 	}
-	if (viewChat.style.display == "none"){
-		viewChat.style.display = "flex";
-	}else {
-		viewChat.style.display = "none";
-	}
+	
 }
 
 let getChattingList = async () => {
@@ -32,6 +32,9 @@ let getChattingList = async () => {
 		let response = await fetch('/chat/chat-room');
 		if(!response.ok) throw new Error();
 		let datas = await response.json();
+		
+		await createList(datas);
+		
 		console.log(JSON.stringify(datas));
 	} catch(e) {
 		success = false;
@@ -40,19 +43,17 @@ let getChattingList = async () => {
 	return success;
 }
 
-/*function getChattingList() {
-	fetch('/chat/chat-room')
-   		 .then(function(response) {
-   		 return response.json();
-         })
-         .then(function(myJson) {
- 		 console.log(JSON.stringify(myJson));
-	     })
-	     .catch(function(e) {
-		 console.dir(e);
-		 window.alert('로그인 전 채팅 이용이 불가능합니다.');
-		 }); 
-}*/
+let createList = async (data) => {
+	document.getElementById('myList').innerHTML = '';
+	
+	for (var i = 0; i < data.length; i++) {
+		let chatItem = document.createElement("div");
+		chatItem.setAttribute('id','chatItem');
+		chatItem.innerHTML = data[i].roomName;
+		let myList = document.getElementById('myList');
+		myList.appendChild(chatItem);
+	}
+}
 
 function closeChat(){
 	let viewChat = document.getElementById("chatting_main");
