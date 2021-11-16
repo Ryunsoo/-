@@ -12,6 +12,39 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+#normal {
+	font-weight: bolder;
+	color: black;
+	margin-left: 30px;
+}
+
+#bronze {
+	font-weight: bolder;
+	color: bronze;
+	margin-left: 30px;
+}
+
+#silver {
+	font-weight: bolder;
+	color: silver;
+	margin-left: 30px;
+}
+
+#gold {
+	font-weight: bolder;
+	color: gold;
+	margin-left: 30px;
+}
+
+#dia {
+	font-weight: bolder;
+	color: blue;
+	margin-left: 30px;
+}
+
+</style>
 </head>
 <body>
 <div id='modal'></div>
@@ -40,7 +73,12 @@
 				<div id="name">
 					<div id="nameicon"><i class="far fa-user"></i></div>
 					<div id="user_name">${authentication.name} 님</div>
-					<div><button type="button" class="btn btn-info" id="namebtn">내정보&nbsp<i class="fas fa-chevron-down"></i></button></div>
+					<div class="btn-info_wrap">
+						<button type="button" class="btn btn-info open" id="myInfo_btn">내정보&nbsp<i class="fas fa-chevron-down"></i></button>
+						<button type="button" class="btn btn-info hidden" id="modifyInfo_btn" style="background-color: rgb(246, 199, 124); ">정보수정</button>
+						<button type="button" class="btn btn-info hidden" id="delete_user_btn" style="background-color: rgb(244, 166, 159); ">회원탈퇴</button>
+					
+					</div>
 				</div>
 				<div id="grade">
 					<c:choose>
@@ -253,6 +291,53 @@ document.querySelector("#title2").addEventListener('click', e => {
 		newNeighbor.remove();
 	})
 })
+
+		const myInfo_btn = document.querySelector("#myInfo_btn");
+        const modifyInfo_btn = document.querySelector("#modifyInfo_btn");
+        const delete_user_btn = document.querySelector("#delete_user_btn");
+        const bg = document.querySelector("#bg");
+        const delete_user = document.querySelector(".delete_user");
+		const cancel = document.querySelector(".cancel");
+        const confirm = document.querySelector(".confirm");
+        const wrap = document.querySelector(".wrap");
+        
+        /* 내정보 하위 버튼 */
+        myInfo_btn.addEventListener("mouseover",function(){
+        	modifyInfo_btn.classList.remove("hidden");
+        	delete_user_btn.classList.remove("hidden");
+        });
+        
+        /* 정보 수정 버튼 */
+        modifyInfo_btn.addEventListener("click",function(){
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        });
+        
+        /* div class wrap부분 누르면 하위 버튼들 사라짐 */
+        wrap.addEventListener("click",function(){
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        });
+        
+        /* 탈퇴 버튼 */
+        delete_user_btn.addEventListener("click",function(){
+        	bg.classList.remove("hidden");
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        	delete_user.classList.remove("hidden");
+        });	
+        
+        /* 탈퇴취소 */
+        cancel.addEventListener("click",function(){
+        	bg.classList.add("hidden");
+        	delete_user.classList.add("hidden");
+        });	
+        
+        /* 탈퇴 가즈아 */
+        confirm.addEventListener("click",function(){
+        	bg.classList.add("hidden");
+        	delete_user.classList.add("hidden");
+        });
 
 /* document.querySelector("#addtown").addEventListener('click', e => {
 	let idx = document.querySelectorAll('#list_wrap').length + 1;

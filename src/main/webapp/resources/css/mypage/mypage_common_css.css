@@ -345,36 +345,6 @@ html, body {
 	align-items: center;
 }
 
-#normal {
-	font-weight: bolder;
-	color: black;
-	margin-left: 30px;
-}
-
-#bronze {
-	font-weight: bolder;
-	color: bronze;
-	margin-left: 30px;
-}
-
-#silver {
-	font-weight: bolder;
-	color: silver;
-	margin-left: 30px;
-}
-
-#gold {
-	font-weight: bolder;
-	color: gold;
-	margin-left: 30px;
-}
-
-#dia {
-	font-weight: bolder;
-	color: blue;
-	margin-left: 30px;
-}
-
 #gradetext {
 	color: black;
 	margin-left: 5px;
@@ -389,6 +359,32 @@ html, body {
 
 #gradeicon:hover .balloon{
 	display: block;
+}
+
+.btn-info_wrap{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100px;
+	position: absolute;
+	left: 260px;
+	top: 50px;
+}
+
+.btn-info_wrap>button{
+	border: thin;
+}
+
+.hidden{
+	display: none;
+}
+
+#myInfo_btn,#modifyInfo_btn,#delete_user_btn {
+	margin-left: 10px;
+	width: 80px;
+	height: 30px;
+	font-size: 12px;
+	box-shadow: 3px 3px 3px lightgray;
 }
 
 #infobox {
