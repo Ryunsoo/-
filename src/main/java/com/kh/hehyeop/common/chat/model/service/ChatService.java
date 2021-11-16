@@ -8,4 +8,8 @@ public interface ChatService {
 
 	List<ChatLog> selectChatListById(String id);
 
+	void updateChatLog(String roomNo, String chatData);
+
+	void updateExitDate(String id, String no);
+
 }

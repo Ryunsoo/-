@@ -55,10 +55,13 @@ public class ChatController {
 	
 	@PostMapping("chat-save")
 	@ResponseBody
-	public void chatSave(@RequestBody String chatLog) throws JsonMappingException, JsonProcessingException {
+	public void chatSave(@RequestBody String chatLog, HttpSession session) throws JsonMappingException, JsonProcessingException {
 		System.out.println("roomNo : " + chatLog);
 		Map<String, String> mapper = objectMapper.readValue(chatLog, Map.class);
 		System.out.println("map으로 변환한 chatlog json : " + mapper);
-		//System.out.println("chatLog : " + chatLog);
+		chatService.updateChatLog(mapper.get("room"), mapper.get("chatLog"));
+		
+		User user = (User) session.getAttribute("authentication");
+		chatService.updateExitDate(user.getId(), mapper.get("room"));
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -22,11 +23,15 @@ import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.hehyeop.common.chat.model.service.ChatService;
+import com.kh.hehyeop.member.model.dto.User;
 
 @Controller
 @ServerEndpoint(value="/chat.echo/{room}")
 public class WebSocketChat {
     
+	@Autowired
+	private ChatService chatService;
 	private ObjectMapper objectMapper = new ObjectMapper();
 	//private static final List<Session> sessionList = new ArrayList<Session>();
     private static final ConcurrentHashMap<String, List<Session>> sessionList = new ConcurrentHashMap<String, List<Session>>();

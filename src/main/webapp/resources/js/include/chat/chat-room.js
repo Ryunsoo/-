@@ -39,7 +39,6 @@
       ws.onclose = function(event){
 		//chatting_wrap의 innerHTML을 서버단으로 보내주고
 		let chatLog = document.querySelector('.chatting_wrap').innerHTML;
-		console.dir(chatLog);
 		let header = new Headers({
 			'Content-Type': 'application/json'
 		});
@@ -53,15 +52,11 @@
 							})
 					}
 		
-		console.dir(init);
 		let saveRequest = new Request('/chat/chat-save', init);
-		
-		console.dir(saveRequest.headers);
-		
 		let response = fetch(saveRequest);
 		
-		
 		//안에 내용을 초기화해주기
+		document.querySelector('.chatting_wrap').innerHTML = '';
       }
       
   }

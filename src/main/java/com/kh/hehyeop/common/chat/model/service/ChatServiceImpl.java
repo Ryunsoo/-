@@ -23,4 +23,14 @@ public class ChatServiceImpl implements ChatService{
 		return chatLog;
 	}
 
+	@Override
+	public void updateChatLog(String roomNo, String chatData) {
+		chatRepository.updateChatLog(roomNo, chatData);
+	}
+
+	@Override
+	public void updateExitDate(String id, String roomNo) {
+		chatRepository.updateExitDate(id, roomNo);
+	}
+
 }
