@@ -14,7 +14,8 @@
         		return;
           }
           eventResponse(event.data);
-      };
+  };
+  
       
       ws.onmessage = function(event){
           console.log('writeResponse');
@@ -32,7 +33,7 @@
       };
       
       ws.onclose = function(event){
-    	  eventResponse("대화 종료");
+		
       }
       
   }
@@ -59,6 +60,7 @@
   
   function closeSocket(){
       ws.close();
+      parent.closeIframe();
   }
   
   function eventResponse(text){

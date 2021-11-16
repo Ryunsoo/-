@@ -1,4 +1,4 @@
-package com.kh.hehyeop.common.chat;
+package com.kh.hehyeop.common.chat.controller;
 
 import java.util.ArrayList;
 import java.util.Enumeration;

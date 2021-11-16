@@ -1,8 +1,10 @@
 package com.kh.hehyeop.member.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -138,8 +140,6 @@ public class MemberController {
 		session.setAttribute("fieldList", fieldList);
 		session.setAttribute("categoryList", categoryList);
 		
-		logger.debug(fieldList.toString());
-		
 	}
 	
 	@GetMapping("id-check")
@@ -159,7 +159,7 @@ public class MemberController {
 	@ResponseBody
 	public String nickCheck(String nickname) {
 		Member member = memberService.selectMemberByNickname(nickname);
-		
+		 
 		if (member != null) {
 			logger.debug(member.toString());
 			return "disable";
@@ -224,23 +224,33 @@ public class MemberController {
 	}
 	
 	@PostMapping("cjoin")
-	public String cjoin(@Validated CoJoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) {
-	
-		ValidateResult vr = new ValidateResult();
-		model.addAttribute("error", vr.getError());
+	public String cjoin(@Validated CoJoinForm form, Errors errors, Model model, 
+						HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttr) {
 		
-		if (errors.hasErrors()) {
-			vr.addErrors(errors);
-			return "redirect:/member/cojoin-form";
+		List<String> fieldList = new ArrayList<String>();
+		String[] fieldParam = request.getParameterValues("fieldName");
+		
+		for (String field : fieldParam) {
+			fieldList.add(field);
 		}
 		
+		memberService.insertFields("fieldTest", fieldList);
 		
-		String token = UUID.randomUUID().toString();
-		session.setAttribute("persistCUser", form);
-		session.setAttribute("persistToken", token);
+//		ValidateResult vr = new ValidateResult();
+//		model.addAttribute("error", vr.getError());
+//		
+//		if (errors.hasErrors()) {
+//			vr.addErrors(errors);
+//			return "redirect:/member/cojoin-form";
+//		}
 		
-		memberService.co_authenticateByEmail(form, token);
-		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+		
+//		String token = UUID.randomUUID().toString();
+//		session.setAttribute("persistCUser", form);
+//		session.setAttribute("persistToken", token);
+//		
+//		memberService.co_authenticateByEmail(form, token);
+//		redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 		 		
 		return "redirect:/member/login-form";
 	}
@@ -270,5 +280,6 @@ public class MemberController {
 	
 		return "redirect:/member/login-form";
 	}
+
 	
 }

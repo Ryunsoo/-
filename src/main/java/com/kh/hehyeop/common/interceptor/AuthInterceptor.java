@@ -31,6 +31,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 			case "board":
 				//boardAuthorize(httpRequest, httpResponse, uriArr);
 				break;
+			case "mypage":
+				//mypageAuthorize(httpRequest, httpResponse, uriArr);
+				break;
 			default:
 				break;
 			}
@@ -40,12 +43,28 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+	private void mypageAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		switch (uriArr[2]) {
+		case "mypage-common":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	private void chatAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();
 		User user = (User) session.getAttribute("authentication");
 		
 		switch (uriArr[2]) {
-		case "char-room":
+		case "chat-room":
 			if(user == null) {
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR.setURL(""));
 			}

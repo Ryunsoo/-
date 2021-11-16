@@ -253,7 +253,6 @@ input{
 }
 
 .idMargin,
-.field,
 .nameMargin,
 .tellMargin{
 	margin: 2px;
@@ -262,11 +261,11 @@ input{
 .businessRegistration{
 	width:520px;
 	margin-bottom: 25px;
-	float: left;
 }
 
 .businessRegistration>label{
 	float: left;
+	margin-left: 48px;
 }
 
 .inputMargin{
@@ -286,7 +285,7 @@ input{
 	margin-bottom: 40px;
 }
 
-.repair{
+.category{
 	margin-bottom:13px;
 	margin-left:19px;
 	margin-top:15px;
