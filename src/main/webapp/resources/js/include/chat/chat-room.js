@@ -12,6 +12,8 @@
       ws = new WebSocket("ws://localhost:9090/chat.echo/" + roomNo);
       
       ws.onopen = function(event){
+		  document.querySelector('#sender').value = id;
+		  
           if(event.data === undefined){
         		return;
           }
