@@ -286,6 +286,65 @@ let createFindPwModal = () => {
 	})
 }
 
+
+let link = document.location.href.split("?");
+
+if(link[1] != null) {
+	let modal = initModal('modal', 1);
+	   appendTitle(modal,'비밀번호 변경');
+	   setButton(modal,'비밀번호 변경');
+	   setContent(modal,true,true);
+
+	   let ModalBody = $('<div>');
+	   $('.modal_content').append(ModalBody); 
+	   
+	   let changePwName = $('<div>').addClass('change_modal_body');
+	   let changePwNametext = $('<div>변경할 비밀번호<div>').addClass('change_modal_Text');
+	   let changePwNameInput = $('<div>').height('30px');
+	   let changePwNameInputBox = $('<input id="newPw">').attr('placeholder','새로운 비밀번호를 입력하세요');
+	   ModalBody.append(changePwName);
+	   changePwName.append(changePwNametext);
+	   changePwName.append(changePwNameInput);
+	   changePwNameInput.append(changePwNameInputBox);
+	   
+	   let changePwName2 = $('<div>').addClass('change_modal_body');
+	   let changePwNametext2 = $('<div>비밀번호 확인<div>').addClass('change_modal_Text');
+	   let changePwNameInput2 = $('<div>').height('30px');
+	   let changePwNameInputBox2 = $('<input id="newPwConfirm">').attr('placeholder','비밀번호를 한번 더 입력하세요');
+	   ModalBody.append(changePwName2);
+	   changePwName2.append(changePwNametext2);
+	   changePwName2.append(changePwNameInput2);
+	   changePwNameInput2.append(changePwNameInputBox2);
+	   
+	   modalBlock();
+	   
+	   $('.modal_left_btn').click(function(){
+	      modalNone();
+	      let newPw = document.querySelector("#newPw").value;
+	      let newPwConfirm = document.querySelector("#newPwConfirm").value;
+	      
+	      if(newPw == newPwConfirm){
+	         
+	         fetch('/member/update-pw?newPw='+newPw)
+	         .then(res=> res.text())
+	         .then(text=> {
+	            if(text == "change") {
+	               alert("야호 ~~ !");
+	            }else {
+	               setModalTitle('modal2','이메일로 비밀번호 찾기');
+	               setModalBody('modal2','<b style="color:red;">입력하신 정보와 일치하는 회원이 없습니다.</b><br>이름과 이메일 정보를 다시 한번 확인해주세요');
+	               removeModalFnc("okay");
+	               modal2();
+	            }
+	         });
+	         
+	      }
+	      
+	      
+	   })
+}
+
+
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 Kakao.init('11e9e48ce1a5512abfa0b01c1dbf2cdd');
 
