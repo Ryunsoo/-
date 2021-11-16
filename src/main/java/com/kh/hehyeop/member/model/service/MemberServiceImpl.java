@@ -77,7 +77,7 @@ public class MemberServiceImpl implements MemberService{
 	public void authenticateByEmail(JoinForm form, String token) {
 		
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("mailTemplate", "join-auth-mail");
+		body.add("mailTemplate", "join-auth-mail2");
 		body.add("id", form.getId());
 		body.add("persistToken", token);
 		
@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String htmlTxt = http.exchange(request, String.class).getBody();
 		
-		mailSender.send(form.getEmail(), "회원가입을 축하합니다.", htmlTxt);
+		mailSender.send(form.getEmail(), "자취해협 회원가입을 축하합니다.", htmlTxt);
 		
 	}
 
@@ -100,7 +100,7 @@ public class MemberServiceImpl implements MemberService{
 	public void co_authenticateByEmail(CoJoinForm form, String token) {
 		
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("mailTemplate", "join-auth-mail");
+		body.add("mailTemplate", "join-auth-mail2");
 		body.add("id", form.getId());
 		body.add("persistToken", token);
 		
@@ -111,7 +111,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String htmlTxt = http.exchange(request, String.class).getBody();
 		
-		mailSender.send(form.getEmail(), "회원가입을 축하합니다.", htmlTxt);
+		mailSender.send(form.getEmail(), "전문해협 회원가입을 축하합니다.", htmlTxt);
 		
 	}
 
@@ -145,7 +145,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void findPasswordByEmail(String email, String token) {
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-		body.add("mailTemplate", "test");
+		body.add("mailTemplate", "change-password");
 		body.add("persistToken", token);
 		
 		RequestEntity<MultiValueMap<String, String>> request = 
