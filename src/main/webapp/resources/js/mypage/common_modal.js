@@ -39,6 +39,18 @@ let beforeSendModal = () => {
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
+	
+	$('.modal_right_btn').click(function() {
+		modalNone();
+		
+		location.href = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
+						"response_type=code&" +
+						"client_id=f319e2ed-4cae-4853-a2c4-d17261fc495a&" +
+						"redirect_uri=http://localhost:9090/mypage/getAuth&" +
+						"scope=login inquiry transfer&" +
+						"state=12345678901234567890123456789012&" +
+						"auth_type=0";
+	})
 }
 
 /* 송금하기-인증 후 모달 */
