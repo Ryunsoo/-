@@ -1,5 +1,6 @@
 package com.kh.hehyeop.common.chat.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,16 +36,18 @@ public class ChatController {
 	//세션에 저장되어 있는 로그인 정보를 가지고, 해당 아이디가 보유하고 있는 채팅 목록을 가져와 view 로 넘기는 메서드
 	@GetMapping("chat-room")
 	@ResponseBody
-	public List<ChatLog> chatList(HttpSession session){		
+	public Map<String, List<ChatLog>> chatList(HttpSession session){		
 		User user = (User) session.getAttribute("authentication");
 		
 		if(user == null) {
 			return null;
 		}
 		
-		List<ChatLog> chatLog = chatService.selectChatListById(user.getId());
-		session.setAttribute("chatLog", chatLog);
-		return chatLog;
+		Map<String, List<ChatLog>> chatListMap = new HashMap<String, List<ChatLog>>();
+		chatListMap.put("unread", chatService.selectUnReadChatListById(user.getId()));
+		chatListMap.put("read", chatService.selectReadChatListById(user.getId()));
+		//session.setAttribute("chatLog", chatListMap);
+		return chatListMap;
 	}
 	
 	@GetMapping("chatting")

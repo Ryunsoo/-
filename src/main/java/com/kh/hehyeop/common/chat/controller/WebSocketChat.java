@@ -30,8 +30,6 @@ import com.kh.hehyeop.member.model.dto.User;
 @ServerEndpoint(value="/chat.echo/{room}")
 public class WebSocketChat {
     
-	@Autowired
-	private ChatService chatService;
 	private ObjectMapper objectMapper = new ObjectMapper();
 	//private static final List<Session> sessionList = new ArrayList<Session>();
     private static final ConcurrentHashMap<String, List<Session>> sessionList = new ConcurrentHashMap<String, List<Session>>();

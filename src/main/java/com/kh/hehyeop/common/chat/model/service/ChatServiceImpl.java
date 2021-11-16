@@ -16,11 +16,13 @@ public class ChatServiceImpl implements ChatService{
 	private final ChatRepository chatRepository;
 
 	@Override
-	public List<ChatLog> selectChatListById(String id) {
-		
-		List<ChatLog> chatLog = chatRepository.selectChatListById(id);
-		
-		return chatLog;
+	public List<ChatLog> selectUnReadChatListById(String id) {
+		return chatRepository.selectUnReadChatListById(id);
+	}
+	
+	@Override
+	public List<ChatLog> selectReadChatListById(String id) {
+		return chatRepository.selectReadChatListById(id);
 	}
 
 	@Override
@@ -32,5 +34,6 @@ public class ChatServiceImpl implements ChatService{
 	public void updateExitDate(String id, String roomNo) {
 		chatRepository.updateExitDate(id, roomNo);
 	}
+
 
 }

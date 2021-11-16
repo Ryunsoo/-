@@ -6,7 +6,9 @@ import com.kh.hehyeop.common.chat.model.dto.ChatLog;
 
 public interface ChatService {
 
-	List<ChatLog> selectChatListById(String id);
+	List<ChatLog> selectUnReadChatListById(String id);
+	
+	List<ChatLog> selectReadChatListById(String id);
 
 	void updateChatLog(String roomNo, String chatData);
 
