@@ -11,6 +11,19 @@
 <div class="room_con">
 	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
 	<div id="back" onclick="closeSocket()"><i class="fas fa-times-circle"></i></div>
+	<div id="plusBtn" onclick="openMemberList()"><i class="fas fa-user-plus"></i></div>
+	<div id="out" onclick="outChatting()"><div>채팅방 나가기</div></div>
+	<div id="memberList" style="display:none">
+		<div id="member_wrap">
+			<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
+		</div>
+		<div id="member_wrap">
+			<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
+		</div>
+		<div id="member_wrap">
+			<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
+		</div>
+	</div>
 	<div class="room_wrap">
 		<div class="room_head">
 			<img id="room_img" src="../../../resources/image/logo-icon.png">

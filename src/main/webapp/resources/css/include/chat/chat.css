@@ -145,3 +145,13 @@ div {
 	border-radius: 35px; 
 	box-shadow: rgba(0, 0, 0, 0.28) 0px 0px 10px 1px;
 }
+
+#galigae {
+    position: fixed;
+    bottom: 106px;
+    right: 25px;
+    width: 310px;
+    height: 79px;
+    background: black;
+    z-index: 99999999999;
+}
