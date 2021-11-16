@@ -15,3 +15,4 @@
 <div class='chatting' onclick="clickChatting()"></div>
 <div class='chatting2' style="display: none" onclick="clickChatting2()"></div>
 <div id="frogue-container" style="display: none" class="position-right-bottom" onclick="closeChat()" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div>
+<!-- <script type="text/javascript" src="../../../resources/js/include/chat/chat-room.js"></script> -->

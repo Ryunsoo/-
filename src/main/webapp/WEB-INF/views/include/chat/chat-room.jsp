@@ -9,11 +9,11 @@
 <body>
 
 <div class="room_con">
-	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
+	<input type="text" id="sender" value="${sessionScope.authentication.id}" style="display: none;">
 	<div id="back" onclick="closeSocket()"><i class="fas fa-times-circle"></i></div>
 	<div class="room_wrap">
 		<div class="room_head">
-			<img id="room_img" src="../../../resources/image/logo-icon.png" onclick="openSocket()">
+			<img id="room_img" src="../../../resources/image/logo-icon.png">
 			<div id="room_title">김현수, 황륜수, 이호준</div>
 		</div>
 		

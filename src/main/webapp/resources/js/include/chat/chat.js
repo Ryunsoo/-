@@ -49,7 +49,17 @@ let createList = async (data) => {
 	for (var i = 0; i < data.length; i++) {
 		let chatItem = document.createElement("div");
 		chatItem.setAttribute('id','chatItem');
+		chatItem.setAttribute('data-room-no', data[i].roomNo);
 		chatItem.innerHTML = data[i].roomName;
+		
+		chatItem.addEventListener('click', function(e) {
+			document.getElementById("chatting_main").style.display = "none";
+			document.querySelector("#chattingRoom").style.display = "flex";
+			/*window.frames['chattingRoom'].document.getElementById('sender').value = '${sessionScope.id}';*/
+			let id = '${sessionScope.id}';
+			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo, id);
+		})
+		
 		let myList = document.getElementById('myList');
 		myList.appendChild(chatItem);
 	}

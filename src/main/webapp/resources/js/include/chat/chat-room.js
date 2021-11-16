@@ -1,20 +1,22 @@
   var objDiv = document.querySelector(".chatting_wrap"); 
   var ws;
   
-  function openSocket(){
+  function openSocket(roomNo, id){
       if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
           writeResponse("WebSocket is already opened.");
           return;
       }
       //웹소켓 객체 만드는 코드
-      ws = new WebSocket("ws://localhost:9090/chat/${roomNo}");
+      ws = new WebSocket("ws://localhost:9090/chat.echo?no=" + roomNo);
       
       ws.onopen = function(event){
+		  document.querySelector('#sender').value = id;
+		  
           if(event.data === undefined){
         		return;
           }
           eventResponse(event.data);
-  };
+  	  };
   
       
       ws.onmessage = function(event){
