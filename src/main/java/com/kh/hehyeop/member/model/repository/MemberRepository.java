@@ -72,7 +72,7 @@ public interface MemberRepository {
 	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
 	void updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
 	
-	@Update("update member set password = #{password} where id = #{id} and email = #{email}")
+	@Update("update member_c set password = #{password} where id = #{id} and email = #{email}")
 	void c_updatePassword(@Param("password") String password, @Param("id") String id, @Param("email") String email);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
