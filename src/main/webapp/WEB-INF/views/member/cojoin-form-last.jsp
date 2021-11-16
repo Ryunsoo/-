@@ -64,7 +64,7 @@
 										<div class="bathroom_check">
 											<c:forEach items="${fieldList}" var="fl">
 												<c:if test="${cl eq fl.fieldCategory}">
-														<label><input type="checkbox" name="bathroom" value="bathroom"> ${fl.field}</label>							
+														<label><input type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>							
 												</c:if>
 											</c:forEach>
 										</div>

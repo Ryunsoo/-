@@ -71,8 +71,8 @@ public interface MemberRepository {
 	void updatePassword(Member member, @Param("newPw") String newPw);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
-			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{cIdx}")
-	void uploadFile(FileDTO fileDTO, String cIdx);
+			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
+	void uploadFile(FileDTO fileDTO);
 	
 
 

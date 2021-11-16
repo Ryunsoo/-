@@ -182,7 +182,7 @@ public class MemberServiceImpl implements MemberService{
 		FileUtil util = new FileUtil();
 		for (MultipartFile multipartFile : files) {
 			if(!multipartFile.isEmpty()) {
-				memberRepository.uploadFile(util.fileUpload(multipartFile), cIdx);
+				memberRepository.uploadFile(util.fileUpload(multipartFile, cIdx));
 			}
 		}
 		

@@ -367,8 +367,9 @@ public class MemberController {
 			
 			memberService.insertCMember(coForm);
 			memberService.insertFields(coForm.getId(), fieldList);
-			
+
 			CMember newMember = memberService.selectCMember(coForm.getId());
+			 
 			memberService.uploadFile(files, newMember.getCIdx());
 			session.removeAttribute("persistCUser");
 			session.removeAttribute("fileList");
