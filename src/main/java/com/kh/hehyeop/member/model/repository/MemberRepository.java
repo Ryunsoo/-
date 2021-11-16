@@ -3,7 +3,7 @@ package com.kh.hehyeop.member.model.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -81,5 +81,8 @@ public interface MemberRepository {
 	
 	@Select("select * from member where id = #{id}")
 	Member selectSocialMemberByUserId(String id);
+
+	@Update("update member set is_leave = 1 where id = #{id} and password = #{password}")
+	void deleterUser(Member member);
 
 }

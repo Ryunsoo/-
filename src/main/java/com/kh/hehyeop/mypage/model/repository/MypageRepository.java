@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Token;
 
 @Mapper
@@ -19,5 +21,8 @@ public interface MypageRepository {
    void deleteToken(Map<String, Object> tokenMap);
 
    List<Token> selectPushTokensByManyId(List<String> userIdList);
+   
+   @Update("update member set is_leave = 1 where id = #{id} and password = #{password}")
+	void deleterUser(Member member);
    
 }

@@ -260,8 +260,7 @@
 					<div id="user_name">${authentication.name} 님</div>
 					<div class="btn-info_wrap">
 						<button type="button" class="btn btn-info open" id="myInfo_btn">내정보&nbsp<i class="fas fa-chevron-down"></i></button>
-
-						<button type="button" class="btn btn-info hidden modifyInfo_btn" id="modifyInfo_btn">정보수정</button>
+						<button type="button" class="btn btn-info hidden modifyInfo_btn" id="modifyInfo_btn" onclick="modif()">정보수정</button>
 						<button type="button" class="btn btn-info hidden delete_user_btn" id="delete_user_btn">회원탈퇴</button>
 					
 					</div>
@@ -541,6 +540,12 @@ document.querySelector("#title2").addEventListener('click', e => {
         confirm.addEventListener("click",function(){
         	bg.classList.add("hidden");
         	delete_user.classList.add("hidden");
+        	
+        	const personal = document.querySelector("#personal").checked;
+        	
+        	location.href='/member/delete-user';
+        	
+		
         });
 
 /* document.querySelector("#addtown").addEventListener('click', e => {

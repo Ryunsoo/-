@@ -75,8 +75,8 @@
 				        <div class="medal">
 				        	<i class="fas fa-medal"></i>
 				        </div>
-				        <div class="mypage">마이페이지</div>
-				        <div class="logout">LOGOUT</div>
+				        <div class="mypage" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+				        <div class="logout" onclick="logout()">LOGOUT</div>
 	        		</div>
 				</c:if>
 				<div class="search_div">
@@ -91,7 +91,7 @@
 					<div class="login_btn" onclick="location.href='/member/login-form'">
 						LOGIN
 					</div>
-					<div class="join_btn">
+					<div class="join_btn" onclick="location.href='/member/joinin-form'">
 						회원가입
 					</div>
 				</c:if>
@@ -398,6 +398,12 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 		document.getElementById("detail_icon").innerHTML = "";
 		document.getElementById("weak_loc").innerHTML = "";
 	}
+	
+	function logout(){
+		location.href='/member/logout';
+	}
+	
+	
 </script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

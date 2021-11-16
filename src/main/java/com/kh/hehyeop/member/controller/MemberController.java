@@ -61,7 +61,7 @@ public class MemberController {
 		
 		Member certifiedUser = memberService.authenticateUser(member);
 		CMember certifiedCUser = memberService.authenticateCUser(cmember);
-		
+		session.setAttribute("memberAllInfo", certifiedUser);
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
 			session.setAttribute("id", certifiedUser.getNickname());
@@ -442,5 +442,35 @@ public class MemberController {
 			return null;
 		}
 	}
+	
+	@GetMapping("delete-user")
+	public String deleteUser(HttpSession session, RedirectAttributes redirectAttrs) {
+		Member member = (Member) session.getAttribute("memberAllInfo");
+		
+		memberService.deleterUser(member);
+		redirectAttrs.addFlashAttribute("message", "탈퇴되었습니다.<br><br>그동안 이용해주셔서 감사합니다.");
+		return "redirect:/member/login-form";
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session, RedirectAttributes redirectAttrs) {
+		
+		session.removeAttribute("memberAllInfo");
+		session.removeAttribute("certifiedUser");
+		return "redirect:/member/login-form";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

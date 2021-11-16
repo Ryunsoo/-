@@ -50,5 +50,7 @@ public interface MemberService {
 
 	void uploadFile(List<MultipartFile> files, String cIdx);
 
+	void deleterUser(Member member);
+
 
 }

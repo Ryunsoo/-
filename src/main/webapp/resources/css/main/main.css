@@ -46,11 +46,17 @@ html, body{
 	font-weight: bold;
 	color: orange;
 	margin-right: 10px;
+	cursor: pointer;
 }
 
 .join_btn{
 	font-size: 20px;
 	font-weight: bold;
+	cursor: pointer;
+}
+
+.logout{
+	cursor: pointer;
 }
 
 .cate_wrap{
