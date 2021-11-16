@@ -391,6 +391,7 @@ public class MemberController {
 			Member member = (Member) session.getAttribute("persistUser");
 			member.setId(member.getId());
 			member.setEmail(member.getEmail());
+			System.out.println(member);
 			memberService.updatePassword(member, newPw);
 			System.out.println("바꼈냐");
 			return "change";
