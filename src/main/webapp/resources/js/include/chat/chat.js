@@ -105,6 +105,14 @@ let appendList = async (data, status) => {
 			document.getElementById("chatting_main").style.display = "none";
 			document.querySelector("#chattingRoom").style.display = "flex";
 			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo);
+			
+			 fetch('/chat/chat-log?roomNo=' + e.target.dataset.roomNo)
+	         .then(response => response.text())
+			 .then(text => {
+				let logData = text;
+				console.dir(logData);
+				document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap").innerHTML = logData;
+				})
 		}) 
 		
 		let myList = document.getElementById('myList');
