@@ -66,6 +66,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		return null;
 	}
+	
+// Social member login
+	public Member authenticateSocialUser(Member member) {
+		Member storedMember = memberRepository.selectSocialMemberByUserId(member.getId());
+		
+		if(storedMember != null) {
+			return storedMember;
+		}
+		return null;
+	}
 
 //	member join id check
 	public Member selectMemberByUserId(String id) {
@@ -96,8 +106,10 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectMemberByNickname(String nickname) {
 		return memberRepository.selectMemberByNickname(nickname);
 	}
+	
 
 	public void insertCMember(JoinForm form) {
+		form.setPassword(passwordEncoder.encode(form.getPassword()));
 		memberRepository.insertCMember(form);
 		
 	}
@@ -142,8 +154,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public CMember C_changePasswordByEmail(String name, String id, String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberRepository.C_changePasswordByEmail(name, id, email);
 	}
 
 	@Override
@@ -179,6 +190,11 @@ public class MemberServiceImpl implements MemberService{
 				memberRepository.uploadFile(util.fileUpload(multipartFile, cIdx));
 			}
 		}
+		
+	}
+
+	public void deleterUser(Member member) {
+		memberRepository.deleterUser(member);
 		
 	}
 

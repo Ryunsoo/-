@@ -111,6 +111,24 @@ div {
 	font-weight: bolder;
     font-size: 15px;
     margin-left: 20px;
+    max-height: 20px;
+    max-width: 160px;
+    overflow: hidden;
+}
+
+#chatAlarm {
+	width: 30px;
+	height: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.unread {
+	color: red;
+}
+
+.read {
+	color: transparent;
 }
 
 #chatItemBtn {

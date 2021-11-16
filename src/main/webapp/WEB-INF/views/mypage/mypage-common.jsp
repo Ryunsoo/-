@@ -12,9 +12,227 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+#normal {
+	font-weight: bolder;
+	color: black;
+	margin-left: 30px;
+}
+
+#bronze {
+	font-weight: bolder;
+	color: bronze;
+	margin-left: 30px;
+}
+
+#silver {
+	font-weight: bolder;
+	color: silver;
+	margin-left: 30px;
+}
+
+#gold {
+	font-weight: bolder;
+	color: gold;
+	margin-left: 30px;
+}
+
+#dia {
+	font-weight: bolder;
+	color: blue;
+	margin-left: 30px;
+}
+
+.btn-info_wrap{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100px;
+	position: absolute;
+	left: 260px;
+	top: 50px;
+}
+.btn-info_wrap>button{
+	border: thin;
+}
+
+.hidden{
+	display: none;
+}
+
+.delete_user{
+	position: absolute;
+	z-index: 10;
+	border: solid thin lightgray;
+	border-radius: 15px;
+	width: 800px;
+	height: 600px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	color: black;
+	font-weight: bold;
+	left:50%; 
+	transform:translateX(-50%);
+	top:10%; 
+	z-index: 2000;
+	position: fixed;
+}
+
+.delete_user_title{
+	font-weight: bold;
+	text-align: center;
+	font-size: 25px;
+	color: black;
+	margin-top: 15px;
+}
+.alert_wrap{
+	border: solid thin lightgray;
+	border-radius: 15px;
+	width: 730px;
+	height: 270px;
+	background-color: white;
+	margin-top: 20px;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.alert_wrap>div{
+	display: flex;
+	margin-left: 20px;
+}
+.alert_wrap>div>div{
+	color: red;
+}
+.check{
+	display: flex;
+	flex-direction: column;
+	align-self: flex-end;
+	margin-right: 50px;
+	margin-top: 20px;
+	font-size: 19px;
+	line-height: 2;
+}
+
+.check input{
+	width: 15px;
+	height: 15px;
+	margin-top: 5px;
+	margin-left: 15px;
+}
+
+.delete_user_button{
+	align-self: flex-end;
+	margin-right: 46px;
+	display: flex;
+	margin-top: 25px;
+}
+.delete_user_button>button{	
+	border-radius: 10px;
+	width: 100px;
+	height: 40px;
+	align-self: flex-end;
+	font-size: 17px;
+	margin-left: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+
+.cancel{
+	background-color: rgb(41, 128, 185);
+}
+
+.confirm{
+	background-color: #de4434;
+}
+
+.cancel:focus{
+  color: white;
+  background-color: rgb(87, 153, 167);
+  border-color: rgb(87, 153, 167);
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+}
+
+.cancel:hover{
+  color: white;
+  background-color: rgb(87, 153, 167);
+  border-color: rgb(87, 153, 167);
+}
+
+.cancel:checked{
+  color: white;
+  background-color: rgb(87, 153, 167);
+  border-color: rgb(87, 153, 167);
+}
+
+.confirm:hover {
+	color: #fff;
+	background-color: #c2787b;
+	border-color: #b67174;
+}
+.confirm:focus {
+	color: #fff;
+	background-color: #cf8083;
+	border-color: #c2787b;
+	box-shadow: 0 0 0 0.25rem rgba(245, 166, 169, 0.5);
+}
+.confirm:checked {
+	color: #fff;
+	background-color: #c2787b;
+	border-color: #b67174;
+}
+
+#bg{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgb(0, 0, 0, 0.5);
+	z-index: 2000;
+}
+.hidden {
+	display: none;
+}
+
+.delete_modal{
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid gray;
+	border-radius: 15px;
+	background-color: white;
+	box-shadow: 0 0 5px 3px #999999;
+	z-index: 999;
+}
+.bye{
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+}
+.modifyInfo_btn{
+	background-color: rgb(246, 199, 124);
+}
+.delete_user_btn{
+	background-color: rgb(244, 166, 159); 
+}
+.modifyInfo_btn:hover{
+	background-color: rgb(222, 184, 135);
+}
+
+.delete_user_btn:hover{
+	background-color: #c2787b;
+}
+</style>
 </head>
 <body>
 <div id='modal'></div>
+<div id="bg" class="hidden"></div>
 <div class="wrap">
 	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 	<div class="main">
@@ -39,11 +257,33 @@
 			<div class="myinfo">
 				<div id="name">
 					<div id="nameicon"><i class="far fa-user"></i></div>
-					<div id="user_name">권구현님&nbsp(GuHyun)</div>
-					<div><button type="button" class="btn btn-info" id="namebtn">내정보&nbsp<i class="fas fa-chevron-down"></i></button></div>
+					<div id="user_name">${authentication.name} 님</div>
+					<div class="btn-info_wrap">
+						<button type="button" class="btn btn-info open" id="myInfo_btn">내정보&nbsp<i class="fas fa-chevron-down"></i></button>
+						<button type="button" class="btn btn-info hidden modifyInfo_btn" id="modifyInfo_btn" onclick="modif()">정보수정</button>
+
+						<button type="button" class="btn btn-info hidden delete_user_btn" id="delete_user_btn">회원탈퇴</button>
+					
+					</div>
 				</div>
 				<div id="grade">
-					<div id="gold">GOLD</div>
+					<c:choose>
+						<c:when test="${authentication.grade eq 'NORMAL'}">
+							<div id="normal">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'BRONZE'}">
+							<div id="bronze">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'SILVER'}">
+							<div id="silver">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'GOLD'}">
+							<div id="gold">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'DIA'}">
+							<div id="dia">${authentication.grade}</div>
+						</c:when>
+					</c:choose>
 					<div id="gradetext">회원</div>
 					<div id="gradeicon" type="button">
 						<i class="fas fa-question-circle"></i>
@@ -122,7 +362,7 @@
 					</div>
 					<div id="accountbtn">
 						<div id="charge">
-							<div id="plusicon" type="button" onclick="createChargingModal()"><i class="far fa-plus-square"></i></div>
+							<div id="plusicon" type="button" onclick="beforeSendModal()"><i class="far fa-plus-square"></i></div>
 							<div class="accountbtntext" id="basic">충전하기</div>
 						</div>
 						<div id="send">
@@ -160,7 +400,7 @@
 						<div id="townlist_con">
 							<div id="list_wrap">
 								<div id="listidx">1</div>
-								<div id="listbody"><div id="address">성남시 중원구 성남동</div></div>
+								<div id="listbody"><div id="address">${authentication.oldAddress}</div></div>
 								<div id="empty" type="button"><i class="fas fa-times-circle"></i></div>
 							</div>
 						</div>	
@@ -171,6 +411,24 @@
 					</div>
 				</div>
 			</div>	
+		</div>
+		<div class="delete_user hidden">
+			<div class="delete_user_title">회원탈퇴</div>
+			<div class="alert_wrap">
+				<div class="alert_title" style="font-size: 19px;">※ 회원 탈퇴 시 주의 사항</div>
+				<div class="alert_title">1. 회원 탈퇴 후 재 가입 시, <div>&nbsp회원 등급이 초기화&nbsp</div> 됩니다.</div>
+				<div class="alert_title">2. 회원 탈퇴 시, <div>&nbsp작성한 모든 게시 글 및 댓글이 유지&nbsp</div>됩니다.</div>
+				<div class="alert_title">3. 회원 탈퇴 시, <div>&nbsp현재 보유하고 있는 캐시가 소멸&nbsp</div>됩니다.</div>
+			</div>
+			<div class="check">
+				<label><a>※ 1번 항목에 동의 하십니까?</a><input type="checkbox"></label>
+				<label><a>※ 2번 항목에 동의 하십니까?</a><input type="checkbox"></label>
+				<label><a>※ 3번 항목에 동의 하십니까?</a><input type="checkbox"></label>
+			</div>
+			<div class="delete_user_button">
+				<button class="cancel" >취소</button>
+				<button class="confirm" onclick="real_delete_confirm()">회원탈퇴</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -237,6 +495,59 @@ document.querySelector("#title2").addEventListener('click', e => {
 		newNeighbor.remove();
 	})
 })
+
+		const myInfo_btn = document.querySelector("#myInfo_btn");
+        const modifyInfo_btn = document.querySelector("#modifyInfo_btn");
+        const delete_user_btn = document.querySelector("#delete_user_btn");
+        const bg = document.querySelector("#bg");
+        const delete_user = document.querySelector(".delete_user");
+		const cancel = document.querySelector(".cancel");
+        const confirm = document.querySelector(".confirm");
+        const wrap = document.querySelector(".wrap");
+        
+        /* 내정보 하위 버튼 */
+        myInfo_btn.addEventListener("mouseover",function(){
+        	modifyInfo_btn.classList.remove("hidden");
+        	delete_user_btn.classList.remove("hidden");
+        });
+        
+        /* 정보 수정 버튼 */
+        modifyInfo_btn.addEventListener("click",function(){
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        });
+        
+        /* div class wrap부분 누르면 하위 버튼들 사라짐 */
+        wrap.addEventListener("click",function(){
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        });
+        
+        /* 탈퇴 버튼 */
+        delete_user_btn.addEventListener("click",function(){
+        	bg.classList.remove("hidden");
+        	modifyInfo_btn.classList.add("hidden");
+        	delete_user_btn.classList.add("hidden");
+        	delete_user.classList.remove("hidden");
+        });	
+        
+        /* 탈퇴취소 */
+        cancel.addEventListener("click",function(){
+        	bg.classList.add("hidden");
+        	delete_user.classList.add("hidden");
+        });	
+        
+        /* 탈퇴 가즈아 */
+        confirm.addEventListener("click",function(){
+        	bg.classList.add("hidden");
+        	delete_user.classList.add("hidden");
+        	
+        	const personal = document.querySelector("#personal").checked;
+        	
+        	location.href='/member/delete-user';
+        	
+		
+        });
 
 /* document.querySelector("#addtown").addEventListener('click', e => {
 	let idx = document.querySelectorAll('#list_wrap').length + 1;

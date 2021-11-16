@@ -61,7 +61,7 @@ public class MemberController {
 		
 		Member certifiedUser = memberService.authenticateUser(member);
 		CMember certifiedCUser = memberService.authenticateCUser(cmember);
-		
+		session.setAttribute("memberAllInfo", certifiedUser);
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
 			session.setAttribute("id", certifiedUser.getNickname());
@@ -93,6 +93,7 @@ public class MemberController {
 	@ResponseBody
 	public String findingPw(String name, String id, String email, HttpSession session,RedirectAttributes redirectAttr) {
 		System.out.println("돌고있냐? : " + name + id + email);
+		
 		Member certifiedUser = memberService.changePasswordByEmail(name, id, email);
 		CMember certifiedCUser = memberService.C_changePasswordByEmail(name, id, email);
 		
@@ -106,6 +107,10 @@ public class MemberController {
 			memberService.findPasswordByEmail(email, token);
 			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
 			return certifiedUser.getEmail();
+		}else if(certifiedCUser != null) {
+			memberService.findPasswordByEmail(email, token);
+			redirectAttr.addFlashAttribute("message", "이메일이 발송되었습니다.");
+			return certifiedCUser.getEmail();
 		}
 		
 		return null;
@@ -139,6 +144,29 @@ public class MemberController {
 
 	}
 	
+	
+	
+	@GetMapping("social-login")
+	public String socialLoginImpl(Member member
+								,@RequestParam(value="id", required=false)  String id 
+								, HttpSession session
+								, RedirectAttributes redirectAttr) {
+		member.setId(id);
+		member.setPassword(UUID.randomUUID().toString());
+		Member certifiedUser = memberService.authenticateSocialUser(member);
+		
+		if(certifiedUser != null) {
+			session.setAttribute("authentication", certifiedUser);
+			return "redirect:/"; 
+		} else {
+			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
+			return "redirect:/member/login-form";
+		}
+	}
+	
+	
+
+
 	
 	@GetMapping("social-join-form")
 	public void socialJoinMember(Model model
@@ -414,5 +442,35 @@ public class MemberController {
 			return null;
 		}
 	}
+	
+	@GetMapping("delete-user")
+	public String deleteUser(HttpSession session, RedirectAttributes redirectAttrs) {
+		Member member = (Member) session.getAttribute("memberAllInfo");
+		
+		memberService.deleterUser(member);
+		redirectAttrs.addFlashAttribute("message", "탈퇴되었습니다.<br><br>그동안 이용해주셔서 감사합니다.");
+		return "redirect:/member/login-form";
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session, RedirectAttributes redirectAttrs) {
+		
+		session.removeAttribute("memberAllInfo");
+		session.removeAttribute("certifiedUser");
+		return "redirect:/member/login-form";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

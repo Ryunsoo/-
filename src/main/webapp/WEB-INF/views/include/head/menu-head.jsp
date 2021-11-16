@@ -71,7 +71,7 @@
       </div>
       <div class="nav_group">
          <div class="nav_info">
-            <div class="userName">해협</div>
+            <div class="userName">${authentication.id}</div>
             <div class="nim">님</div>
             <div class="medal">
                <i class="fas fa-medal"></i>

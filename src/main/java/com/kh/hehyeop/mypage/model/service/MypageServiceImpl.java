@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
@@ -50,6 +51,12 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public void deleteToken(String device, String id) {
 		mypageRepository.deleteToken(Map.of("device",device,"id",id));
+		
+	}
+
+	@Override
+	public void deleterUser(Member member) {
+		mypageRepository.deleterUser(member);
 		
 	}
 

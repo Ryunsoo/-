@@ -3,7 +3,7 @@ package com.kh.hehyeop.member.model.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -52,7 +52,7 @@ public interface MemberRepository {
 	@Select("select * from member_c where id = #{id} and password = #{password}")
 	CMember authenticateCUser(CMember cmember);
 	
-	@Select("select * from c_member where name = #{name} and id = #{id} and email = #{email}")
+	@Select("select * from member_c where name = #{name} and id = #{id} and email = #{email}")
 	CMember C_changePasswordByEmail(@Param("name") String name, @Param("id") String id, @Param("email") String email);
 	
 	@Select("select * from member_c where id = #{id}")
@@ -79,6 +79,10 @@ public interface MemberRepository {
 			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	void uploadFile(FileDTO fileDTO);
 	
+	@Select("select * from member where id = #{id}")
+	Member selectSocialMemberByUserId(String id);
 
+	@Update("update member set is_leave = 1 where id = #{id} and password = #{password}")
+	void deleterUser(Member member);
 
 }
