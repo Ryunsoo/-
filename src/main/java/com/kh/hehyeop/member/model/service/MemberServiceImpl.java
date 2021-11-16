@@ -165,8 +165,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void updatePassword(Member member, String newPw) {
-		
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		memberRepository.updatePassword(member, newPw);
+		
 		
 	}
 

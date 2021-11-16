@@ -63,9 +63,11 @@ public class MemberController {
 		
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
+			session.setAttribute("id", certifiedUser.getNickname());
 			return "redirect:/"; 
 		} else if (certifiedCUser != null){
 			session.setAttribute("C_authentication", certifiedCUser);
+			session.setAttribute("id", certifiedCUser.getNickname());
 			return "redirect:/company/all-help"; 
 		} else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
@@ -326,7 +328,7 @@ public class MemberController {
 	@GetMapping("findpw-impl/{token}")
 	public String findPwImpl(@PathVariable String token
 			, @SessionAttribute(value = "persistToken", required = false) String persistToken
-			, @SessionAttribute(value = "persistUser", required = false) String email
+			, @SessionAttribute(value = "persistUser", required = false) Member email
 			, HttpSession session
 			, RedirectAttributes redirectAttrs) {
 		
@@ -377,12 +379,14 @@ public class MemberController {
 		
 		if(valid) {
 			Member member = (Member) session.getAttribute("persistUser");
+			member.setId(member.getId());
+			member.setEmail(member.getEmail());
 			memberService.updatePassword(member, newPw);
-			
+			System.out.println("바꼈냐");
 			return "change";
 		} else {
 			
-			return "disable";
+			return null;
 		}
 	}
 
