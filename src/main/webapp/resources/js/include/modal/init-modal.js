@@ -9,6 +9,8 @@ let initModal = function(id, num) {
 		modal.addClass('simple_modal');
 	}else if(num == 4) {
 		modal.addClass('address_modal');
+	}else if(num == 5) {
+		modal.addClass('chatting_modal');
 	}
 	
 	let parent = '#' + id;

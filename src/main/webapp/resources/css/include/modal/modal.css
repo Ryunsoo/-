@@ -42,6 +42,11 @@
 	width: 630px;
 }
 
+.chatting_modal{
+	width: 285px;
+	height: 150px;
+}
+
 .piggy_modal{
 	background-color: white;
 	border-radius: 15px;
@@ -71,47 +76,6 @@
 	justify-content: center;
 	
 }
-
-/* content css 작성부분 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* content css 작성부분 */
 
 .modal_btn_wrap{
 	display: flex;

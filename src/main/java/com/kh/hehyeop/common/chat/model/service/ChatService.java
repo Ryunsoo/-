@@ -14,7 +14,7 @@ public interface ChatService {
 
 	void updateExitDate(String id, String no);
 
-	ChatLog selectChatLog(String roomNo);
+	String selectChatLog(String roomNo);
 
 	List<String> selectChatMemberListById(String id, String roomNo);
 

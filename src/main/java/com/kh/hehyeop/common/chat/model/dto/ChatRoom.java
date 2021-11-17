@@ -12,5 +12,6 @@ public class ChatRoom {
 	private String id;
 	private String nickname;
 	private Date exitDate;
+	private String roomName;
 	
 }
