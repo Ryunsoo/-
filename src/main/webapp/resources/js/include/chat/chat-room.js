@@ -96,6 +96,20 @@
       parent.closeIframe();
   }
   
+  function outChatting(){
+	
+  }
+  
+  function openMemberList(){
+	let memberList = document.getElementById('memberList');
+	if(memberList.style.display = "none") {
+		memberList.style.display = "flex";
+	}else {
+		memberList.style.display = "none";
+		console.dir("왜")
+	}
+  }
+  
   function eventResponse(text){
 	  let chattingWrap = document.querySelector('.chatting_wrap');
       let eventWrap = document.createElement("div");
