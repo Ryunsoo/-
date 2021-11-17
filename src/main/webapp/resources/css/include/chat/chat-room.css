@@ -262,11 +262,13 @@ html {
 	left: 12px;
 }
 #input_box {
-	width: 358px; 
-	height: 35px;
-	border-radius: 25px 0 0 25px;
-	border: none;
+	    width: 358px;
+    height: 37px;
+    border-radius: 25px 0 0 25px;
+    border: none;
+    padding: 0 20px 0 20px;
 }
+
 #send_btn {
 	width: 59px;
 	height: 37px;
@@ -296,3 +298,20 @@ html {
 	border-radius: 5px;
 	border-color: rgb(213, 213, 213);
 }
+
+/* modal css */
+.modal_tit{
+	height: 50px;
+	padding: 0 20px 0 20px;
+	font-size: 19px;
+}
+
+.modal_btn_wrap{
+	height: 50px;
+}
+
+.modal_btn_wrap>button{
+	height: 32px;
+	font-size: 15px;
+}
+

@@ -159,8 +159,9 @@ let createMemberList = async (data) => {
 
 let plusFriendModal = (friendName) => {
 	modalNone();
-	let modal = initModal('modal', 1);
+	let modal = initModal('modal', 5);
 	appendTitle(modal,'친구추가');
+	
 	setButton(modal,'그만두기','친구추가');
 	setContent(modal,true,true);
 	let modalBody = $('<div>'+friendName+'님을 친구추가 하시겠습니까?<div>').height('10px');
@@ -245,7 +246,7 @@ let plusFriendModal = (friendName) => {
    
    let renameModal = () => {
 	modalNone();
-	let modal = initModal('modal', 1);
+	let modal = initModal('modal', 5);
 	appendTitle(modal,'채팅방 이름변경하기');
 	setButton(modal,'그만두기','변경하기');
 	setContent(modal,true,true);

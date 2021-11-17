@@ -36,11 +36,8 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public ChatLog selectChatLog(String roomNo) {
-		
-		ChatLog chatLog = chatRepository.selectChatLog(roomNo);
-		
-		return chatLog;
+	public String selectChatLog(String roomNo) {
+		return chatRepository.selectChatLog(roomNo);
 	}
 
 	@Override
