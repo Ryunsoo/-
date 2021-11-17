@@ -89,6 +89,12 @@ let appendList = async (data, status) => {
 				
 				for(let i = 0; i < children.length; i++) {
 					let child = children[i];
+					
+					if(child.className == 'event_wrap') {
+						console.dir('event_wrap');
+						continue;
+					}
+					
 					if(child.dataset.senderId == myId) {
 						child.className = 'my_wrap';
 						child.children[0].id = 'my_name';

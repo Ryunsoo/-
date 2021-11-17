@@ -48,7 +48,6 @@ public class ChatController {
 		Map<String, List<ChatLog>> chatListMap = new HashMap<String, List<ChatLog>>();
 		chatListMap.put("unread", chatService.selectUnReadChatListById(user.getId()));
 		chatListMap.put("read", chatService.selectReadChatListById(user.getId()));
-		
 		//session.setAttribute("chatLog", chatListMap);
 		return chatListMap;
 	}
