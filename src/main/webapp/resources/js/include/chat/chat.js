@@ -110,9 +110,12 @@ let appendList = async (data, status) => {
 	         .then(response => response.text())
 			 .then(text => {
 				let logData = text;
-				console.dir(logData);
-				document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap").innerHTML = logData;
+				let objDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap");
+				objDiv.innerHTML = logData;
+				objDiv.scrollTop = objDiv.scrollHeight;
 				})
+				
+				
 		}) 
 		
 		let myList = document.getElementById('myList');

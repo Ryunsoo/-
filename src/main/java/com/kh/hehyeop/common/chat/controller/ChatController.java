@@ -71,8 +71,13 @@ public class ChatController {
 	
 	@GetMapping("chat-log")
 	@ResponseBody
-	public ResponseEntity<String> chatLog(String roomNo) {
-		String logData = chatService.selectChatLog(roomNo);
+	public ResponseEntity<String> selectChatLog(HttpSession session, String roomNo) {
+		ChatLog chatLog = chatService.selectChatLog(roomNo);
+		
+		String logData = chatLog.getChatData();
+		String roomName = chatLog.getRoomName();
+		
+		session.setAttribute("roomName", roomName);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=UTF-8");

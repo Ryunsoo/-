@@ -25,8 +25,8 @@ public interface ChatRepository {
 	@Update("update chat_room set exit_date = current_date where id = #{id} and room_no = #{roomNo}")
 	void updateExitDate(@Param("id")String id, @Param("roomNo")String roomNo);
 
-	@Select("select chat_data from chat_log where room_no = #{roomNo}")
-	String selectChatLog(String roomNo);
+	@Select("select room_name, chat_data from chat_log where room_no = #{roomNo}")
+	ChatLog selectChatLog(String roomNo);
 	
 
 }
