@@ -276,3 +276,23 @@ html {
 	align-items: center;
 	border-radius: 0 25px 25px 0;
 }
+
+/* 채팅방 이름 변경 css */
+.rename_modal_body{
+	height: 100px;
+	padding: 15px 40px 0 40px;
+}
+
+.rename_modal_Text{
+	font-size: 18px;
+	font-weight: bold;
+	color: #8B8D8B;
+	margin-bottom: 5px;
+}
+
+.rename_modal_body input{
+	height: 30px;
+	width: 300px;
+	border-radius: 5px;
+	border-color: rgb(213, 213, 213);
+}

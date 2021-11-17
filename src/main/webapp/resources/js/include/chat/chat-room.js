@@ -250,6 +250,18 @@ let plusFriendModal = (friendName) => {
 	setButton(modal,'그만두기','변경하기');
 	setContent(modal,true,true);
 	
+	let ModalBody = $('<div>');
+	$('.modal_content').append(ModalBody); 
+	
+	let renameBody = $('<div>').addClass('rename_modal_body');
+	let renametext = $('<div>이름<div>').height('20px').addClass('rename_modal_Text');
+	let renameInput = $('<div>').height('30px');
+	let renameInputBox = $('<input id="roomName" name="roomName">').attr('placeholder','이름을 입력하세요');
+	ModalBody.append(renameBody);
+	renameBody.append(renametext);
+	renameBody.append(renameInput);
+	renameInput.append(renameInputBox);
+	
  	modalBlock();
  	$('.modal_left_btn').click(function() {
 		modalNone();
