@@ -55,5 +55,11 @@ public class ChatServiceImpl implements ChatService{
 
 	}
 
+	@Override
+	public int insertFriendByNickname(String id, String friendName) {
+		int res = chatRepository.insertFriendByNickname(id, friendName);	
+		return res;
+	}
+
 
 }

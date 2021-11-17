@@ -112,4 +112,15 @@ public class ChatController {
 		return null;
 	}
 
+	@GetMapping("chat-room-addFriend")
+	@ResponseBody
+	public String chatAddFriend(HttpSession session, String friendName){		
+		User user = (User) session.getAttribute("authentication");
+		int res = chatService.insertFriendByNickname(user.getId(), friendName);
+		if(res == 1) {
+			return "success";
+		}
+		
+		return "fail";
+	}
 }

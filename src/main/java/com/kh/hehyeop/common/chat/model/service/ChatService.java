@@ -20,5 +20,7 @@ public interface ChatService {
 
 	int deleteIdByRoomNo(String roomNo, String id);
 
+	int insertFriendByNickname(String id, String friendName);
+
 
 }

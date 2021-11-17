@@ -171,7 +171,52 @@ let plusFriendModal = (friendName) => {
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
+	$('.modal_right_btn').click(async function() {
+		let success = await friendFetch(friendName);
+		if(success) {
+			modalNone();
+			let modal = initModal('modal', 1);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>친구추가 성공<div>').height('10px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else {
+			modalNone();
+			let modal = initModal('modal', 1);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>친구추가 실패<div>').height('10px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}
+	})
+	
 }
+
+let friendFetch = async (friendName) => {
+   let success = true;
+   try{
+      let response = await fetch('/chat/chat-room-addFriend?nickname=' + friendName);
+      if(!response.ok) throw new Error();
+      let data = await response.text();
+      if(data == 'fail') {
+		success = false;	
+	  }
+   } catch(e) {
+      success = false;
+   }
+   return success;
+}
+
   function eventResponse(text){
 	  let chattingWrap = document.querySelector('.chatting_wrap');
       let eventWrap = document.createElement("div");
