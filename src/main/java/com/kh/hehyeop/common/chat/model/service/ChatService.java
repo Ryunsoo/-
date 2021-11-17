@@ -16,4 +16,6 @@ public interface ChatService {
 
 	ChatLog selectChatLog(String roomNo);
 
+	List<String> selectChatMemberListById(String id, String roomNo);
+
 }

@@ -1,5 +1,6 @@
 package com.kh.hehyeop.common.chat.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,4 +88,17 @@ public class ChatController {
 		return (new ResponseEntity<String>(logData, headers, HttpStatus.OK));
 	}
 	
+	@GetMapping("chat-room-member")
+	@ResponseBody
+	public List<String> chatMemberList(HttpSession session, String roomNo){		
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			return null;
+		}
+		
+		List<String> chatMemberList = new ArrayList<String>();
+		chatMemberList = chatService.selectChatMemberListById(user.getId(), roomNo);
+		return chatMemberList;
+	}
 }

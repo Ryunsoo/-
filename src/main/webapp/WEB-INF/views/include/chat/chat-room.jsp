@@ -3,27 +3,20 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+<script type="text/javascript" src="../../../resources/js/include/madal/init-modal.js"></script>
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat-room.css">
+<link rel='stylesheet' href="../../../resources/css/include/modal/modal.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-
+<div id='modal'></div>
 <div class="room_con">
 	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
 	<div id="back" onclick="closeSocket()"><i class="fas fa-times-circle"></i></div>
 	<div id="plusBtn" onclick="openMemberList()"><i class="far fa-bars"></i></div>
 	<div id="chatting_menu" style="display:none">
-		<div id="memberList">
-			<div id="member_wrap">
-				<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
-			</div>
-			<div id="member_wrap">
-				<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
-			</div>
-			<div id="member_wrap">
-				<div id="member">황륜수</div><div id="plusFriend"><i class="fas fa-user-plus"></i></div>
-			</div>
-		</div>
+		<div id="memberList"></div>
 		<div id="out" onclick="outChatting()"><div>채팅방 나가기</div></div>
 	</div>
 	<div class="room_wrap">

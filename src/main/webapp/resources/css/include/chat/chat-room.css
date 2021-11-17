@@ -1,12 +1,20 @@
 @charset "UTF-8";
 body{
  -ms-overflow-style: none;
- margin: 0;
+  margin: 0;
+  width: 424px;
+  height: 599px;
  }
  
 ::-webkit-scrollbar {
   display: none;
 }
+
+html {
+	width: 424px;
+	height: 599px;
+}
+
 .room_con {
 	position: relative;
 	width: 424px;
@@ -232,12 +240,15 @@ body{
 #input_box {
 	width: 358px; 
 	height: 35px;
+	border-radius: 25px 0 0 25px;
+	border: none;
 }
 #send_btn {
 	width: 59px;
-	height: 41px;
+	height: 37px;
 	background-color: rgb(241, 196, 15);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 0 25px 25px 0;
 }

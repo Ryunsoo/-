@@ -93,14 +93,12 @@
       ws.close();
       parent.closeIframe();
   }
-  
-  function outChatting(){
-	
-  }
-  
-  function openMemberList(){
+
+  async function openMemberList(){
 	let memberList = document.getElementById('chatting_menu');
-	if(memberList.style.display = "none") {
+	if(memberList.style.display == "none") {
+		let success = await getMemberList();
+		if(!success) return;
 		memberList.style.display = "block";
 	}else {
 		memberList.style.display = "none";
@@ -108,6 +106,56 @@
 	}
   }
   
+  let getMemberList = async () => {
+   let success = true;
+   try{
+      let response = await fetch('/chat/chat-room-member?roomNo=' + room);
+      if(!response.ok) throw new Error();
+      let datas = await response.json();
+      await createMemberList(datas);
+      console.log(JSON.stringify(datas));
+   } catch(e) {
+      success = false;
+   }
+   return success;
+}
+
+let createMemberList = async (data) => {
+	let memberList = document.querySelector("#memberList");
+	for(var i = 0; i < data.length; i++) {
+		let memberWrap = document.createElement("div");
+		memberWrap.setAttribute('id','member_wrap');
+		memberList.appendChild(memberWrap);
+		let member = document.createElement("div");
+		member.setAttribute('id','member');
+		member.innerHTML = data[i];
+		memberWrap.appendChild(member);
+		let plusFriend = document.createElement("div");
+		plusFriend.innerHTML = '<i class="fas fa-user-plus"></i>';
+		plusFriend.setAttribute('id', 'plusFriend');
+		memberWrap.appendChild(plusFriend);
+		plusFriend.addEventListener('click', e => {
+			plusFriendModal(member.innerHTML);
+		})
+	}
+}
+
+let plusFriendModal = (friendName) => {
+	let modal = initModal('modal', 1);
+	appendTitle(modal, '친구추가');
+	setButton(modal, '그만두기', '친구추가');
+	setContent(modal, true, true);
+	
+	modalBlock();
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+    /*<div id="member_wrap">
+		<div id="member">황륜수</div>
+		<div id="plusFriend" onclick="plusFriend()"><i class="fas fa-user-plus"></i></div>
+	</div>*/
   function eventResponse(text){
 	  let chattingWrap = document.querySelector('.chatting_wrap');
       let eventWrap = document.createElement("div");
