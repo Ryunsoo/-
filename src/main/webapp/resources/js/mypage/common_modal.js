@@ -6,7 +6,7 @@ let createChargingModal = () => {
 	setContent(modal, true, true);
 	addPiggyBackground(modal);
 	
-	let modalBody = $('<div class="charging">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><div class="chargeMoney">충전할 금액 <input placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
+	let modalBody = $('<div class="charging">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><div class="chargeMoney">충전할 금액 <input type="number" id="chargeCash" placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
 					.addClass('send_modal_content');
 	$('.modal_content').append(modalBody);
 	
@@ -16,6 +16,43 @@ let createChargingModal = () => {
 	
 	$('.modal_left_btn').click(function() {
 		modalNone();
+	})
+	
+	$('.modal_right_btn').click(function() {
+		
+		let cash = document.querySelector("#chargeCash").value;
+		
+		modalNone();
+		
+		var IMP = window.IMP;
+		IMP.init("imp64410269");
+			
+		console.dir(document.querySelector(".userName").innerText);
+		
+		IMP.request_pay({
+			pg: "html5_inicis",
+			pay_method: "card",
+			merchant_uid: 'merchant_' + new Date().getTime(),
+			name: "캐쉬 충전",
+			amount: parseInt(cash),
+			buyer_name: document.querySelector(".userName").innerText,
+			buyer_tel: '01041147406'
+		}, function(res) {
+			if (res.success) {
+				jQuery.ajax({
+					url: "/mypage/charge",
+					type: "POST",
+					headers: {"Content-Type":"application/json"},
+					data: JSON.stringify({
+						buyer_name : res.buyer_name,
+						amount : res.paid_amount
+					})
+				})
+			} else {
+				alert(cash);
+			}
+		});
+		
 	})
 }
 

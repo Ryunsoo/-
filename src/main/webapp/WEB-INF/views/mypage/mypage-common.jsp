@@ -369,7 +369,15 @@
 					</div>
 					<div id="accountbtn">
 						<div id="charge">
-							<div id="plusicon" type="button" onclick="beforeSendModal()"><i class="far fa-plus-square"></i></div>
+							<div id="plusicon" type="button" 
+							<c:choose>
+								<c:when test="${not empty walletInfo.bank}">
+									onclick="createChargingModal()"
+								</c:when>
+								<c:otherwise>
+									onclick="beforeSendModal()"
+								</c:otherwise>
+							</c:choose>><i class="far fa-plus-square"></i></div>
 							<div class="accountbtntext" id="basic">충전하기</div>
 						</div>
 						<div id="send">
@@ -520,7 +528,7 @@ document.querySelector("#title2").addEventListener('click', e => {
         	
         	myInfo_btn.addEventListener("click",function(){
         		console.dir("클릭함")
-        	}
+        	})
         });
         
         /* 정보 수정 버튼 */
@@ -625,4 +633,5 @@ document.querySelector("#title2").addEventListener('click', e => {
 <script src="../../../resources/js/include/push/tokenFetch.js"></script>
 <script src="../../../resources/js/include/push/deleteFetch.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/resultPush.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </html>

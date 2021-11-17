@@ -6,6 +6,7 @@
 	width: 100%;
 	background-color: transparent;
 	z-index: 9000000000;
+	border-radius: 15px;
 	display: none;
 }
 
@@ -59,6 +60,7 @@
 	background-position: bottom 2px right 2px;
 	position: absolute;
 	z-index: 998;
+	border-radius: 15px;
 }
 
 .modal_tit{
