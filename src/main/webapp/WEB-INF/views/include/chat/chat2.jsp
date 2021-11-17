@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div id="chatting_main" style="display: none;">
+	<input type="text" id="sender_id" value="${sessionScope.authentication.id}" style="display: none;">
 	<div id="chatting_title">
 		<img src="../../../resources/image/chatting.png">
 		<div>채 팅 해 협</div>

@@ -10846,42 +10846,6 @@ fieldset:disabled .btn {
   color: #f8f9fa;
 }
 
-legend {
-  font-family: Montserrat, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-.dropdown-menu {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.breadcrumb a {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.breadcrumb a:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-.alert a,
-.alert .alert-link {
-  color: #fff;
-}
-
-.alert-light,
-.alert-light a:not(.btn),
-.alert-light .alert-link {
-  color: #888;
-}
-
-.badge {
-  color: #fff;
-}
-
-.badge.bg-light {
-  color: #5a5a5a;
-}
-
 .card h1, .card .h1,
 .card h2,
 .card .h2,
