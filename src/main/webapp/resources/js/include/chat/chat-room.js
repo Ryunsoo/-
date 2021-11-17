@@ -4,7 +4,7 @@
   
   function openSocket(roomNo){
       if(ws !== undefined && ws.readyState !== WebSocket.CLOSED ){
-          writeResponse("WebSocket is already opened.");
+          //writeResponse("WebSocket is already opened.");
           return;
       }
       room = roomNo;
@@ -26,7 +26,7 @@
 		  let hour = now.getHours();
 		  let minute = now.getMinutes();
 		  let ampm;
-		  if(hour < 11) {
+		  if(hour < 12) {
 			  ampm = '오전';
 		  }else {
 			  ampm = '오후';
@@ -99,9 +99,9 @@
   }
   
   function openMemberList(){
-	let memberList = document.getElementById('memberList');
+	let memberList = document.getElementById('chatting_menu');
 	if(memberList.style.display = "none") {
-		memberList.style.display = "flex";
+		memberList.style.display = "block";
 	}else {
 		memberList.style.display = "none";
 		console.dir("왜")

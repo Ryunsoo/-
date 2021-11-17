@@ -9,6 +9,8 @@ async function clickChatting2() {
    let viewChatRoom = document.querySelector("#chattingRoom");
    
    if(viewChat.style.display == "none") {
+	  if(viewChatRoom.style.display == 'flex') return;
+	  
       let success = await getChattingList();
       if(!success) return;
       
@@ -97,8 +99,13 @@ let appendList = async (data, status) => {
 
 function closeChat(){
    let viewChat = document.getElementById("chatting_main");
+   let viewChatRoom = document.querySelector("#chattingRoom");
    if (viewChat.style.display == "flex"){
       viewChat.style.display = "none";
+   }
+   if(viewChatRoom.style.display == "flex") {
+	  viewChatRoom.contentWindow.closeSocket();
+	  viewChatRoom.style.display == "none";
    }
 }
 
