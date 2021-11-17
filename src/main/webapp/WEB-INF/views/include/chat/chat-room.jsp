@@ -29,7 +29,7 @@
 	<div class="room_wrap">
 		<div class="room_head">
 			<img id="room_img" src="../../../resources/image/logo-icon.png">
-			<div id="room_title">김현수, 황륜수, 이호준</div>
+			<div id="room_title">${sessionScope.roomName}</div>
 		</div>
 		
 		<div class="room_main">
