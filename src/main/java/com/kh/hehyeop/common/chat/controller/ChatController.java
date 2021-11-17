@@ -1,6 +1,6 @@
 package com.kh.hehyeop.common.chat.controller;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +47,7 @@ public class ChatController {
 		Map<String, List<ChatLog>> chatListMap = new HashMap<String, List<ChatLog>>();
 		chatListMap.put("unread", chatService.selectUnReadChatListById(user.getId()));
 		chatListMap.put("read", chatService.selectReadChatListById(user.getId()));
+		
 		//session.setAttribute("chatLog", chatListMap);
 		return chatListMap;
 	}
@@ -64,14 +65,18 @@ public class ChatController {
 		Map<String, String> mapper = objectMapper.readValue(chatLog, Map.class);
 		System.out.println("map으로 변환한 chatlog json : " + mapper);
 		chatService.updateChatLog(mapper.get("room"), mapper.get("chatLog"));
-		
+	}
+	
+	@GetMapping("update-exit")
+	@ResponseBody
+	public void updateExit(HttpSession session, String roomNo) {
 		User user = (User) session.getAttribute("authentication");
-		chatService.updateExitDate(user.getId(), mapper.get("room"));
+		chatService.updateExitDate(user.getId(), roomNo);
 	}
 	
 	@GetMapping("chat-log")
 	@ResponseBody
-	public ResponseEntity<String> chatLog(String roomNo) {
+	public ResponseEntity<String> selectChatLog(String roomNo) {
 		String logData = chatService.selectChatLog(roomNo);
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -80,4 +85,31 @@ public class ChatController {
 		return (new ResponseEntity<String>(logData, headers, HttpStatus.OK));
 	}
 	
+	@GetMapping("chat-room-member")
+	@ResponseBody
+	public List<String> chatMemberList(HttpSession session, String roomNo){		
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			return null;
+		}
+		
+		List<String> chatMemberList = new ArrayList<String>();
+		chatMemberList = chatService.selectChatMemberListById(user.getId(), roomNo);
+		return chatMemberList;
+	}
+
+	@GetMapping("exit-room")
+	@ResponseBody
+	public String exitRoom(HttpSession session, String roomNo) {
+		User user = (User) session.getAttribute("authentication");
+		
+		int res = chatService.deleteIdByRoomNo(roomNo, user.getId());
+		if(res == 1) {
+			return "success";
+		}
+		
+		return null;
+	}
+
 }

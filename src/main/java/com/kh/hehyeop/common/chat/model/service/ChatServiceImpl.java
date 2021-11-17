@@ -37,10 +37,22 @@ public class ChatServiceImpl implements ChatService{
 
 	@Override
 	public String selectChatLog(String roomNo) {
+		return chatRepository.selectChatLog(roomNo);
+	}
+
+	@Override
+
+	public List<String> selectChatMemberListById(String id, String roomNo) {
 		
-		String logData = chatRepository.selectChatLog(roomNo);
+		List<String> chatMemberList = chatRepository.selectChatMemberList(id, roomNo);
 		
-		return logData;
+		return chatMemberList;
+	}
+
+	public int deleteIdByRoomNo(String roomNo, String id) {
+		int res = chatRepository.deleteIdByRoomNo(roomNo, id);	
+		return res;
+
 	}
 
 

@@ -2,6 +2,7 @@ package com.kh.hehyeop.common.chat.model.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -27,6 +28,13 @@ public interface ChatRepository {
 
 	@Select("select chat_data from chat_log where room_no = #{roomNo}")
 	String selectChatLog(String roomNo);
+
+	@Select("select nickname from chat_room where room_no = #{roomNo} and id != #{id}")
+	List<String> selectChatMemberList(@Param("id")String id, @Param("roomNo")String roomNo);
+
+	@Delete("delete from chat_room where id = #{id} and room_no = #{roomNo}")
+	int deleteIdByRoomNo(@Param("roomNo")String roomNo, @Param("id")String id);
+
 	
 
 }

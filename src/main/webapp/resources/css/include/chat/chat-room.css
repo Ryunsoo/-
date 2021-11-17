@@ -1,16 +1,24 @@
 @charset "UTF-8";
 body{
  -ms-overflow-style: none;
- margin: 0;
+  margin: 0;
+  width: 424px;
+  height: 599px;
  }
  
 ::-webkit-scrollbar {
   display: none;
 }
+
+html {
+	width: 424px;
+	height: 599px;
+}
+
 .room_con {
 	position: relative;
-	width: 487px;
-	height: 741px;
+	width: 424px;
+	height: 599px;
 	background-color: rgba(250, 248, 245, 0.78); 
 	border-width: 0px; 
 	border-style: none; 
@@ -25,6 +33,109 @@ body{
 	font-size: 20px;
 	cursor: pointer;
 	color: red;
+}
+
+#out {
+    width: 105px;
+    height: 31px;
+    position: relative;
+    right: -2px;
+    background: lightcoral;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 1px 1px lightgrey;
+    cursor: pointer;
+}
+
+#out:hover {
+	background: red;
+}
+
+#out>div {
+	color: white;
+	font-size: 13px;
+}
+
+#rename {
+    width: 105px;
+    height: 31px;
+    position: relative;
+    right: -2px;
+    background: lightskyblue;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 1px 1px lightgrey;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+#rename:hover {
+	background: blue;
+}
+
+#rename>div {
+	color: white;
+	font-size: 13px;
+}
+
+#plusBtn {
+	position: absolute;
+	top: 60px;
+	right:17.5px;
+	font-size: 22px;
+	cursor: pointer;
+	color: gray;
+}
+
+#plusBtn:hover {
+	color: black;
+}
+
+#chatting_menu {
+    position: absolute;
+    width: 110px;
+    height: 475px;
+    top: 90px;
+    left: 278.5px;
+    border: 1px solid gray;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 0 1px 1px 1px lightgrey;
+    z-index: 1000;
+    background: whitesmoke;
+    border: none;
+    padding: 10px;
+}
+
+#memberList {
+	height: 376px;
+	overflow: auto;
+}
+
+#member_wrap {
+	width: 100%;
+    height: 37px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#member {
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+#plusFriend {
+	cursor: pointer;
+    font-size: 20px;
+    color: darkgreen;
+}
+
+#plusFriend:hover {
+	color: black;
 }
 
 .room_wrap {
@@ -51,17 +162,18 @@ body{
 .room_main {
 	position: relative;
 	margin-bottom: 32px;
-	width: 452px;
-	height: 618px;
+	width: 391px;
+	height: 496px;
 	background-image: url("../../../../resources/image/채팅바탕.PNG"); 
 	border-radius: 25px; 
+	background-size: cover;
 	box-shadow: rgba(0, 0, 0, 0.18) 0px 0px 5px 1px;
 	margin-left: 17.5px;
 }
 
 .chatting_wrap {
-	width: 422px;
-	height: 500px;
+	width: 364px;
+	height: 424px;
 	padding: 15px;
 	overflow: auto;
 }
@@ -84,7 +196,7 @@ body{
 	justify-content: center;
 	align-items: center;
 	min-height: 30px;
-	max-width: 300px;
+	max-width: 230px;
 	position: relative;
 	background-color: rgb(237, 237, 237);
 	border-radius: 5px;
@@ -121,7 +233,7 @@ body{
 	justify-content: center;
 	align-items: center;
 	min-height: 30px;
-	max-width: 300px;
+	max-width: 230px;
 	position: relative;
 	background-color: rgb(131, 221, 169);
 	border-radius: 5px;
@@ -144,20 +256,34 @@ body{
 .input_wrap {
 	display: flex;
 	position: absolute; 
-	width: 100%;
-	height: 46px;
+	width: 94%;
+	height: 39px;
 	bottom: 20px;
 	left: 12px;
 }
 #input_box {
-	width: 358px; 
-	height: 40px;
+	    width: 358px;
+    height: 37px;
+    border-radius: 25px 0 0 25px;
+    border: none;
+    padding: 0 20px 0 20px;
 }
+
 #send_btn {
 	width: 59px;
-	height: 46px;
+	height: 37px;
 	background-color: rgb(241, 196, 15);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border-radius: 0 25px 25px 0;
 }
+
+/* modal css */
+.modal_tit{
+	
+}
+
+
+
+

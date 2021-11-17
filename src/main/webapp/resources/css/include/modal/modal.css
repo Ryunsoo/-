@@ -5,7 +5,7 @@
 	height: 100%;
 	width: 100%;
 	background-color: transparent;
-	z-index: 900;
+	z-index: 9000000000;
 	display: none;
 }
 
@@ -19,7 +19,7 @@
 	border-radius: 15px;
 	background-color: white;
 	box-shadow: 0 0 5px 3px #999999;
-	z-index: 999;
+	z-index: 9999999999;
 }
 
 .width_modal{
@@ -40,6 +40,11 @@
 .address_modal{
 	height: 400px;
 	width: 630px;
+}
+
+.chatting_modal{
+	width: 285px;
+	height: 150px;
 }
 
 .piggy_modal{
@@ -71,47 +76,6 @@
 	justify-content: center;
 	
 }
-
-/* content css 작성부분 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* content css 작성부분 */
 
 .modal_btn_wrap{
 	display: flex;

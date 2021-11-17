@@ -334,7 +334,7 @@
 						<div id="cashicon"><i class="fas fa-dollar-sign"></i></div>
 						<div>
 							<div id="sky">현재 보유 캐시</div>
-							<div id="basic">25,000</div>
+							<div id="basic">${walletInfo.cash}</div>
 						</div>
 					</div>
 					<div id="lock_con">
@@ -351,14 +351,21 @@
 									</div>
 								</div>
 							</div>
-							<div id="basic">13,000</div>
+							<div id="basic">${walletInfo.cashLock}</div>
 						</div>
 					</div>
 				</div>
 				<div id="account">
 					<div id="myaccount" style="display:flex">
 						<div id="accounttext">my계좌</div>
-						<input id="accountinput" placeholder="&nbsp&nbsp계좌 인증/등록이 필요합니다"></input>
+						<c:choose>
+							<c:when test="${not empty walletInfo.bank}">
+								<input id="accountinput" value=" [${walletInfo.bank}] ${walletInfo.bankNum}"></input>
+							</c:when>
+							<c:otherwise>
+								<input id="accountinput" placeholder="&nbsp&nbsp계좌 인증/등록이 필요합니다" readonly></input>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div id="accountbtn">
 						<div id="charge">

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Token;
+import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -58,6 +59,16 @@ public class MypageServiceImpl implements MypageService{
 	public void deleterUser(Member member) {
 		mypageRepository.deleterUser(member);
 		
+	}
+
+	@Override
+	public void updateWalletInfo(String id, String bank, String bankNum) {
+		mypageRepository.updateWalletInfo(id, bank, bankNum);
+	}
+
+	@Override
+	public Wallet selectWallet(String id) {
+		return mypageRepository.selectWallet(id);
 	}
 
 

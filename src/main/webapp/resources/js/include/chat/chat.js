@@ -9,6 +9,8 @@ async function clickChatting2() {
    let viewChatRoom = document.querySelector("#chattingRoom");
    
    if(viewChat.style.display == "none") {
+	  if(viewChatRoom.style.display == 'flex') return;
+	  
       let success = await getChattingList();
       if(!success) return;
       
@@ -35,7 +37,7 @@ let getChattingList = async () => {
       
       await createList(datas);
       
-      console.log(JSON.stringify(datas));
+      //console.log(JSON.stringify(datas));
    } catch(e) {
       success = false;
       window.alert('로그인 전 채팅 이용이 불가능합니다.');
@@ -46,40 +48,12 @@ let getChattingList = async () => {
 let createList = async (data) => {
 	document.getElementById('myList').innerHTML = '';
 	
-	//let unreadList = data.unread;
-	//let readList = data.read;
-	
 	appendList(data.unread, 'unread');
 	appendList(data.read, 'read');
-	
-	/*for (var i = 0; i < data.length; i++) {
-		let chatItem = document.createElement("div");
-		chatItem.setAttribute('id','chatItem');
-		let chatItemTitle = document.createElement("div");
-		chatItemTitle.setAttribute('id','chatItemTitle');
-		chatItem.appendChild(chatItemTitle);
-		let chatAlarm = documnet.createElement("div");
-		chatAlarm.setAttribute
-		let chatItemBtn = document.createElement("div");
-		chatItemBtn.setAttribute('id','chatItemBtn');
-		chatItemBtn.innerHTML = '입장';
-		chatItem.appendChild(chatItemBtn);
-		
-		chatItemBtn.setAttribute('data-room-no', data[i].roomNo);
-		chatItemTitle.innerHTML = data[i].roomName;
-		
-		chatItemBtn.addEventListener('click', function(e) {
-			document.getElementById("chatting_main").style.display = "none";
-			document.querySelector("#chattingRoom").style.display = "flex";
-			document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo);
-		}) 
-		
-		let myList = document.getElementById('myList');
-		myList.appendChild(chatItem);
-	}*/
 }
 
 let appendList = async (data, status) => {
+
 	console.dir(data);
 	console.dir(status);
 	for (var i = 0; i < data.length; i++) {
@@ -110,9 +84,16 @@ let appendList = async (data, status) => {
 	         .then(response => response.text())
 			 .then(text => {
 				let logData = text;
-				console.dir(logData);
-				document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap").innerHTML = logData;
+				let objDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap");
+			
+				objDiv.innerHTML = logData;
+				objDiv.scrollTop = objDiv.scrollHeight;
 				})
+				
+				let nameDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector("#room_title");
+				let roomName = e.target.parentNode.firstChild.innerHTML;
+				nameDiv.innerHTML = roomName;
+				
 		}) 
 		
 		let myList = document.getElementById('myList');
@@ -122,8 +103,13 @@ let appendList = async (data, status) => {
 
 function closeChat(){
    let viewChat = document.getElementById("chatting_main");
+   let viewChatRoom = document.querySelector("#chattingRoom");
    if (viewChat.style.display == "flex"){
       viewChat.style.display = "none";
+   }
+   if(viewChatRoom.style.display == "flex") {
+	  viewChatRoom.contentWindow.closeSocket();
+	  viewChatRoom.style.display == "none";
    }
 }
 

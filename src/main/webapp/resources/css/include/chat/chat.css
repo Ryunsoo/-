@@ -112,7 +112,7 @@ div {
     font-size: 15px;
     margin-left: 20px;
     max-height: 20px;
-    max-width: 160px;
+    width: 160px;
     overflow: hidden;
 }
 
@@ -150,8 +150,8 @@ div {
 }
 
 #chattingRoom {
-	width: 487px;
-	height: 741px;
+	width: 425px;
+	height: 600px;
 	position: fixed;
 	right: 100px;
    	bottom: 100px;
@@ -162,4 +162,14 @@ div {
 	border-style: none; 
 	border-radius: 35px; 
 	box-shadow: rgba(0, 0, 0, 0.28) 0px 0px 10px 1px;
+}
+
+#galigae {
+    position: fixed;
+    bottom: 106px;
+    right: 25px;
+    width: 310px;
+    height: 79px;
+    background: black;
+    z-index: 99999999999;
 }
