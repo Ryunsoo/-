@@ -22,38 +22,32 @@
   
       
       ws.onmessage = function(event){
-          console.log('writeResponse');
-          console.log(event.data);
+		  let now = new Date();
+		  let hour = now.getHours();
+		  let minute = now.getMinutes();
+		  let ampm;
+		  if(hour < 11) {
+			  ampm = '오전';
+		  }else {
+			  ampm = '오후';
+			  hour = hour == 12 ? hour : hour - 12;
+		  }
+		  let timeText = ampm + ' ' + hour + ':' + minute;
+		  
           let message = event.data;
           let loc = message.indexOf(':');
-          console.dir(typeof(loc));
           if(loc < 0) {
         	  eventResponse(message);
           }else if(!loc) {
-        	  myResponse(message.substring(1));
+        	  myResponse(message.substring(1), timeText);
           }else {
-        	  senderResponse(message.substring(0, loc-1),message.substring(loc + 1));
+        	  senderResponse(message.substring(0, loc-1), message.substring(loc + 1), timeText);
           }
       };
       
       ws.onclose = function(event){
-		//chatting_wrap의 innerHTML을 서버단으로 보내주고
-		let chatLog = document.querySelector('.chatting_wrap').innerHTML;
-		let header = new Headers({
-			'Content-Type': 'application/json'
-		});
-		
-		let init = { 
-					 method: 'POST',
-					 headers: header,
-					 body: JSON.stringify({
-								room: room,
-								chatLog: chatLog
-							})
-					}
-		
-		let saveRequest = new Request('/chat/chat-save', init);
-		let response = fetch(saveRequest);
+		//채팅방 나가는 시간 업데이트
+		let response = fetch('/chat/update-exit?roomNo=' + room);
 		
 		//안에 내용을 초기화해주기
 		document.querySelector('.chatting_wrap').innerHTML = '';
@@ -91,6 +85,10 @@
       text = "";
   }
   
+  window.addEventListener('beforeunload', function(event) {
+	 closeSocket();
+  })
+  
   function closeSocket(){
       ws.close();
       parent.closeIframe();
@@ -117,9 +115,10 @@
       eventWrap.innerHTML = text+"<br>";
       chattingWrap.appendChild(eventWrap);
       objDiv.scrollTop = objDiv.scrollHeight;
+      chatSave();
   }
   
-  function senderResponse(sender,text){
+  function senderResponse(sender, text, time){
       let chattingWrap = document.querySelector('.chatting_wrap');
       let senderWrap = document.createElement("div");
       senderWrap.setAttribute("class","sender_wrap");
@@ -137,12 +136,13 @@
       
       let sendTime =  document.createElement("div");
       sendTime.setAttribute("id","send_time");
-      sendTime.innerHTML = '오후 3:43';
+      sendTime.innerHTML = time;
       senderWrap.appendChild(sendTime);
       objDiv.scrollTop = objDiv.scrollHeight;
+      chatSave();
    }
    
-   function myResponse(text){
+   function myResponse(text, time){
       let chattingWrap = document.querySelector('.chatting_wrap');
       let myWrap = document.createElement("div");
       myWrap.setAttribute("class","my_wrap");
@@ -155,7 +155,27 @@
       
       let sendTime =  document.createElement("div");
       sendTime.setAttribute("id","send_time");
-      sendTime.innerHTML = '오후 3:43';
+      sendTime.innerHTML = time;
       myWrap.appendChild(sendTime);
       objDiv.scrollTop = objDiv.scrollHeight;
+      chatSave();
+   }
+   
+   let chatSave = () => {
+		let chatLog = document.querySelector('.chatting_wrap').innerHTML;
+		let header = new Headers({
+			'Content-Type': 'application/json'
+		});
+		
+		let init = { 
+					 method: 'POST',
+					 headers: header,
+					 body: JSON.stringify({
+								room: room,
+								chatLog: chatLog
+							})
+					}
+		
+		let saveRequest = new Request('/chat/chat-save', init);
+		let response = fetch(saveRequest);
    }

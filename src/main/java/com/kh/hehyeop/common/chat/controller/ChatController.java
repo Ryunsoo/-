@@ -1,6 +1,5 @@
 package com.kh.hehyeop.common.chat.controller;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,9 +63,13 @@ public class ChatController {
 		Map<String, String> mapper = objectMapper.readValue(chatLog, Map.class);
 		System.out.println("map으로 변환한 chatlog json : " + mapper);
 		chatService.updateChatLog(mapper.get("room"), mapper.get("chatLog"));
-		
+	}
+	
+	@GetMapping("update-exit")
+	@ResponseBody
+	public void updateExit(HttpSession session, String roomNo) {
 		User user = (User) session.getAttribute("authentication");
-		chatService.updateExitDate(user.getId(), mapper.get("room"));
+		chatService.updateExitDate(user.getId(), roomNo);
 	}
 	
 	@GetMapping("chat-log")

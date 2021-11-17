@@ -35,7 +35,7 @@ let getChattingList = async () => {
       
       await createList(datas);
       
-      console.log(JSON.stringify(datas));
+      //console.log(JSON.stringify(datas));
    } catch(e) {
       success = false;
       window.alert('로그인 전 채팅 이용이 불가능합니다.');
@@ -44,39 +44,10 @@ let getChattingList = async () => {
 }
 
 let createList = async (data) => {
-   document.getElementById('myList').innerHTML = '';
-   
-   //let unreadList = data.unread;
-   //let readList = data.read;
-   
-   appendList(data.unread, 'unread');
-   appendList(data.read, 'read');
-   
-   /*for (var i = 0; i < data.length; i++) {
-      let chatItem = document.createElement("div");
-      chatItem.setAttribute('id','chatItem');
-      let chatItemTitle = document.createElement("div");
-      chatItemTitle.setAttribute('id','chatItemTitle');
-      chatItem.appendChild(chatItemTitle);
-      let chatAlarm = documnet.createElement("div");
-      chatAlarm.setAttribute
-      let chatItemBtn = document.createElement("div");
-      chatItemBtn.setAttribute('id','chatItemBtn');
-      chatItemBtn.innerHTML = '입장';
-      chatItem.appendChild(chatItemBtn);
-      
-      chatItemBtn.setAttribute('data-room-no', data[i].roomNo);
-      chatItemTitle.innerHTML = data[i].roomName;
-      
-      chatItemBtn.addEventListener('click', function(e) {
-         document.getElementById("chatting_main").style.display = "none";
-         document.querySelector("#chattingRoom").style.display = "flex";
-         document.getElementById('chattingRoom').contentWindow.openSocket(e.target.dataset.roomNo);
-      }) 
-      
-      let myList = document.getElementById('myList');
-      myList.appendChild(chatItem);
-   }*/
+	document.getElementById('myList').innerHTML = '';
+	
+	appendList(data.unread, 'unread');
+	appendList(data.read, 'read');
 }
 
 let appendList = async (data, status) => {
