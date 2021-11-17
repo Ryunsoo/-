@@ -127,9 +127,14 @@ public class ChatController {
 
 	@GetMapping("chat-room-addFriend")
 	@ResponseBody
-	public String chatAddFriend(HttpSession session, String friendName){		
+	public String chatAddFriend(HttpSession session, String nickname){	
+		System.out.println("friendName : " + nickname);
 		User user = (User) session.getAttribute("authentication");
-		int res = chatService.insertFriendByNickname(user.getId(), friendName);
+		String friendId = chatService.selectFriendIdByNickname(user.getId(), nickname);
+		if(friendId != null) {
+			return "exist";
+		}
+		int res = chatService.insertFriendByNickname(user.getId(), nickname);
 		if(res == 1) {
 			return "success";
 		}

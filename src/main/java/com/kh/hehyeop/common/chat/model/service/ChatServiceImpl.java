@@ -56,13 +56,19 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public int insertFriendByNickname(String id, String friendName) {
-		int res = chatRepository.insertFriendByNickname(id, friendName);	
+	public int insertFriendByNickname(String id, String nickname) {
+		int res = chatRepository.insertFriendByNickname(id, nickname);	
 		return res;
 	}
 	
 	public int updateRoomName(ChatRoom chatRoom) {
 		return chatRepository.updateRoomName(chatRoom);
+	}
+
+	@Override
+	public String selectFriendIdByNickname(String id, String nickname) {
+		String friendId = chatRepository.selectFriendIdByNickname(id, nickname);
+		return friendId;
 	}
 
 

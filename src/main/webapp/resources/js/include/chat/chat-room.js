@@ -164,7 +164,7 @@ let plusFriendModal = (friendName) => {
 	
 	setButton(modal,'그만두기','친구추가');
 	setContent(modal,true,true);
-	let modalBody = $('<div>'+friendName+'님을 친구추가 하시겠습니까?<div>').height('10px');
+	let modalBody = $('<div>'+friendName+'님을 추가 하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
 	$('.modal_content').append(modalBody);
 	modalBlock();
 	
@@ -172,26 +172,38 @@ let plusFriendModal = (friendName) => {
 		modalNone();
 	})
 	$('.modal_right_btn').click(async function() {
-		let success = await friendFetch(friendName);
-		if(success) {
+		let state = await friendFetch(friendName);
+		if(state == 'available') {
 			modalNone();
-			let modal = initModal('modal', 1);
+			let modal = initModal('modal', 5);
 			appendTitle(modal,'친구추가');
 			setButton(modal,'확 인');
 			setContent(modal,true,true);
-			let modalBody = $('<div>친구추가 성공<div>').height('10px');
+			let modalBody = $('<div>친구추가 성공<div>').height('10px').css("margin",'0 20px 0 20px');
 			$('.modal_content').append(modalBody);
 			modalBlock();
 			$('.modal_left_btn').click(function() {
 				modalNone();
 			})
-		}else {
+		}else if(state == "disable") {
 			modalNone();
-			let modal = initModal('modal', 1);
+			let modal = initModal('modal', 5);
 			appendTitle(modal,'친구추가');
 			setButton(modal,'확 인');
 			setContent(modal,true,true);
-			let modalBody = $('<div>친구추가 실패<div>').height('10px');
+			let modalBody = $('<div>친구추가 실패<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else if(state == "exist") {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>이미 친구입니다.<div>').height('10px').css("margin",'0 20px 0 20px');
 			$('.modal_content').append(modalBody);
 			modalBlock();
 			$('.modal_left_btn').click(function() {
@@ -203,18 +215,20 @@ let plusFriendModal = (friendName) => {
 }
 
 let friendFetch = async (friendName) => {
-   let success = true;
+   let state = 'available';
    try{
       let response = await fetch('/chat/chat-room-addFriend?nickname=' + friendName);
       if(!response.ok) throw new Error();
       let data = await response.text();
       if(data == 'fail') {
-		success = false;	
-	  }
+		state = 'disable';	
+	  } else if(data == "exist") {
+		state = 'exist';
+	}
    } catch(e) {
-      success = false;
+      status = 'disable';
    }
-   return success;
+   return state;
 }
 
   function eventResponse(text){

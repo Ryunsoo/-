@@ -37,11 +37,15 @@ public interface ChatRepository {
 	@Delete("delete from chat_room where id = #{id} and room_no = #{roomNo}")
 	int deleteIdByRoomNo(@Param("roomNo")String roomNo, @Param("id")String id);
 
-	@Insert("insert into friend (friend_idx,id,friend_id) select sc_friend_idx.nextval, #{id}, id from member where nickname = #{friendname}")
-	int insertFriendByNickname(@Param("id")String id, @Param("nickname")String friendname);
-	
 	@Update("update chat_room set room_name = #{roomName} where id = #{id} and room_no = #{roomNo}")
 	int updateRoomName(ChatRoom chatRoom);
+
+	@Insert("insert into friend (friend_idx,id,friend_id) select sc_friend_idx.nextval, #{id}, id from member where nickname = #{nickname}")
+	int insertFriendByNickname(@Param("id")String id, @Param("nickname")String nickname);
+
+	@Select("select friend_id from friend where id = #{id} and friend_id = (select id from member where nickname = #{nickname})")
+	String selectFriendIdByNickname(@Param("id")String id, @Param("nickname")String nickname);
+
 
 	
 
