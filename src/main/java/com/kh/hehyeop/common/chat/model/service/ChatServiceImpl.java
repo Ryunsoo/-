@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.common.chat.model.dto.ChatLog;
+import com.kh.hehyeop.common.chat.model.dto.ChatRoom;
 import com.kh.hehyeop.common.chat.model.repository.ChatRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -50,8 +51,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	public int deleteIdByRoomNo(String roomNo, String id) {
-		int res = chatRepository.deleteIdByRoomNo(roomNo, id);	
-		return res;
+		return chatRepository.deleteIdByRoomNo(roomNo, id);
 
 	}
 
@@ -59,6 +59,10 @@ public class ChatServiceImpl implements ChatService{
 	public int insertFriendByNickname(String id, String friendName) {
 		int res = chatRepository.insertFriendByNickname(id, friendName);	
 		return res;
+	}
+	
+	public int updateRoomName(ChatRoom chatRoom) {
+		return chatRepository.updateRoomName(chatRoom);
 	}
 
 

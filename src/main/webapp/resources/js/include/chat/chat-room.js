@@ -300,16 +300,36 @@ let friendFetch = async (friendName) => {
 	$('.modal_content').append(ModalBody); 
 	
 	let renameBody = $('<div>').addClass('rename_modal_body');
-	let renametext = $('<div>이름<div>').height('20px').addClass('rename_modal_Text');
-	let renameInput = $('<div>').height('30px');
+	let renameInput = $('<div>').height('30px').attr('maxlength', '30');
 	let renameInputBox = $('<input id="roomName" name="roomName">').attr('placeholder','이름을 입력하세요');
 	ModalBody.append(renameBody);
-	renameBody.append(renametext);
 	renameBody.append(renameInput);
 	renameInput.append(renameInputBox);
-	
  	modalBlock();
- 	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
+ 		
+ 		$('.modal_right_btn').click(function() {
+			let newName = $('#roomName').val();
+			let header = new Headers({
+				'Content-Type': 'application/json'
+			});
+			
+			let init = { 
+						 method: 'POST',
+						 headers: header,
+						 body: newName
+						}
+			
+			let saveRequest = new Request('/chat/rename-room?roomNo=' + room, init);
+			let response = fetch(saveRequest);
+			if(response.ok){
+				console.dir("성공했니?");
+				alert("채팅방 이름이 변경되었습니다.");
+			}
+			$('#room_title').html(newName);
+			modalNone();
+		})
+ 	
+	 	$('.modal_left_btn').click(function() {
+			modalNone();
+		})
 	}

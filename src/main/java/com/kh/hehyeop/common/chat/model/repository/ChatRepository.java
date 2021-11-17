@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.chat.model.dto.ChatLog;
+import com.kh.hehyeop.common.chat.model.dto.ChatRoom;
 
 
 @Mapper
@@ -38,6 +39,9 @@ public interface ChatRepository {
 
 	@Insert("insert into friend (friend_idx,id,friend_id) select sc_friend_idx.nextval, #{id}, id from member where nickname = #{friendname}")
 	int insertFriendByNickname(@Param("id")String id, @Param("nickname")String friendname);
+	
+	@Update("update chat_room set room_name = #{roomName} where id = #{id} and room_no = #{roomNo}")
+	int updateRoomName(ChatRoom chatRoom);
 
 	
 
