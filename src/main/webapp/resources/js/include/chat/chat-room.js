@@ -90,6 +90,7 @@
   })
   
   function closeSocket(){
+	  document.getElementById('chatting_menu').style.display = "none";
       ws.close();
       parent.closeIframe();
   }
@@ -323,6 +324,12 @@ let friendFetch = async (friendName) => {
  		
  		$('.modal_right_btn').click(function() {
 			let newName = $('#roomName').val();
+			
+			if(!newName) {
+				alert("변경하실 채팅방 이름을 입력해주세요.");
+				return;
+			}
+			
 			let header = new Headers({
 				'Content-Type': 'application/json'
 			});
@@ -334,11 +341,14 @@ let friendFetch = async (friendName) => {
 						}
 			
 			let saveRequest = new Request('/chat/rename-room?roomNo=' + room, init);
-			let response = fetch(saveRequest);
-			if(response.ok){
-				console.dir("성공했니?");
-				alert("채팅방 이름이 변경되었습니다.");
-			}
+			fetch(saveRequest).then(response => {
+				return response.text();
+			}).then(text => {
+				if(text == 'success'){
+					alert("채팅방 이름이 변경되었습니다.");
+				}
+			})	
+			
 			$('#room_title').html(newName);
 			modalNone();
 		})
