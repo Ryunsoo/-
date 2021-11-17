@@ -36,12 +36,15 @@
 		  
           let message = event.data;
           let loc = message.indexOf(':');
-          if(loc < 0) {
+          let andLoc = message.indexOf('&');
+          let senderId = message.substring(0, andLoc);
+          let flg = loc - andLoc;
+          if(flg == 0) {
         	  eventResponse(message);
-          }else if(!loc) {
-        	  myResponse(message.substring(1), timeText);
+          }else if(flg == 1) {
+        	  myResponse(message.substring(loc+1), timeText, senderId);
           }else {
-        	  senderResponse(message.substring(0, loc-1), message.substring(loc + 1), timeText);
+        	  senderResponse(message.substring(andLoc+1, loc), message.substring(loc+1), timeText, senderId);
           }
       };
       
@@ -70,10 +73,12 @@
 	  if(inputText.replace(/\s|　/gi, "").length != 0) {
 		  let content = document.getElementById("input_box").value;
 		  let sender = document.getElementById("sender").value;
+		  let senderId = document.getElementById("sender_id").value;
 		  
 		  let json = {
 				content: content,
 				sender: sender,
+				senderId: senderId,
 				roomNo : room
 		  };
 		  text = JSON.stringify(json);
@@ -242,10 +247,12 @@ let friendFetch = async (friendName) => {
       chatSave();
   }
   
-  function senderResponse(sender, text, time){
+  function senderResponse(sender, text, time, senderId){
       let chattingWrap = document.querySelector('.chatting_wrap');
       let senderWrap = document.createElement("div");
       senderWrap.setAttribute("class","sender_wrap");
+      senderWrap.setAttribute('data-sender-id', senderId);
+      senderWrap.setAttribute('data-sender-nick', sender);
       chattingWrap.appendChild(senderWrap);
       
       let senderName =  document.createElement("div");
@@ -266,11 +273,18 @@ let friendFetch = async (friendName) => {
       chatSave();
    }
    
-   function myResponse(text, time){
+   function myResponse(text, time, senderId){
+	  let sender = document.getElementById("sender").value;
       let chattingWrap = document.querySelector('.chatting_wrap');
       let myWrap = document.createElement("div");
       myWrap.setAttribute("class","my_wrap");
+      myWrap.setAttribute('data-sender-id', senderId);
+      myWrap.setAttribute('data-sender-nick', sender);
       chattingWrap.appendChild(myWrap);
+
+	  let senderName =  document.createElement("div");
+      senderName.setAttribute("id","my_name");
+      myWrap.appendChild(senderName);
 
       let myMsg =  document.createElement("div");
       myMsg.setAttribute("id","my_msg");

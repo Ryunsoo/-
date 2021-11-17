@@ -28,5 +28,4 @@ public interface ChatService {
 	String selectFriendIdByNickname(String id, String nickname);
 
 
-
 }

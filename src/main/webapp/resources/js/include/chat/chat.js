@@ -87,6 +87,31 @@ let appendList = async (data, status) => {
 				let objDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap");
 			
 				objDiv.innerHTML = logData;
+				let children = objDiv.children;
+				console.dir(children);
+				
+				let myId = document.querySelector('#sender_id').value;
+				console.dir(myId);
+				
+				for(let i = 0; i < children.length; i++) {
+					let child = children[i];
+					if(child.dataset.senderId == myId) {
+						child.className = 'my_wrap';
+						child.children[0].id = 'my_name';
+						child.children[0].innerHTML = '';
+						console.dir(child.children[1]);
+						child.children[1].id = 'my_msg';
+						child.children[1].children[0].id = 'my_msg_tail';
+					}else {
+						child.className = 'sender_wrap';
+						child.children[0].id = 'sender_name';
+						child.children[0].innerHTML = child.dataset.senderNick;
+						console.dir(child.children[1]);
+						child.children[1].id = 'sender_msg';
+						child.children[1].children[0].id = 'sender_msg_tail';
+					}
+				}
+				
 				objDiv.scrollTop = objDiv.scrollHeight;
 				})
 				

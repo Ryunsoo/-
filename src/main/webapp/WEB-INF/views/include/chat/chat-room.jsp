@@ -14,6 +14,7 @@
 <div id='modal'></div>
 <div class="room_con">
 	<input type="text" id="sender" value="${sessionScope.id}" style="display: none;">
+	<input type="text" id="sender_id" value="${sessionScope.authentication.id}" style="display: none;">
 	<div id="back" onclick="closeSocket()"><i class="fas fa-times-circle"></i></div>
 	<div id="plusBtn" onclick="openMemberList()"><i class="far fa-bars"></i></div>
 	<div id="chatting_menu" style="display:none">
