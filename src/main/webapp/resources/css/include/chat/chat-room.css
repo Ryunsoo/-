@@ -281,9 +281,18 @@ html {
 
 /* modal css */
 .modal_tit{
-	
+	height: 50px;
+	padding: 0 20px 0 20px;
+	font-size: 19px;
 }
 
+.modal_btn_wrap{
+	height: 50px;
+}
 
+.modal_btn_wrap>button{
+	height: 32px;
+	font-size: 15px;
+}
 
 
