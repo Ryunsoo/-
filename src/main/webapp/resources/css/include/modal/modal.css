@@ -5,7 +5,7 @@
 	height: 100%;
 	width: 100%;
 	background-color: transparent;
-	z-index: 900;
+	z-index: 9000000000;
 	display: none;
 }
 
@@ -19,7 +19,7 @@
 	border-radius: 15px;
 	background-color: white;
 	box-shadow: 0 0 5px 3px #999999;
-	z-index: 999;
+	z-index: 9999999999;
 }
 
 .width_modal{

@@ -138,6 +138,7 @@
 
 let createMemberList = async (data) => {
 	let memberList = document.querySelector("#memberList");
+	memberList.innerHTML = "";
 	for(var i = 0; i < data.length; i++) {
 		let memberWrap = document.createElement("div");
 		memberWrap.setAttribute('id','member_wrap');
@@ -157,21 +158,19 @@ let createMemberList = async (data) => {
 }
 
 let plusFriendModal = (friendName) => {
+	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal,'친구추가');
 	setButton(modal,'그만두기','친구추가');
 	setContent(modal,true,true);
-	
+	let modalBody = $('<div>'+friendName+'님을 친구추가 하시겠습니까?<div>').height('10px');
+	$('.modal_content').append(modalBody);
 	modalBlock();
 	
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
 }
-    /*<div id="member_wrap">
-		<div id="member">황륜수</div>
-		<div id="plusFriend" onclick="plusFriend()"><i class="fas fa-user-plus"></i></div>
-	</div>*/
   function eventResponse(text){
 	  let chattingWrap = document.querySelector('.chatting_wrap');
       let eventWrap = document.createElement("div");
@@ -245,10 +244,14 @@ let plusFriendModal = (friendName) => {
    }
    
    let renameModal = () => {
+	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal,'채팅방 이름변경하기');
 	setButton(modal,'그만두기','변경하기');
 	setContent(modal,true,true);
 	
  	modalBlock();
+ 	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
 	}
