@@ -93,8 +93,24 @@
       ws.close();
       parent.closeIframe();
   }
-
-  async function openMemberList(){
+  
+  function outChatting(){
+	//0. 확인절차
+	if(window.confirm("채팅방을 나가시겠습니까?")){
+		//1. 채팅방나가기 => fetch 로 방번호 줘서 chat_room 테이블에서 지우기
+		fetch('/chat/exit-room?roomNo=' + room)
+		.then(response => {
+			return response.text();
+		}).then(text => {
+			if(text == 'success'){
+				alert("채팅방나가기를 완료하였습니다.");
+			}
+		})	
+	}
+	closeSocket();
+  }
+  
+ async function openMemberList(){
 	let memberList = document.getElementById('chatting_menu');
 	if(memberList.style.display == "none") {
 		let success = await getMemberList();
@@ -142,9 +158,9 @@ let createMemberList = async (data) => {
 
 let plusFriendModal = (friendName) => {
 	let modal = initModal('modal', 1);
-	appendTitle(modal, '친구추가');
-	setButton(modal, '그만두기', '친구추가');
-	setContent(modal, true, true);
+	appendTitle(modal,'친구추가');
+	setButton(modal,'그만두기','친구추가');
+	setContent(modal,true,true);
 	
 	modalBlock();
 	
@@ -227,3 +243,12 @@ let plusFriendModal = (friendName) => {
 		let saveRequest = new Request('/chat/chat-save', init);
 		let response = fetch(saveRequest);
    }
+   
+   let renameModal = () => {
+	let modal = initModal('modal', 1);
+	appendTitle(modal,'채팅방 이름변경하기');
+	setButton(modal,'그만두기','변경하기');
+	setContent(modal,true,true);
+	
+ 	modalBlock();
+	}

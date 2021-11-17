@@ -58,6 +58,30 @@ html {
 	font-size: 13px;
 }
 
+#rename {
+    width: 105px;
+    height: 31px;
+    position: relative;
+    right: -2px;
+    background: lightskyblue;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 1px 1px lightgrey;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+#rename:hover {
+	background: blue;
+}
+
+#rename>div {
+	color: white;
+	font-size: 13px;
+}
+
 #plusBtn {
 	position: absolute;
 	top: 60px;
@@ -87,7 +111,7 @@ html {
 }
 
 #memberList {
-	height: 432px;
+	height: 376px;
 	overflow: auto;
 }
 

@@ -18,4 +18,7 @@ public interface ChatService {
 
 	List<String> selectChatMemberListById(String id, String roomNo);
 
+	int deleteIdByRoomNo(String roomNo, String id);
+
+
 }

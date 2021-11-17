@@ -47,6 +47,7 @@ public class ChatController {
 		Map<String, List<ChatLog>> chatListMap = new HashMap<String, List<ChatLog>>();
 		chatListMap.put("unread", chatService.selectUnReadChatListById(user.getId()));
 		chatListMap.put("read", chatService.selectReadChatListById(user.getId()));
+		
 		//session.setAttribute("chatLog", chatListMap);
 		return chatListMap;
 	}
@@ -101,4 +102,18 @@ public class ChatController {
 		chatMemberList = chatService.selectChatMemberListById(user.getId(), roomNo);
 		return chatMemberList;
 	}
+
+	@GetMapping("exit-room")
+	@ResponseBody
+	public String exitRoom(HttpSession session, String roomNo) {
+		User user = (User) session.getAttribute("authentication");
+		
+		int res = chatService.deleteIdByRoomNo(roomNo, user.getId());
+		if(res == 1) {
+			return "success";
+		}
+		
+		return null;
+	}
+
 }

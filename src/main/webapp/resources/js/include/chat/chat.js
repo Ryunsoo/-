@@ -85,10 +85,14 @@ let appendList = async (data, status) => {
 			 .then(text => {
 				let logData = text;
 				let objDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector(".chatting_wrap");
+			
 				objDiv.innerHTML = logData;
 				objDiv.scrollTop = objDiv.scrollHeight;
 				})
 				
+				let nameDiv = document.getElementById('chattingRoom').contentWindow.document.querySelector("#room_title");
+				let roomName = e.target.parentNode.firstChild.innerHTML;
+				nameDiv.innerHTML = roomName;
 				
 		}) 
 		
