@@ -36,12 +36,15 @@
 		  
           let message = event.data;
           let loc = message.indexOf(':');
-          if(loc < 0) {
+          let andLoc = message.indexOf('&');
+          let senderId = message.substring(0, andLoc);
+          let flg = loc - andLoc;
+          if(flg == 0) {
         	  eventResponse(message);
-          }else if(!loc) {
-        	  myResponse(message.substring(1), timeText);
+          }else if(flg == 1) {
+        	  myResponse(message.substring(loc+1), timeText, senderId);
           }else {
-        	  senderResponse(message.substring(0, loc-1), message.substring(loc + 1), timeText);
+        	  senderResponse(message.substring(andLoc+1, loc), message.substring(loc+1), timeText, senderId);
           }
       };
       
@@ -70,10 +73,12 @@
 	  if(inputText.replace(/\s|　/gi, "").length != 0) {
 		  let content = document.getElementById("input_box").value;
 		  let sender = document.getElementById("sender").value;
+		  let senderId = document.getElementById("sender_id").value;
 		  
 		  let json = {
 				content: content,
 				sender: sender,
+				senderId: senderId,
 				roomNo : room
 		  };
 		  text = JSON.stringify(json);
@@ -90,6 +95,7 @@
   })
   
   function closeSocket(){
+	  document.getElementById('chatting_menu').style.display = "none";
       ws.close();
       parent.closeIframe();
   }
@@ -164,14 +170,73 @@ let plusFriendModal = (friendName) => {
 	
 	setButton(modal,'그만두기','친구추가');
 	setContent(modal,true,true);
-	let modalBody = $('<div>'+friendName+'님을 친구추가 하시겠습니까?<div>').height('10px');
+	let modalBody = $('<div>'+friendName+'님을 추가 하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
 	$('.modal_content').append(modalBody);
 	modalBlock();
 	
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
+	$('.modal_right_btn').click(async function() {
+		let state = await friendFetch(friendName);
+		if(state == 'available') {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>친구추가 성공<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else if(state == "disable") {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>친구추가 실패<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else if(state == "exist") {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>이미 친구입니다.<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}
+	})
+	
 }
+
+let friendFetch = async (friendName) => {
+   let state = 'available';
+   try{
+      let response = await fetch('/chat/chat-room-addFriend?nickname=' + friendName);
+      if(!response.ok) throw new Error();
+      let data = await response.text();
+      if(data == 'fail') {
+		state = 'disable';	
+	  } else if(data == "exist") {
+		state = 'exist';
+	}
+   } catch(e) {
+      status = 'disable';
+   }
+   return state;
+}
+
   function eventResponse(text){
 	  let chattingWrap = document.querySelector('.chatting_wrap');
       let eventWrap = document.createElement("div");
@@ -182,10 +247,12 @@ let plusFriendModal = (friendName) => {
       chatSave();
   }
   
-  function senderResponse(sender, text, time){
+  function senderResponse(sender, text, time, senderId){
       let chattingWrap = document.querySelector('.chatting_wrap');
       let senderWrap = document.createElement("div");
       senderWrap.setAttribute("class","sender_wrap");
+      senderWrap.setAttribute('data-sender-id', senderId);
+      senderWrap.setAttribute('data-sender-nick', sender);
       chattingWrap.appendChild(senderWrap);
       
       let senderName =  document.createElement("div");
@@ -206,11 +273,18 @@ let plusFriendModal = (friendName) => {
       chatSave();
    }
    
-   function myResponse(text, time){
+   function myResponse(text, time, senderId){
+	  let sender = document.getElementById("sender").value;
       let chattingWrap = document.querySelector('.chatting_wrap');
       let myWrap = document.createElement("div");
       myWrap.setAttribute("class","my_wrap");
+      myWrap.setAttribute('data-sender-id', senderId);
+      myWrap.setAttribute('data-sender-nick', sender);
       chattingWrap.appendChild(myWrap);
+
+	  let senderName =  document.createElement("div");
+      senderName.setAttribute("id","my_name");
+      myWrap.appendChild(senderName);
 
       let myMsg =  document.createElement("div");
       myMsg.setAttribute("id","my_msg");
@@ -251,8 +325,49 @@ let plusFriendModal = (friendName) => {
 	setButton(modal,'그만두기','변경하기');
 	setContent(modal,true,true);
 	
+	let ModalBody = $('<div>');
+	$('.modal_content').append(ModalBody); 
+	
+	let renameBody = $('<div>').addClass('rename_modal_body');
+	let renameInput = $('<div>').height('30px').attr('maxlength', '30');
+	let renameInputBox = $('<input id="roomName" name="roomName">').attr('placeholder','이름을 입력하세요');
+	ModalBody.append(renameBody);
+	renameBody.append(renameInput);
+	renameInput.append(renameInputBox);
  	modalBlock();
- 	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
+ 		
+ 		$('.modal_right_btn').click(function() {
+			let newName = $('#roomName').val();
+			
+			if(!newName) {
+				alert("변경하실 채팅방 이름을 입력해주세요.");
+				return;
+			}
+			
+			let header = new Headers({
+				'Content-Type': 'application/json'
+			});
+			
+			let init = { 
+						 method: 'POST',
+						 headers: header,
+						 body: newName
+						}
+			
+			let saveRequest = new Request('/chat/rename-room?roomNo=' + room, init);
+			fetch(saveRequest).then(response => {
+				return response.text();
+			}).then(text => {
+				if(text == 'success'){
+					alert("채팅방 이름이 변경되었습니다.");
+				}
+			})	
+			
+			$('#room_title').html(newName);
+			modalNone();
+		})
+ 	
+	 	$('.modal_left_btn').click(function() {
+			modalNone();
+		})
 	}

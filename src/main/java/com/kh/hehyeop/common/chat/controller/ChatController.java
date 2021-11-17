@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.hehyeop.common.chat.model.dto.ChatLog;
+import com.kh.hehyeop.common.chat.model.dto.ChatRoom;
 import com.kh.hehyeop.common.chat.model.service.ChatService;
 import com.kh.hehyeop.member.model.dto.User;
 
@@ -105,11 +106,39 @@ public class ChatController {
 		User user = (User) session.getAttribute("authentication");
 		
 		int res = chatService.deleteIdByRoomNo(roomNo, user.getId());
+		if(res == 1) return "success";
+		return null;
+	}
+	
+	@PostMapping("rename-room")
+	@ResponseBody
+	public String rename(HttpSession session, @RequestBody String roomName, String roomNo) throws JsonMappingException, JsonProcessingException {
+		User user = (User) session.getAttribute("authentication");
+		
+		ChatRoom chatRoom = new ChatRoom();
+		chatRoom.setId(user.getId());
+		chatRoom.setRoomName(roomName);
+		chatRoom.setRoomNo(roomNo);
+		int res = chatService.updateRoomName(chatRoom);
+		
+		if(res == 1) return "success";
+		return null;
+	}
+
+	@GetMapping("chat-room-addFriend")
+	@ResponseBody
+	public String chatAddFriend(HttpSession session, String nickname){	
+		System.out.println("friendName : " + nickname);
+		User user = (User) session.getAttribute("authentication");
+		String friendId = chatService.selectFriendIdByNickname(user.getId(), nickname);
+		if(friendId != null) {
+			return "exist";
+		}
+		int res = chatService.insertFriendByNickname(user.getId(), nickname);
 		if(res == 1) {
 			return "success";
 		}
 		
-		return null;
+		return "fail";
 	}
-
 }

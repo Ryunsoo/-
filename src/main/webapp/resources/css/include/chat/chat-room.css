@@ -279,11 +279,32 @@ html {
 	border-radius: 0 25px 25px 0;
 }
 
-/* modal css */
-.modal_tit{
-	
+/* 채팅방 이름 변경 css */
+.rename_modal_body{
+	height: 100px;
+	padding: 5px 30px 0 30px;
 }
 
+.rename_modal_body input{
+	height: 30px;
+	width: 217px;
+	border-radius: 5px;
+	border-color: rgb(213, 213, 213);
+}
 
+/* modal css */
+.modal_tit{
+	height: 50px;
+	padding: 0 20px 0 20px;
+	font-size: 19px;
+}
 
+.modal_btn_wrap{
+	height: 50px;
+}
+
+.modal_btn_wrap>button{
+	height: 32px;
+	font-size: 15px;
+}
 

@@ -88,13 +88,13 @@ public class WebSocketChat {
      * @param sender
      * @param message
      */
-    private void sendAllSessionToMessage(Session self, String sender, String message, String roomNo) {
+    private void sendAllSessionToMessage(Session self, String sender, String message, String roomNo, String senderId) {
     	List<Session> list = sessionList.get(roomNo);
     	
         try {
             for(Session session : list) {
                 if(!self.getId().equals(session.getId())) {
-                    session.getBasicRemote().sendText(sender+" : "+message);
+                    session.getBasicRemote().sendText(senderId + "&" + sender + ":" + message);
                 }
             }
         }catch (Exception e) {
@@ -113,17 +113,18 @@ public class WebSocketChat {
     	Map<String, String> textMap = objectMapper.readValue(message, Map.class);
     	
     	String sender = textMap.get("sender");
+    	String senderId = textMap.get("senderId");
     	message = textMap.get("content");
     	
-        logger.info("Message From "+sender + ": "+message);
+        logger.info("Message From "+sender + ":" +message);
         try {
             final Basic basic=session.getBasicRemote();
-            basic.sendText(":" + message);
+            basic.sendText(senderId + "&:" + message);
         }catch (Exception e) {
             // TODO: handle exception
             System.out.println(e.getMessage());
         }
-        sendAllSessionToMessage(session, sender, message, textMap.get("roomNo"));
+        sendAllSessionToMessage(session, sender, message, textMap.get("roomNo"), senderId);
     }
     
     @OnError

@@ -3,6 +3,7 @@ package com.kh.hehyeop.common.chat.model.service;
 import java.util.List;
 
 import com.kh.hehyeop.common.chat.model.dto.ChatLog;
+import com.kh.hehyeop.common.chat.model.dto.ChatRoom;
 
 public interface ChatService {
 
@@ -19,6 +20,12 @@ public interface ChatService {
 	List<String> selectChatMemberListById(String id, String roomNo);
 
 	int deleteIdByRoomNo(String roomNo, String id);
+	
+	int updateRoomName(ChatRoom chatRoom);
+
+	int insertFriendByNickname(String id, String nickname);
+
+	String selectFriendIdByNickname(String id, String nickname);
 
 
 }
