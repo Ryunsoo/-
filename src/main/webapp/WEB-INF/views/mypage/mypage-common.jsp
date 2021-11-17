@@ -526,6 +526,7 @@ document.querySelector("#title2").addEventListener('click', e => {
         	modifyInfo_btn.classList.remove("hidden");
         	delete_user_btn.classList.remove("hidden");
         	
+
         });
         
         /* 정보 수정 버튼 */
