@@ -135,48 +135,69 @@ button:hover{
 	
 
 		<div class="main">
-			<form class="form-signin">
+			<form:form class="form-signin" action="/mypage/modify" method="get">
 				<div class="title">
 					<div class="title_line"></div>
 					<div class="myInfo">내 정보</div>
 					<div class="title_line"></div>
 				</div>
 				<div class="input_wrap">
-					<div>* 아이디 <br><input value="test" readonly="readonly" required autocomplete="off" /></div>
-						<div>
-							<div class="pw_validator_wrap">
-								* 비밀번호
-								<div class='pw_validator_bar'>
-									<div class='low'></div>
-									<div class='middle'></div>
-									<div class='high'></div>
-								</div>
-								<div class="level">
-									<label id="validator_bar_text" style="font-weight: 1000"></label>
-								</div>
-								<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span> 
+					<div>* 아이디 <br><input value="${authentication.id}" name="id" readonly="readonly" required autocomplete="off" /></div>
+					<div>
+						<div class="pw_validator_wrap">
+							* 비밀번호
+							<div class='pw_validator_bar'>
+								<div class='low'></div>
+								<div class='middle'></div>
+								<div class='high'></div>
 							</div>
-							<div>
-								<input id="password" class="form-control-pw-top" name="password" type="password"  value="" placeholder="&nbsp 비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
-								<input id="password_check" class="form-control-pw-btm" type="password" value="" placeholder="&nbsp 비밀번호 확인" required/>
+							<div class="level">
+								<label id="validator_bar_text" style="font-weight: 1000"></label>
 							</div>
+							<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span> 
 						</div>
-					<div>* 이름 <br><input id="name" class="form-control_all" value="" placeholder="&nbsp 이름을 입력해주세요."/></div>
-					<div>* 전화번호 <br><input id="tell" class="form-control_all" value="" placeholder="&nbsp 숫자만 입력해주세요." /></div>
-					<div>* 이메일 <br><input id="email" value="" placeholder="&nbsp 이메일을 입력하세요."/><button type="button">중복체크</button></div>
-					<div>* 닉네임 <br><input id="nickName" value="" placeholder="&nbsp 닉네임을 입력하세요."/><button type="button">중복체크</button></div>
+						<div>
+							<input id="password" class="form-control-pw-top" name="password" type="password" placeholder="&nbsp 비밀번호(영문 + 숫자 + 특수문자 8자 이상)" required/>
+							<input id="password_check" class="form-control-pw-btm" type="password" placeholder="&nbsp 비밀번호 확인" required/>
+						</div>
+					</div>
+					<div>* 이름 <br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required/></div>
+					<div>* 전화번호 <br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required/></div>
+					<div>
+						* 이메일 
+						<c:if test="${empty error.email}">
+							<span id="emailCheck" class="valid-msg" style="font-size: 15px; margin-left:8px;"></span>
+						</c:if>
+						<span id="emailCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
+						<br>
+						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"/>
+						<button type="button" id="btnEmailCheck" class="button_check">중복체크</button>
+						<form:errors path="email"/>
+					</div>
+					<div>
+						* 닉네임  
+						<c:if test="${empty error.nickname}">
+							<span id="nicknameCheck" class="valid-msg"></span>
+						</c:if>
+						<span id="nickCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
+						<br>
+						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"/>
+						<button type="button" id="btnNickCheck" class="button_check">중복체크</button>
+						<form:errors path="nickname"/>
+					</div>
 					<div>* 주소찾기 <br>
-						<input class="form-control_adress" id="form-address"  value="" placeholder="&nbsp 기본 주소를 입력해주세요."/>
-						<input class="form-control_adress_check" id="form-addressNo" style="width: 80px;" value="" placeholder="&nbsp 우편번호"/><button type="button" class="button_adress_check" onclick="searchAddr()">주소찾기</button>
-						<input class="form-control_detail_adress" id="form-oldAddress" value="" placeholder="&nbsp 상세 주소를 입력해주세요."/>
+						<input class="form-control_adress" name="address"  id="form-address" value="${authentication.address}" placeholder="&nbsp 기본 주소를 입력해주세요." required readonly/>
+						<input class="form-control_adress_check" name="addressNo"  id="form-addressNo" style="width: 80px;" value="" placeholder="&nbsp 우편번호" required readonly/><button type="button" class="button_adress_check" onclick="searchAddr()">주소찾기</button>
+						<input class="form-control_detail_adress" name="oldAddress" id="form-oldAddress" value="${authentication.oldAddress}" placeholder="&nbsp 상세 주소를 입력해주세요." required autocomplete="off"/>
 					</div>
 				</div>
-					<button class="modify_btn" type="submit">수정하기</button>
+					<button class="modify_btn" id="modify_btn" type="submit">수정하기</button>
+			
+				</form:form>
 				</div>
 				
 			
-			</form>
-		</div>
+		
 
 
 

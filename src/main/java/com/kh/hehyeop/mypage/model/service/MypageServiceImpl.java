@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageServiceImpl implements MypageService{
 
 	private final MypageRepository mypageRepository;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public List<String> getValidTokens(String userId) {
@@ -69,6 +72,18 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public Wallet selectWallet(String id) {
 		return mypageRepository.selectWallet(id);
+	}
+
+	@Override
+	public Member selectMemberByEmail(String email) {
+		return mypageRepository.selectMemberByEmail(email);
+	}
+
+	@Override
+	public void updateInfo(JoinForm form) {
+		form.setPassword(passwordEncoder.encode(form.getPassword()));
+		mypageRepository.updateInfo(form);
+		
 	}
 
 

@@ -518,15 +518,11 @@ document.querySelector("#title2").addEventListener('click', e => {
         	modifyInfo_btn.classList.remove("hidden");
         	delete_user_btn.classList.remove("hidden");
         	
-        	myInfo_btn.addEventListener("click",function(){
-        		console.dir("클릭함")
-        	}
         });
         
         /* 정보 수정 버튼 */
         modifyInfo_btn.addEventListener("click",function(){
-        	modifyInfo_btn.classList.add("hidden");
-        	delete_user_btn.classList.add("hidden");
+        	location.href='/mypage/modify-info';
         });
         
         /* div class wrap부분 누르면 하위 버튼들 사라짐 */

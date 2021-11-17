@@ -1,5 +1,7 @@
 package com.kh.hehyeop.mypage.controller;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,10 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,7 +30,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 
@@ -116,15 +124,38 @@ public class MypageController {
 	@GetMapping("mypage-company")
 	public void mypageCompany() { }
 	
-	@GetMapping("delete-user")
-	public String deleteUser(HttpSession session, RedirectAttributes redirectAttrs) {
-		Member member = (Member) session.getAttribute("memberAllInfo");
-		
-		mypageService.deleterUser(member);
-		redirectAttrs.addFlashAttribute("message", "탈퇴되었습니다.<br><br>그동안 이용해주셔서 감사합니다.");
-		return "redirect:/member/login-form";
+	@GetMapping("email-check")
+	@ResponseBody
+	public String emailCheck(String email) {
+		Member member = mypageService.selectMemberByEmail(email);
+		 
+		if (member != null) {
+			logger.debug(member.toString());
+			return "disable";
+		} else {
+			return "available";
+		}
 	}
+	
 	
 	@GetMapping("modify-info")
 	public void modifyInfo() { }
+	
+	@GetMapping("modify")
+	public String insertModifyInfo(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) { 
+		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/mypage/modify-info";
+		}
+		else {
+		mypageService.updateInfo(form);
+		System.out.println("member 바꼈냐");
+		session.removeAttribute("persistUser");
+		return "redirect:/mypage/modify-info";
+		}
+	}
 }
