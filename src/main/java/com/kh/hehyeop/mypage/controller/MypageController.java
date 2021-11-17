@@ -124,4 +124,7 @@ public class MypageController {
 		redirectAttrs.addFlashAttribute("message", "탈퇴되었습니다.<br><br>그동안 이용해주셔서 감사합니다.");
 		return "redirect:/member/login-form";
 	}
+	
+	@GetMapping("modify-info")
+	public void modifyInfo() { }
 }

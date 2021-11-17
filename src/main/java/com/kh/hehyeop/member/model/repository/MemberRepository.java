@@ -23,24 +23,24 @@ public interface MemberRepository {
 			+ "values(#{id}, #{password}, #{name}, #{tell}, #{email}, #{nickname}, #{address}, #{oldAddress})")
 	void insertMember(JoinForm form);
 
-	@Select("select * from member where id = #{id} and password = #{password}")
+	@Select("select * from member where id = #{id} and password = #{password} and is_leave = 0")
 	Member authenticateUser(Member member);
 	
-	@Select("select * from member where id = #{id}")
+	@Select("select * from member where id = #{id} and is_leave = 0")
 	Member selectMember(String id);
 
 //	find id
-	@Select("select id from (select id, name, tell, email from member union select id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email}")
+	@Select("select id from (select id, name, tell, email from member union select id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email} and is_leave = 0")
 	String selectIdByEmail(@Param("name") String name, @Param("tell") String tell, @Param("email") String email);
 
 //	member find password
-	@Select("select * from member where name = #{name} and id = #{id} and email = #{email}")
+	@Select("select * from member where name = #{name} and id = #{id} and email = #{email} and is_leave = 0")
 	Member changePasswordByEmail(@Param("name") String name, @Param("id") String id, @Param("email") String email);
 	
-	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
+	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id} and is_leave = 0")
 	Member selectMemberByUserId(String id);
 	
-	@Select("select nickname from member where nickname = #{nickname}")
+	@Select("select nickname from member where nickname = #{nickname} and is_leave = 0")
 	Member selectMemberByNickname(String nickname);
 	
 //	cmember

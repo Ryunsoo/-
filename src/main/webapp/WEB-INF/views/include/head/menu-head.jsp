@@ -76,8 +76,8 @@
             <div class="medal">
                <i class="fas fa-medal"></i>
             </div>
-            <a href=""><div class="mypage">마이페이지</div></a>
-            <a href=""><div class="logout" type="button">LOGOUT</div></a>
+            <a onclick="location.href='/mypage/mypage-common'"><div class="mypage">마이페이지</div></a>
+            <a onclick="location.href='/member/logout'"><div class="logout" type="button">LOGOUT</div></a>
          </div>
          <div class="nav_title">
             <a href=""><div class="help">해협신청</div></a>
