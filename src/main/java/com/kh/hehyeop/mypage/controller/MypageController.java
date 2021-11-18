@@ -230,8 +230,12 @@ public class MypageController {
 			return "redirect:/mypage/modify-info";
 		}
 		
-		vr.addErrors(errors);
-		return "redirect:/mypage/modify-info";
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "redirect:/mypage/modify-info";
+		}
+		
+		return null;
 	}
 
 }

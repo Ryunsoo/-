@@ -191,12 +191,8 @@ button:hover {
 						</div>
 					</div>
 					<div>* 이름 
-						<form:errors path="name" cssClass="valid-msg"/>
-					<br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required
-									<c:if test="${empty error.name}">
-										value = "${joinForm.name}"
-									</c:if>
-									/></div>
+						<form:errors path="name"/>
+					<br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required/></div>
 					<div>* 전화번호 <br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required
 									<c:if test="${empty error.tell}">
 										value = "${joinForm.tell}"

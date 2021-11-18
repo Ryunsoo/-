@@ -28,13 +28,6 @@ public class MypageValidator implements Validator{
 		JoinForm form = (JoinForm) target;
 		boolean valid = true;
 		
-		if(form.getId() != null) {
-			// 1. 아이디 존재 유무
-			if(memberRepository.selectMemberByUserId(form.getId()) != null) {
-				errors.rejectValue("id", "error-id", "이미 존재하는 아이디입니다.");
-			}
-		}
-		
 		if(form.getPassword() != null) {
 			// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
 			valid = Pattern.matches("(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Zㄱ-힣0-9]).{8,}", form.getPassword());
@@ -73,10 +66,6 @@ public class MypageValidator implements Validator{
 		}
 		
 		if(form.getNickname() != null) {
-			if(memberRepository.selectMemberByNickname(form.getNickname()) != null) {
-				errors.rejectValue("nickname", "error-nickname", "닉네임이 중복되었습니다.");
-			}
-			
 			valid = Pattern.matches("^[\\w\\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$", form.getNickname());
 			
 			if (!valid) {
