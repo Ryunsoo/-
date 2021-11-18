@@ -1,6 +1,12 @@
-		let doArr = ['강원', '전북', '서울', '대전', '대구', '부산', '전남', '제주', '충북', '세종', '인천', '충남', '경북', '경기', '경남', '광주', '울산'];
-        let guArr = ['강남구', '중구', '관악구', '종로구', '강동구', '중랑구', '강서구', '동작구', '송파구', '구로구', '마포구', '성동구', '영등포구', '양천구', '강북구', '은평구', '성북구', '서초구', '금천구', '노원구', '광진구', '서대문구', '용산구', '동대문구', '도봉구'];
-        let dongArr = ['개포1동', '개포2동', '개포4동', '논현1동', '논현2동', '대치1동', '대치2동', '대치4동', '도곡1동', '도곡2동', '삼성1동', '삼성2동', '세곡동', '수서동', '신사동', '압구정동', '역삼1동', '역삼2동', '일원1동', '일원2동', '일원본동', '청담동'];
+
+	let locationData;
+	let majorKey = "";
+	let cityKey = "";
+	let townKey = "";
+	
+	let doArr = ['강원', '경기', '경남', '경북', '광주', '대구', '대전', '부산', '서울', '세종', '울산', '인천', '전남', '전북', '충남', '충북'];
+	let guArr = [];
+	let dongArr = [];
 
         doArr.sort();
         guArr.sort();
@@ -8,31 +14,44 @@
 
         /* 시/도 모달 */
         let createAddressFirstModal = () => {
-           let addressModal = initModal('modal', 4);
-           appendTitle(addressModal, '시/도');
-           setButton(addressModal, '그만두기', '다 음');
-           setContent(addressModal, true, true);
-           $('.modal_content').removeClass('modal_content').addClass('address_modal_content');
-           modalBlock();
-           
-           /* 구역 나누기 (시/도 -> 시) */
-           let doDiv = $('<div>').addClass('do_div');
-           $('.address_modal_content').append(doDiv);
-           
-           for(let i = 0; i < doArr.length; i++) {
-        	   doTextDiv = $('<div>').addClass('do_text');
-        	   doTextDiv.text(doArr[i]);
-        	   doDiv.append(doTextDiv);
-           }
-          
-           let guDiv = $('<div>').addClass('gu_div');
+			   let guArr=[];
+			   let dongArr=[];
+	           let addressModal = initModal('modal', 4);
+	           appendTitle(addressModal, '시/도');
+	           setButton(addressModal, '그만두기', '다 음');
+	           setContent(addressModal, true, true);
+	           $('.modal_content').removeClass('modal_content').addClass('address_modal_content');
+	           modalBlock();
+	           
+	           /* 구역 나누기 (시/도 -> 시) */
+	           let doDiv = $('<div>').addClass('do_div');
+	           $('.address_modal_content').append(doDiv);
+	           
+	           for(let i = 0; i < doArr.length; i++) {
+	              doTextDiv = $('<div>').addClass('do_text');
+	              doTextDiv.text(doArr[i]);
+	              doDiv.append(doTextDiv);
+	           }
+	           
+	           locationClick();
+	           
+	           
+	           createAddressFirstModalGuArr();
+          }
+			
+			
+		let createAddressFirstModalGuArr = () => {
+			let guDiv = $('<div>').addClass('gu_div');
            $('.address_modal_content').append(guDiv);
            
            for(let i = 0; i < guArr.length; i++) {
-        	   let guTextDiv = $('<div>').addClass('gu_text');
-        	   guTextDiv.text(guArr[i]);
-        	   guDiv.append(guTextDiv);
+              let guTextDiv = $('<div>').addClass('gu_text');
+              guTextDiv.text(guArr[i]);
+              guDiv.append(guTextDiv);
            }
+           
+           
+            locationCityClick();
            
            /* 취소 */
            $('.modal_left_btn').click(function() {
@@ -43,26 +62,29 @@
               modalNone();
               createAddressSecondModal();
            })
-        }
+          
+		}
+
 
         let createAddressSecondModal = () => {
-        	let secondModal = initModal('modal', 4);
-        	appendTitle(secondModal, '동');
+           let secondModal = initModal('modal', 4);
+           appendTitle(secondModal, '동');
             setButton(secondModal, '이 전', '결정하기');
             setContent(secondModal, true, true);
             $('.modal_content').removeClass('modal_content').addClass('address_modal_content');
             modalBlock();
-        	
+           
             let dongDiv = $('<div>').addClass('dong_div');
             $('.address_modal_content').append(dongDiv);
             
             for(let i = 0; i < doArr.length; i++) {
-         	   let dongTextDiv = $('<div>').addClass('dong_text');
-         	   dongTextDiv.text(dongArr[i]);
-         	   dongDiv.append(dongTextDiv);
+               let dongTextDiv = $('<div>').addClass('dong_text');
+               dongTextDiv.text(dongArr[i]);
+               dongDiv.append(dongTextDiv);
             }
             
             
+            locationTownClick();
             
             $('.modal_left_btn').click(function() {
                 modalNone();
@@ -75,3 +97,75 @@
             
         }   
         
+
+let locationClick = () => {
+   document.querySelector(".do_div").addEventListener("click", (e)=>{
+		if(e.target!==e.currentTarget) {
+			majorKey = e.target.innerHTML;
+			e.target.style.color = 'red';
+			locationFetchCityList(majorKey);
+		}
+		e.stopPropagation();
+	}, false)
+}
+
+let locationFetchCityList = (majorKey) => {
+	fetch("http://localhost:9090/mypage/location-list?majorKey=" + majorKey)
+	  .then((response) => response.json())
+	  .then((response) => {
+		  locationData = response;
+		  guArr=[];
+		  dongArr=[];
+		  
+		  for(let i=0; i<locationData.length; i++){
+				guArr.push(locationData[i].city);
+			}
+	  });
+}
+
+
+
+let locationCityClick = () => {
+	document.querySelector(".gu_div").addEventListener("click", (e)=>{
+		if(e.target!==e.currentTarget) {
+			cityKey = e.target.innerHTML;
+			e.target.style.color = 'red';
+			locationFetchTownList(cityKey);
+		}
+	})
+}
+
+let locationFetchTownList = (cityKey) => {
+	fetch("http://localhost:9090/mypage/location-list?city=" + cityKey)
+	  .then((response) => response.json())
+	  .then((response) => {
+		  locationData = response;
+		  dongArr=[];
+		  for(let i=0; i<locationData.length; i++){
+				dongArr.push(locationData[i].town);
+			}
+	  });
+}
+
+
+
+
+let locationTownClick = () => {
+	document.querySelector(".dong_div").addEventListener("click", (e)=>{
+		if(e.target!==e.currentTarget) {
+			townKey = e.target.innerHTML;
+			e.target.style.color = 'red';
+		}
+	})
+}
+
+
+
+
+
+
+
+let resetEvent = () => {
+	document.querySelector(".do_text").style.color = "#888888";
+}
+

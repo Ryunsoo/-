@@ -1,6 +1,7 @@
 package com.kh.hehyeop.mypage.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,7 @@ import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
+import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -183,6 +186,18 @@ public class MypageController {
 		}
 		return "failed";
 	}
+	
+
+	
+	@GetMapping("location-list")
+	@ResponseBody
+	public List<Location> selectLocationList(Model model
+									,@ModelAttribute Location location) {
+		List<Location> locationlist = mypageService.selectLocationList(location);
+		
+		return locationlist;
+	}
+	
 	
 	
 	

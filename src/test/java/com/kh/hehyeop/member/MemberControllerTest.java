@@ -110,5 +110,14 @@ public class MemberControllerTest {
 		.andDo(print());
 	}
 	
+	@Test
+	public void locationTest() throws Exception {
+		mockMvc.perform(get("/mypage/location-list")
+						.param("majorKey", "서울시"))
+						.andExpect(status().isOk())
+						.andDo(print());
+			
+	}
+	
 	
 }

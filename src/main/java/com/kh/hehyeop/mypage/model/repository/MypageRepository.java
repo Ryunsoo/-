@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -46,6 +47,10 @@ public interface MypageRepository {
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
    
-
+   @Select("select distinct city from location where major_key= #{majorKey} order by city")
+   List<Location> selectLocationCityList(Location location);
+   
+   @Select("select distinct town from location where city = #{city} order by town")
+   List<Location> selectLocationTownList(Location location);
    
 }
