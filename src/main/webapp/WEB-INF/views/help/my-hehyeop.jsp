@@ -15,27 +15,27 @@
 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 		<div class="page_name">MY해협</div>
 		<div class="my_info">
-			<div class="my_name">이호준 <a>님</a>(DIA)</div>
+			<div class="my_name">${authentication.name} <a>님</a></div>
 			<div class="left_info">
 				<div class="tell">
-					<div class="info_title">연락처</div><div class="info_body">01099991111</div>
-					<div class="info_btn"><button>수정</button></div>
+					<div class="info_title">연락처</div><div class="info_body">${authentication.tell}</div>
+					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 				<div class="info_line"></div>
 				<div class="address">
-					<div class="info_title">주소</div><div class="info_body">서울시 강남구 KH정보교육원</div>
-					<div class="info_btn"><button>수정</button></div>
+					<div class="info_title">주소</div><div class="info_body">${authentication.address}</div>
+					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 			</div>
 			<div class="right_info">
 				<div class="email">
-					<div class="info_title">이메일</div><div class="info_body">pclass@kh.com</div>
-					<div class="info_btn"><button>수정</button></div>
+					<div class="info_title">이메일</div><div class="info_body">${authentication.email}</div>
+					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 				<div class="info_line"></div>
 				<div class="region">
-					<div class="info_title">지역</div><div class="info_body">서울 강남</div>
-					<div class="info_btn"><button>수정</button></div>
+					<div class="info_title">지역</div><div class="info_body">${authentication.tell}</div>
+					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 			</div>		
 		</div>

@@ -24,7 +24,7 @@
                            <a href="https://www.naver.com/">신청서 작성</a>
                         </li>
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">마이해협</a>
+                           <a href="/">마이해협</a>
                         </li>
                         <li class="gnb-2depth__item">
                            <a href="https://www.naver.com/">리뷰해협</a>
