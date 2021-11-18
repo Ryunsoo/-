@@ -106,12 +106,13 @@ function searchAddr(){
             	newJibunAddr = jibunAddr.replace('제주특별자치도', '제주');
             }else {
             	newJibunAddr = jibunAddr;
-            }
-            
+            }  
+
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('form-addressNo').value = data.zonecode;
             document.getElementById("form-address").value = roadAddr;
             document.getElementById("form-oldAddress").value = newJibunAddr;
+
         }
            
     }).open();
