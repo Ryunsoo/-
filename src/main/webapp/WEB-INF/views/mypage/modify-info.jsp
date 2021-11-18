@@ -164,7 +164,7 @@ button:hover {
 	
 
 		<div class="main">
-			<form:form modelAttribute="modifyForm" class="form-signin" action="/mypage/modify" method="post">
+			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="post">
 				<div class="title">
 					<div class="title_line"></div>
 					<div class="myInfo">내 정보</div>

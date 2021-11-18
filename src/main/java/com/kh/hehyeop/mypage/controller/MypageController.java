@@ -203,7 +203,7 @@ public class MypageController {
 	}
 	
 	
-	@InitBinder(value = "modifyForm") 
+	@InitBinder(value = "joinForm") 
 	public void initBinder(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(mypageValidator);
 	}
