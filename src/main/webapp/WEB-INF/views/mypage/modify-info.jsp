@@ -261,15 +261,21 @@ function searchAddr(){
             	return;
             }
             
+			let newJibunAddr;
+            
+            //시도가 세종특별자치시 이거나 제주특별자치도일 경우 '세종', '제주' 로 바꿔준다.
+            if(data.sido == '세종특별자치시') {
+            	newJibunAddr = jibunAddr.replace('세종특별자치시', '세종');
+            }else if(data.sido == '제주특별자치도') {
+            	newJibunAddr = jibunAddr.replace('제주특별자치도', '제주');
+            }else {
+            	newJibunAddr = jibunAddr;
+            }
+            
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('form-addressNo').value = data.zonecode;
             document.getElementById("form-address").value = roadAddr;
-            document.getElementById("form-oldAddress").value = jibunAddr;
-            
-            
-            
-            
-
+            document.getElementById("form-oldAddress").value = newJibunAddr;
         }
            
     }).open();
