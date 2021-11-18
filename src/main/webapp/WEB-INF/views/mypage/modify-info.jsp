@@ -166,7 +166,6 @@ button:hover {
 <div id='modal'></div>
 <div class="wrap">
 	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
-	
 
 		<div class="main">
 			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="post">
