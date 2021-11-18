@@ -43,14 +43,13 @@ function alert(msg){
 }
 
 .form-signin {
-	box-shadow: 5px 5px 5px rgb(254, 227, 205);
 	border-radius: 20px;
 	height: 830px;
 	width: 530px;
 	padding: 20px 70px 35px;
 	margin: auto;
 	background-color: #fff;
-	border: thin dashed rgba(0, 0, 0, 0.1);
+	border: thick dashed rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
 }
@@ -154,10 +153,18 @@ button:hover {
 .pw_validator_wrap {
 	display: flex;
 }
-.valid-msg{
-  font-size: 15px; 
-  margin-left:8px; 
-  color: red;
+
+.valid-msg {
+	font-size: 15px;
+	margin-left: 8px;
+	color: red;
+}
+
+.bee2 {
+	left: 860px;
+	width: 200px;
+	top: 230px;
+	position: absolute;
 }
 
 </style>
@@ -166,8 +173,9 @@ button:hover {
 <div id='modal'></div>
 <div class="wrap">
 	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
-
+	
 		<div class="main">
+			<img class="bee2" src="../../../resources/image/bee2.png">
 			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="post">
 				<div class="title">
 					<div class="title_line"></div>
