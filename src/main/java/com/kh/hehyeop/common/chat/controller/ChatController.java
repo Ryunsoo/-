@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.hehyeop.common.chat.model.dto.ChatLog;
 import com.kh.hehyeop.common.chat.model.dto.ChatRoom;
 import com.kh.hehyeop.common.chat.model.service.ChatService;
+import com.kh.hehyeop.member.model.dto.CMember;
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 
 import lombok.RequiredArgsConstructor;
@@ -87,16 +89,13 @@ public class ChatController {
 	
 	@GetMapping("chat-room-member")
 	@ResponseBody
-	public List<String> chatMemberList(HttpSession session, String roomNo){		
+	public List<ChatRoom> chatMemberList(HttpSession session, String roomNo){		
 		User user = (User) session.getAttribute("authentication");
 		
 		if(user == null) {
 			return null;
 		}
-		
-		List<String> chatMemberList = new ArrayList<String>();
-		chatMemberList = chatService.selectChatMemberListById(user.getId(), roomNo);
-		return chatMemberList;
+		return chatService.selectChatMemberListById(user.getId(), roomNo);
 	}
 
 	@GetMapping("exit-room")
@@ -126,17 +125,19 @@ public class ChatController {
 
 	@GetMapping("chat-room-addFriend")
 	@ResponseBody
-	public String chatAddFriend(HttpSession session, String nickname){	
-		System.out.println("friendName : " + nickname);
+	public String chatAddFriend(HttpSession session, String nickname, String friendId){	
 		User user = (User) session.getAttribute("authentication");
-		String friendId = chatService.selectFriendIdByNickname(user.getId(), nickname);
-		if(friendId != null) {
-			return "exist";
-		}
+		if(user instanceof CMember) return "company";
+		
+		String friend = chatService.selectMemberByFriendId(friendId);
+		if(friend == null) return "coFriend";
+		
+		//친구추가가 이미 되어있는지 확인
+		String hasId = chatService.selectFriendIdByNickname(user.getId(), nickname);
+		if(hasId != null) return "exist";
+			
 		int res = chatService.insertFriendByNickname(user.getId(), nickname);
-		if(res == 1) {
-			return "success";
-		}
+		if(res == 1) return "success";
 		
 		return "fail";
 	}

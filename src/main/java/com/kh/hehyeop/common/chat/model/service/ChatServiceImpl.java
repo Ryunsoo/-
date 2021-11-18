@@ -43,11 +43,8 @@ public class ChatServiceImpl implements ChatService{
 
 	@Override
 
-	public List<String> selectChatMemberListById(String id, String roomNo) {
-		
-		List<String> chatMemberList = chatRepository.selectChatMemberList(id, roomNo);
-		
-		return chatMemberList;
+	public List<ChatRoom> selectChatMemberListById(String id, String roomNo) {
+		return chatRepository.selectChatMemberList(id, roomNo);
 	}
 
 	public int deleteIdByRoomNo(String roomNo, String id) {
@@ -69,6 +66,11 @@ public class ChatServiceImpl implements ChatService{
 	public String selectFriendIdByNickname(String id, String nickname) {
 		String friendId = chatRepository.selectFriendIdByNickname(id, nickname);
 		return friendId;
+	}
+
+	@Override
+	public String selectMemberByFriendId(String friendId) {
+		return chatRepository.selectMemberByFriendId(friendId);
 	}
 
 

@@ -85,7 +85,7 @@
 										<div class="check">
 											<button type="button" id="fileCheck" class="button_adress_check" onclick="document.all.file.click()">파일 첨부</button>
 										</div>
-										<input type="file" style="display: none" id='file' name='files' multiple/>
+										<input type="file" style="display: none" id='file' name='files' accept="image/*,.pdf" multiple/>
 									</div>
 							</div>
 							

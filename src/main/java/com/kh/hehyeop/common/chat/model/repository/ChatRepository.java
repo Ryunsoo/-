@@ -31,8 +31,8 @@ public interface ChatRepository {
 	@Select("select chat_data from chat_log where room_no = #{roomNo}")
 	String selectChatLog(String roomNo);
 
-	@Select("select nickname from chat_room where room_no = #{roomNo} and id != #{id}")
-	List<String> selectChatMemberList(@Param("id")String id, @Param("roomNo")String roomNo);
+	@Select("select * from chat_room where room_no = #{roomNo} and id != #{id}")
+	List<ChatRoom> selectChatMemberList(@Param("id")String id, @Param("roomNo")String roomNo);
 
 	@Delete("delete from chat_room where id = #{id} and room_no = #{roomNo}")
 	int deleteIdByRoomNo(@Param("roomNo")String roomNo, @Param("id")String id);
@@ -45,6 +45,9 @@ public interface ChatRepository {
 
 	@Select("select friend_id from friend where id = #{id} and friend_id = (select id from member where nickname = #{nickname})")
 	String selectFriendIdByNickname(@Param("id")String id, @Param("nickname")String nickname);
+
+	@Select("select id from member where id = #{friendId}")
+	String selectMemberByFriendId(@Param("friendId")String friendId);
 
 
 	

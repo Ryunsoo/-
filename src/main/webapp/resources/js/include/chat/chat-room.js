@@ -143,6 +143,7 @@
 }
 
 let createMemberList = async (data) => {
+	console.dir(data);
 	let memberList = document.querySelector("#memberList");
 	memberList.innerHTML = "";
 	for(var i = 0; i < data.length; i++) {
@@ -151,19 +152,24 @@ let createMemberList = async (data) => {
 		memberList.appendChild(memberWrap);
 		let member = document.createElement("div");
 		member.setAttribute('id','member');
-		member.innerHTML = data[i];
+		member.innerHTML = data[i].nickname;
 		memberWrap.appendChild(member);
+		let memberId = document.createElement("div");
+		memberId.setAttribute('id','memberId');
+		memberId.innerHTML = data[i].id;
+		memberId.setAttribute('style', 'display:none');
+		memberWrap.appendChild(memberId);
 		let plusFriend = document.createElement("div");
 		plusFriend.innerHTML = '<i class="fas fa-user-plus"></i>';
 		plusFriend.setAttribute('id', 'plusFriend');
 		memberWrap.appendChild(plusFriend);
 		plusFriend.addEventListener('click', e => {
-			plusFriendModal(member.innerHTML);
+			plusFriendModal(member.innerHTML, memberId.innerHTML);
 		})
 	}
 }
 
-let plusFriendModal = (friendName) => {
+let plusFriendModal = (friendName, friendId) => {
 	modalNone();
 	let modal = initModal('modal', 5);
 	appendTitle(modal,'친구추가');
@@ -178,7 +184,7 @@ let plusFriendModal = (friendName) => {
 		modalNone();
 	})
 	$('.modal_right_btn').click(async function() {
-		let state = await friendFetch(friendName);
+		let state = await friendFetch(friendName, friendId);
 		if(state == 'available') {
 			modalNone();
 			let modal = initModal('modal', 5);
@@ -186,6 +192,30 @@ let plusFriendModal = (friendName) => {
 			setButton(modal,'확 인');
 			setContent(modal,true,true);
 			let modalBody = $('<div>친구추가 성공<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else if(state == 'company') {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>업체회원은 이 기능을 사용할 수 없습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
+			$('.modal_content').append(modalBody);
+			modalBlock();
+			$('.modal_left_btn').click(function() {
+				modalNone();
+			})
+		}else if(state == 'coFriend') {
+			modalNone();
+			let modal = initModal('modal', 5);
+			appendTitle(modal,'친구추가');
+			setButton(modal,'확 인');
+			setContent(modal,true,true);
+			let modalBody = $('<div>업체회원은 친구로 추가할 수 없습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
 			$('.modal_content').append(modalBody);
 			modalBlock();
 			$('.modal_left_btn').click(function() {
@@ -220,19 +250,23 @@ let plusFriendModal = (friendName) => {
 	
 }
 
-let friendFetch = async (friendName) => {
+let friendFetch = async (friendName, friendId) => {
    let state = 'available';
    try{
-      let response = await fetch('/chat/chat-room-addFriend?nickname=' + friendName);
+      let response = await fetch('/chat/chat-room-addFriend?nickname=' + friendName + '&friendId=' + friendId);
       if(!response.ok) throw new Error();
       let data = await response.text();
-      if(data == 'fail') {
-		state = 'disable';	
-	  } else if(data == "exist") {
+      if(data == 'company') {
+		state = 'company';	
+	  }else if (data == "coFriend") {
+		state = 'coFriend';
+	  }else if (data == "exist") {
 		state = 'exist';
-	}
+	  }else if (data == 'fail') {
+		state = 'disable';
+	  }
    } catch(e) {
-      status = 'disable';
+      state = 'disable';
    }
    return state;
 }
