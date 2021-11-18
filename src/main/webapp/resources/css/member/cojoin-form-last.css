@@ -136,11 +136,6 @@ input{
 	width: 280px;
 	height: 15px;
 	padding: 10px;
-	@include
-	box-sizing(border-box);
-	&:focus{
-	z-index:2;
-	}
 }
 
 .form-control_adress{
@@ -154,11 +149,6 @@ input{
 	height: 15px;
 	padding: 10px;
 	outline-color: lightgray;
-	@include
-	box-sizing(border-box);
-	&:focus{
-	z-index:2;
-	}
 }
 
 .form-control_detail_adress{
@@ -175,11 +165,6 @@ input{
 	height: 15px;
 	padding: 10px;
 	outline-color: lightgray;
-	@include
-	box-sizing(border-box);
-	&:focus{
-	z-index:2;
-	}
 }
 
 .form-control_adress_check{
@@ -194,11 +179,6 @@ input{
 	width: 85px;
 	height: 15px;
 	padding: 10px;
-	@include
-	box-sizing(border-box);
-	&:focus{
-	z-index:2;
-	}
 }
 
 .form-control_all {
@@ -212,11 +192,6 @@ input{
 	height: 15px;
 	padding: 10px;
 	outline-color: lightgray;
-	@include
-	box-sizing(border-box);
-	&:focus{
-	z-index:2;
-	}
 }
 
 /* Join_us 버튼 css */
