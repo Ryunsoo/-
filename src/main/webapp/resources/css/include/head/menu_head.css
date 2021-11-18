@@ -51,11 +51,24 @@ html, body {
 .mypage {
    margin-right: 20px;
    font-weight: bolder;
+   cursor: pointer;
 }
 
 .logout {
    font-weight: bolder;
    color: #e67e00
+   cursor: pointer;
+}
+
+.login_btn{
+	font-weight: bolder;
+	color: #e67e00
+	cursor: pointer;
+}
+
+.join_btn{
+	margin-right: 20px;
+	font-weight: bolder;
 }
 
 .nav_title {
@@ -151,16 +164,6 @@ html, body {
 .gnb-2depth__item a:hover {
     color: black;
     font-weight: bolder;
-}
-
-.login_btn{
-	font-weight: bolder;
-   color: #e67e00
-}
-
-.join_btn{
-	margin-right: 20px;
-   font-weight: bolder;
 }
 
 a{

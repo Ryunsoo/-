@@ -73,7 +73,7 @@
 					<textarea style="resize: none;" name="reqContent" placeholder="요청사항을 입력해주세요."></textarea>
 				</div>
 			</div>
-			<input type="hidden" name="field" value="${proFieldMap.proField.field}">
+			<input type="hidden" name="field" value="${field}">
 			<div class="submit">
 				<button>신청서 제출</button>
 			</div>
