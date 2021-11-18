@@ -1,4 +1,4 @@
-package com.kh.hehyeop.help.controller;
+ package com.kh.hehyeop.help.controller;
 
 
 import java.util.HashMap;
@@ -19,6 +19,9 @@ import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 
 
+import com.kh.hehyeop.company.model.dto.ProField;
+import com.kh.hehyeop.help.model.service.HelpService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -31,9 +34,17 @@ public class HelpController {
 	@GetMapping("main")
 	public void help1(HttpSession session) {
 		System.out.println("help main 작업 중 ㅎㅎㅎ");
-		Map<String, List<String>> categoryMap = new HashMap<String, List<String>>();
-		categoryMap.put("category", null);
 		
+		Map<String, List<ProField>> proFiledMap = new HashMap<String, List<ProField>>();
+		proFiledMap.put("category", helpService.selectCategoryList());
+		proFiledMap.put("proField", helpService.selectFieldList());
+		
+		System.out.println("맵! : " + proFiledMap);
+		
+		System.out.println("카테고리! : " + proFiledMap.get("category").get(0).getFieldCategory());
+		System.out.println("필드! : " + proFiledMap.get("proField").get(0).getFieldCategory());
+		
+		session.setAttribute("proFieldMap", proFiledMap);
 	}
 	
 	@GetMapping("request")
@@ -55,7 +66,7 @@ public class HelpController {
 	public void help4() {
 		
 	}
-	
+
 	@PostMapping("uploadRequest")
 	public String uploadRequset(
 			HelpRequest helpRequest
@@ -81,4 +92,5 @@ public class HelpController {
 		}
 		return "redirect:/";
 	}
+
 }

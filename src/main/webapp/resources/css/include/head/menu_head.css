@@ -153,6 +153,16 @@ html, body {
     font-weight: bolder;
 }
 
+.login_btn{
+	font-weight: bolder;
+   color: #e67e00
+}
+
+.join_btn{
+	margin-right: 20px;
+   font-weight: bolder;
+}
+
 a{
    color:black;
    text-decoration: none;   

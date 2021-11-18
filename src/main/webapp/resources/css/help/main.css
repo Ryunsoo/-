@@ -4,10 +4,7 @@
 }
 
 .category {
-	width: 1130px;
-	height: 200px;
-	margin-top: 50px;
-	margin-bottom: 100px;
+	margin-top: 30px;
 }
 
 .category_name {
@@ -27,7 +24,8 @@
 
 .category_element {
 	border-radius: 30px;
-	margin-left: 50px;
+	margin-left: 70px;
+	margin-bottom: 30px;
 	width: 270px;
 	height: 180px;
 	display: inline-flex;

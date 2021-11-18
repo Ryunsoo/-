@@ -1,10 +1,13 @@
 package com.kh.hehyeop.help.model.repositroy;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
+import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 
 @Mapper
@@ -21,6 +24,11 @@ public interface HelpRepository {
 			+ "values(sc_file_idx.nextval, 'MEMBER', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileDTO);
 
+	@Select("select * from pro_field")
+	List<ProField> selectFieldList();
+
+	@Select("select DISTINCT field_category from pro_field")
+	List<ProField> selectCategoryList();
 
 	
 }
