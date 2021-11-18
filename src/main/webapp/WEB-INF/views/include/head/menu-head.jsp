@@ -24,7 +24,7 @@
                            <a href="https://www.naver.com/">신청서 작성</a>
                         </li>
                         <li class="gnb-2depth__item">
-                           <a href="/">마이해협</a>
+                           <a href="/help/my-hehyeop">마이해협</a>
                         </li>
                         <li class="gnb-2depth__item">
                            <a href="https://www.naver.com/">리뷰해협</a>
@@ -67,7 +67,7 @@
       </div>   
       <!-- 상단 메뉴바 끝 -->
       <div class="logo">
-         <a href=""><img src="../../../resources/image/main-logo.png" class="logo"></a>
+         <a href="/"><img src="../../../resources/image/main-logo.png" class="logo"></a>
       </div>
       <div class="nav_group">
          <div class="nav_info">

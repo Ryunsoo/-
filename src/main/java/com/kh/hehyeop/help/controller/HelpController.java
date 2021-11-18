@@ -7,8 +7,12 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,8 +35,12 @@ public class HelpController {
 	}
 	
 	@GetMapping("my-hehyeop")
-	public void help3() {
-		
+	public void help3(HttpSession session, Model model) {
+		AddressUtil util = new AddressUtil();
+		Member member = (Member) session.getAttribute("authentication");
+		String trimAddress = util.trimOldAddress(member.getOldAddress());
+		System.out.println("trimAddress : " + trimAddress);
+		model.addAttribute("trimAddress", trimAddress);
 	}
 
 	

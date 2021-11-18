@@ -19,23 +19,19 @@
 			<div class="left_info">
 				<div class="tell">
 					<div class="info_title">연락처</div><div class="info_body">${authentication.tell}</div>
-					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 				<div class="info_line"></div>
 				<div class="address">
 					<div class="info_title">주소</div><div class="info_body">${authentication.address}</div>
-					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 			</div>
 			<div class="right_info">
 				<div class="email">
 					<div class="info_title">이메일</div><div class="info_body">${authentication.email}</div>
-					<!-- <div class="info_btn"><button>수정</button></div> -->
 				</div>
 				<div class="info_line"></div>
 				<div class="region">
-					<div class="info_title">지역</div><div class="info_body">${authentication.tell}</div>
-					<!-- <div class="info_btn"><button>수정</button></div> -->
+					<div class="info_title">지역</div><div class="info_body">${trimAddress}</div>
 				</div>
 			</div>		
 		</div>

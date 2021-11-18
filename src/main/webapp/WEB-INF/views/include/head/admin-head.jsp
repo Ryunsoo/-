@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class='header'>
-		<div class='logo'></div>
+		<div class='logo' onclick="location.href = '/admin/join-request'"></div>
 		<div class='header_right'>
 			<div class='user_menu'>
 				<div class='admin_mode'>관리자모드</div>
