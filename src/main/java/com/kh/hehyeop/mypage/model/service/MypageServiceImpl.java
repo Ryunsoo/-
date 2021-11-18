@@ -8,10 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
+import com.kh.hehyeop.mypage.validator.JoinForm;
 
 import lombok.RequiredArgsConstructor;
 
@@ -90,6 +90,13 @@ public class MypageServiceImpl implements MypageService{
 	public void insertCash(Wallet chargeWallet) {
 		mypageRepository.insertCash(chargeWallet);
 	}
+	
+	@Override
+	public Member authenticateUser(Member member) {
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
+		return mypageRepository.authenticateUser(member);
+	}
+
 
 
 

@@ -5,6 +5,10 @@
 	let confirmTellCheck = false;
 	let confirmNick = '';
 	let confirmEmail = '';
+	let nicknameColor = '';
+	let tellColor = '';
+	let emailColor = '';
+	let nameColor = '';
 	
 	let barText = document.querySelector('#validator_bar_text');
 	
@@ -128,16 +132,17 @@
 	/*이름 입력창 테두리*/
 	document.querySelector("#name").addEventListener('input', e => {
 		let nameInput = document.querySelector('#name');
-		
 		if(nameInput.value == "") {
-			nameInput.style.border = '1px solid lightgray';
+			nameInput.style.border = '1px solid red';
 			confirmNameCheck = false;
+			nameColor = "red";
 			return;
 		}
 		
 		if(nameInput.value != "") {
 			nameInput.style.border = '1px solid green';
 			confirmNameCheck = true;
+			nameColor = "green";
 		}
 
 	})
@@ -152,17 +157,22 @@
 		if(!tellExpr.test(tellInput.value)||tellInput.value == "") {
 			tellInput.style.border = '1px solid red';
 			confirmTellCheck = false;
+			tellColor = "red";
 			return;
 		}else {
 			tellInput.style.border = '1px solid green';
 			confirmTellCheck = true;
+			tellColor = "green";
 		}
 		
 
 	})
 	
 
-	
+	document.querySelector("#nickname").addEventListener('input', e => {
+		document.querySelector('#modify_btn').style.backgroundColor = 'lightgray';
+		document.querySelector('#modify_btn').style.setProperty("pointer-events", "none");
+		document.querySelector('#btnNickCheck').style.backgroundColor = 'orange';
 	/* 닉네임 */
 	let btnNickCheck = document.querySelector("#btnNickCheck");
 	btnNickCheck.addEventListener('click', e => {
@@ -177,17 +187,22 @@
 					document.querySelector('#nickCheck').innerHTML ='사용 가능한 닉네임입니다.';   
 					document.querySelector('#nickCheck').style.color = 'green';
 					document.querySelector('#nickname').style.border = '1px solid green';
+					document.querySelector('#modify_btn').style.backgroundColor = '#384c60';
+					document.querySelector('#modify_btn').style.setProperty("pointer-events", "auto");
 					confirmNick = userNickname;
+					nicknameColor = "green";
 					btnNickCheck = true;
 				}else if(text == 'disable'){
 					document.querySelector('#nickCheck').innerHTML ='사용 불가능한 닉네임입니다.';   
 					document.querySelector('#nickCheck').style.color = 'red';
 					document.querySelector('#nickname').style.border = '1px solid red';	
+					nicknameColor = "red";
 					btnNickCheck = false;					
 				}else {
 					document.querySelector('#nickCheck').innerHTML ='시스템 장애 입니다.'; 
 					document.querySelector('#nickCheck').style.color = 'red';
 					document.querySelector('#nickname').style.border = '1px solid red';
+					nicknameColor = "red";
 					btnNickCheck = false;
 				}
 			})
@@ -195,7 +210,13 @@
 		}
 			
 	})
+	})
 	
+	
+	document.querySelector("#email").addEventListener('input', e => {
+		document.querySelector('#modify_btn').style.backgroundColor = 'lightgray';
+		document.querySelector('#btnEmailCheck').style.backgroundColor = 'orange';
+		document.querySelector('#modify_btn').style.setProperty("pointer-events", "none");
 	/* 이메일 */
 	let btnEmailCheck = document.querySelector("#btnEmailCheck");
 	btnEmailCheck.addEventListener('click', e => {
@@ -211,17 +232,22 @@
 					document.querySelector('#emailCheck').innerHTML ='사용 가능한 이메일 입니다.';   
 					document.querySelector('#emailCheck').style.color = 'green';
 					document.querySelector('#email').style.border = '1px solid green';
+					document.querySelector('#modify_btn').style.backgroundColor = '#384c60';
+					document.querySelector('#modify_btn').style.setProperty("pointer-events", "auto");
 					confirmEmail = userEmail;
+					emailColor = "green";
 					btnEmailCheck = true;
 				}else if(text == 'disable'){
 					document.querySelector('#emailCheck').innerHTML ='사용 불가능한 이메일 입니다.';   
 					document.querySelector('#emailCheck').style.color = 'red';
-					document.querySelector('#email').style.border = '1px solid red';	
+					document.querySelector('#email').style.border = '1px solid red';
+					emailColor = "red";
 					btnEmailCheck = false;					
 				}else {
 					document.querySelector('#emailCheck').innerHTML ='시스템 장애 입니다.'; 
 					document.querySelector('#emailCheck').style.color = 'red';
 					document.querySelector('#email').style.border = '1px solid red';
+					emailColor = "red";
 					btnEmailCheck = false;
 				}
 			})
@@ -229,17 +255,18 @@
 		}
 			
 	})
+	})
 	
 
 /*제출버튼 검증*/
-	/*let allInput = document.querySelectorAll('input');
+/*	let allInput = document.querySelectorAll('input');
 	
 	allInput.forEach( item => {
 		
 		let dom = document.querySelector('#modify_btn');
 		console.dir(item);
 		
-		if(item.style.color == 'red'){
+		if(item.style.border == '1px solid red'){
 			dom.style.backgroundColor = 'lightgray';
 			dom.style.setProperty("pointer-events", "none");
 			return;
@@ -248,12 +275,29 @@
 			dom.style.setProperty("pointer-events", "auto");
 	});*/
 	
-
+	console.dir(confirmPasswordCheck);
+	
+	let allInput = document.querySelectorAll('input');
+	
+	allInput.forEach( item => {
+		console.dir(confirmPasswordCheck);
+		let dom = document.querySelector('#modify_btn');
+		
+		item.addEventListener('blur', event => {
+			if(nicknameColor == "red"||tellColor == "red"||emailColor == "red"||nameColor == "red") {
+				
+				dom.style.backgroundColor = 'lightgray';
+				dom.style.setProperty("pointer-events", "none");
+				
+			} else {
+				dom.style.setProperty('background-color', '#384c60');
+				dom.style.setProperty("pointer-events", "auto");
+			}
+		})
+		
+	});
 	
 	
-	
-
-
 
 })();
 

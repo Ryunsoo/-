@@ -16,7 +16,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +34,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.JoinForm;
+import com.kh.hehyeop.member.model.service.MemberService;
+import com.kh.hehyeop.member.validator.JoinFormValidator;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
+import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.MypageValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -48,6 +53,7 @@ public class MypageController {
 	
 	private final RestTemplate http;
 	private final ObjectMapper mapper;
+	private final MypageValidator mypageValidator;
 	
 	@GetMapping("mypage-common")
 	public void mypageCommon(HttpSession session) { 
@@ -197,24 +203,35 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("modify-info")
-	public void modifyInfo() { }
+	@InitBinder(value = "modifyForm") 
+	public void initBinder(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(mypageValidator);
+	}
 	
-	@GetMapping("modify")
-	public String insertModifyInfo(@Validated JoinForm form, Errors errors, Model model, HttpSession session, RedirectAttributes redirectAttr) { 
+	@GetMapping("modify-info")
+	public void modifyInfo(Model model) {
+		
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+	}
+	
+	@PostMapping("modify")
+	public String insertModifyInfo(@Validated JoinForm form, Errors errors, Model model, Member member, HttpSession session, RedirectAttributes redirectAttr) { 
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
-
-		if (errors.hasErrors()) {
-			vr.addErrors(errors);
+		logger.debug("------------에러야 있니 : " + errors.toString());
+		if (!errors.hasErrors()) {
+			mypageService.updateInfo(form);
+			System.out.println("member 바꼈냐");
+			session.removeAttribute("authentication");
+			Member authentication = mypageService.authenticateUser(member);
+			session.setAttribute("authentication", authentication);
+			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
 			return "redirect:/mypage/modify-info";
 		}
-		else {
-		mypageService.updateInfo(form);
-		System.out.println("member 바꼈냐");
-		session.removeAttribute("persistUser");
+		
+		vr.addErrors(errors);
 		return "redirect:/mypage/modify-info";
-		}
 	}
+
 }

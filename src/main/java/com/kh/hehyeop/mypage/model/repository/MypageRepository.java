@@ -3,16 +3,15 @@ package com.kh.hehyeop.mypage.model.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
+import com.kh.hehyeop.mypage.validator.JoinForm;
 
 @Mapper
 public interface MypageRepository {
@@ -40,6 +39,9 @@ public interface MypageRepository {
 
    @Update("update member set password = #{password}, name = #{name}, tell = #{tell}, email = #{email}, nickname = #{nickname}, address = #{address}, old_address = #{oldAddress} where id = #{id}")
    void updateInfo(JoinForm form);
+
+   @Select("select * from member where id = #{id} and is_leave = 0")
+   Member authenticateUser(Member member);
    
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
