@@ -334,7 +334,7 @@
 						<div id="cashicon"><i class="fas fa-dollar-sign"></i></div>
 						<div>
 							<div id="sky">현재 보유 캐시</div>
-							<div id="basic">${walletInfo.cash}</div>
+							<div id="basic" class="currentCash">${walletInfo.cash}</div>
 						</div>
 					</div>
 					<div id="lock_con">

@@ -119,10 +119,63 @@ public class MypageController {
 	}
 	
 	@PostMapping("charge")
-	public void chargeCash(@RequestBody HashMap<String, Object> map) {
+	@ResponseBody
+	public String chargeCash(@RequestBody HashMap<String, Object> map) throws JsonMappingException, JsonProcessingException {
 		
-		logger.debug(map.toString());
-		
+		if (map.get("imp_uid") != null) {
+			
+			String id = (String) map.get("buyer_name");
+			int cash = (int) map.get("amount");
+			
+			MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+			body.add("imp_key", "1368854578238946");
+			body.add("imp_secret", "322943757272113175a3993ed6bc22ad61fac5b5ccbad9fb68c0f374ad10422dd3c5a779375816d7");
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			
+			HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
+			
+			ResponseEntity<String> response = http.exchange(
+						"https://api.iamport.kr/users/getToken",
+						HttpMethod.POST,
+						entity,
+						String.class);
+			
+			JsonNode root = mapper.readTree(response.getBody());
+
+			String cashToken = root.findValue("access_token").asText();
+			
+			if (cashToken != null) {
+				
+				headers.add("Authorization", cashToken);
+				
+				HttpEntity tokenEntity = new HttpEntity<>(headers);
+				
+				response = http.exchange(
+						"https://api.iamport.kr/payments/" + map.get("imp_uid"),
+						HttpMethod.GET,
+						tokenEntity,
+						String.class);
+				
+				logger.debug(response.getBody());
+				root = mapper.readTree(response.getBody());
+				
+				logger.debug(root.findValue("amount").asText());
+				logger.debug(Integer.toString(cash));
+				
+				if(root.findValue("amount").asText().equals(Integer.toString(cash))) {
+					Wallet chargeWallet = new Wallet();
+					chargeWallet.setId(id);
+					chargeWallet.setCash(cash);
+					mypageService.insertCash(chargeWallet);
+					
+					return "success";
+				}
+				
+			}
+		}
+		return "failed";
 	}
 	
 	

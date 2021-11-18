@@ -1,12 +1,15 @@
 /* 충전하기 모달 */
 let createChargingModal = () => {
+	
+	let currentCash = document.querySelector(".currentCash").innerText;
+	
 	let modal = initModal('modal', 1);
 	appendTitle(modal, '충전하기');
 	setButton(modal, '그만두기', '충전하기');
 	setContent(modal, true, true);
 	addPiggyBackground(modal);
 	
-	let modalBody = $('<div class="charging">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><div class="chargeMoney">충전할 금액 <input type="number" id="chargeCash" placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
+	let modalBody = $('<div class="charging">현재 보유 캐시<br>'+currentCash+' <i class="fas fa-coins"></i><div><div class="chargeMoney">충전할 금액 <input type="number" id="chargeCash" placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
 					.addClass('send_modal_content');
 	$('.modal_content').append(modalBody);
 	
@@ -22,12 +25,15 @@ let createChargingModal = () => {
 		
 		let cash = document.querySelector("#chargeCash").value;
 		
+		if (cash < 1000){
+			alert("최소 충전 금액은 1000원입니다.");
+			return;
+		}
+		
 		modalNone();
 		
 		var IMP = window.IMP;
 		IMP.init("imp64410269");
-			
-		console.dir(document.querySelector(".userName").innerText);
 		
 		IMP.request_pay({
 			pg: "html5_inicis",
@@ -44,12 +50,23 @@ let createChargingModal = () => {
 					type: "POST",
 					headers: {"Content-Type":"application/json"},
 					data: JSON.stringify({
+						imp_uid : res.imp_uid,
 						buyer_name : res.buyer_name,
 						amount : res.paid_amount
 					})
+				}).done(function(data) {
+					
+					console.dir(data);
+					
+					if(data == "success"){
+						alert(cash + "원이 충전되었습니다.");
+						location.href = "/mypage/mypage-common";
+					} else {
+						alert("결제 정보와 맞지 않는 값입니다.");
+					}
 				})
 			} else {
-				alert(cash);
+				alert("결제에 실패했습니다.");
 			}
 		});
 		
