@@ -57,7 +57,7 @@ input:focus {outline:none;}
 								required="" autofocus="" />
 								
 								<div class="check">
-									<button id="btnNickCheck" class="button_check">중복확인</button>
+									<button type="button" id="btnNickCheck" class="button_check">중복확인</button>
 									<c:if test="${empty error.nickname}">
 										<span id="nicknameCheck" class="valid-msg"></span>
 									</c:if>
@@ -74,7 +74,7 @@ input:focus {outline:none;}
 								placeholder="우편번호	" readonly required autocomplete="off" />
 								
 								<div class="check">
-									<button class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
+									<button type="button" class="button_adress_check" onclick="searchAddr()">주소 찾기</button>
 								</div>
 								
 								<input type="text" class="form-control_detail_adress" id="form-oldAddress" name="oldAddress" 
@@ -111,11 +111,21 @@ function searchAddr(){
         oncomplete: function(data) {
         	var roadAddr = data.roadAddress; // 도로명 주소 변수
             var jibunAddr = data.jibunAddress; // 참고 항목 변수
-
+			
+            if (jibunAddr == ""){
+            	alert("(구)주소를 다시 선택해주세요");
+            	return;
+            }
+            
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('form-addressNo').value = data.zonecode;
             document.getElementById("form-address").value = roadAddr;
             document.getElementById("form-oldAddress").value = jibunAddr;
+            
+            
+            
+            
+
         }
            
     }).open();

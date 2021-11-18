@@ -256,11 +256,21 @@ function searchAddr(){
         oncomplete: function(data) {
         	var roadAddr = data.roadAddress; // 도로명 주소 변수
             var jibunAddr = data.jibunAddress; // 참고 항목 변수
-
+			
+            if (jibunAddr == ""){
+            	alert("(구)주소를 다시 선택해주세요");
+            	return;
+            }
+            
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('form-addressNo').value = data.zonecode;
             document.getElementById("form-address").value = roadAddr;
             document.getElementById("form-oldAddress").value = jibunAddr;
+            
+            
+            
+            
+
         }
            
     }).open();

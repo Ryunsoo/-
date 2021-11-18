@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
@@ -218,11 +219,13 @@ public class MemberController {
 		}
 		
 		JoinForm infoForm = (JoinForm) session.getAttribute("joinInfo");
-		  
+		AddressUtil convertAddr = new AddressUtil();
+		
 		form.setId(infoForm.getId());
 		form.setPassword(infoForm.getPassword());
 		form.setName(infoForm.getName());
 		form.setTell(infoForm.getTell());
+		form.setOldAddress(convertAddr.trimOldAddress(form.getOldAddress()));
 		form.setStatus(0);
 		
 		String token = UUID.randomUUID().toString();
@@ -310,11 +313,13 @@ public class MemberController {
 		}
 		
 		JoinForm infoForm = (JoinForm) session.getAttribute("CoJoinForm");
+		AddressUtil convertAddr = new AddressUtil();
 		  
 		form.setId(infoForm.getId());
 		form.setPassword(infoForm.getPassword());
 		form.setName(infoForm.getName());
 		form.setTell(infoForm.getTell());
+		form.setOldAddress(convertAddr.trimOldAddress(form.getOldAddress()));
 		form.setStatus(1);
 		
 		session.setAttribute("CoJoinLastForm", form);
