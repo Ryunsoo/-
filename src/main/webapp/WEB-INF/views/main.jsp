@@ -88,11 +88,11 @@
 				</div>
 				</div>
 				<c:if test="${empty authentication}">
-					<div class="login_btn" onclick="location.href='/member/login-form'">
-						LOGIN
-					</div>
 					<div class="join_btn" onclick="location.href='/member/joinin-form'">
 						회원가입
+					</div>
+					<div class="login_btn" onclick="location.href='/member/login-form'">
+						LOGIN
 					</div>
 				</c:if>
 			</div>

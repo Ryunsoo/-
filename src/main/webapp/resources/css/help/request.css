@@ -1,3 +1,10 @@
+html, body {
+	width: 100%;
+	min-width: 1130px;
+	display: flex;
+	justify-content: center;
+}
+
 .wrap {
 	width: 1130px;
 	height: 100%;
@@ -71,26 +78,6 @@
 	border-radius: 20px;
 }
 
-.upload_img{
-	width: 300px;
-	height: 50px;
-	margin-left: 70px;
-}
-
-.upload_icon input{
-	width: 40px;
-	height: 35px;
-	float: left;
-}
-
-.upload_input input{
-	width: 240px;
-	height: 30px;
-	margin-left: 10px;
-	float: right;
-	border-radius: 5px;
-}
-
 .info img{
 	margin-top: 30px;
 	margin-left: 30px;
@@ -135,4 +122,76 @@
 	color: white;
 	font-size: 20px;
 	font-weight: bolder;
+}
+
+.content_left{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 395px;
+	position: relative;
+    transform: translate(46px, 10px);
+}
+
+.file_img{
+	position: relative;
+	height: 310px;
+	width: 340px;
+	border-radius: 2px;
+}
+
+.file{
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid grey;
+	box-shadow: 2px 2px 5px 1px #666666;
+}
+
+.upload_img{
+	height: 100%;
+	width: 100%;
+}
+
+.deco{
+	position: absolute;
+	height: 310px;
+	width: 340px;
+	border-radius: 5px;
+	border: 1px solid grey;
+	left: 15px;
+	top: 15px;
+	z-index: -1;
+	box-shadow: 2px 2px 5px 1px #8c8c8c;
+}
+
+
+.upload{
+	display: flex;
+	margin-top: 35px;
+	height: 28px;
+	width: 100%;
+}
+
+.upload_icon{
+	display: flex;
+	align-content: flex-start;
+	font-size: 38px;
+	height: 35px;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+.upload_label{
+	width: 300px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+	border-radius: 8px;
+	border: 1.8px solid #d9d9d9;
+	font-family: 'Han Sans, 본고딕';
+	font-size: 13px;
+	cursor: pointer;
 }

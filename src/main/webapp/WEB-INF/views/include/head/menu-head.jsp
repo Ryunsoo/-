@@ -70,15 +70,27 @@
          <a href="/"><img src="../../../resources/image/main-logo.png" class="logo"></a>
       </div>
       <div class="nav_group">
-         <div class="nav_info">
-            <div class="userName">${authentication.id}</div>
-            <div class="nim">님</div>
-            <div class="medal">
-               <i class="fas fa-medal"></i>
-            </div>
-            <a onclick="location.href='/mypage/mypage-common'"><div class="mypage">마이페이지</div></a>
-            <a onclick="location.href='/member/logout'"><div class="logout" type="button">LOGOUT</div></a>
-         </div>
+         <c:if test="${not empty authentication}">
+					<div class="nav_info">
+				    	<div class="userName">${authentication.id}</div>
+				        <div class="nim">님</div>
+				        <div class="medal">
+				        	<i class="fas fa-medal"></i>
+				        </div>
+				        <div class="mypage" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+				        <div class="logout" onclick="logout()">LOGOUT</div>
+	        		</div>
+				</c:if>
+				<c:if test="${empty authentication}">
+					<div class="nav_info">
+						<div class="join_btn" onclick="location.href='/member/joinin-form'">
+							회원가입
+						</div>
+						<div class="login_btn" onclick="location.href='/member/login-form'">
+							LOGIN
+						</div>
+					</div>
+				</c:if>
          <div class="nav_title">
             <a href=""><div class="help">해협신청</div></a>
             <a href=""><div class="together">공구해협</div></a>
