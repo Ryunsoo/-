@@ -43,14 +43,13 @@ function alert(msg){
 }
 
 .form-signin {
-	box-shadow: 5px 5px 5px rgb(254, 227, 205);
 	border-radius: 20px;
 	height: 830px;
 	width: 530px;
 	padding: 20px 70px 35px;
 	margin: auto;
 	background-color: #fff;
-	border: thin dashed rgba(0, 0, 0, 0.1);
+	border: thick dashed rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
 }
@@ -85,7 +84,7 @@ input {
 }
 
 button {
-	margin-left: 30px;
+	margin-left: 10px;
 	width: 70px;
 	height: 35px;
 	border: none;
@@ -154,10 +153,18 @@ button:hover {
 .pw_validator_wrap {
 	display: flex;
 }
-.valid-msg{
-  font-size: 15px; 
-  margin-left:8px; 
-  color: red;
+
+.valid-msg {
+	font-size: 15px;
+	margin-left: 8px;
+	color: red;
+}
+
+.bee2 {
+	left: 860px;
+	width: 200px;
+	top: 230px;
+	position: absolute;
 }
 
 </style>
@@ -166,8 +173,9 @@ button:hover {
 <div id='modal'></div>
 <div class="wrap">
 	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
-
+	
 		<div class="main">
+			<img class="bee2" src="../../../resources/image/bee2.png">
 			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="post">
 				<div class="title">
 					<div class="title_line"></div>
@@ -261,15 +269,21 @@ function searchAddr(){
             	return;
             }
             
+			let newJibunAddr;
+            
+            //시도가 세종특별자치시 이거나 제주특별자치도일 경우 '세종', '제주' 로 바꿔준다.
+            if(data.sido == '세종특별자치시') {
+            	newJibunAddr = jibunAddr.replace('세종특별자치시', '세종');
+            }else if(data.sido == '제주특별자치도') {
+            	newJibunAddr = jibunAddr.replace('제주특별자치도', '제주');
+            }else {
+            	newJibunAddr = jibunAddr;
+            }
+            
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('form-addressNo').value = data.zonecode;
             document.getElementById("form-address").value = roadAddr;
-            document.getElementById("form-oldAddress").value = jibunAddr;
-            
-            
-            
-            
-
+            document.getElementById("form-oldAddress").value = newJibunAddr;
         }
            
     }).open();
