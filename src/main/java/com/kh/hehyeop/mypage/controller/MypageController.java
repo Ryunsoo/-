@@ -35,10 +35,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
-import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
+import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.MypageValidator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -52,8 +53,7 @@ public class MypageController {
 	
 	private final RestTemplate http;
 	private final ObjectMapper mapper;
-	private JoinFormValidator joinFormValidator;
-	
+	private final MypageValidator mypageValidator;
 	
 	@GetMapping("mypage-common")
 	public void mypageCommon(HttpSession session) { 
@@ -203,9 +203,9 @@ public class MypageController {
 	}
 	
 	
-	@InitBinder(value = "joinForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
+	@InitBinder(value = "modifyForm") 
 	public void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.addValidators(joinFormValidator);
+		webDataBinder.addValidators(mypageValidator);
 	}
 	
 	@GetMapping("modify-info")
@@ -214,23 +214,24 @@ public class MypageController {
 		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
 	}
 	
-	@GetMapping("modify")
+	@PostMapping("modify")
 	public String insertModifyInfo(@Validated JoinForm form, Errors errors, Model model, Member member, HttpSession session, RedirectAttributes redirectAttr) { 
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
-
-		if (errors.hasErrors()) {
-			vr.addErrors(errors);
+		logger.debug("------------에러야 있니 : " + errors.toString());
+		if (!errors.hasErrors()) {
+			mypageService.updateInfo(form);
+			System.out.println("member 바꼈냐");
+			session.removeAttribute("authentication");
+			Member authentication = mypageService.authenticateUser(member);
+			session.setAttribute("authentication", authentication);
+			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
 			return "redirect:/mypage/modify-info";
 		}
-		mypageService.updateInfo(form);
-		System.out.println("member 바꼈냐");
-		session.removeAttribute("authentication");
-		Member authentication = mypageService.authenticateUser(member);
-		session.setAttribute("authentication", authentication);
-		redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
-		return "redirect:/mypage/modify-info";
 		
+		vr.addErrors(errors);
+		return "redirect:/mypage/modify-info";
 	}
+
 }

@@ -3,16 +3,15 @@ package com.kh.hehyeop.mypage.model.repository;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
+import com.kh.hehyeop.mypage.validator.JoinForm;
 
 @Mapper
 public interface MypageRepository {

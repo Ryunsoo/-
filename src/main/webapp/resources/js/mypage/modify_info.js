@@ -169,7 +169,10 @@
 	})
 	
 
-	
+	document.querySelector("#nickname").addEventListener('input', e => {
+		document.querySelector('#modify_btn').style.backgroundColor = 'lightgray';
+		document.querySelector('#modify_btn').style.setProperty("pointer-events", "none");
+		document.querySelector('#btnNickCheck').style.backgroundColor = 'orange';
 	/* 닉네임 */
 	let btnNickCheck = document.querySelector("#btnNickCheck");
 	btnNickCheck.addEventListener('click', e => {
@@ -184,6 +187,8 @@
 					document.querySelector('#nickCheck').innerHTML ='사용 가능한 닉네임입니다.';   
 					document.querySelector('#nickCheck').style.color = 'green';
 					document.querySelector('#nickname').style.border = '1px solid green';
+					document.querySelector('#modify_btn').style.backgroundColor = '#384c60';
+					document.querySelector('#modify_btn').style.setProperty("pointer-events", "auto");
 					confirmNick = userNickname;
 					nicknameColor = "green";
 					btnNickCheck = true;
@@ -205,7 +210,13 @@
 		}
 			
 	})
+	})
 	
+	
+	document.querySelector("#email").addEventListener('input', e => {
+		document.querySelector('#modify_btn').style.backgroundColor = 'lightgray';
+		document.querySelector('#btnEmailCheck').style.backgroundColor = 'orange';
+		document.querySelector('#modify_btn').style.setProperty("pointer-events", "none");
 	/* 이메일 */
 	let btnEmailCheck = document.querySelector("#btnEmailCheck");
 	btnEmailCheck.addEventListener('click', e => {
@@ -221,6 +232,8 @@
 					document.querySelector('#emailCheck').innerHTML ='사용 가능한 이메일 입니다.';   
 					document.querySelector('#emailCheck').style.color = 'green';
 					document.querySelector('#email').style.border = '1px solid green';
+					document.querySelector('#modify_btn').style.backgroundColor = '#384c60';
+					document.querySelector('#modify_btn').style.setProperty("pointer-events", "auto");
 					confirmEmail = userEmail;
 					emailColor = "green";
 					btnEmailCheck = true;
@@ -241,6 +254,7 @@
 			
 		}
 			
+	})
 	})
 	
 
@@ -280,9 +294,10 @@
 				dom.style.setProperty("pointer-events", "auto");
 			}
 		})
+		
 	});
-
-
+	
+	
 
 })();
 

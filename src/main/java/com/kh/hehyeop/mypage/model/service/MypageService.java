@@ -3,8 +3,8 @@ package com.kh.hehyeop.mypage.model.service;
 import java.util.List;
 
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
+import com.kh.hehyeop.mypage.validator.JoinForm;
 
 public interface MypageService {
 
