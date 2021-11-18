@@ -360,7 +360,7 @@
 						<div id="accounttext">my계좌</div>
 						<c:choose>
 							<c:when test="${not empty walletInfo.bank}">
-								<input id="accountinput" value=" [${walletInfo.bank}] ${walletInfo.bankNum}"></input>
+								<input id="accountinput" value=" [${walletInfo.bank}] ${walletInfo.bankNum}" readonly></input>
 							</c:when>
 							<c:otherwise>
 								<input id="accountinput" placeholder="&nbsp&nbsp계좌 인증/등록이 필요합니다" readonly></input>
