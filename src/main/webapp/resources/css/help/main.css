@@ -35,6 +35,7 @@
 .category_element img {
 	border-radius: 30px;
 	width: 270px;
+	cursor: pointer;
 }
 
 .img_name {

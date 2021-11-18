@@ -62,13 +62,14 @@ html, body {
 
 .login_btn{
 	font-weight: bolder;
-	color: #e67e00
+	color: #e67e00;
 	cursor: pointer;
 }
 
 .join_btn{
 	margin-right: 20px;
 	font-weight: bolder;
+	cursor: pointer;
 }
 
 .nav_title {
