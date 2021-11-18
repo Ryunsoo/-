@@ -124,6 +124,8 @@ html {
 }
 
 #member {
+	max-height: 20px;
+	overflow: hidden;
 	font-size: 16px;
 	font-weight: bolder;
 }
@@ -189,6 +191,9 @@ html {
 }
 #sender_name {
 	margin-right: 15px;
+	max-width: 70px;
+	max-height: 45px;
+	overflow: hidden;
 	font-weight: bold;
 }
 #sender_msg {
@@ -196,7 +201,7 @@ html {
 	justify-content: center;
 	align-items: center;
 	min-height: 30px;
-	max-width: 230px;
+	max-width: 192px;
 	position: relative;
 	background-color: rgb(237, 237, 237);
 	border-radius: 5px;

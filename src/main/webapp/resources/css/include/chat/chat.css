@@ -1,4 +1,12 @@
-@charset "UTF-8";
+body{
+ -ms-overflow-style: none;
+  margin: 0;
+ }
+ 
+::-webkit-scrollbar {
+  display: none;
+}
+
 div {
 	animation-duration: 1s;
 }
@@ -96,6 +104,7 @@ div {
 
 #chatItem{
 	width: 358px;
+	min-height: 48px;
     height: 48px;
     margin: 10px 0 5px 0;    
     border: 1px solid #bcbcbc;
@@ -142,6 +151,7 @@ div {
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 2px 2px 2px lightgrey;
+    cursor: pointer;
 }
 
 #chatItemBtn:hover {
