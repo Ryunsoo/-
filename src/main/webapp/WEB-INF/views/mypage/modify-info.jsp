@@ -154,6 +154,11 @@ button:hover {
 .pw_validator_wrap {
 	display: flex;
 }
+.valid-msg{
+  font-size: 15px; 
+  margin-left:8px; 
+  color: red;
+}
 
 </style>
 </head>
@@ -191,42 +196,26 @@ button:hover {
 						</div>
 					</div>
 					<div>* 이름 
-						<form:errors path="name"/>
+						<form:errors path="name" cssClass="valid-msg"/>
 					<br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required/></div>
-					<div>* 전화번호 <br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required
-									<c:if test="${empty error.tell}">
-										value = "${joinForm.tell}"
-									</c:if>
-									/></div>
+					<div>* 전화번호 
+						<form:errors path="tell" cssClass="valid-msg"/>
+					<br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required/></div>
 					<div>
 						* 이메일 
-						<c:if test="${empty error.email}">
-							<span id="emailCheck" class="valid-msg" style="font-size: 15px; margin-left:8px;"></span>
-						</c:if>
+						<form:errors path="email" cssClass="valid-msg"/>
 						<span id="emailCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
 						<br>
-						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"
-							<c:if test="${empty error.email}">
-								value = "${joinForm.email}"
-							</c:if>
-						/>
+						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"/>
 						<button type="button" id="btnEmailCheck" class="button_check">중복체크</button>
-						<form:errors path="email"/>
 					</div>
 					<div>
 						* 닉네임  
-						<c:if test="${empty error.nickname}">
-							<span id="nicknameCheck" class="valid-msg"></span>
-						</c:if>
+						<form:errors path="nickname" cssClass="valid-msg"/>
 						<span id="nickCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
 						<br>
-						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"
-							<c:if test="${empty error.nickname}">
-								value="${joinForm.nickname}"
-							</c:if>
-						/>
+						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"/>
 						<button type="button" id="btnNickCheck" class="button_check">중복체크</button>
-						<form:errors path="nickname"/>
 					</div>
 					<div>* 주소찾기 <br>
 						<input class="form-control_adress" name="address"  id="form-address" value="${authentication.address}" placeholder="&nbsp 기본 주소를 입력해주세요." required readonly/>

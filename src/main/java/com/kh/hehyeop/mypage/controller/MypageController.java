@@ -232,7 +232,7 @@ public class MypageController {
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "redirect:/mypage/modify-info";
+			return "mypage/modify-info";
 		}
 		
 		return null;
