@@ -12,7 +12,7 @@ import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 
 public class FileUtil {
-	public FileDTO fileUpload(MultipartFile file, String cIdx) {
+	public FileDTO fileUpload(MultipartFile file, String Idx) {
 
 		FileDTO fileDTO = null;
 
@@ -21,7 +21,7 @@ public class FileUtil {
 			fileDTO = createFileDTO(file);
 			File dest = new File(uploadPath + fileDTO.getReName());
 			file.transferTo(dest);
-			fileDTO.setTypeIdx(cIdx);
+			fileDTO.setTypeIdx(Idx);
 		} catch (IllegalStateException | IOException e) {
 			throw new HandlableException(ErrorCode.FAILED_FILE_UPLOAD_ERROR, e);
 		}
