@@ -40,7 +40,7 @@ public interface MemberRepository {
 	@Select("select * from (select id, password from member union select id, password from member_c) where id = #{id}")
 	Member selectMemberByUserId(String id);
 	
-	@Select("select nickname from member where nickname = #{nickname} and is_leave = 0")
+	@Select("select nickname from member where nickname = #{nickname}")
 	Member selectMemberByNickname(String nickname);
 	
 //	cmember

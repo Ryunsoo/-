@@ -90,6 +90,13 @@ public class MypageServiceImpl implements MypageService{
 	public void insertCash(Wallet chargeWallet) {
 		mypageRepository.insertCash(chargeWallet);
 	}
+	
+	@Override
+	public Member authenticateUser(Member member) {
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
+		return mypageRepository.authenticateUser(member);
+	}
+
 
 
 

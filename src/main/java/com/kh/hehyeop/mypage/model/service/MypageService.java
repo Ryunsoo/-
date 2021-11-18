@@ -18,6 +18,7 @@ public interface MypageService {
 	Member selectMemberByEmail(String email);
 	void updateInfo(JoinForm form);
 	void insertCash(Wallet chargeWallet);
+	Member authenticateUser(Member member);
 	
 	
 	

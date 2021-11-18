@@ -7,10 +7,42 @@
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
+<script type="text/javascript">
 
+function alert(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	modalBlock();
+	
+	let modalBody = $('<div class="alert">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+
+
+
+
+
+
+
+</script>
+<style type="text/css">
+.modal_left_btn{
+	margin-right: 30px;
+}
+
+.alert{
+	text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
 .main{
 	margin-top: 40px;
 	
@@ -135,7 +167,7 @@ button:hover{
 	
 
 		<div class="main">
-			<form:form class="form-signin" action="/mypage/modify" method="get">
+			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="get">
 				<div class="title">
 					<div class="title_line"></div>
 					<div class="myInfo">내 정보</div>
@@ -161,8 +193,18 @@ button:hover{
 							<input id="password_check" class="form-control-pw-btm" type="password" placeholder="&nbsp 비밀번호 확인" required/>
 						</div>
 					</div>
-					<div>* 이름 <br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required/></div>
-					<div>* 전화번호 <br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required/></div>
+					<div>* 이름 
+						<form:errors path="name" cssClass="valid-msg"/>
+					<br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required
+									<c:if test="${empty error.name}">
+										value = "${joinForm.name}"
+									</c:if>
+									/></div>
+					<div>* 전화번호 <br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required
+									<c:if test="${empty error.tell}">
+										value = "${joinForm.tell}"
+									</c:if>
+									/></div>
 					<div>
 						* 이메일 
 						<c:if test="${empty error.email}">
@@ -170,7 +212,11 @@ button:hover{
 						</c:if>
 						<span id="emailCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
 						<br>
-						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"/>
+						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"
+							<c:if test="${empty error.email}">
+								value = "${joinForm.email}"
+							</c:if>
+						/>
 						<button type="button" id="btnEmailCheck" class="button_check">중복체크</button>
 						<form:errors path="email"/>
 					</div>
@@ -181,7 +227,11 @@ button:hover{
 						</c:if>
 						<span id="nickCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
 						<br>
-						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"/>
+						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"
+							<c:if test="${empty error.nickname}">
+								value="${joinForm.nickname}"
+							</c:if>
+						/>
 						<button type="button" id="btnNickCheck" class="button_check">중복체크</button>
 						<form:errors path="nickname"/>
 					</div>
@@ -192,7 +242,9 @@ button:hover{
 					</div>
 				</div>
 					<button class="modify_btn" id="modify_btn" type="submit">수정하기</button>
-			
+					<c:if test="${not empty message}">
+						<script>alert('${message}')</script>
+					</c:if>
 				</form:form>
 				</div>
 				
@@ -215,9 +267,6 @@ button:hover{
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
-function backspace(){
-	history.back();
-}
 
 function searchAddr(){
 	

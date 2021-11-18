@@ -40,6 +40,9 @@ public interface MypageRepository {
 
    @Update("update member set password = #{password}, name = #{name}, tell = #{tell}, email = #{email}, nickname = #{nickname}, address = #{address}, old_address = #{oldAddress} where id = #{id}")
    void updateInfo(JoinForm form);
+
+   @Select("select * from member where id = #{id} and is_leave = 0")
+   Member authenticateUser(Member member);
    
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
