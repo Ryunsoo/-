@@ -28,46 +28,48 @@ function alert(msg){
 
 </script>
 <style type="text/css">
-.modal_left_btn{
+.modal_left_btn {
 	margin-right: 30px;
 }
 
-.alert{
+.alert {
 	text-align: center;
-    font-size: 20px;
-    font-weight: bold;
+	font-size: 20px;
+	font-weight: bold;
 }
-.main{
+
+.main {
 	margin-top: 40px;
-	
 }
+
 .form-signin {
 	box-shadow: 5px 5px 5px rgb(254, 227, 205);
 	border-radius: 20px;
 	height: 830px;
 	width: 530px;
 	padding: 20px 70px 35px;
-	margin:auto;
+	margin: auto;
 	background-color: #fff;
 	border: thin dashed rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
 }
-.title{
+
+.title {
 	display: flex;
 	color: gray;
 	font-size: 20px;
 	justify-content: space-around;
-	
 }
-.title_line{
+
+.title_line {
 	background-color: lightgray;
 	width: 200px;
 	height: 0.5px;
 	margin-top: 11px;
 }
 
-input{
+input {
 	height: 35px;
 	width: 300px;
 	margin-top: 5px;
@@ -75,14 +77,14 @@ input{
 	border-color: lightgray;
 }
 
-.input_wrap{
-	display:flex;
-	flex-direction:column;
+.input_wrap {
+	display: flex;
+	flex-direction: column;
 	height: 100%;
 	justify-content: space-around;
 }
 
-button{
+button {
 	margin-left: 30px;
 	width: 70px;
 	height: 35px;
@@ -93,7 +95,7 @@ button{
 	cursor: pointer;
 }
 
-.modify_btn{
+.modify_btn {
 	margin: 0 auto;
 	margin-top: 10px;
 	width: 550px;
@@ -103,18 +105,18 @@ button{
 	font-weight: bold;
 	box-shadow: 5px 5px 5px rgb(254, 227, 205);
 }
-.modify_btn:hover{
+
+.modify_btn:hover {
 	background-color: rgb(222, 184, 135);
 }
 
-button:hover{
+button:hover {
 	font-weight: bold;
 	background-color: orange;
 	box-shadow: 5px 5px 5px rgb(254, 227, 205);
-
 }
 
-.pw_validator_bar{
+.pw_validator_bar {
 	width: 130px;
 	height: 13px;
 	display: flex;
@@ -123,35 +125,36 @@ button:hover{
 	background-color: transparent;
 }
 
-.pw_validator_bar>div{
+.pw_validator_bar>div {
 	width: 33.3%;
 }
 
-.low{
+.low {
 	height: 100%;
 	background-color: red;
 	border-radius: 20px 0 0 20px;
 }
 
-.middle{
+.middle {
 	height: 100%;
 	background-color: #FBB117;
 }
 
-.high{
+.high {
 	height: 100%;
 	background-color: #4CC417;
 	border-radius: 0 20px 20px 0;
 }
 
-.level{
+.level {
 	display: flex;
 	float: left;
 }
 
-.pw_validator_wrap{
+.pw_validator_wrap {
 	display: flex;
 }
+
 </style>
 </head>
 <body>

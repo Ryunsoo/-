@@ -23,7 +23,6 @@
 		middleBar.style.display = 'none';
 		highBar.style.display = 'none';
 		barText.style.display = 'none';
-		document.querySelector('.form-control-pw-top').style.border = '1px solid lightgray';
 		document.querySelector("#pwCheck").innerHTML = "";
 	}
 	pwInputTopReset();
