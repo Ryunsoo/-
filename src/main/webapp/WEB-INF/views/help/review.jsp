@@ -23,25 +23,13 @@
 
 		<div class="review_list">
 			<table>
+				<thead>
 				<tr>
-					<th>
+					<th class="fieldList">
 						<select class="filter" name="nation">
-							<option value="normal" selected disabled>말머리</option>
-							<option value="all">전체</option>	
-							<option value="bath">욕실</option>
-							<option value="ch">싱크대</option>
-							<option value="jp">가전</option>
-							<option value="fr">타일</option>
-							<option value="fr">페인트</option>
-							<option value="fr">도배</option>
-							<option value="fr">용달</option>
-							<option value="fr">가구조립</option>
-							<option value="fr">폐쇄회로</option>
-							<option value="fr">도어락</option>
-							<option value="fr">방충</option>
-							<option value="fr">청소</option>
-							<option value="fr">세탁</option>
-							<option value="fr">식품정기배송</option>
+							<c:forEach var="fieldList" items="${fieldList}">
+								<option>${fieldList}</option>
+							</c:forEach>	
 						</select>
 					</th>
 					<th>지역</th>
@@ -50,6 +38,7 @@
 					<th>작성자</th>
 					<th>작성일</th>
 				</tr>
+				</thead>
 				<c:forEach var="reviewList" items="${reviewList}">
 					<tr>
 					<td>${reviewList.field}</td>
@@ -61,11 +50,6 @@
 					</tr>
 				</c:forEach>
 			</table>
-		</div>
-
-		<div class="search">
-			<input type="text" class="search_bar" placeholder="검색어를 입력하세요." >
-			<input type="image" class="search_icon" src="../../../resources/image/search.png">
 		</div>
 
 

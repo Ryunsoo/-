@@ -86,17 +86,6 @@
 	font-size: 18px;
 }
 
-.search{
-	text-align: center;
-}
-
-.search_bar{
-	width: 200px;
-	height: 27px;
-	border: none;
-}
-
-.search_icon{
-	width: 25px;
-	height: 25px;
+.fieldList{
+	width: 230px;
 }
