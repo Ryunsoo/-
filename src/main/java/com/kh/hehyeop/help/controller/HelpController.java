@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,15 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.kh.hehyeop.common.util.address.AddressUtil;
-import com.kh.hehyeop.common.validator.ValidateResult;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
@@ -36,10 +31,6 @@ import com.kh.hehyeop.help.validator.RequestForm;
 import com.kh.hehyeop.help.validator.RequestFormValidator;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
-
-import com.kh.hehyeop.member.validator.JoinForm;
-import com.kh.hehyeop.company.model.dto.ProField;
-
 
 import lombok.RequiredArgsConstructor;
 

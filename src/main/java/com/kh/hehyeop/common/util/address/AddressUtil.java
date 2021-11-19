@@ -39,4 +39,20 @@ public class AddressUtil {
 		
 		return trimAddress;
 	}
+	
+	public String getDoSiAddress(String oldAddress) {
+		//도/시 or 시/구로 자르기
+		String[] arr = oldAddress.split(" ");
+		String doSi = "";
+		
+		for (int i = 0; i < arr.length; i++) {
+			if(i == 1) {
+				int lastIdx = arr[i].length() - 1;
+				doSi += arr[i].substring(0, lastIdx);
+				break;
+			}
+			doSi += arr[i] + " ";
+		}
+		return doSi;
+	}
 }

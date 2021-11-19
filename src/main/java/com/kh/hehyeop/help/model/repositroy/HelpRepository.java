@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.company.model.dto.ProField;
+import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 
 @Mapper
@@ -30,8 +31,19 @@ public interface HelpRepository {
 	@Select("select DISTINCT field_category from pro_field")
 	List<ProField> selectCategoryList();
 
-	@Select("select * from help_request where id = #{id} order by desc reg_date")
+	@Select("select * from help_request where id = #{id} order by reg_date desc")
 	List<HelpRequest> selectHelpRequestById(String id);
+
+	@Select("select count(*) from help_response where req_idx = #{reqIdx}")
+	int selectHelpResponseCntByReqIdx(HelpRequest req);
+
+	@Select("select * from help_match where req_idx = ${req_idx}")
+	HelpMatch selectHelpMatchByReqIdx(HelpRequest req);
+
+	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
+	String selectCompanyByResIdx(HelpMatch match);
+	
+	
 
 	
 }
