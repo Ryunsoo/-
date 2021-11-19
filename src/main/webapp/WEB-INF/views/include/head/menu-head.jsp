@@ -18,16 +18,13 @@
                   <li class="gnb-2depth">
                      <ul class="gnb-2depth__list">
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">카테고리</a>
-                        </li>
-                        <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">신청서 작성</a>
+                           <a href="/help/main">카테고리</a>
                         </li>
                         <li class="gnb-2depth__item">
                            <a href="/help/my-hehyeop">마이해협</a>
                         </li>
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">리뷰해협</a>
+                           <a href="/help/review">리뷰해협</a>
                         </li>
                      </ul>
                   </li>

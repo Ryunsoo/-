@@ -10,6 +10,7 @@ import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.Review;
 
 @Mapper
 public interface HelpRepository {
@@ -44,6 +45,8 @@ public interface HelpRepository {
 	String selectCompanyByResIdx(HelpMatch match);
 	
 	
+	@Select("select * from v_review")
+	List<Review> selectReviewList();
 
 	
 }

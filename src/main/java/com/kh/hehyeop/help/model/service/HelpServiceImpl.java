@@ -9,11 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.file.FileUtil;
+import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.Review;
+import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
-import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
-import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -138,6 +139,9 @@ public class HelpServiceImpl implements HelpService{
 		
 		
 		return null;
+	}
+	public List<Review> selectReviewList() {
+		return helpRepository.selectReviewList();
 	}
 
 }

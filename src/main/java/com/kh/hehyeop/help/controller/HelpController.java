@@ -1,6 +1,7 @@
  package com.kh.hehyeop.help.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
+import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.service.HelpService;
 import com.kh.hehyeop.help.validator.RequestForm;
 import com.kh.hehyeop.help.validator.RequestFormValidator;
@@ -46,20 +48,19 @@ public class HelpController {
 	
 	@GetMapping("main")
 	public void help1(HttpSession session) {
-		System.out.println("help main 작업 중 ㅎㅎㅎ");
-		
 		Map<String, List<ProField>> proFiledMap = new HashMap<String, List<ProField>>();
 		proFiledMap.put("category", helpService.selectCategoryList());
 		proFiledMap.put("proField", helpService.selectFieldList());
 		
-		System.out.println("맵! : " + proFiledMap);
-		
-		System.out.println("카테고리! : " + proFiledMap.get("category").get(0).getFieldCategory());
-		System.out.println("필드! : " + proFiledMap.get("proField").get(0).getFieldCategory());
-		
 		session.setAttribute("proFieldMap", proFiledMap);
 	}
 
+	
+	@GetMapping("request")
+	public void help2(HttpSession session, String field) {	
+		session.setAttribute("field", field);			
+	}
+	
 	@GetMapping("my-hehyeop")
 	public void myHehyeop(HttpSession session, Model model) {
 		AddressUtil util = new AddressUtil();
@@ -77,8 +78,10 @@ public class HelpController {
 	}
 	
 	@GetMapping("review")
-	public void help4() {
-		
+	public void review() {
+		List<Review> reviewList = new ArrayList<Review>();
+		reviewList = helpService.selectReviewList();
+		System.out.println("제발...제발 성공했으면 좋겠다 : " + reviewList);
 	}
 	
 	@InitBinder(value = "requestForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
