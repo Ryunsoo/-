@@ -155,6 +155,7 @@ public class HelpServiceImpl implements HelpService{
 		}
 		return my;
 	}
+	
 	public List<Review> selectReviewList() {
 		AddressUtil util = new AddressUtil();
 		List<Review> reviewList = helpRepository.selectReviewList();

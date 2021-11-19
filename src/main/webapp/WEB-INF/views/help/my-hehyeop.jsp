@@ -47,36 +47,43 @@
 					<th>결제방식</th>
 					<th></th>
 				</tr>
-				<tr>
-					<td>[수리 | 보수] 가전</td>
-					<td>서울 강남</td>
-					<td>2021/10/16</td>
-					<td>2</td>
-					<td></td>
-					<td>캐시</td>
-					<td>
-					<button class="list_btn">취소</button>
-					<button class="list_btn">완료</button>
-					</td>
-				</tr>
-				<tr>
-					<td>[수리 | 보수] 싱크대</td>
-					<td>서울 강남</td>
-					<td>2021/10/14</td>
-					<td>5</td>
-					<td>싱크내게맡겨</td>
-					<td>캐시</td>
-					<td><button class="list_btn" onclick="createReviewModal()">후기</button></td>
-				</tr>
-				<tr>
-					<td>[인테리어] 가구조립</td>
-					<td>서울 강남</td>
-					<td>2021/10/09</td>
-					<td>4</td>
-					<td></td>
-					<td>만나서</td>
-					<td><button class="list_btn" onclick="createReviewModal()">후기</button></td>
-				</tr>
+				<c:forEach items='${helpList}' var='help'>
+					<tr>
+						<td>${help.field}</td>
+						<td>${help.area}</td>
+						<td>${help.regDate}</td>
+						<td>${help.estimateCnt}</td>
+						<td>${help.company}</td>
+						<td>${help.payMeans}</td>
+						<td>
+							<c:choose>
+								<c:when test="${help.state == 1}">
+									<button class="list_btn" id="cancel_help">삭제</button>
+									<button class="list_btn" id="refresh">끌올</button>
+								</c:when>
+								<c:when test="${help.state == 2}">
+									<button class="list_btn" id="">완료</button>
+									<button class="list_btn" id="">취소</button>
+								</c:when>
+								<c:when test="${help.state == 3}">
+									완료 대기 중
+								</c:when>
+								<c:when test="${help.state == 4}">
+									<button class="list_btn" onclick="createReviewModal()">후기</button>
+								</c:when>
+								<c:when test="${help.state == 5}">
+									★ ${help.score}
+								</c:when>
+								<c:when test="${help.state == 6}">
+									취소 대기 중
+								</c:when>
+								<c:otherwise>
+									진행 취소
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>	
 		</div>
 
