@@ -155,7 +155,7 @@
 						<div id="cashicon"><i class="fas fa-dollar-sign"></i></div>
 						<div>
 							<div id="sky">현재 보유 캐시</div>
-							<div id="basic">${walletInfo.cash}</div>
+							<div id="basic" class="currentCash">${walletInfo.cash}</div>
 						</div>
 					</div>
 					<div id="lock_con">
@@ -179,7 +179,14 @@
 				<div id="account">
 					<div id="myaccount" style="display:flex">
 						<div id="accounttext">my계좌</div>
-						<input id="accountinput" placeholder="&nbsp&nbsp계좌 인증/등록이 필요합니다"></input>
+						<c:choose>
+							<c:when test="${not empty walletInfo.bank}">
+								<input id="accountinput" value=" [${walletInfo.bank}] ${walletInfo.bankNum}" readonly></input>
+							</c:when>
+							<c:otherwise>
+								<input id="accountinput" placeholder="&nbsp&nbsp계좌 인증/등록이 필요합니다" readonly></input>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div id="accountbtn">
 						<div id="charge">
@@ -189,7 +196,7 @@
 						<div id="send">
 							<div id="minusicon" type="button" <c:choose>
 								<c:when test="${not empty walletInfo.bank}">
-									onclick="createChargingModal()"
+									onclick="afterSendModal()"
 								</c:when>
 								<c:otherwise>
 									onclick="beforeSendModal()"
@@ -379,17 +386,31 @@ let beforeSendModal = () => {
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
+	
+	$('.modal_right_btn').click(function() {
+		modalNone();
+		
+		location.href = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
+						"response_type=code&" +
+						"client_id=f319e2ed-4cae-4853-a2c4-d17261fc495a&" +
+						"redirect_uri=http://localhost:9090/mypage/getAuth&" +
+						"scope=login inquiry transfer&" +
+						"state=12345678901234567890123456789012&" +
+						"auth_type=0";
+	})
 }
 
 /* 송금하기-인증 후 모달 */
 let afterSendModal = () => {
+	let currentCash = document.querySelector(".currentCash").innerText;
+	
 	let modal = initModal('modal', 2);
 	appendTitle(modal, '송금하기');
-	setButton(modal, '그만두기', '인증하기');
+	setButton(modal, '그만두기', '송금하기');
 	setContent(modal, true, true);
 	addPiggyBackground(modal);
 	
-	let modalBody = $('<br><div class="send">현재 보유 캐시<br>25,000 <i class="fas fa-coins"></i><div><br><div class="chargeMoney">인증 계좌 <input placeholder="&nbsp&nbsp 123-456789-5463"> <br><br>송금할 금액<input placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
+	let modalBody = $('<br><div class="send">현재 보유 캐시<br>'+currentCash+' <i class="fas fa-coins"></i><div><br><div class="chargeMoney">인증 계좌 <input id="inputAccount" placeholder="&nbsp&nbsp 등록된 계좌를 입력하세요"> <br><br>송금할 금액<input id="inputCash" placeholder="&nbsp&nbsp금액을 입력해주세요. (최소 금액 : 천원)"><div>').height('10px')
 					.addClass('send_modal_content');
 	$('.modal_content').append(modalBody);
 	
@@ -399,6 +420,53 @@ let afterSendModal = () => {
 	
 	$('.modal_left_btn').click(function() {
 		modalNone();
+	})
+	
+	$('.modal_right_btn').click(function() {
+		
+		let account = document.getElementById("inputAccount").value;
+		let cash = document.getElementById("inputCash").value;
+		
+		
+		if(cash < 1000){
+			alert("최소 송금 금액은 1000원입니다.");
+			return;
+		}
+		
+		modalNone();
+		
+		
+		fetch('/mypage/account-check?account=' + account + '&cash=' + cash)  	
+		.then(response => response.text())
+		.then(text => {
+			
+			let msg = "";
+			
+			if(text == "available"){
+				msg = cash + "원이 출금되었습니다.";
+			} else if (text == "disable") {
+				msg = "잔액이 부족합니다.";
+			} else {
+				msg = "인증되지 않은 계좌번호입니다.";
+			}
+			
+			let modal = initModal('modal', 3);
+			appendTitle(modal, '');
+			setButton(modal, '닫기');
+			setContent(modal, true, true);
+			//addPiggyBackround(sendModal);
+			modalBlock();
+			
+			let modalBody = $('<div class="alertMsg">'+msg+'</div><br>')
+			.addClass('send_modal_content');
+			
+			$('.modal_content').append(modalBody);
+			
+			$('.modal_left_btn').click(function() {
+				location.href = "/mypage/mypage-company";
+			})
+		
+		})
 	})
 }
 

@@ -27,7 +27,7 @@ public interface MypageService {
 	void updateMemo(String id, String friendId, String memo);
 	List<String> selectField(String id);
 	void deleteFriend(String id, String friendId);
-	
+
 	
 	
 }
