@@ -38,8 +38,8 @@ import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;
+import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -343,9 +343,23 @@ public class MypageController {
 		System.out.println("---------------메모야 돌고있니 : 아이디 : " + id + " friendId : " + friendId + " memo : " + memo);
 		
 		mypageService.updateMemo(id, friendId, memo);
+		redirectAttr.addFlashAttribute("message", "메모가 저장되었습니다.");
 		
 		return "redirect:/mypage/mypage-common";
 	}
 	
+	@GetMapping("delete-friend")
+	@ResponseBody
+	public String deleteFriend(Friend friend, HttpSession session, RedirectAttributes redirectAttr) { 
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		String friendId = friend.getFriendId();
+		System.out.println("---------------친구야 안녕... : 아이디 : " + id + " friendId : " + friendId );
+		mypageService.deleteFriend(id, friendId);
+		redirectAttr.addFlashAttribute("message", "삭제가 완료 되었습니다.");
+		
+		return "delete";
+	}
 
 }

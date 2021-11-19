@@ -124,6 +124,12 @@ public class MypageServiceImpl implements MypageService{
 		
 	}
 
+	@Override
+	public void deleteFriend(String id, String friendId) {
+		mypageRepository.deleteFriend(id, friendId);
+		
+	}
+
 
 	@Override
 	public List<String> selectField(String id) {

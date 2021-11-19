@@ -10,8 +10,30 @@
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+function alertMessage(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	modalBlock();
+	
+	let modalBody = $('<div class="alertMessage">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <style type="text/css">
 
 #normal {
@@ -228,6 +250,16 @@
 .delete_user_btn:hover{
 	background-color: #c2787b;
 }
+.modal_left_btn {
+	/* margin-right: 30px; */
+}
+
+.alertMessage {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 </style>
 </head>
 <body>
@@ -479,28 +511,62 @@
 			</div>
 		</div>
 	</div>
+	<c:if test="${not empty message}">
+		<script>alertMessage('${message}')</script>
+	</c:if>
 </div>
 <div style="display:none" class="temp_address"></div>
 <div id="token" style="display:none"></div>
 <script type="text/javascript">
 
+
 		let memo = document.querySelectorAll('#input_memo_wrap');
 		let memo_btn = document.querySelectorAll("#memo");
 		let save_memo_btn = document.querySelectorAll("#confirm");
-		let context = document.getElementById("#input_memo");
-		
+		let delete_btn = document.querySelectorAll("#delete");
+		let neighborname = document.querySelectorAll("#neighborname");
+
 		
 		/* memo */
 		console.dir(memo);
 		console.dir(memo_btn);
 		
 		for(let i = 0; i <memo.length; i++){
+			let friendId = neighborname[i].innerText;
 			
 			memo_btn[i].addEventListener("click", () => {
 				memo[i].classList.remove("hidden");
 			})
-		}
-		
+			
+			delete_btn[i].addEventListener("click", () => {
+				
+				console.dir("얄루 : " + friendId);
+				
+				 fetch('/mypage/delete-friend?friendId=' + friendId)
+				  .then(res=> res.text())
+					.then(text=> {
+						if(text) {
+							
+								let modal = initModal('modal', 3);
+								appendTitle(modal, '');
+								setButton(modal, '닫기');
+								setContent(modal, true, true);
+								modalBlock();
+								
+								let modalBody = $('<div class="alertMessage">삭제 되었습니다.</div><br>')
+								.addClass('send_modal_content');
+								
+								$('.modal_content').append(modalBody);
+								
+								$('.modal_left_btn').click(function() {
+									modalNone();
+									location.href='mypage-common';
+								})
+							}
+				 	
+		})
+	})
+}
 		const myInfo_btn = document.querySelector("#myInfo_btn");
         const modifyInfo_btn = document.querySelector("#modifyInfo_btn");
         const delete_user_btn = document.querySelector("#delete_user_btn");
