@@ -61,7 +61,7 @@
 						<td>${help.regDate}</td>
 						<td>${help.estimateCnt}</td>
 						<td>${help.company}</td>
-						<td>${help.payMeans}</td>
+						<td>${help.payMeans}</td> 
 						<td>
 							<c:choose>
 								<c:when test="${help.state == 1}">
