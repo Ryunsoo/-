@@ -20,7 +20,7 @@ public interface HelpService {
 
 	List<ProField> selectCategoryList();
 
-	List<ProField> selectFieldList();
+	List<ProField> selectProFieldList();
 
 	List<MyHehyeop> getHelpRequestList(String id);
 	
@@ -29,5 +29,4 @@ public interface HelpService {
 	int deleteRequest(String reqIdx);
 
 	int refreshRequest(String reqIdx);
-
 }

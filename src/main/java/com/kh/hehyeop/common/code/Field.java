@@ -1,6 +1,8 @@
 package com.kh.hehyeop.common.code;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 public enum Field {
 
@@ -38,4 +40,12 @@ public enum Field {
 		return null;
 	}
 	
+	public static List<String> getFieldFullNameList() {
+		List<String> list = new ArrayList<String>();
+		EnumSet<Field> fieldSet = EnumSet.allOf(Field.class);
+		for (Field field : fieldSet) {
+			list.add(field.fullName);
+		}
+		return list;
+	}
 }

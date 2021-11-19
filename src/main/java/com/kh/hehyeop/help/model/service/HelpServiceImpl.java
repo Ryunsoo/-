@@ -31,8 +31,8 @@ public class HelpServiceImpl implements HelpService{
 	}
 
 	@Override
-	public List<ProField> selectFieldList() {
-		return helpRepository.selectFieldList();
+	public List<ProField> selectProFieldList() {
+		return helpRepository.selectProFieldList();
 	}
 	
 	@Override

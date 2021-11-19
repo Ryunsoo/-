@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
@@ -50,7 +51,7 @@ public class HelpController {
 	public void help1(HttpSession session) {
 		Map<String, List<ProField>> proFiledMap = new HashMap<String, List<ProField>>();
 		proFiledMap.put("category", helpService.selectCategoryList());
-		proFiledMap.put("proField", helpService.selectFieldList());
+		proFiledMap.put("proField", helpService.selectProFieldList());
 		
 		session.setAttribute("proFieldMap", proFiledMap);
 	}
@@ -65,7 +66,10 @@ public class HelpController {
 	@GetMapping("review")
 	public void review(HttpSession session) {
 		List<Review> reviewList = helpService.selectReviewList();
+		List<String> fieldList = Field.getFieldFullNameList();
 		session.setAttribute("reviewList", reviewList);
+		session.setAttribute("fieldList", fieldList);
+		
 	}
 	
 	@InitBinder(value = "requestForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행

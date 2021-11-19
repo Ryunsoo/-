@@ -29,7 +29,7 @@ public interface HelpRepository {
 	int uploadFile(FileDTO fileDTO);
 
 	@Select("select * from pro_field")
-	List<ProField> selectFieldList();
+	List<ProField> selectProFieldList();
 
 	@Select("select DISTINCT field_category from pro_field")
 	List<ProField> selectCategoryList();
