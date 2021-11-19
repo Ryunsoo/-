@@ -804,7 +804,8 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 #neighbor_wrap {
@@ -815,6 +816,7 @@ html, body {
 	align-items: center;
 	flex-shrink: 0;
 	flex-wrap: wrap;
+	margin-right: 15px;
 }
 
 #neighboricon {

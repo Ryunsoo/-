@@ -3,6 +3,7 @@ package com.kh.hehyeop.mypage.model.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -65,5 +66,8 @@ public interface MypageRepository {
 
    @Select("select field from company_field where id = #{id}")
    List<String> selectField(String id);
+   
+   @Delete("delete friend where id = #{id} and friend_id = #{friendId}")
+   void deleteFriend(@Param("id") String id, @Param("friendId") String friendId);
    
 }
