@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;

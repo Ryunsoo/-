@@ -69,6 +69,8 @@ let createAddressFirstModalGuArr = () => {
 
 
 
+
+
 let createAddressSecondModal = () => {
    let secondModal = initModal('modal', 4);
    appendTitle(secondModal, '동');
@@ -87,6 +89,7 @@ let createAddressSecondModal = () => {
     }
     
     $('.modal_right_btn').attr('id','address-submit-button');
+    
     
     
     locationTownClick();
