@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 
@@ -34,6 +35,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 			case "mypage":
 				mypageAuthorize(httpRequest, httpResponse, uriArr);
 				break;
+			case "help":
+				helpAuthorize(httpRequest, httpResponse, uriArr);
+				break;
 			default:
 				break;
 			}
@@ -43,6 +47,30 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void helpAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user instanceof CMember) {
+			throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
+		}
+		
+		//if(uriArr[2] != "main" && user == null) throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+		
+		switch (uriArr[2]) {
+		case "request":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+
 	private void mypageAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();
 		User user = (User) session.getAttribute("authentication");

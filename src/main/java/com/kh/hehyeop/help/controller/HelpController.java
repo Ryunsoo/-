@@ -50,10 +50,6 @@ public class HelpController {
 	@GetMapping("request")
 	public String help2(HttpSession session, String field) {
 		
-		if(session.getAttribute("authentication") == null) {
-			return "redirect:/help/main";
-		}
-		
 		session.setAttribute("field", field);
 		
 		return "help/request";

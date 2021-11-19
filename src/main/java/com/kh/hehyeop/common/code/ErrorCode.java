@@ -9,7 +9,8 @@ public enum ErrorCode {
 	AUTHENTICATION_FAILED_ERROR("유효하지 않은 인증입니다."),
 	UNAUTHORIZED_PAGE_ERROR("접근 권한이 없는 페이지 입니다."),
 	FAILED_FILE_UPLOAD_ERROR("파일업로드에 실패하였습니다."),
-	BEFORE_LOGIN_ERROR("로그인 후 이용 가능합니다."),
+	BEFORE_LOGIN_ERROR("로그인 후 이용 가능합니다.", "/member/login-form"),
+	COMPANY_LOGIN_ERROR("업체회원은 이용할 수 없습니다.", "/company/all-help"),
 	REDIRECT("");
 	
 	public final String MESSAGE;
