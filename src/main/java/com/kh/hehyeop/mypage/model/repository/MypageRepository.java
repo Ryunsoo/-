@@ -29,8 +29,8 @@ public interface MypageRepository {
    @Update("update member set is_leave = 1 where id = #{id} and password = #{password}")
 	void deleterUser(Member member);
    
-   @Update("update wallet set bank = #{bank}, bank_num = #{bankNum} where id = #{id}")
-   void updateWalletInfo(@Param("id") String id, @Param("bank") String bank, @Param("bankNum") String bankNum);
+   @Update("update wallet set bank = #{bank}, bank_num = #{bankNum}, auth_token = #{authToken}, user_seq = #{userSeq} where id = #{id}")
+   void updateWalletInfo(Wallet wallet);
    
    @Select("select * from wallet where id = #{id}")
    Wallet selectWallet(String id);
@@ -46,6 +46,9 @@ public interface MypageRepository {
    
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
+
+   @Update("update wallet set cash = #{cash} where id = #{id}")
+   void updateCash(Wallet wallet);
    
    @Select("select distinct city from location where major_key= #{majorKey} order by city")
    List<Location> selectLocationCityList(Location location);

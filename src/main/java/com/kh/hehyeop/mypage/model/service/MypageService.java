@@ -14,13 +14,14 @@ public interface MypageService {
 	void insertToken(String token,String device, String id);
 	void deleteToken(String device,String id);
 	void deleterUser(Member member);
-	void updateWalletInfo(String id, String bank, String bankNum);
+	void updateWalletInfo(Wallet wallet);
 	Wallet selectWallet(String id);
 	Member selectMemberByEmail(String email);
 	void updateInfo(JoinForm form);
 	void insertCash(Wallet chargeWallet);
 	Member authenticateUser(Member member);
 	List<Location> selectLocationList(Location location);
+	void updateCash(Wallet wallet);
 	
 	
 }

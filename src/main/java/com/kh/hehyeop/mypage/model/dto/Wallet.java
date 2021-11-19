@@ -11,5 +11,7 @@ public class Wallet {
 	private int cashLock;
 	private String bank;
 	private String bankNum;
+	private String authToken;
+	private String userSeq;
 
 }

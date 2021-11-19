@@ -381,7 +381,15 @@
 							<div class="accountbtntext" id="basic">충전하기</div>
 						</div>
 						<div id="send">
-							<div id="minusicon" type="button" onclick="afterSendModal()"><i class="far fa-minus-square"></i></div>
+							<div id="minusicon" type="button" 
+							<c:choose>
+								<c:when test="${not empty walletInfo.bank}">
+									onclick="afterSendModal()"
+								</c:when>
+								<c:otherwise>
+									onclick="beforeSendModal()"
+								</c:otherwise>
+							</c:choose>><i class="far fa-minus-square"></i></div>
 							<div class="accountbtntext" id="basic">송금하기</div>
 						</div>
 					</div>

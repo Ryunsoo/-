@@ -66,8 +66,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void updateWalletInfo(String id, String bank, String bankNum) {
-		mypageRepository.updateWalletInfo(id, bank, bankNum);
+	public void updateWalletInfo(Wallet wallet) {
+		mypageRepository.updateWalletInfo(wallet);
 	}
 
 	@Override
@@ -107,6 +107,10 @@ public class MypageServiceImpl implements MypageService{
 			return mypageRepository.selectLocationTownList(location);
 		}
 		return null;
+	}
+	
+	public void updateCash(Wallet wallet) {
+		mypageRepository.updateCash(wallet);
 	}
 
 

@@ -45,6 +45,7 @@ import com.kh.hehyeop.mypage.validator.JoinForm;
 import com.kh.hehyeop.mypage.validator.MypageValidator;
 
 import lombok.RequiredArgsConstructor;
+import oracle.net.aso.h;
 
 @Controller
 @RequestMapping("mypage")
@@ -117,7 +118,14 @@ public class MypageController {
 				
 				Member member = (Member) session.getAttribute("authentication");
 				
-				mypageService.updateWalletInfo(member.getId(), bank, bankNum);
+				Wallet wallet = new Wallet();
+				wallet.setId(member.getId());
+				wallet.setBank(bank);
+				wallet.setBankNum(bankNum);
+				wallet.setAuthToken(token);
+				wallet.setUserSeq(userSeq);
+				
+				mypageService.updateWalletInfo(wallet);
 				
 			}
 			
@@ -188,6 +196,7 @@ public class MypageController {
 	}
 	
 
+
 	
 	@GetMapping("location-list")
 	@ResponseBody
@@ -198,6 +207,58 @@ public class MypageController {
 		return locationlist;
 	}
 	
+	@GetMapping("account-check")
+	@ResponseBody
+	public String accountCheck(@RequestParam("account") String account, 
+							   @RequestParam("cash") int cash, 
+							   HttpSession session) 
+							   throws JsonMappingException, JsonProcessingException {
+		
+		logger.debug(account);
+		
+		Wallet wallet = (Wallet) session.getAttribute("walletInfo");
+		
+		String token = wallet.getAuthToken();
+		String userSeq = wallet.getUserSeq();
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + token);
+		
+		HttpEntity entity = new HttpEntity<>(headers);
+		
+		ResponseEntity<String> response = http.exchange(
+				"https://testapi.openbanking.or.kr/v2.0/account/list?user_seq_no="+userSeq+"&include_cancel_yn=Y&sort_order=D",
+				HttpMethod.GET,
+				entity,
+				String.class);
+		
+		JsonNode root = mapper.readTree(response.getBody());
+		
+		String bankNum = root.findValue("account_num_masked").asText();
+		
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(account);
+		sb.replace(sb.length() - 3, sb.length(), "***");
+		
+		logger.debug(sb.toString());
+		logger.debug(bankNum);
+		
+		if (bankNum.equals(sb.toString())) {
+			
+			if (wallet.getCash() < cash) {
+				return "disable";
+			}
+			
+			wallet.setCash(wallet.getCash() - cash);
+			mypageService.updateCash(wallet);
+			return "available";
+		}
+		
+		
+		return "failed";
+		
+	}
 	
 	
 	
