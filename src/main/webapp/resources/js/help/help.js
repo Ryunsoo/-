@@ -38,3 +38,19 @@ let refreshHelp = (reqIdx) => {
 }
 //완료버튼
 
+
+
+
+
+
+//상태 필터링
+let filtering = () => {
+	let selectedState = $('.state_filter').val();
+	console.dir(selectedState);
+	
+}
+
+
+
+
+
