@@ -32,7 +32,7 @@ let refreshHelp = (reqIdx) => {
 		modalNone();
 	})
 	$('.modal_right_btn').click(function() {
-	    fetch('/help/refreshHelp?reqIdx='+reqIdx);
+	    location.href = '/help/refreshHelp?reqIdx='+reqIdx;
 	    modalNone();
 	})
 }
