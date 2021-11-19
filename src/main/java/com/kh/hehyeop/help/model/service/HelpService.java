@@ -26,4 +26,8 @@ public interface HelpService {
 	
 	List<Review> selectReviewList();
 
+	int deleteRequest(String reqIdx);
+
+	int refreshRequest(String reqIdx);
+
 }

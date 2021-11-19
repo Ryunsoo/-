@@ -121,4 +121,29 @@ public class HelpController {
 		return "help/my-hehyeop";
 	}
 
+	//해협 삭제 
+	@GetMapping("cancelHelp")
+	public String cancelHelp(String reqIdx, Model model) {
+		int res = helpService.deleteRequest(reqIdx);
+		model.addAttribute("url","/help/my-hehyeop");
+		if(res == 1) {
+			model.addAttribute("msg","삭제완료");
+		} else {
+			model.addAttribute("msg","잠시 후 다시 시도해주세요.");
+		}
+		return "/error/result";
+	}
+	//해협 끌올
+	@GetMapping("refreshHelp")
+	public String refreshHelp(String reqIdx, Model model) {
+		int res = helpService.refreshRequest(reqIdx);
+		model.addAttribute("url","/help/my-hehyeop");
+		if(res == 1) {
+			model.addAttribute("msg","끌올완료");
+		} else {
+			model.addAttribute("msg","잠시 후 다시 시도해주세요.");
+		}
+		return "/error/result";
+	}
+
 }

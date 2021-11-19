@@ -2,9 +2,11 @@ package com.kh.hehyeop.help.model.repositroy;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.company.model.dto.ProField;
@@ -46,6 +48,13 @@ public interface HelpRepository {
 	
 	@Select("select * from v_review")
 	List<Review> selectReviewList();
+
+	@Delete("delete from help_request where reqIdx = #{reqIdx}")
+	int deleteRequest(String reqIdx);
+
+	@Update("update help_request set reg_date = current_date where reqIdx = #{reqIdx}")
+	int updateRegDate(String reqIdx);
+
 
 	
 }

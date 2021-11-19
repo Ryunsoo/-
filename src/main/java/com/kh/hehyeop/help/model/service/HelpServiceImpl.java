@@ -168,4 +168,14 @@ public class HelpServiceImpl implements HelpService{
 		return reviewList;
 	}
 
+	@Override
+	public int deleteRequest(String reqIdx) {
+		return helpRepository.deleteRequest(reqIdx);
+	}
+
+	@Override
+	public int refreshRequest(String reqIdx) {
+		return helpRepository.updateRegDate(reqIdx);
+	}
+
 }

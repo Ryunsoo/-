@@ -91,6 +91,24 @@
 	border-radius: 5px;
 	background-color: rgb(213,213,213);
 }
+.list_btn_red{
+	width: 70px;
+	height: 25px;
+	border-radius: 5px;
+	background-color: lightcoral;
+}
+.list_btn_green{
+	width: 70px;
+	height: 25px;
+	border-radius: 5px;
+	background-color: lightgreen;
+}
+.list_btn_blue{
+	width: 70px;
+	height: 25px;
+	border-radius: 5px;
+	background-color: #8080ff;
+}
 
 .breakdown{
 	width: 1030px;
