@@ -4,23 +4,25 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.kh.hehyeop.common.util.address.AddressUtil;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.hehyeop.common.code.Field;
+import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.service.HelpService;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
-
-
-import com.kh.hehyeop.company.model.dto.ProField;
-import com.kh.hehyeop.help.model.service.HelpService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -56,14 +58,20 @@ public class HelpController {
 	}
 	
 	@GetMapping("my-hehyeop")
-	public void help3(HttpSession session, Model model) {
+	public void myHehyeop(HttpSession session, Model model) {
 		AddressUtil util = new AddressUtil();
 		Member member = (Member) session.getAttribute("authentication");
+		//회원가입시 주소가 util 사용으로 바뀌면 그냥 jsp에서 oldAddress 가져오는 걸로 바꾸기
 		String trimAddress = util.trimOldAddress(member.getOldAddress());
 		System.out.println("trimAddress : " + trimAddress);
+		
+		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
+		
+		
+		
+		
 		model.addAttribute("trimAddress", trimAddress);
 	}
-
 	
 	@GetMapping("review")
 	public void help4() {

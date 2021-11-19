@@ -1,11 +1,13 @@
 package com.kh.hehyeop.help.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.company.model.dto.ProField;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,25 @@ public class HelpServiceImpl implements HelpService{
 			}
 		}
 		return res;
+	}
+
+	@Override
+	public List<MyHehyeop> getHelpRequestList(String id) {
+		List<MyHehyeop> resList = new ArrayList<MyHehyeop>();
+		
+		//사용자의 모든 해협을 조회해온다.
+		List<HelpRequest> helpList = helpRepository.selectHelpRequestById(id);
+		
+		//조건에 따라 hehyeop dto를 생성해 list에 답아준다.
+		for (HelpRequest helpRequest : helpList) {
+			
+		}
+		
+		
+		
+		
+		
+		return null;
 	}
 
 }

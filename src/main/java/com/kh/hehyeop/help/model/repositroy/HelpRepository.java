@@ -30,5 +30,8 @@ public interface HelpRepository {
 	@Select("select DISTINCT field_category from pro_field")
 	List<ProField> selectCategoryList();
 
+	@Select("select * from help_request where id = #{id} order by desc reg_date")
+	List<HelpRequest> selectHelpRequestById(String id);
+
 	
 }
