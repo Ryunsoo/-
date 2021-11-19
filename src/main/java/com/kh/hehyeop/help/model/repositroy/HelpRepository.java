@@ -49,10 +49,10 @@ public interface HelpRepository {
 	@Select("select * from v_review")
 	List<Review> selectReviewList();
 
-	@Delete("delete from help_request where reqIdx = #{reqIdx}")
+	@Delete("delete from help_request where req_idx = #{reqIdx}")
 	int deleteRequest(String reqIdx);
 
-	@Update("update help_request set reg_date = current_date where reqIdx = #{reqIdx}")
+	@Update("update help_request set reg_date = current_date where req_idx = #{reqIdx}")
 	int updateRegDate(String reqIdx);
 
 

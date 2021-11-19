@@ -1,6 +1,5 @@
 //해협삭제(취소) 버튼
-let cancelHelp = () => {
-	let reqIdx = $(this).parent().next('.reqIdx').val();
+let cancelHelp = (reqIdx) => {
 	console.dir(reqIdx);
 	modalNone();
 	let modal = initModal('modal', 1);
@@ -13,14 +12,13 @@ let cancelHelp = () => {
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
-	$('.modal_rigft_btn').click(function() {
-		modalNone();
+	$('.modal_right_btn').click(function() {
 	    fetch('/help/cancelHelp?reqIdx='+reqIdx);
+	    modalNone();
 	})
 }
 //최신화 버튼
-let refreshHelp = () => {
-	let reqIdx = e.parent().parent().children(".reqIdx").value;
+let refreshHelp = (reqIdx) => {
 	console.dir(reqIdx);
 	modalNone();
 	let modal = initModal('modal', 1);
@@ -33,9 +31,9 @@ let refreshHelp = () => {
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
-	$('.modal_rigft_btn').click(function() {
-		modalNone();
+	$('.modal_right_btn').click(function() {
 	    fetch('/help/refreshHelp?reqIdx='+reqIdx);
+	    modalNone();
 	})
 }
 //완료버튼
