@@ -91,6 +91,7 @@ let createAddressSecondModal = () => {
     $('.modal_right_btn').attr('id','address-submit-button');
     
     
+    
     locationTownClick();
     
     $('.modal_left_btn').click(function() {
