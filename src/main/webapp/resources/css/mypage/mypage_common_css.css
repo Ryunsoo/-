@@ -811,9 +811,10 @@ html, body {
 	width: 50%;
 	height: 33%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	flex-shrink: 0;
+	flex-wrap: wrap;
 }
 
 #neighboricon {

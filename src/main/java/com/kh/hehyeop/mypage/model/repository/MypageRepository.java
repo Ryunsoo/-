@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
+import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -47,6 +48,12 @@ public interface MypageRepository {
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
 
+   @Select("select * from friend where id = #{id}")
+   List<Friend> selectFriend(String id);
+
+   @Update("update friend set memo = #{memo} where id = #{id} and friend_id = #{friendId}")
+   void updateMemo(@Param("id") String id, @Param("friendId") String friendId, @Param("memo") String memo);
+   
    @Update("update wallet set cash = #{cash} where id = #{id}")
    void updateCash(Wallet wallet);
    

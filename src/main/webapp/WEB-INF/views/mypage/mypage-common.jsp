@@ -431,6 +431,30 @@
 				</div>
 				<div class="neighbor">
 					<div id="neighbor_list">
+						<c:forEach items="${friendList}" var="fl">
+							<div id="neighbor_wrap">
+								<div id="neighboricon">
+									<i class="fas fa-tags"></i>
+								</div>
+                              	<div id="neighborname">${fl.friendId}</div>                     
+								<div>
+									<button id="memo" class="btn btn-info">메모</button>
+									<form action="/mypage/memo" method="post">
+										<div id="input_memo_wrap" class="hidden">
+                              				<textarea id="input_memo" name="memo" cols="30" rows="3">${fl.memo}</textarea>                 
+                              				<textarea class="hidden" id="freindId" name="friendId" cols="30" rows="3">${fl.friendId}</textarea>                 
+											<button class="btn btn-info" id="confirm" type="submit">저장</button>
+										</div>
+									</form>
+								</div>
+								<div>
+									<button type="button" id="chat" class="btn btn-warning">채팅</button>
+								</div>
+								<div>
+									<button type="button" id="delete" class="btn btn-secondary">삭제</button>
+								</div>
+							</div>	
+						</c:forEach>
 					</div>
 				</div>
 			</div>	
@@ -459,67 +483,24 @@
 <div style="display:none" class="temp_address"></div>
 <div id="token" style="display:none"></div>
 <script type="text/javascript">
-/* 이웃리스트 추가  */
-document.querySelector("#title2").addEventListener('click', e => {
-	/* 새로운 이웃wrap */
-	let newNeighbor = document.createElement("div");
-	newNeighbor.setAttribute("id", 'neighbor_wrap');
-	document.querySelector("#neighbor_list").appendChild(newNeighbor);
-	/* 새로운 이웃icon */
-	let newNeighborIcon = document.createElement("div");
-	newNeighborIcon.setAttribute("id", 'neighboricon');
-	newNeighborIcon.innerHTML = '<i class="fas fa-tags"></i>';
-	newNeighbor.appendChild(newNeighborIcon);
-	/* 새로운 이웃name */
-	let newNeighborName = document.createElement("div");
-	newNeighborName.setAttribute("id", 'neighborname');
-	newNeighborName.innerHTML = '구짱';
-	newNeighbor.appendChild(newNeighborName);
-	/* 새로운 이웃memo */
-	let newNeighborMemo = document.createElement("div");
-	newNeighbor.appendChild(newNeighborMemo);
-	/* memo만들기 */
-	let memo = document.createElement("button");
-	memo.setAttribute("id","memo");
-	memo.setAttribute("class","btn btn-info");
-	memo.innerHTML = '메모';
-	newNeighborMemo.appendChild(memo);
-	memo.addEventListener('click', () => {
-		inputMemoWrap.setAttribute("style","display:block");
-	})
-	/* textarea_wrap만들기 */
-	let inputMemoWrap = document.createElement("div");
-	inputMemoWrap.setAttribute("id","input_memo_wrap");
-	inputMemoWrap.setAttribute("style","display:none");
-	newNeighborMemo.appendChild(inputMemoWrap);
-	/* 새로운 이웃memo_textarea */
-	let newTextarea = document.createElement("textarea");
-	newTextarea.setAttribute("id", "input_memo");
-	newTextarea.setAttribute("cols", '30');
-	newTextarea.setAttribute("rows", '3');
-	inputMemoWrap.appendChild(newTextarea);
-	/* 새로운 이웃memo_button */
-	let newTextButton = document.createElement("button");
-	newTextButton.setAttribute("class", "btn btn-info");
-	newTextButton.setAttribute("id", 'confirm');
-	newTextButton.innerHTML = '저장';
-	inputMemoWrap.appendChild(newTextButton);
-	newTextButton.addEventListener('click', () => {
-		inputMemoWrap.setAttribute("style","display:none");
-	})
-	/* 새로운 이웃chat */
-	let newNeighborChat = document.createElement("div");
-	newNeighborChat.innerHTML = '<button type="button" id="chat" class="btn btn-warning">채팅</button>';
-	newNeighbor.appendChild(newNeighborChat);
-	/* 새로운 이웃delete */
-	let newNeighborDelete = document.createElement("div");
-	newNeighborDelete.innerHTML = '<button type="button" id="delete" class="btn btn-secondary">삭제</button>';
-	newNeighbor.appendChild(newNeighborDelete);
-	newNeighborDelete.addEventListener('click', () => {
-		newNeighbor.remove();
-	})
-})
 
+		let memo = document.querySelectorAll('#input_memo_wrap');
+		let memo_btn = document.querySelectorAll("#memo");
+		let save_memo_btn = document.querySelectorAll("#confirm");
+		let context = document.getElementById("#input_memo");
+		
+		
+		/* memo */
+		console.dir(memo);
+		console.dir(memo_btn);
+		
+		for(let i = 0; i <memo.length; i++){
+			
+			memo_btn[i].addEventListener("click", () => {
+				memo[i].classList.remove("hidden");
+			})
+		}
+		
 		const myInfo_btn = document.querySelector("#myInfo_btn");
         const modifyInfo_btn = document.querySelector("#modifyInfo_btn");
         const delete_user_btn = document.querySelector("#delete_user_btn");
@@ -533,8 +514,6 @@ document.querySelector("#title2").addEventListener('click', e => {
         myInfo_btn.addEventListener("mouseover",function(){
         	modifyInfo_btn.classList.remove("hidden");
         	delete_user_btn.classList.remove("hidden");
-        	
-
         });
         
         /* 정보 수정 버튼 */
@@ -582,46 +561,8 @@ document.querySelector("#title2").addEventListener('click', e => {
         	        alert_check.classList.remove("hidden");
 					console.dir("할루");
         	    }
-        	    	
-        	
-		
         });
 
-/* document.querySelector("#addtown").addEventListener('click', e => {
-	let idx = document.querySelectorAll('#list_wrap').length + 1;
-	if(idx > 3) {
-		alert("동네는 최대 3개까지만 추가할 수 있습니다.");
-	}else {
-		let inputAddress = prompt("주소를 입력하세요");
-		if(inputAddress == "") {
-			alert("주소를 입력해주세요.");
-		}else if(inputAddress != "") {
-			let listWrap = document.createElement("div");
-			listWrap.setAttribute("id", 'list_wrap');
-			document.querySelector("#townlist_con").appendChild(listWrap);
-			let listIdx = document.createElement("div");
-			listIdx.setAttribute("id", 'listidx');
-			listIdx.innerHTML = `${idx}`;
-			listWrap.appendChild(listIdx);
-			let listBody = document.createElement("div");
-			if(idx == 2) {
-				listBody.setAttribute("id", 'listbody2');
-			}else if(idx == 3) {
-				listBody.setAttribute("id", 'listbody3');
-			}
-			listBody.innerHTML = `<div id="address">${inputAddress}</div>`;
-			listWrap.appendChild(listBody);
-			let listDelete = document.createElement("div");
-			listDelete.setAttribute("id", 'listdelete');
-			listDelete.setAttribute("type", 'button');
-			listDelete.innerHTML = '<i class="fas fa-times-circle"></i>';
-			listWrap.appendChild(listDelete);
-			listDelete.addEventListener('click', () => {
-				listWrap.remove();
-			})
-		}
-	}
-}) */ 
 
 </script>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>

@@ -39,6 +39,7 @@ import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
 import com.kh.hehyeop.mypage.model.dto.Location;
+import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -71,6 +72,14 @@ public class MypageController {
 		session.removeAttribute("authentication");
 		session.setAttribute("authentication", authMember);
 		session.setAttribute("walletInfo", userWallet);
+		
+		
+		List<Friend> friendList = mypageService.selectFriend(authMember.getId());
+		
+		session.setAttribute("friendList", friendList);
+		
+		logger.debug("------------------친구야 돌고있니 : " + friendList);
+		
 		
 	}
 	
@@ -313,5 +322,20 @@ public class MypageController {
 		
 		return null;
 	}
+	
+	@PostMapping("memo")
+	public String updateMemo(Friend friend, HttpSession session, RedirectAttributes redirectAttr) { 
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		String friendId = friend.getFriendId();
+		String memo = friend.getMemo();
+		System.out.println("---------------메모야 돌고있니 : 아이디 : " + id + " friendId : " + friendId + " memo : " + memo);
+		
+		mypageService.updateMemo(id, friendId, memo);
+		
+		return "redirect:/mypage/mypage-common";
+	}
+	
 
 }

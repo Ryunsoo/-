@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
@@ -112,6 +113,17 @@ public class MypageServiceImpl implements MypageService{
 	public void updateCash(Wallet wallet) {
 		mypageRepository.updateCash(wallet);
 	}
+	
+	public List<Friend> selectFriend(String id) {
+		return mypageRepository.selectFriend(id);
+	}
+
+	@Override
+	public void updateMemo(String id, String friendId, String memo) {
+		mypageRepository.updateMemo(id, friendId, memo);
+		
+	}
+
 
 
 
