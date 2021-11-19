@@ -1,7 +1,6 @@
  package com.kh.hehyeop.help.controller;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +53,6 @@ public class HelpController {
 		
 		session.setAttribute("proFieldMap", proFiledMap);
 	}
-
-	
-	@GetMapping("request")
-	public void help2(HttpSession session, String field) {	
-		session.setAttribute("field", field);			
-	}
 	
 	@GetMapping("my-hehyeop")
 	public void myHehyeop(HttpSession session, Model model) {
@@ -71,17 +64,13 @@ public class HelpController {
 		
 		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
 		
-		
-		
-		
 		model.addAttribute("trimAddress", trimAddress);
 	}
 	
 	@GetMapping("review")
-	public void review() {
-		List<Review> reviewList = new ArrayList<Review>();
-		reviewList = helpService.selectReviewList();
-		System.out.println("제발...제발 성공했으면 좋겠다 : " + reviewList);
+	public void review(HttpSession session) {
+		List<Review> reviewList = helpService.selectReviewList();
+		session.setAttribute("reviewList", reviewList);
 	}
 	
 	@InitBinder(value = "requestForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행
@@ -91,9 +80,6 @@ public class HelpController {
 	
 	@GetMapping("request")
 	public String helpRequest(HttpSession session, String field, Model model) {
-		if(session.getAttribute("authentication") == null) {
-			return "redirect:/help/main";
-		}
 		session.setAttribute("field", field);
 		model.addAttribute(new RequestForm()).addAttribute("error", new ValidateResult().getError());
 		return "help/request";

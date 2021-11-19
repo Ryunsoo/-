@@ -49,35 +49,17 @@
 					<th>만족도</th>
 					<th>작성자</th>
 					<th>작성일</th>
-					<th>조회수</th>
 				</tr>
-				<tr>
-					<td>[수리 | 보수] 화장실</td>
-					<td>서울 강남</td>
-					<td>크린바스</td>
-					<td>★ 5.0</td>
-					<td>권구현</td>
-					<td>2021/10/16</td>
-					<td>12</td>
-				</tr>
-				<tr>
-					<td>[수리 | 보수] 싱크대</td>
-					<td>서울 강남</td>
-					<td>싱크내게맡겨</td>
-					<td>★ 4.5</td>
-					<td>이호준</td>
-					<td>2021/10/14</td>
-					<td>27</td>
-				</tr>
-				<tr>
-					<td>[인테리어] 가구조립</td>
-					<td>서울 강남</td>
-					<td>장덕수</td>
-					<td>★ 4.0</td>
-					<td>성기훈</td>
-					<td>2021/10/14</td>
-					<td>31</td>
-				</tr>
+				<c:forEach var="reviewList" items="${reviewList}">
+					<tr>
+					<td>${reviewList.field}</td>
+					<td>${reviewList.oldAddress}</td>
+					<td>${reviewList.company}</td>
+					<td>★ ${reviewList.score}</td>
+					<td>${reviewList.nickname}</td>
+					<td>${reviewList.reviewDate}</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 

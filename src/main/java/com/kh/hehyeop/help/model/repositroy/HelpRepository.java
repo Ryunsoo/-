@@ -44,7 +44,6 @@ public interface HelpRepository {
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
 	String selectCompanyByResIdx(HelpMatch match);
 	
-	
 	@Select("select * from v_review")
 	List<Review> selectReviewList();
 

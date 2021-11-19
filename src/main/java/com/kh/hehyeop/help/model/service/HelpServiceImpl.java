@@ -141,7 +141,15 @@ public class HelpServiceImpl implements HelpService{
 		return null;
 	}
 	public List<Review> selectReviewList() {
-		return helpRepository.selectReviewList();
+		AddressUtil util = new AddressUtil();
+		List<Review> reviewList = helpRepository.selectReviewList();
+		
+		for (Review review : reviewList) {
+			review.setField(Field.getField(review.getField()).fullName);
+			review.setOldAddress(util.getDoSiAddress(review.getOldAddress()));
+		}
+
+		return reviewList;
 	}
 
 }
