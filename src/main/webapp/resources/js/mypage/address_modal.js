@@ -31,15 +31,20 @@ let createAddressFirstModal = () => {
        
        locationClick();
        
-       createAddressFirstModalGuArr();
   }
   
 			
 			
 let createAddressFirstModalGuArr = () => {
 	
-	let guDiv = $('<div>').addClass('gu_div');
-   $('.address_modal_content').append(guDiv);
+	if(document.querySelector('.gu_div') !== null){
+		$('.gu_div').remove();
+	}
+	 
+	guDiv = $('<div>').addClass('gu_div');
+	$('.address_modal_content').append(guDiv);		
+	
+
    
    for(let i = 0; i < guArr.length; i++) {
       let guTextDiv = $('<div>').addClass('gu_text');
@@ -130,9 +135,11 @@ let locationFetchCityList = (majorKey) => {
 		  for(let i=0; i<locationData.length; i++){
 				guArr.push(locationData[i].city);
 			}
+			
+		  createAddressFirstModalGuArr();
+		  	
 	  });
 }
-
 
 
 let locationCityClick = () => {

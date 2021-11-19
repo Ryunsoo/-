@@ -62,5 +62,8 @@ public interface MypageRepository {
    
    @Select("select distinct town from location where city = #{city} order by town")
    List<Location> selectLocationTownList(Location location);
+
+   @Select("select field from company_field where id = #{id}")
+   List<String> selectField(String id);
    
 }

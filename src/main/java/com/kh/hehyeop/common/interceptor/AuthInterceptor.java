@@ -81,7 +81,12 @@ public class AuthInterceptor implements HandlerInterceptor{
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
 			}
 			break;
-
+			
+		case "mypage-company":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}
+			break;
 		default:
 			break;
 		}

@@ -34,10 +34,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.member.model.service.MemberService;
-import com.kh.hehyeop.member.validator.JoinFormValidator;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
@@ -46,7 +46,6 @@ import com.kh.hehyeop.mypage.validator.JoinForm;
 import com.kh.hehyeop.mypage.validator.MypageValidator;
 
 import lombok.RequiredArgsConstructor;
-import oracle.net.aso.h;
 
 @Controller
 @RequestMapping("mypage")
@@ -80,6 +79,18 @@ public class MypageController {
 		
 		logger.debug("------------------친구야 돌고있니 : " + friendList);
 		
+		
+	}
+	
+	@GetMapping("mypage-company")
+	public void mypageCompany(HttpSession session) { 
+		
+		CMember authCMember = (CMember) session.getAttribute("authentication");
+		Wallet userWallet = mypageService.selectWallet(authCMember.getId());
+		List<String> myField = mypageService.selectField(authCMember.getId());
+		
+		session.setAttribute("walletInfo", userWallet);
+		session.setAttribute("myField", myField);
 		
 	}
 	
@@ -271,9 +282,6 @@ public class MypageController {
 	
 	
 	
-	@GetMapping("mypage-company")
-	public void mypageCompany() { }
-	
 	@GetMapping("email-check")
 	@ResponseBody
 	public String emailCheck(String email) {
@@ -306,6 +314,8 @@ public class MypageController {
 		model.addAttribute("error", vr.getError());
 		logger.debug("------------에러야 있니 : " + errors.toString());
 		if (!errors.hasErrors()) {
+			AddressUtil autil = new AddressUtil();
+			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
 			mypageService.updateInfo(form);
 			System.out.println("member 바꼈냐");
 			session.removeAttribute("authentication");

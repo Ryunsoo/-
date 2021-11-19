@@ -125,6 +125,11 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 
+	@Override
+	public List<String> selectField(String id) {
+		return mypageRepository.selectField(id);
+	}
+
 
 
 	

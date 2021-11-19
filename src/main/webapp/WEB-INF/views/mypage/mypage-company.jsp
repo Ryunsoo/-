@@ -5,8 +5,8 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link href="../../../resources/css/mypage/mypage_company_css.css" type="text/css" rel="stylesheet">
-<link href="../../../resources/css/mypage/bootstrap.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/mypage/modal.css" type="text/css" rel="stylesheet">
+<link href="../../../resources/css/mypage/bootstrap.css" type="text/css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.js" integrity="sha512-SuXpPdajLF/GkLBHndpO/A05M1yY4UXJjeeYSbuXRat6E2AUmnG5CVQ0xPtI7IxfXjRmAHoOuOsCqd8yoPup+g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.js" integrity="sha512-11Z4MD9csmC3vH8Vd0eIPJBQu3uEHEqeznWEt3sLBCdQx3zm9mJbBcJH8WTcyGY9EXDE81BNpjE2vLosPK8cFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="../../../resources/css/reset.css" type="text/css" rel="stylesheet">
@@ -14,6 +14,40 @@
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#normal {
+	font-weight: bolder;
+	color: black;
+	margin-left: 30px;
+}
+
+#bronze {
+	font-weight: bolder;
+	color: bronze;
+	margin-left: 30px;
+}
+
+#silver {
+	font-weight: bolder;
+	color: silver;
+	margin-left: 30px;
+}
+
+#gold {
+	font-weight: bolder;
+	color: gold;
+	margin-left: 30px;
+}
+
+#dia {
+	font-weight: bolder;
+	color: blue;
+	margin-left: 30px;
+}
+
+
+
+</style>
 </head>
 <body>
 <div id='modal'></div>
@@ -44,7 +78,7 @@
 			<div class="myinfo">
 				<div id="name">
 					<div id="nameicon"><i class="far fa-user"></i></div>
-					<div id="user_name">권구현님&nbsp(GuHyun)</div>
+					<div id="user_name">${authentication.name} 님</div>
 					<div class="btn-info_wrap">
 						<button type="button" class="btn btn-info open" id="myInfo_btn">내정보&nbsp<i class="fas fa-chevron-down"></i></button>
 						<button type="button" class="btn btn-info hidden" id="modifyInfo_btn" style="background-color: rgb(246, 199, 124); ">정보수정</button>
@@ -54,7 +88,23 @@
 					<div><button type="button" class="btn btn-info" id="namebtn2" onclick="changeNomal()">일반전환</button></div>
 				</div>
 				<div id="grade">
-					<div id="gold">GOLD</div>
+					<c:choose>
+						<c:when test="${authentication.grade eq 'NORMAL'}">
+							<div id="normal">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'BRONZE'}">
+							<div id="bronze">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'SILVER'}">
+							<div id="silver">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'GOLD'}">
+							<div id="gold">${authentication.grade}</div>
+						</c:when>
+						<c:when test="${authentication.grade eq 'DIA'}">
+							<div id="dia">${authentication.grade}</div>
+						</c:when>
+					</c:choose>
 					<div id="gradetext">회원</div>
 					<div id="gradeicon" type="button">
 						<i class="fas fa-question-circle"></i>
@@ -105,7 +155,7 @@
 						<div id="cashicon"><i class="fas fa-dollar-sign"></i></div>
 						<div>
 							<div id="sky">현재 보유 캐시</div>
-							<div id="basic">25,000</div>
+							<div id="basic">${walletInfo.cash}</div>
 						</div>
 					</div>
 					<div id="lock_con">
@@ -122,7 +172,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="basic">13,000</div>
+							<div id="basic">${walletInfo.cashLock}</div>
 						</div>
 					</div>
 				</div>
@@ -137,7 +187,14 @@
 							<div class="accountbtntext" id="empty">충전하기</div>
 						</div>
 						<div id="send">
-							<div id="minusicon" type="button" onclick="beforeSendModal()"><i class="far fa-minus-square"></i></div>
+							<div id="minusicon" type="button" <c:choose>
+								<c:when test="${not empty walletInfo.bank}">
+									onclick="createChargingModal()"
+								</c:when>
+								<c:otherwise>
+									onclick="beforeSendModal()"
+								</c:otherwise>
+							</c:choose>><i class="far fa-minus-square"></i></div>
 							<div class="accountbtntext" id="basic">송금하기</div>
 						</div>
 					</div>
@@ -171,7 +228,7 @@
 						<div id="townlist_con">
 							<div id="list_wrap">
 								<div id="listidx">1</div>
-								<div id="listbody"><div id="address">성남시 중원구 성남동</div></div>
+								<div id="listbody"><div id="address">${authentication.oldAddress}</div></div>
 								<div id="empty" type="button"><i class="fas fa-times-circle"></i></div>
 							</div>
 						</div>	
@@ -203,30 +260,11 @@
 								<div id="basic">my전문분야</div>
 							</div>
 							<div id="specialty_body">
+							<c:forEach items="${myField}" var="mf">
 								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">도배</button>
+									<button type="button" id="specialty_item" class="btn btn-info">${mf}</button>
 								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">타일</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">페인트</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">욕실</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">욕실</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">욕실</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">욕실</button>
-								</div>
-								<div id="item_wrap">
-									<button type="button" id="specialty_item" class="btn btn-info">욕실</button>
-								</div>
+							</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -431,6 +469,7 @@ let changeNomal = () => {
         	bg.classList.add("hidden");
         	delete_user.classList.add("hidden");
         });	
+       
         
 </script>
 </body>

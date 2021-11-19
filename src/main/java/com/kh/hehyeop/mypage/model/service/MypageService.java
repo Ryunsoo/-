@@ -25,7 +25,8 @@ public interface MypageService {
 	void updateCash(Wallet wallet);
 	List<Friend> selectFriend(String id);
 	void updateMemo(String id, String friendId, String memo);
-	
+	List<String> selectField(String id);
+
 	
 	
 }

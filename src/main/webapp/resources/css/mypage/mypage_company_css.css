@@ -869,8 +869,10 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	overflow: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
+
 
 #item_wrap {
 	width: 50%;
@@ -885,7 +887,11 @@ html, body {
 	height: 70%;
 	border-radius: 20px;
 	box-shadow: 3px 3px 3px lightgray;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
+
 
 #tagicon {
 	font-size: 20px;

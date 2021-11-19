@@ -1,11 +1,5 @@
-body{
- -ms-overflow-style: none;
-  margin: 0;
- }
- 
-::-webkit-scrollbar {
-  display: none;
-}
+
+
 
 div {
 	animation-duration: 1s;
