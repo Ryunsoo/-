@@ -82,6 +82,9 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
+						<input type="hidden" class="reqIdx" value="${help.reqIdx}">
+						<input type="hidden" class="state" value="${help.state}">
+						<input type="hidden" class="ongoing" value="${help.ongoing}">
 					</tr>
 				</c:forEach>
 			</table>	
