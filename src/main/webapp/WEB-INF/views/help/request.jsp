@@ -8,6 +8,12 @@
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
+<style type="text/css">
+#valid-msg {
+	color: red;
+   	font-size: 15px;
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -20,7 +26,7 @@
 		</div>
 
 		<div class="title">해협 신청서</div>
-		<form action="${contextPath}/help/uploadRequest" method="post" enctype="multipart/form-data">
+		<form:form modelAttribute="requestForm" action="${contextPath}/help/uploadRequest" method="post" enctype="multipart/form-data">
 		<div class="left_page">
 			<div class='content_left'>
 				<div class='file_img'>
@@ -42,30 +48,42 @@
 				<div class="text-input">
 					<input type="text" name="reqName" placeholder="이름을 입력해주세요.">
 				</div>
-			</div>	
+			</div>
 			<div class="text-area">
 				<div class="text-title">*연락처</div>
 				<div class="text-input">
 					<input type="text" name="reqTell" placeholder="연락처를 입력해주세요.">
 				</div>
+				<form:errors path="reqTell" cssClass="valid-msg" id="valid-msg"/>
 			</div>	
 			<div class="text-area">
-				<div class="text-title">*주  소</div>
+				<div id="address_wrap">
+					<div class="text-title">*주소</div>
+					<div style="cursor: pointer;" class="button_adress_check" onclick="searchAddr()">주소 찾기</div>
+				</div>
 				<div class="text-input">
-					<input type="text" name="reqAddress" placeholder="회원테이블에 등록된 주소 불러오기?">
+					<input type="text" id="form-address" name="reqAddress" 
+					placeholder="도로명주소" readonly required autocomplete="off" />
+				</div>
+				<div class="text-input">
+					<input type="text" id="form-detailAddress" name="detailAddress" 
+					placeholder="상세주소" required autocomplete="off"/>
+					<input type="hidden" id="form-oldAddress" name="oldAddress" 
+					placeholder="지번주소" readonly required autocomplete="off"/>
 				</div>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*방문시간</div>
 				<div class="text-input">
-					<input type="datetime-local" name="reqTime">
+					<input type="datetime-local" id="dateTimeLocal" name="reqTime" onchange="setMinValue()">
 				</div>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*희망금액</div>
 				<div class="text-input">
-					<input type="text" name="reqPay" placeholder="희망금액을 입력해주세요.">
+					<input type="number" name="reqPay" placeholder="희망금액을 입력해주세요.">
 				</div>
+				<form:errors path="reqPay" cssClass="valid-msg"/>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*요청사항</div>
@@ -78,10 +96,60 @@
 				<button>신청서 제출</button>
 			</div>
 		</div>
-		</form>
+		</form:form >
 	</div>
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+	<script>
+        let dateElement = document.getElementById('dateTimeLocal');
+        let plus3time = new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000 * 4/3));
+        let date = plus3time.toISOString().slice(0, -8);
+        console.dir("plus3time.toISOString() : "+plus3time.toISOString());
+        console.dir("date : " + date);
+        dateElement.value = date;
+        dateElement.setAttribute("min", date);
+        function setMinValue() {
+            if(dateElement.value < date) {
+                alert('현재 시간보다 이전의 날짜는 설정할 수 없습니다.');
+                dateElement.value = date;
+            }
+        }
+        
+        function searchAddr(){
+        	
+        	new daum.Postcode({
+                oncomplete: function(data) {
+                	var roadAddr = data.roadAddress; // 도로명 주소 변수
+                    var jibunAddr = data.jibunAddress; // 참고 항목 변수
+        			
+                    if (jibunAddr == ""){
+                    	alert("(구)주소를 다시 선택해주세요");
+                    	return;
+                    }
+                    
+        			let newJibunAddr;
+                    
+                    //시도가 세종특별자치시 이거나 제주특별자치도일 경우 '세종', '제주' 로 바꿔준다.
+                    if(data.sido == '세종특별자치시') {
+                    	newJibunAddr = jibunAddr.replace('세종특별자치시', '세종');
+                    }else if(data.sido == '제주특별자치도') {
+                    	newJibunAddr = jibunAddr.replace('제주특별자치도', '제주');
+                    }else {
+                    	newJibunAddr = jibunAddr;
+                    }  
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById("form-address").value = roadAddr;
+                    document.getElementById("form-oldAddress").value = newJibunAddr;
+
+                }
+                   
+            }).open();
+        	
+        }
+    </script>
 </body>
+
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 <script type="text/javascript" src="../../../resources/js/common/file-upload-viewer.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>

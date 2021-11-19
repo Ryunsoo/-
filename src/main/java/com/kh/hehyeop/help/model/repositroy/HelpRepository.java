@@ -17,8 +17,8 @@ public interface HelpRepository {
 			+ "values(sc_request_idx.nextval, #{id}, #{reqName}, #{reqTell}, #{reqAddress}, #{oldAddress}, #{reqTime}, #{reqPay}, #{reqContent}, #{field})")
 	int insertRequest(HelpRequest helpRequest);
 
-	@Select("select req_idx from help_request where id = #{id}")
-	String selectReqIdx(String id);
+	@Select("select req_idx from help_request where id = #{id} and req_name = #{reqName} and req_time=#{reqTime}")
+	String selectReqIdx(HelpRequest helpRequest);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
 			+ "values(sc_file_idx.nextval, 'MEMBER', #{originName}, #{reName}, #{savePath}, #{typeIdx})")

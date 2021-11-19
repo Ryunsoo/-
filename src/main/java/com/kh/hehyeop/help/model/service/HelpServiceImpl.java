@@ -35,8 +35,8 @@ public class HelpServiceImpl implements HelpService{
 	}
 
 	@Override
-	public String selectReqIdx(String id) {
-		return helpRepository.selectReqIdx(id);
+	public String selectReqIdx(HelpRequest helpRequest) {
+		return helpRepository.selectReqIdx(helpRequest);
 	}
 
 	@Override

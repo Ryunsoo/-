@@ -13,7 +13,7 @@ public interface HelpService {
 
 	int insertRequest(HelpRequest helpRequest);
 
-	String selectReqIdx(String id);
+	String selectReqIdx(HelpRequest helpRequest);
 
 	int uploadFile(List<MultipartFile> files, String reqIdx);
 
