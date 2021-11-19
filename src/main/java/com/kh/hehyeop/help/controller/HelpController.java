@@ -56,15 +56,9 @@ public class HelpController {
 	
 	@GetMapping("my-hehyeop")
 	public void myHehyeop(HttpSession session, Model model) {
-		AddressUtil util = new AddressUtil();
 		Member member = (Member) session.getAttribute("authentication");
-		//회원가입시 주소가 util 사용으로 바뀌면 그냥 jsp에서 oldAddress 가져오는 걸로 바꾸기
-		String trimAddress = util.trimOldAddress(member.getOldAddress());
-		System.out.println("trimAddress : " + trimAddress);
-		
 		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
-		
-		model.addAttribute("trimAddress", trimAddress);
+		model.addAttribute("helpList", helpList);
 	}
 	
 	@GetMapping("review")

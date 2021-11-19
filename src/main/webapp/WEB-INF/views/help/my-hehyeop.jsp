@@ -31,7 +31,7 @@
 				</div>
 				<div class="info_line"></div>
 				<div class="region">
-					<div class="info_title">지역</div><div class="info_body">${trimAddress}</div>
+					<div class="info_title">지역</div><div class="info_body">${authentication.oldAddress}</div>
 				</div>
 			</div>		
 		</div>

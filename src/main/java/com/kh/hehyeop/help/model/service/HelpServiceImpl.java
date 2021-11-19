@@ -59,11 +59,14 @@ public class HelpServiceImpl implements HelpService{
 
 	@Override
 	public List<MyHehyeop> getHelpRequestList(String id) {
-		AddressUtil util = new AddressUtil();
-		List<MyHehyeop> resList = new ArrayList<MyHehyeop>();
-		
 		//사용자의 모든 해협을 조회해온다.
 		List<HelpRequest> helpList = helpRepository.selectHelpRequestById(id);
+		return getMyHehyeopList(helpList);
+	}
+	
+	private List<MyHehyeop> getMyHehyeopList(List<HelpRequest> helpList) {
+		AddressUtil util = new AddressUtil();
+		List<MyHehyeop> resList = new ArrayList<MyHehyeop>();
 		
 		//조건에 따라 hehyeop dto를 생성해 list에 답아준다.
 		for (HelpRequest req : helpList) {
@@ -71,12 +74,11 @@ public class HelpServiceImpl implements HelpService{
 			my.setReqIdx(req.getReqIdx());
 			my.setField(Field.getField(req.getField()).fullName);
 			my.setArea(util.getDoSiAddress(req.getOldAddress()));
-			System.out.println("dosi가 어떻게 나올까? : " + util.getDoSiAddress(req.getOldAddress()));
 			my.setRegDate(req.getRegDate());
 			my = setListDate(req, my);
 			resList.add(my);
 		}
-		
+		System.out.println(resList);
 		return resList;
 	}
 
@@ -88,6 +90,7 @@ public class HelpServiceImpl implements HelpService{
 		//진행 여부가 0(대기중)이면 state 1로 지정
 		if(reqOngoing == 0) {
 			my.setState(1);
+			my.setOngoing("대기중");
 			return my;
 		}
 		
@@ -96,7 +99,6 @@ public class HelpServiceImpl implements HelpService{
 		//매치테이블에서 결제 상태 가져와서 payMeans 넣어주기
 		HelpMatch match = helpRepository.selectHelpMatchByReqIdx(req);
 		int matchOnging = match.getOngoing();
-		System.out.println("score가 어떻게 나올까? : " + match.getScore());
 		my.setCompany(helpRepository.selectCompanyByResIdx(match));
 		if(match.getPayStatus() == 2) {
 			my.setPayMeans("현장");
@@ -108,6 +110,7 @@ public class HelpServiceImpl implements HelpService{
 		//완료/취소 버튼 -> state 2
 		if(reqOngoing == 1) {
 			my.setState(2);
+			my.setOngoing("진행중");
 			return my;
 		}
 		
@@ -119,26 +122,38 @@ public class HelpServiceImpl implements HelpService{
 		//		* 매치테이블의 score가 있으면 score에 저장 -> state 5
 		//	 3(취소) 일때는 재선택 버튼 -> state 2
 		if(reqOngoing == 2) {
-			
 			if(matchOnging == 1) {
 				my.setState(3);
 			}else if(matchOnging == 2) {
 				if(match.getScore() == 0) {
-					
+					my.setState(4);
+				}else {
+					my.setScore(match.getScore());
+					my.setState(5);
 				}
-				
+			}else {
+				my.setState(2);
 			}
+			my.setOngoing("완료");
+			return my;
 		}
-		
 		
 		//진행여부가 3(취소)일때
 		//매치테이블의 진행여부가
 		//	 1(진행중) 일때는 취소대기중 -> state 6
 		//	 2(완료) 일때는 재선택 버튼 -> state 2
 		//	 3(취소) 일때는 취소 -> state 7
-		
-		
-		return null;
+		if(reqOngoing == 3) {
+			if(matchOnging == 1) {
+				my.setState(6);
+			}else if(matchOnging == 2) {
+				my.setState(2);
+			}else {
+				my.setState(7);
+			}
+			my.setOngoing("취소");
+		}
+		return my;
 	}
 	public List<Review> selectReviewList() {
 		AddressUtil util = new AddressUtil();

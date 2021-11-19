@@ -14,6 +14,7 @@ public class MyHehyeop {
 	private int estimateCnt;
 	private String company;
 	private String payMeans;
-	private int score;
+	private double score;
 	private int state;
+	private String ongoing;
 }

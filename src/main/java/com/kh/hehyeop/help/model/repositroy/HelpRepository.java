@@ -38,7 +38,7 @@ public interface HelpRepository {
 	@Select("select count(*) from help_response where req_idx = #{reqIdx}")
 	int selectHelpResponseCntByReqIdx(HelpRequest req);
 
-	@Select("select * from help_match where req_idx = ${req_idx}")
+	@Select("select * from help_match where req_idx = ${reqIdx}")
 	HelpMatch selectHelpMatchByReqIdx(HelpRequest req);
 
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
