@@ -581,6 +581,27 @@ html, body {
 	margin-left: 10px;
 }
 
+.send{
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.chargeMoney{
+	font-size: 17px;
+	margin-right: 250px;
+}
+
+.chargeMoney>input{
+	width:350px;
+	height:40px;
+	font-size: 15px;
+	border: solid thin lightgray;
+	border-radius: 5px;
+	margin-left: 30px;
+	margin-top: 5px
+}
+
 .accountbtntext {
 	margin-left: 10px;
 }

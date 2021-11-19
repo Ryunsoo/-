@@ -136,22 +136,39 @@ public class MypageController {
 				String bank = root.findValue("bank_name").asText();
 				String bankNum = root.findValue("account_num_masked").asText();
 				
-				Member member = (Member) session.getAttribute("authentication");
-				
 				Wallet wallet = new Wallet();
-				wallet.setId(member.getId());
-				wallet.setBank(bank);
-				wallet.setBankNum(bankNum);
-				wallet.setAuthToken(token);
-				wallet.setUserSeq(userSeq);
 				
-				mypageService.updateWalletInfo(wallet);
+				if (session.getAttribute("authentication").getClass().getSimpleName().equals("Member")){
+					Member member = (Member) session.getAttribute("authentication");
+					wallet.setId(member.getId());
+					wallet.setBank(bank);
+					wallet.setBankNum(bankNum);
+					wallet.setAuthToken(token);
+					wallet.setUserSeq(userSeq);
+					
+					mypageService.updateWalletInfo(wallet);
+					
+					return "redirect:/mypage/mypage-common";
+					
+				} else {
+					CMember member = (CMember) session.getAttribute("authentication");
+					wallet.setId(member.getId());
+					wallet.setId(member.getId());
+					wallet.setBank(bank);
+					wallet.setBankNum(bankNum);
+					wallet.setAuthToken(token);
+					wallet.setUserSeq(userSeq);
+					
+					mypageService.updateWalletInfo(wallet);
+					
+					return "redirect:/mypage/mypage-company";
+				}
 				
 			}
 			
 		}
 		
-		return "redirect:/mypage/mypage-common";
+		return null;
 		
 	}
 	
