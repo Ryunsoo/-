@@ -172,6 +172,7 @@ let locationTownClick = () => {
 }
 
 
+
 let addressSubmit = () => {
 	document.querySelector("#address-submit-button").addEventListener("click", () => {
 		fetch()
