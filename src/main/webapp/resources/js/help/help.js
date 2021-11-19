@@ -1,5 +1,7 @@
 //해협삭제(취소) 버튼
-let cancelHelp = (reqIdx) => {
+let cancelHelp = () => {
+	let reqIdx = $(this).parent().next('.reqIdx').val();
+	console.dir(reqIdx);
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal,'해협취소');
@@ -17,7 +19,9 @@ let cancelHelp = (reqIdx) => {
 	})
 }
 //최신화 버튼
-let refreshHelp = (reqIdx) => {
+let refreshHelp = () => {
+	let reqIdx = e.parent().parent().children(".reqIdx").value;
+	console.dir(reqIdx);
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal,'해협끌올');

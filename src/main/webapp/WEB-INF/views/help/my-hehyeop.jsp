@@ -58,8 +58,8 @@
                   <td>
                      <c:choose>
                         <c:when test="${help.state == 1}">
-                           <button class="list_btn" id="cancel_help">삭제</button>
-                           <button class="list_btn" id="refresh">끌올</button>
+                           <button class="list_btn_red" id="cancel_help" onclick="cancelHelp(this)">삭제</button>
+                           <button class="list_btn_green" id="refresh" onclick="refreshHelp(this)">끌올</button>
                         </c:when>
                         <c:when test="${help.state == 2}">
                            <button class="list_btn" id="">완료</button>
@@ -82,9 +82,9 @@
                         </c:otherwise>
                      </c:choose>
                   </td>
-                  <input type="hidden" class="reqIdx" value="${help.reqIdx}">
                   <input type="hidden" class="state" value="${help.state}">
                   <input type="hidden" class="ongoing" value="${help.ongoing}">
+                  <input type="hidden" class="reqIdx" value="${help.reqIdx}">
                </tr>
             </c:forEach>
          </table>   
@@ -104,6 +104,7 @@
 
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+<script type="text/javascript" src="../../../resources/js/help/help.js"></script>
 <script type="text/javascript" src="../../../resources/js/help/star_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>
