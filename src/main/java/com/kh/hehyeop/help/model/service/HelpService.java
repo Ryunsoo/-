@@ -1,6 +1,7 @@
 package com.kh.hehyeop.help.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -40,5 +41,7 @@ public interface HelpService {
 	String getHelpIdx(String reqIdx);
 
 	int registReview(String helpIdx, String score, String[] commentArr);
+
+	Map<String, Object> selectHehyeopDetail(String reqIdx);
 
 }

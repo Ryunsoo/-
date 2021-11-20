@@ -22,38 +22,38 @@
 		<div class="detail-text-area">
 			<div class="detail-text-title">*성 함</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" placeholder="이호준">
+				<input type="text" disabled="disabled" value="${helpRequest.reqName}">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*연락처</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" placeholder="01099991111">
+				<input type="text" disabled="disabled" value="${helpRequest.reqTell}">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*주 소</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" placeholder="구구구구구현현혆녀">
+				<input type="text" disabled="disabled" value="${helpRequest.reqAddress}">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*방문시간</div>
 			<div class="detail-text-input">
 				<input type="text" disabled="disabled"
-					placeholder="2021-12-02 오전 00:00">
+					value="${helpRequest.reqTime}">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*희망금액</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" placeholder="100,000,000">
+				<input type="text" disabled="disabled" value="${helpRequest.reqPay}">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*요청사항</div>
 			<div class="detail-text-input">
-				<textarea style="resize: none;" disabled="disabled" placeholder="~"></textarea>
+				<textarea style="resize: none;" disabled="disabled" value="${helpRequest.reqContent}"></textarea>
 			</div>
 		</div>
 	</div>

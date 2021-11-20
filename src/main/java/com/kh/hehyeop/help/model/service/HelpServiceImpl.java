@@ -2,12 +2,14 @@ package com.kh.hehyeop.help.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -202,9 +204,20 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public int registReview(String helpIdx, String score, String[] commentArr) {
 		double sc = Double.parseDouble(score);
-		helpRepository.insertReviewToHelpMatch(helpIdx,sc);
-		//helpRepository.uploadReview(helpIdx,score,comment);
-		return 0;
+		int res1 = helpRepository.insertReviewToHelpMatch(helpIdx,sc);
+		int res2 = 0;
+		for (String comment : commentArr) {
+			helpRepository.insertReviewToHelpReview(helpIdx,comment);
+			res2++;
+		}
+		return res1+res2;
+	}
+
+	@Override
+	public Map<String, Object> selectHehyeopDetail(String reqIdx) {
+		HelpRequest helpRequest = helpRepository.selectHelpRequest(reqIdx);
+		List<FileDTO> files = helpRepository.selectFiles(reqIdx);
+		return Map.of("helpRequest",helpRequest,"files",files);
 	}
 
 }

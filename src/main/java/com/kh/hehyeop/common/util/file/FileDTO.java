@@ -2,6 +2,8 @@ package com.kh.hehyeop.common.util.file;
 
 import java.util.Date;
 
+import com.kh.hehyeop.common.code.Config;
+
 public class FileDTO {
 
 	private String fileIdx;
@@ -77,6 +79,10 @@ public class FileDTO {
 		this.typeIdx = typeIdx;
 	}
 
+	public String getLink() {
+	      return Config.DOMAIN.DESC + "/file/" + savePath + reName;
+	   }
+	
 	@Override
 	public String toString() {
 		return "FileDTO [fileIdx=" + fileIdx + ", fileCategory=" + fileCategory + ", originName=" + originName

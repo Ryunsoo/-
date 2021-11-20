@@ -249,8 +249,8 @@ public class HelpController {
 			commentArr[i] = tempArr[i+1];
 		}
 		System.out.println(Arrays.toString(commentArr));
-		int res = helpService.registReview(helpIdx,score, commentArr); 
-		if(res == 1) {
+		int res = helpService.registReview(helpIdx,score,commentArr); 
+		if(res == 3) {
 			redirectAttr.addFlashAttribute("msg","리뷰등록 완료"); 
 		} else {
 			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요."); 
@@ -259,4 +259,9 @@ public class HelpController {
 		return "redirect:/help/my-hehyeop";
 	}
 	
+	@GetMapping("my-hehyeop-detail")
+	public void myHehyeopDetail(Model model, String reqIdx) {
+		Map<String,Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
+		model.addAllAttributes(commandMap);
+	}
 }

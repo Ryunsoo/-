@@ -69,7 +69,16 @@ public interface HelpRepository {
 	String selectHelpIdx(String reqIdx);
 
 	@Insert("insert into help_match(score) values(#{sc}) where help_idx = #{helpIdx}")
-	void insertReviewToHelpMatch(String helpIdx, Double sc);
+	int insertReviewToHelpMatch(String helpIdx, Double sc);
+
+	@Insert("insert into help_review(help_idx, re_content) values(#{helpIdx}, #{comment}")
+	void insertReviewToHelpReview(String helpIdx, String comment);
+
+	@Select("select * from help_request where req_idx = #{reqIdx}")
+	HelpRequest selectHelpRequest(String reqIdx);
+	
+	@Select("select * from file_info where type_idx = #{reqIdx}")
+	List<FileDTO> selectFiles(String reqIdx);
 
 
 
