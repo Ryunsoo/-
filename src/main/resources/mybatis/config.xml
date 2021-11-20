@@ -11,11 +11,14 @@
   	<typeAliases>
   		<typeAlias alias="Member" type="com.kh.hehyeop.member.model.dto.Member"/>
   		<typeAlias alias="Token" type="com.kh.hehyeop.mypage.model.dto.Token"/>
+  		<typeAlias alias="Review" type="com.kh.hehyeop.help.model.dto.Review"/>
+  		<typeAlias alias="Paging" type="com.kh.hehyeop.common.util.paging.Paging"/>
   	</typeAliases>
   	
   	<mappers>
   		<mapper resource="mybatis/mapper/mybatisMapper.xml"/>
   		<mapper resource="mybatis/mapper/mypageMapper.xml"/>
+  		<mapper resource="mybatis/mapper/helpMapper.xml"/>
   	</mappers>
 
   </configuration>

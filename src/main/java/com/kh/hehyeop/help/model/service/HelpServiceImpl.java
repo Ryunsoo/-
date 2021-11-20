@@ -159,9 +159,9 @@ public class HelpServiceImpl implements HelpService{
 		return my;
 	}
 	
-	public List<Review> selectReviewList(Paging paging) {
+	public List<Review> selectReviewList(Paging paging, String field) {
 		AddressUtil util = new AddressUtil();
-		List<Review> reviewList = helpRepository.selectReviewList(paging);
+		List<Review> reviewList = helpRepository.selectReviewList(paging, field);
 		
 		for (Review review : reviewList) {
 			review.setField(Field.getField(review.getField()).fullName);
@@ -182,8 +182,8 @@ public class HelpServiceImpl implements HelpService{
 	}
 
 	@Override
-	public int countReview() {
-		return helpRepository.countReview();
+	public int countReview(String field) {
+		return helpRepository.countReview(field);
 	}
 	
 	@Override	

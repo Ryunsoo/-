@@ -19,7 +19,7 @@ public class HelpTest {
 	
 	@Test
 	public void test() {
-		System.out.println(Field.getFieldFullNameList());
+		System.out.println(Field.getFieldList());
 	}
 	
 }

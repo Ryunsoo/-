@@ -2,7 +2,11 @@ package com.kh.hehyeop.common.code;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.kh.hehyeop.company.model.dto.ProField;
 
 public enum Field {
 
@@ -40,12 +44,16 @@ public enum Field {
 		return null;
 	}
 	
-	public static List<String> getFieldFullNameList() {
-		List<String> list = new ArrayList<String>();
+	public static List<Map<String, String>> getFieldList() {
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
 		EnumSet<Field> fieldSet = EnumSet.allOf(Field.class);
 		for (Field field : fieldSet) {
-			list.add(field.fullName);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("field", field.field);
+			map.put("fullName", field.fullName);
+			list.add(map);
 		}
+		
 		return list;
 	}
 }

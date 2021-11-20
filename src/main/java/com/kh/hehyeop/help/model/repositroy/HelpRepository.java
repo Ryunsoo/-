@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -47,8 +48,7 @@ public interface HelpRepository {
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
 	String selectCompanyByResIdx(HelpMatch match);
 	
-	@Select("select * from (select rownum rnum, v.* from v_review v) where rnum between #{start} and #{end}")
-	List<Review> selectReviewList(Paging paging);
+	List<Review> selectReviewList(@Param("paging")Paging paging, @Param("field") String field);
 
 	@Delete("delete from help_request where req_idx = #{reqIdx}")
 	int deleteRequest(String reqIdx);
@@ -56,8 +56,7 @@ public interface HelpRepository {
 	@Update("update help_request set reg_date = current_date where req_idx = #{reqIdx}")
 	int updateRegDate(String reqIdx);
 
-	@Select("select count(*) from v_review")
-	int countReview();
+	int countReview(@Param("field") String field);
 
 	@Update("update help_request set ongoing = 3 where req_idx = #{reqIdx}")
 	int cancelRegDate(String reqIdx);

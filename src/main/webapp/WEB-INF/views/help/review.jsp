@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link href="../../../resources/css/help/review.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
@@ -14,9 +15,19 @@
 		<div class="page_name">리뷰해협</div>
 
 		<div class="toggle_area">
-			<input type="checkbox" id="toggle" class="toggle"> <label
-				for="toggle" class="toggle_btn"> <span class="toggle_switch"></span>
+			<c:if test="${myArea eq 'on'}">
+				<input type="checkbox" id="toggle" class="toggle" onchange="myArea()" checked="checked"> 
+					<label for="toggle" class="toggle_btn" > 
+				<span class="toggle_switch"></span>
 			</label>
+			</c:if>
+			<c:if test="${myArea eq 'off'}">
+				<input type="checkbox" id="toggle" class="toggle" onchange="myArea()"> 
+					<label for="toggle" class="toggle_btn" > 
+				<span class="toggle_switch"></span>
+			</label>
+			</c:if>
+			
 		</div>
 		<div class="toggle_name">우리 동네만</div>
 
@@ -25,10 +36,10 @@
 				<thead>
 				<tr>
 					<th class="fieldList">
-						<select class="filter" name="nation">
-								<option>전체</option>
+						<select class="filter" name="nation" onchange="fieldFiltering()">
+								<option value="all">전체</option>
 							<c:forEach var="fieldList" items="${fieldList}">
-								<option>${fieldList}</option>
+								<option value="${fieldList.field}">${fieldList.fullName}</option>
 							</c:forEach>	
 						</select>
 					</th>
@@ -52,22 +63,24 @@
 			</table>
 		</div>
 		
-		<div class="paging" style="display: block; text-align: center;">		
+		<div class="pg_wrap" style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/help/review?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a class="pg_start" href="/help/review?nowPage=1&cntPerPage=${paging.cntPerPage}&field=${filter}">&lt;&lt;</a>
+			<a class="pg_prev" href="/help/review?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&field=${filter}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
 				<c:when test="${p == paging.nowPage }">
-					<b>${p }</b>
+					<a class="pg_current">${p }</a>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/help/review?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+					<a class="pg_page" href="/help/review?nowPage=${p }&cntPerPage=${paging.cntPerPage}&field=${filter}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/help/review?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a class="pg_next" href="/help/review?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&field=${filter}">&gt;</a>
+			<a class="pg_end" href="/help/review?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&field=${filter}">&gt;&gt;</a>
 		</c:if>
 	</div>
 
@@ -75,4 +88,16 @@
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+<script type="text/javascript">
+function fieldFiltering() {
+	let field = $('.filter').val();
+	location.href='/help/review?field=' + field;
+} 
+
+function myArea() {
+	let AreaOn = document.querySelector('.toggle').checked;
+	location.href='/help/review?myArea=' + AreaOn; 
+}
+
+</script>
 </html>

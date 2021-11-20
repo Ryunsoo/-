@@ -26,13 +26,11 @@ public interface HelpService {
 
 	List<MyHehyeop> getHelpRequestList(String id);
 	
-	List<Review> selectReviewList(Paging paging);
+	List<Review> selectReviewList(Paging paging, String field);
 
 	int deleteRequest(String reqIdx);
 
 	int refreshRequest(String reqIdx);
-
-	int countReview();
 
 	int cancelRequest(String reqIdx);
 
@@ -44,4 +42,5 @@ public interface HelpService {
 
 	Map<String, Object> selectHehyeopDetail(String reqIdx);
 
+	int countReview(String field);
 }
