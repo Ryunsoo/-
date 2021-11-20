@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -46,14 +47,17 @@ public interface HelpRepository {
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
 	String selectCompanyByResIdx(HelpMatch match);
 	
-	@Select("select * from v_review")
-	List<Review> selectReviewList();
+	@Select("select * from (select rownum rnum, v.* from v_review v) where rnum between #{start} and #{end}")
+	List<Review> selectReviewList(Paging paging);
 
 	@Delete("delete from help_request where req_idx = #{reqIdx}")
 	int deleteRequest(String reqIdx);
 
 	@Update("update help_request set reg_date = current_date where req_idx = #{reqIdx}")
 	int updateRegDate(String reqIdx);
+
+	@Select("select count(*) from v_review")
+	int countReview();
 
 
 	

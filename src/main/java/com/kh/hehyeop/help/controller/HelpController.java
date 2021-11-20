@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -64,12 +65,24 @@ public class HelpController {
 	}
 	
 	@GetMapping("review")
-	public void review(HttpSession session) {
-		List<Review> reviewList = helpService.selectReviewList();
-		List<String> fieldList = Field.getFieldFullNameList();
-		session.setAttribute("reviewList", reviewList);
-		session.setAttribute("fieldList", fieldList);
+	public void review(Model model, Paging paging
+						, @RequestParam(value = "nowPage", required = false)String nowPage
+						, @RequestParam(value = "cntPerPage", required = false)String cntPerPage) {
 		
+		int total = helpService.countReview();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "2";
+		} else if(nowPage == null) {
+			nowPage = "1";
+		} else if(cntPerPage == null) {
+			cntPerPage = "2";
+		}
+		
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				model.addAttribute("paging", paging);
+				model.addAttribute("reviewList", helpService.selectReviewList(paging));
+				model.addAttribute("fieldList", Field.getFieldFullNameList());	
 	}
 	
 	@InitBinder(value = "requestForm") // model의 속성 중 속성명이 joinForm인 속성이 있는 경우 initBinder 메서드 실행

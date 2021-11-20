@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.file.FileUtil;
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
@@ -156,9 +157,9 @@ public class HelpServiceImpl implements HelpService{
 		return my;
 	}
 	
-	public List<Review> selectReviewList() {
+	public List<Review> selectReviewList(Paging paging) {
 		AddressUtil util = new AddressUtil();
-		List<Review> reviewList = helpRepository.selectReviewList();
+		List<Review> reviewList = helpRepository.selectReviewList(paging);
 		
 		for (Review review : reviewList) {
 			review.setField(Field.getField(review.getField()).fullName);
@@ -176,6 +177,11 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public int refreshRequest(String reqIdx) {
 		return helpRepository.updateRegDate(reqIdx);
+	}
+
+	@Override
+	public int countReview() {
+		return helpRepository.countReview();
 	}
 
 }
