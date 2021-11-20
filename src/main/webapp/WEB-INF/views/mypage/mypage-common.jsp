@@ -260,6 +260,13 @@ function alertMessage(msg){
 	font-weight: bold;
 }
 
+.friend_btn_wrap {
+    display: flex;
+    width: 190px;
+    justify-content: space-around;
+    margin-left: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -468,7 +475,8 @@ function alertMessage(msg){
 								<div id="neighboricon">
 									<i class="fas fa-tags"></i>
 								</div>
-                              	<div id="neighborname">${fl.friendId}</div>                     
+                              	<div id="neighborname">${fl.nickname}</div>   
+                              	<div class="friend_btn_wrap">                  
 								<div>
 									<button id="memo" class="btn btn-info">메모</button>
 									<form action="/mypage/memo" method="post">
@@ -484,6 +492,7 @@ function alertMessage(msg){
 								</div>
 								<div>
 									<button type="button" id="delete" class="btn btn-secondary">삭제</button>
+								</div>
 								</div>
 							</div>	
 						</c:forEach>

@@ -29,7 +29,7 @@ function alert(msg){
 </script>
 <style type="text/css">
 .modal_left_btn {
-	margin-right: 30px;
+	margin-right: 10px;
 }
 
 .alert {

@@ -48,7 +48,7 @@ public interface MypageRepository {
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
 
-   @Select("select * from friend where id = #{id}")
+   @Select("select * from friend f join member m on f.friend_id = m.id where f.id = #{id}")
    List<Friend> selectFriend(String id);
 
    @Update("update friend set memo = #{memo} where id = #{id} and friend_id = #{friendId}")

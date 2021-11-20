@@ -7,4 +7,5 @@ public class Friend {
 	public String id;
 	public String friendId;
 	public String memo;
+	public String nickname;
 }

@@ -809,7 +809,6 @@ html, body {
 }
 
 #neighbor_wrap {
-	width: 50%;
 	height: 33%;
 	display: flex;
 	justify-content: space-between;
