@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -100,7 +102,15 @@ public class HelpController {
 		}
 		
 		if(helpList.size() == 0) {
+			Page paging = Page.builder()
+					.url("/help/help-list")
+					.blockCnt(5)
+					.cntPerPage(5)
+					.currentPage(page)
+					.total(1)
+					.build();
 			commandMap.put("noList", "noList");
+			commandMap.put("paging", paging);
 			return commandMap;
 		}
 		

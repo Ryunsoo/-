@@ -94,19 +94,19 @@ let filter = 'all';
 
 //상태 필터링
 let filtering = async () => {
+	$('.help_list').html('');
 	filter = $('.state_filter').val();
 	let datas = await filterFetch();
 	console.dir(datas);
+	renewPage(datas.paging);
+	
 	if(datas.noList) {
-		$('.help_list').html('');
 		let tr = $('<tr>');
 		tr.append($("<td colspan = '7'>조회된 해협 내역이 없습니다.</td>"));
 		$('.help_list').append(tr);
 		return;
 	}
-	
 	renewHelpList(datas.helpList);
-	renewPage(datas.paging);
 }
 
 let filterFetch = async () => {
@@ -129,15 +129,14 @@ let pageFetch = async (url) => {
 }
 
 let renewHelpList = (helpList) => {
-	$('.help_list').html('');
-	
 	helpList.forEach(help => {
 		let regDate = new Date(help.regDate);
+		regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
 		let company = help.company == null ? '' : help.company;
 		let payMeans = help.payMeans == null ? '' : help.payMeans;
 		let tr = $('<tr>');
 		tr.append($('<td>' + help.field + '</td>')).append($('<td>' + help.area + '</td>'))
-			.append($('<td>' + help.regDate + '</td>')).append($('<td>' + help.estimateCnt + '</td>'))
+			.append($('<td>' + regDate + '</td>')).append($('<td>' + help.estimateCnt + '</td>'))
 			.append($('<td>' + company + '</td>')).append($('<td>' + payMeans + '</td>'))
 			.append(getBtnTd(help))
 			.append($('<input>').addClass('reqIdx').attr('type', 'hidden').val(help.reqIdx));
@@ -171,13 +170,24 @@ let getBtnTd = (help) => {
 		default:
 			return td.html('진행 취소');
 	}
-	
-	
-	
 }
 
 let renewPage = (paging) => {
 	console.dir(paging);
+	let pageDiv = $('.page');
+	pageDiv.html('');
+	pageDiv.append($('<i>').addClass('fas fa-caret-left').attr('onclick', 'getList(' + paging.url + '?page=' + paging.prev + ')'));
+	
+	let numDiv = $('<div>');
+	
+	for(let i = paging.blockStart; i <= paging.blockEnd; i++) {
+		numDiv.append($('<span>' + i + '</span>').attr('onclick', 'getList(' + paging.url + '?page=' + i + ')'))
+	}
+	
+	pageDiv.append(numDiv)
+			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', 'getList(' + paging.url + '?page=' + paging.next + ')'));
+	
+	
 }
 
 
