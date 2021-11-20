@@ -38,8 +38,9 @@ import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
-import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Location;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -64,6 +65,7 @@ public class MypageController {
 		
 		Member authMember = (Member) session.getAttribute("authentication");
 		Wallet userWallet = mypageService.selectWallet(authMember.getId());
+		MyAddress myAddress = mypageService.getMypageAddressList(authMember.getId());
 		
 		String[] splitAddress = authMember.getOldAddress().split(" ");
 		authMember.setOldAddress(splitAddress[0] + " " + splitAddress[1] + " " + splitAddress[2]);
@@ -71,6 +73,7 @@ public class MypageController {
 		session.removeAttribute("authentication");
 		session.setAttribute("authentication", authMember);
 		session.setAttribute("walletInfo", userWallet);
+		session.setAttribute("myAddress", myAddress);
 		
 		
 		List<Friend> friendList = mypageService.selectFriend(authMember.getId());
@@ -88,10 +91,11 @@ public class MypageController {
 		CMember authCMember = (CMember) session.getAttribute("authentication");
 		Wallet userWallet = mypageService.selectWallet(authCMember.getId());
 		List<String> myField = mypageService.selectField(authCMember.getId());
+		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
 		
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
-		
+		session.setAttribute("myAddress", myAddress);
 	}
 	
 	@GetMapping("getAuth")
@@ -296,6 +300,38 @@ public class MypageController {
 		return "failed";
 		
 	}
+	
+	@GetMapping("address-update")
+	public void updateAddress(@ModelAttribute Location location
+							, HttpSession session) {
+		Member myInfo = (Member) session.getAttribute("authentication");
+		String id = myInfo.getId();
+		mypageService.updateAddress(location,id);
+	}
+	
+	@GetMapping("company-address-update")
+	public void updateCompanyAddress(@ModelAttribute Location location
+							, HttpSession session) {
+		CMember myInfo = (CMember) session.getAttribute("authentication");
+		String id = myInfo.getId();
+		mypageService.updateAddress(location,id);
+	}
+	
+	@GetMapping("address-remove")
+	public void removeAddress(HttpSession session
+							,@RequestParam String companymember
+							,@RequestParam String addressNum) {
+		
+		if(companymember.equals("y")) {
+			CMember cmember = (CMember) session.getAttribute("authentication");
+			mypageService.removeAddress(cmember.getId(), addressNum);
+		} else {
+			Member member = (Member) session.getAttribute("authentication");
+			mypageService.removeAddress(member.getId(), addressNum);
+		}
+		
+	}
+	
 	
 	
 	

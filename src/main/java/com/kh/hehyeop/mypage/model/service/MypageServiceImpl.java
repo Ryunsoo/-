@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Location;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
@@ -136,11 +137,46 @@ public class MypageServiceImpl implements MypageService{
 		return mypageRepository.selectField(id);
 	}
 
-
-
 	
 
+	@Override
+	public void updateAddress(Location location, String id) {
+		
+		String inputAddress = location.getMajorKey() + " " + location.getCity() + " " + location.getTown();
+		
+		MyAddress myAddress = mypageRepository.checkMyAddress(id);
+		
+		myAddress.setId(id);
+		
+		if(myAddress.getAddress2() == null) {
+			myAddress.setAddress2(inputAddress);
+			mypageRepository.updateAddress2(myAddress);
+			return;
+		}
+		if(myAddress.getAddress2() != null && myAddress.getAddress3() == null) {
+			myAddress.setAddress3(inputAddress);
+			mypageRepository.updateAddress3(myAddress);
+		}
+	}
 	
+	
+	@Override
+	public MyAddress getMypageAddressList(String id) {
+		return mypageRepository.getMyPageAddressList(id);
+	}
+	
+	@Override
+	public void removeAddress(String id, String addressNum) {
+		
+		if(addressNum.equals("2")) {
+			mypageRepository.removeAddress2(id);
+			return;
+		}
+		if(addressNum.equals("3")) {
+			mypageRepository.removeAddress3(id);
+		}
+		return;
+	}
 
 
 }

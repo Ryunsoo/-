@@ -13,6 +13,7 @@ import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.validator.JoinForm;
 
 @Mapper
@@ -65,6 +66,24 @@ public interface MypageRepository {
 
    @Select("select field from company_field where id = #{id}")
    List<String> selectField(String id);
+   
+   @Update("update my_area set address2 = #{address2} where id=#{id}")
+   void updateAddress2(MyAddress myAddress);
+   
+   @Update("update my_area set address3 = #{address3} where id=#{id}")
+   void updateAddress3(MyAddress myAddress);
+   
+   @Select("select * from my_area where id=#{id}")
+   MyAddress checkMyAddress(String id);
+   
+   @Select("select address1, address2, address3 from my_area where id=#{id}")
+   MyAddress getMyPageAddressList(String id);
+   
+   @Update("update my_area set address2 = (select address3 from my_area where id= #{id}),address3 = null where id = #{id}")
+   void removeAddress2(String id);
+   
+   @Update("update my_area set address3 = null where id=#{id}")
+   void removeAddress3(String id);
    
    @Delete("delete friend where id = #{id} and friend_id = #{friendId}")
    void deleteFriend(@Param("id") String id, @Param("friendId") String friendId);

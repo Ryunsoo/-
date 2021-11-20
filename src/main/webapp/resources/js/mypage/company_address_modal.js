@@ -223,7 +223,7 @@ let locationTownClick = () => {
 
 
 let addressSubmit = () => {
-	fetch("http://localhost:9090/mypage/address-update?majorKey=" + majorKey + "&city=" + cityKey + "&town=" + townKey)
+	fetch("http://localhost:9090/mypage/company-address-update?majorKey=" + majorKey + "&city=" + cityKey + "&town=" + townKey)
 	.then(()=>{
 		modalNone();
 		location.reload();
@@ -236,7 +236,7 @@ let addressSubmit = () => {
 
 let address2Remove = () => {
 	document.querySelector("#address2-remove-button").addEventListener("click", () => {
-		fetch("http://localhost:9090/mypage/address-remove?addressNum=2&companymember=n")
+		fetch("http://localhost:9090/mypage/address-remove?addressNum=2&companymember=y")
 		.then(()=>{
 			location.reload();
 		})
@@ -248,7 +248,7 @@ address2Remove();
 
 let address3Remove = () => {
 	document.querySelector("#address3-remove-button").addEventListener("click", () => {
-		fetch("http://localhost:9090/mypage/address-remove?addressNum=3&companymember=n")
+		fetch("http://localhost:9090/mypage/address-remove?addressNum=3&companymember=y")
 		.then(()=>{
 			location.reload();
 		})

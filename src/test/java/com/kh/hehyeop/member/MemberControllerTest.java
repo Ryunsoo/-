@@ -119,5 +119,15 @@ public class MemberControllerTest {
 			
 	}
 	
+	@Test
+	public void addressInputTest() throws Exception {
+		mockMvc.perform(get("/mypage/address-update")
+				.param("majorKey", "서울시")
+				.param("city", "광진구")
+				.param("town", "중곡동"))
+				.andExpect(status().isOk())
+				.andDo(print());
+	}
+	
 	
 }

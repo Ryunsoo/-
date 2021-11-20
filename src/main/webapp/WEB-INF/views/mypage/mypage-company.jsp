@@ -45,6 +45,11 @@
 	margin-left: 30px;
 }
 
+#address2-remove-button,
+#address3-remove-button {
+	cursor: pointer;
+}
+
 
 
 </style>
@@ -238,6 +243,21 @@
 								<div id="listbody"><div id="address">${authentication.oldAddress}</div></div>
 								<div id="empty" type="button"><i class="fas fa-times-circle"></i></div>
 							</div>
+							<c:if test="${not empty myAddress.address2}"> 
+										<div id="list_wrap">
+											<div id="listidx">2</div>
+											<div id="listbody"><div id="address">${myAddress.address2}</div></div>
+											<i class="fas fa-trash" id="address2-remove-button"></i>
+										</div>
+									</c:if>
+									
+									<c:if test="${not empty myAddress.address3}"> 
+										<div id="list_wrap">
+											<div id="listidx">3</div>
+											<div id="listbody"><div id="address">${myAddress.address3}</div></div>
+											<i class="fas fa-trash" id="address3-remove-button"></i>
+										</div>
+							</c:if>
 						</div>	
 					</div>
 				</div>
@@ -541,7 +561,7 @@ let changeNomal = () => {
         
 </script>
 </body>
-<script type="text/javascript" src="../../../resources/js/mypage/address_modal.js"></script>
+<script type="text/javascript" src="../../../resources/js/mypage/company_address_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/mypage/push.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 
