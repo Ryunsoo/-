@@ -40,12 +40,12 @@ function alert(msg){
 
 .main {
 	margin-top: 40px;
-	position:relative;
+	position: relative;
 }
 
 .form-signin {
 	border-radius: 20px;
-	height: 830px;
+	height: 100%;
 	width: 530px;
 	padding: 20px 70px 35px;
 	margin: auto;
@@ -168,6 +168,47 @@ button:hover {
 	position: absolute;
 }
 
+.height {
+	margin-top: 25px;
+}
+
+.select_form {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	width: 480px;
+}
+
+.category {
+	margin-bottom: 13px;
+	margin-left: 19px;
+	margin-top: 15px;
+	font-size: 14px;
+	color: #FF5500;
+}
+
+.interior, .security {
+	margin-bottom: 13px;
+	margin-left: 20px;
+	font-size: 14px;
+	color: #FF5500;
+}
+
+.bathroom_check, .interior_check, .security_check {
+	font-size: 15px;
+	color: gray;
+	margin-left: 40px;
+}
+
+.bathroom_check>label, .interior_check>label, .security_check>label {
+	margin-right: 10px;
+}
+
+.checkBox {
+	width: 16px;
+	vertical-align: middle;
+	margin-bottom: 11px;
+}
 </style>
 </head>
 <body>
@@ -184,8 +225,8 @@ button:hover {
 					<div class="title_line"></div>
 				</div>
 				<div class="input_wrap">
-					<div>* 아이디 <br><input value="${authentication.id}" name="id" readonly="readonly" required autocomplete="off" /></div>
-					<div>
+					<div class="height">* 아이디 <br><input value="${authentication.id}" name="id" readonly="readonly" required autocomplete="off" /></div>
+					<div class="height">
 						<div class="pw_validator_wrap">
 							* 비밀번호
 							<div class='pw_validator_bar'>
@@ -203,13 +244,13 @@ button:hover {
 							<input id="password_check" class="form-control-pw-btm" type="password" placeholder="&nbsp 비밀번호 확인" required/>
 						</div>
 					</div>
-					<div>* 이름 
+					<div class="height">* 대표자명 
 						<form:errors path="name" cssClass="valid-msg"/>
 					<br><input name="name" id="name" class="form-control_all" value="${authentication.name}" placeholder="&nbsp 이름을 입력해주세요." autocomplete="off" required/></div>
-					<div>* 전화번호 
+					<div class="height">* 전화번호 
 						<form:errors path="tell" cssClass="valid-msg"/>
 					<br><input name="tell" id="tell" class="form-control_all" value="${authentication.tell}" placeholder="&nbsp 숫자만 입력해주세요." autocomplete="off" required/></div>
-					<div>
+					<div class="height">
 						* 이메일 
 						<form:errors path="email" cssClass="valid-msg"/>
 						<span id="emailCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
@@ -217,27 +258,47 @@ button:hover {
 						<input id="email" name="email" value="${authentication.email}" placeholder="&nbsp 이메일을 입력하세요." required autocomplete="off"/>
 						<button type="button" id="btnEmailCheck" class="button_check">중복체크</button>
 					</div>
-					<div>
-						* 닉네임  
-						<form:errors path="nickname" cssClass="valid-msg"/>
-						<span id="nickCheck" style="font-size: 15px; margin-left:8px; color: red;"></span>
+					<div class="height">
+						* 업체명  
 						<br>
-						<input name="nickname" id="nickname" value="${authentication.nickname}" placeholder="&nbsp 닉네임을 입력하세요." required autocomplete="off"/>
-						<button type="button" id="btnNickCheck" class="button_check">중복체크</button>
+						<input name="nickname" id="nickname" value="${authentication.company}" placeholder="&nbsp 업체명을 입력하세요." required autocomplete="off"/>
 					</div>
-					<div>* 주소찾기 <br>
+					<div class="height">* 사업장 주소 <br>
 						<input class="form-control_adress" name="address"  id="form-address" value="${authentication.address}" placeholder="&nbsp 기본 주소를 입력해주세요." required readonly/>
 						<input class="form-control_adress_check" name="addressNo"  id="form-addressNo" style="width: 80px;" value="" placeholder="&nbsp 우편번호" required readonly/><button type="button" class="button_adress_check" onclick="searchAddr()">주소찾기</button>
 						<input class="form-control_detail_adress" name="oldAddress" id="form-oldAddress" value="${authentication.oldAddress}" placeholder="&nbsp 상세 주소를 입력해주세요." required autocomplete="off"/>
 					</div>
+					<div class="height">
+						* 전문 분야 <br>
+					<div class="select_form">
+						<c:forEach items="${categoryList}" var="cl">
+							<div class="category">
+								<label>${cl}</label>
+							</div>
+							<div class="bathroom_check">
+								<c:forEach items="${fieldList}" var="fl">
+									<c:if test="${cl eq fl.fieldCategory}">
+										<label><input class="checkBox" type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>							
+									</c:if>
+								</c:forEach>
+							</div>
+						</c:forEach>
+					</div>	
+					</div>			
+					<div class="height">* 사업자 등록증 및 자격증명서 <br>
+						<input type="text" class="form-control_id" id="filename" name="username" placeholder="파일을 첨부해주세요" required readonly />
+						<button type="button" id="fileCheck" class="button_adress_check" onclick="document.all.file.click()">파일 첨부</button>
+						<input type="file" style="display: none" id='file' name='files' accept="image/*,.pdf" multiple/>
+					</div>
 				</div>
+					<div class="height"></div>
 					<button class="modify_btn" id="modify_btn" type="submit">수정하기</button>
 					<c:if test="${not empty message}">
 						<script>alert('${message}')</script>
 					</c:if>
 				</form:form>
 				</div>
-				
+				<div style="height: 60px;"></div>
 			
 		
 
@@ -291,6 +352,11 @@ function searchAddr(){
     }).open();
 	
 }
+
+	document.getElementById("file").addEventListener("change", e => {
+		document.getElementById("filename").value = e.target.files[0].name;
+	});
+	
 
 </script>
 </body>

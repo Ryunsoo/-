@@ -1,5 +1,6 @@
 package com.kh.hehyeop.mypage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,9 +39,11 @@ import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.service.MemberService;
+import com.kh.hehyeop.member.validator.FieldForm;
+import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
-import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
@@ -54,6 +57,7 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 	
 	private final MypageService mypageService;
+	private final MemberService memberService;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private final RestTemplate http;
@@ -413,6 +417,45 @@ public class MypageController {
 		redirectAttr.addFlashAttribute("message", "삭제가 완료 되었습니다.");
 		
 		return "delete";
+	}
+	
+	@GetMapping("company-modifyInfo")
+	public void modifyCompanyInfo(HttpSession session) { 
+		
+		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<String> categoryList = memberService.selectCategory();
+		
+		session.setAttribute("fieldList", fieldList);
+		session.setAttribute("categoryList", categoryList);
+		
+		
+		logger.debug("------------에러야 있니 : " + session.getAttribute("authentication"));
+	}
+	
+	@PostMapping("modify-company")
+	public String modifyCompay(@Validated JoinForm form, Errors errors, Model model, Member member, HttpSession session, RedirectAttributes redirectAttr) { 
+		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		logger.debug("------------에러야 있니 : " + errors.toString());
+		if (!errors.hasErrors()) {
+			AddressUtil autil = new AddressUtil();
+			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
+			mypageService.updateInfo(form);
+			System.out.println("member 바꼈냐");
+			session.removeAttribute("authentication");
+			Member authentication = mypageService.authenticateUser(member);
+			session.setAttribute("authentication", authentication);
+			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
+			return "redirect:/mypage/modify-info";
+		}
+		
+		if (errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "mypage/modify-info";
+		}
+		
+		return null;
 	}
 
 }
