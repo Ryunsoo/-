@@ -65,12 +65,12 @@
 						<td>
 							<c:choose>
 								<c:when test="${help.state == 1}">
-									<button class="list_btn_red" id="cancel_help" onclick="cancelHelp(${help.reqIdx})">삭제</button>
+									<button class="list_btn_red" id="delete" onclick="deleteHelp(${help.reqIdx})">삭제</button>
                            			<button class="list_btn_green" id="refresh" onclick="refreshHelp(${help.reqIdx})">끌올</button>
 								</c:when>
 								<c:when test="${help.state == 2}">
-									<button class="list_btn" id="">완료</button>
-									<button class="list_btn" id="">취소</button>
+									<button class="list_btn_green" id="">완료</button>
+									<button class="list_btn_red" id="cancel" onclick="cancelHelp(${help.reqIdx})">취소</button>
 								</c:when>
 								<c:when test="${help.state == 3}">
 									완료 대기 중

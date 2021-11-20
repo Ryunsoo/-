@@ -123,20 +123,19 @@ public class HelpController {
 		if(resFile == 1) {
 			System.out.println("신청서 제출 성공");
 		}
-		return "help/my-hehyeop";
+		return "redirect:/help/my-hehyeop";
 	}
 
 	//해협 삭제 
-	@GetMapping("cancelHelp")
-	public String cancelHelp(String reqIdx, RedirectAttributes redirectAttr) {
+	@GetMapping("deleteHelp")
+	public String deleteHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.deleteRequest(reqIdx);
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
 		if(res == 1) {
 			redirectAttr.addFlashAttribute("msg","삭제완료");
 		} else {
 			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
 		}
-		return "error/result";
+		return "redirect:/help/my-hehyeop";
 	}
 	//해협 끌올
 	@GetMapping("refreshHelp")
