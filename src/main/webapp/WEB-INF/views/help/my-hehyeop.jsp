@@ -69,14 +69,14 @@
                            			<button class="list_btn_green" id="refresh" onclick="refreshHelp(${help.reqIdx})">끌올</button>
 								</c:when>
 								<c:when test="${help.state == 2}">
-									<button class="list_btn_green" id="">완료</button>
+									<button class="list_btn_green" id="complete" onclick="completeHelp(${help.reqIdx})">완료</button>
 									<button class="list_btn_red" id="cancel" onclick="cancelHelp(${help.reqIdx})">취소</button>
 								</c:when>
 								<c:when test="${help.state == 3}">
 									완료 대기 중
 								</c:when>
 								<c:when test="${help.state == 4}">
-									<button class="list_btn" onclick="createReviewModal()">후기</button>
+									<button class="list_btn_green" onclick="createReviewModal()">후기</button>
 								</c:when>
 								<c:when test="${help.state == 5}">
 									★ ${help.score}
@@ -85,7 +85,8 @@
 									취소 대기 중
 								</c:when>
 								<c:otherwise>
-									진행 취소
+									<button class="list_btn_red" id="delete" onclick="deleteHelp(${help.reqIdx})">삭제</button>
+									<div>취소완료</div> 
 								</c:otherwise>
 							</c:choose>
 						</td>

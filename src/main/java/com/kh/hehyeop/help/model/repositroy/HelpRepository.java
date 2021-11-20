@@ -59,6 +59,19 @@ public interface HelpRepository {
 	@Select("select count(*) from v_review")
 	int countReview();
 
+	@Update("update help_request set ongoing = 3 where req_idx = #{reqIdx}")
+	int cancelRegDate(String reqIdx);
+
+	@Update("update help_request set ongoing = 2 where req_idx = #{reqIdx}")
+	int completeRegDate(String reqIdx);
+
+	@Select("select help_idx from help_match where req_idx = #{reqIdx}")
+	String selectHelpIdx(String reqIdx);
+
+	@Insert("insert into help_match(score) values(#{sc}) where help_idx = #{helpIdx}")
+	void insertReviewToHelpMatch(String helpIdx, Double sc);
+
+
 
 	
 }

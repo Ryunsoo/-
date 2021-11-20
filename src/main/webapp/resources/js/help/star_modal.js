@@ -1,4 +1,6 @@
-let createReviewModal = () => {
+let createReviewModal = (reqIdx) => {
+	let score = 2.5;
+	let comment = [];
 	let sendModal = initModal('modal', 2);
 	appendTitle(sendModal, '서비스 후기', true);
 	setButton(sendModal, '확인');
@@ -48,11 +50,11 @@ let createReviewModal = () => {
 	let selectWrap = $('<div>').height('240px').addClass('modal_select_wrapper');
 	
 	selectWrap.append($('<div><i class="fas fa-check"></i> 친절해요</div>').addClass('select_text'))
-				.append($('<div><i class="fas fa-check"></i> 신속해요</div>').addClass('select_text'))
-				.append($('<div><i class="fas fa-check"></i> 안전해요</div>').addClass('select_text'))
-				.append($('<div><i class="fas fa-check"></i> 전문적이에요</div>').addClass('select_text'))
-				.append($('<div><i class="fas fa-check"></i> 시간을 잘 지켜요</div>').addClass('select_text'))
-				.append($('<div><i class="fas fa-check"></i> 비용이 합리적이에요</div>').addClass('select_text'))
+				.append($('<div data-value="신속해요"><i class="fas fa-check"></i> 신속해요</div>').addClass('select_text'))
+				.append($('<div data-value="안전해요"><i class="fas fa-check"></i> 안전해요</div>').addClass('select_text'))
+				.append($('<div data-value="전문적이에요"><i class="fas fa-check"></i> 전문적이에요</div>').addClass('select_text'))
+				.append($('<div data-value="시간을 잘 지켜요"><i class="fas fa-check"></i> 시간을 잘 지켜요</div>').addClass('select_text'))
+				.append($('<div data-value="비용이 합리적이에요"><i class="fas fa-check"></i> 비용이 합리적이에요</div>').addClass('select_text'))
 	
 	$('.modal_content').append(selectWrap);
 	
@@ -64,7 +66,7 @@ let createReviewModal = () => {
 			el.innerHTML = '';
 		})
 		
-		let score = e.target.dataset.score;
+		score = e.target.dataset.score;
 		
 		document.querySelectorAll('.back_star').forEach(el => {
 			let star = el.dataset.star;
@@ -94,8 +96,18 @@ let createReviewModal = () => {
 	})
 	
 	$('.modal_left_btn').click(function() {
+		//let score 별점
+		//let coment 후기코멘트
+		makeArray(comment);
+		location.href = '/help/registReview?reqIdx='+reqIdx+'&score='+score+'&comment='+comment;
 		modalNone();
 	})
+
+	let makeArray = (comment) => {
+		document.querySelectorAll(".selected_review").forEach(e => {
+			comment.push(e.dataset.value);
+		})
+	}
 }
 
 let detail = () => {

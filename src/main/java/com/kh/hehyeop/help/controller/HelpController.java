@@ -1,7 +1,9 @@
  package com.kh.hehyeop.help.controller;
 
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -159,6 +161,47 @@ public class HelpController {
 		} else {
 			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
 		}
+		return "redirect:/help/my-hehyeop";
+	}
+	//해협 취소
+	@GetMapping("cancelHelp")
+	public String cancelHelp(String reqIdx, RedirectAttributes redirectAttr) {
+		int res = helpService.cancelRequest(reqIdx);
+		if(res == 1) {
+			redirectAttr.addFlashAttribute("msg","삭제요청 완료");
+		} else {
+			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
+		}
+		return "redirect:/help/my-hehyeop";
+	}
+	//해협 완료
+	@GetMapping("completeHelp")
+	public String completeHelp(String reqIdx, RedirectAttributes redirectAttr) {
+		int res = helpService.completeRequest(reqIdx);
+		if(res == 1) {
+			redirectAttr.addFlashAttribute("msg","완료완료");
+		} else {
+			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
+		}
+		return "redirect:/help/my-hehyeop";
+	}
+	//리뷰 등록
+	@GetMapping("registReview")
+	public String registReview(String reqIdx, String score, String comment, RedirectAttributes redirectAttr) {
+		String helpIdx = helpService.getHelpIdx(reqIdx);
+		String[] tempArr = comment.split(","); //"", 신속해요, 정확해요
+		String[] commentArr = new String[tempArr.length-1];
+		for (int i = 0; i < commentArr.length; i++) {
+			commentArr[i] = tempArr[i+1];
+		}
+		System.out.println(Arrays.toString(commentArr));
+		int res = helpService.registReview(helpIdx,score, commentArr); 
+		if(res == 1) {
+			redirectAttr.addFlashAttribute("msg","리뷰등록 완료"); 
+		} else {
+			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요."); 
+	    }
+		 
 		return "redirect:/help/my-hehyeop";
 	}
 	

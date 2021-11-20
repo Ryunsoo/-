@@ -183,5 +183,28 @@ public class HelpServiceImpl implements HelpService{
 	public int countReview() {
 		return helpRepository.countReview();
 	}
+	
+	@Override	
+	public int cancelRequest(String reqIdx) {
+		return helpRepository.cancelRegDate(reqIdx);
+	}
+
+	@Override
+	public int completeRequest(String reqIdx) {
+		return helpRepository.completeRegDate(reqIdx);
+	}
+
+	@Override
+	public String getHelpIdx(String reqIdx) {
+		return helpRepository.selectHelpIdx(reqIdx);
+	}
+
+	@Override
+	public int registReview(String helpIdx, String score, String[] commentArr) {
+		double sc = Double.parseDouble(score);
+		helpRepository.insertReviewToHelpMatch(helpIdx,sc);
+		//helpRepository.uploadReview(helpIdx,score,comment);
+		return 0;
+	}
 
 }

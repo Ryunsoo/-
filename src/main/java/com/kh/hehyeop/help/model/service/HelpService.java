@@ -32,4 +32,13 @@ public interface HelpService {
 	int refreshRequest(String reqIdx);
 
 	int countReview();
+
+	int cancelRequest(String reqIdx);
+
+	int completeRequest(String reqIdx);
+
+	String getHelpIdx(String reqIdx);
+
+	int registReview(String helpIdx, String score, String[] commentArr);
+
 }

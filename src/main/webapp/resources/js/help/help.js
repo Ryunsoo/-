@@ -37,21 +37,40 @@ let refreshHelp = (reqIdx) => {
 	})
 }
 //취소 버튼
-let refreshHelp = (reqIdx) => {
+let cancelHelp = (reqIdx) => {
 	console.dir(reqIdx);
 	modalNone();
 	let modal = initModal('modal', 1);
 	appendTitle(modal,'해협취소');
 	setButton(modal,'그만두기','확 인');
 	setContent(modal,true,true);
-	let modalBody = $('<div>해협을 삭제하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
+	let modalBody = $('<div>취소요청을 보내시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
 	$('.modal_content').append(modalBody);
 	modalBlock();
 	$('.modal_left_btn').click(function() {
 		modalNone();
 	})
 	$('.modal_right_btn').click(function() {
-	    location.href = '/help/refreshHelp?reqIdx='+reqIdx;
+	    location.href = '/help/cancelHelp?reqIdx='+reqIdx;
+	    modalNone();
+	})
+}
+//완료 버튼
+let completeHelp = (reqIdx) => {
+	console.dir(reqIdx);
+	modalNone();
+	let modal = initModal('modal', 1);
+	appendTitle(modal,'해협완료');
+	setButton(modal,'그만두기','확 인');
+	setContent(modal,true,true);
+	let modalBody = $('<div>해협 완료를 진행하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
+	$('.modal_content').append(modalBody);
+	modalBlock();
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+	$('.modal_right_btn').click(function() {
+	    location.href = '/help/completeHelp?reqIdx='+reqIdx;
 	    modalNone();
 	})
 }
