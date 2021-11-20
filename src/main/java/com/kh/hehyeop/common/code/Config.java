@@ -7,7 +7,7 @@ public enum Config {
 	COMPANY_EMAIL("alssgo70051@gmail.com"),
 	SMTP_AUTHENTICATION_ID("alssgo70051@gmail.com"),
 	SMTP_AUTHENTICATION_PASSWORD("wkdrhffk1!"),
-	UPLOAD_PATH("C:\\CODE\\upload\\");
+	UPLOAD_PATH("C:\\Final_Project\\upload\\");
 	
 	public final String DESC;
 	

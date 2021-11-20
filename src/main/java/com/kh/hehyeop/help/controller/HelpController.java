@@ -1,9 +1,9 @@
  package com.kh.hehyeop.help.controller;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,17 +21,18 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.page.Page;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
-import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.service.HelpService;
 import com.kh.hehyeop.help.validator.RequestForm;
 import com.kh.hehyeop.help.validator.RequestFormValidator;
@@ -63,7 +64,60 @@ public class HelpController {
 	public void myHehyeop(HttpSession session, Model model) {
 		Member member = (Member) session.getAttribute("authentication");
 		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
-		model.addAttribute("helpList", helpList);
+		//전체 리스트
+		session.setAttribute("helpListAll", helpList);
+		
+		//페이지 객체 생성
+		Page page = Page.builder()
+				.url("/help/help-list")
+				.blockCnt(5)
+				.cntPerPage(5)
+				.currentPage(1)
+				.total(helpList.size())
+				.build();
+		
+		model.addAttribute("helpList", helpList.subList(0, page.getSubListToIdx()));
+		model.addAttribute("paging", page);
+	}
+	
+	@GetMapping("help-list")
+	@ResponseBody
+	public Map<String, Object> helpList(HttpSession session
+										, @RequestParam(required = false, defaultValue = "1") int page
+										, @RequestParam(required = false, defaultValue = "all")	String filter) {
+		Map<String, Object> commandMap = new HashMap<String, Object>();
+		List<MyHehyeop> helpList = (List<MyHehyeop>) session.getAttribute("helpListAll");
+		List<MyHehyeop> filterList = new ArrayList<MyHehyeop>();
+		System.out.println("필터링 : " + filter);
+		System.out.println("페이지 : " + page);
+		
+		if(!filter.equals("all")) {
+			helpList.forEach(e -> {
+				if(e.getOngoing().equals(filter)) {
+					filterList.add(e);
+				}
+			});
+			helpList = filterList;
+		}
+		
+		if(helpList.size() == 0) {
+			commandMap.put("noList", "noList");
+			return commandMap;
+		}
+		
+		System.out.println("필터링된 리스트 : " + helpList);
+		Page paging = Page.builder()
+				.url("/help/help-list")
+				.blockCnt(5)
+				.cntPerPage(5)
+				.currentPage(page)
+				.total(helpList.size())
+				.build();
+		
+		commandMap.put("helpList", helpList.subList((page-1)*5, paging.getSubListToIdx()));
+		commandMap.put("paging", paging);
+		
+		return commandMap;
 	}
 	
 	@GetMapping("review")

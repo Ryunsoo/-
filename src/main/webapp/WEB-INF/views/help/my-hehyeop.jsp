@@ -39,21 +39,23 @@
 		<div class="req_list">
 			<select class='state_filter' onchange="filtering()">
 				<option selected disabled>진행 여부별 검색</option>
+				<option value="대기중">대기중</option>
 				<option value="진행중">진행중</option>
 				<option value="완료">완료</option>
 				<option value="취소">취소</option>
-				<option value="취소">전체</option>
+				<option value="all">전체</option>
 			</select>
 			<table>
 				<tr>
-					<th>말머리</th>
-					<th>지역</th>
-					<th>신청일</th>
-					<th>받은 견적</th>
-					<th>서비스업체</th>
-					<th>결제방식</th>
-					<th></th>
+					<th style="width: 250px">말머리</th>
+					<th style="width: 110px">지역</th>
+					<th style="width: 132px">신청일</th>
+					<th style="width: 110px">받은 견적</th>
+					<th style="width: 127px">서비스업체</th>
+					<th style="width: 102px">결제방식</th>
+					<th style="width: 150px"></th>
 				</tr>
+				<tbody class='help_list'>
 				<c:forEach items='${helpList}' var='help'>
 					<tr>
 						<td>${help.field}</td>
@@ -91,11 +93,21 @@
 							</c:choose>
 						</td>
 						<input type="hidden" class="reqIdx" value="${help.reqIdx}">
-						<input type="hidden" class="state" value="${help.state}">
-						<input type="hidden" class="ongoing" value="${help.ongoing}">
+						<%-- <input type="hidden" class="state" value="${help.state}">
+						<input type="hidden" class="ongoing" value="${help.ongoing}"> --%>
 					</tr>
 				</c:forEach>
-			</table>	
+				</tbody>
+			</table>
+			<div class='page'>
+				<i class="fas fa-caret-left" onclick="getList('${paging.url}?page=${paging.prev}')"></i>
+				<div>
+					<c:forEach var="i" begin="${paging.blockStart}" step="1" end="${paging.blockEnd}">
+						<span onclick="getList('${paging.url}?page=${i}')">${i}</span>
+					</c:forEach>
+				</div>
+				<i class="fas fa-caret-right" onclick="getList('${paging.url}?page=${paging.next}')"></i>
+			</div>	
 		</div>
 
       <div class="breakdown">
