@@ -96,7 +96,7 @@ public interface MypageRepository {
 	@Delete("delete friend where id = #{id} and friend_id = #{friendId}")
 	void deleteFriend(@Param("id") String id, @Param("friendId") String friendId);
 
-	@Update("update member_c set password = #{password}, name = #{name}, tell = #{tell}, email = #{email}, company = #{company}, address = #{address}, old_address = #{oldAddress} where id = #{id}")
+	@Update("update member_c set password = #{password}, name = #{name}, tell = #{tell}, email = #{email}, company = #{company}, address = #{address}, old_address = #{oldAddress}, is_permit=1 where id = #{id}")
 	void updateCompanyInfo(JoinForm form);
 
 	@Select("select * from link_member where c_id = #{id}")

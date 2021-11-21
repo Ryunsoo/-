@@ -78,7 +78,6 @@
 .modifyInfo_btn:hover{
 	background-color: rgb(222, 184, 135);
 }
-
 .delete_user_btn:hover{
 	background-color: #c2787b;
 }
