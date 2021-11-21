@@ -190,6 +190,7 @@
 }
 
 .breakdown{
+	display: none;
 	width: 1030px;
 	height: 800px;
 	margin-bottom: 30px;

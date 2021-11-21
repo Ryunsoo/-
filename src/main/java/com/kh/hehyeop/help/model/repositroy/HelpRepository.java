@@ -65,17 +65,22 @@ public interface HelpRepository {
 	@Select("select help_idx from help_match where req_idx = #{reqIdx}")
 	String selectHelpIdx(String reqIdx);
 
-	@Insert("insert into help_match(score) values(#{sc}) where help_idx = #{helpIdx}")
-	int insertReviewToHelpMatch(String helpIdx, Double sc);
-
-	@Insert("insert into help_review(help_idx, re_content) values(#{helpIdx}, #{comment}")
-	void insertReviewToHelpReview(String helpIdx, String comment);
+	@Update("update help_match set score = #{score}, review_date = current_date where help_idx = #{helpIdx}")
+	int insertReviewToHelpMatch(@Param("helpIdx") String helpIdx, @Param("score") Double score);
+	
+	@Update("update help_match set ongoing = 2 where help_idx = #{helpIdx}")
+	int updateOngoingHelpMatch(@Param("helpIdx") String helpIdx);
+	
+	@Insert("insert into help_review(review_idx, help_idx, re_content) values(sc_review_idx.nextval, #{helpIdx}, #{comment})")
+	void insertReviewToHelpReview(@Param("helpIdx") String helpIdx, @Param("comment") String comment);
 
 	@Select("select * from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectHelpRequest(String reqIdx);
 	
 	@Select("select * from file_info where type_idx = #{reqIdx}")
 	List<FileDTO> selectFiles(String reqIdx);
+
+	
 
 
 

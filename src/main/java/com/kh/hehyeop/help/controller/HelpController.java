@@ -1,5 +1,6 @@
 package com.kh.hehyeop.help.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.page.Page;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
@@ -260,7 +262,9 @@ public class HelpController {
 	//리뷰 등록
 	@GetMapping("registReview")
 	public String registReview(String reqIdx, String score, String comment, RedirectAttributes redirectAttr) {
+		System.out.println("reqpIdx잘나오나??: " + reqIdx);
 		String helpIdx = helpService.getHelpIdx(reqIdx);
+		System.out.println("helpIdx잘나오나??: " + helpIdx);
 		String[] tempArr = comment.split(","); //"", 신속해요, 정확해요
 		String[] commentArr = new String[tempArr.length-1];
 		for (int i = 0; i < commentArr.length; i++) {
@@ -268,7 +272,7 @@ public class HelpController {
 		}
 		System.out.println(Arrays.toString(commentArr));
 		int res = helpService.registReview(helpIdx,score,commentArr); 
-		if(res == 3) {
+		if(res == (2+commentArr.length)) {
 			redirectAttr.addFlashAttribute("msg","리뷰등록 완료"); 
 		} else {
 			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요."); 
@@ -278,8 +282,9 @@ public class HelpController {
 	}
 	
 	@GetMapping("my-hehyeop-detail")
-	public void myHehyeopDetail(Model model, String reqIdx) {
-		Map<String,Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
-		model.addAllAttributes(commandMap);
+	@ResponseBody
+	public Map<String, Object> myHehyeopDetail(String reqIdx) {
+		Map<String, Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
+		return commandMap;
 	}
 }

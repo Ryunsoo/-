@@ -216,14 +216,14 @@ public class HelpServiceImpl implements HelpService{
 
 	@Override
 	public int registReview(String helpIdx, String score, String[] commentArr) {
-		double sc = Double.parseDouble(score);
-		int res1 = helpRepository.insertReviewToHelpMatch(helpIdx,sc);
-		int res2 = 0;
+		int res1 = helpRepository.insertReviewToHelpMatch(helpIdx,Double.parseDouble(score));
+		int res2 = helpRepository.updateOngoingHelpMatch(helpIdx);
+		int res3 = 0;
 		for (String comment : commentArr) {
 			helpRepository.insertReviewToHelpReview(helpIdx,comment);
-			res2++;
+			res3++;
 		}
-		return res1+res2;
+		return res1+res2+res3;
 	}
 
 	@Override

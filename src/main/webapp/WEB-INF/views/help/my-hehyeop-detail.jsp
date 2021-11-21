@@ -8,52 +8,45 @@
 </head>
 <body>
 	<div class="left_page">
-		<div class="req_img">
-			<img src="../../../resources/image/신청서-세면대.PNG">
+		<div class="req_img1">
+			<img id="fileImg">
 		</div>
-		<div class="reg_img2">
-			<img src="../../../resources/image/신청서-세면대.PNG">
-		</div>
-		<div class="reg_img3">
-			<img src="../../../resources/image/신청서-세면대.PNG">
-		</div>
-	</div>
+	</div>                                    
 	<div class="right_page">
 		<div class="detail-text-area">
 			<div class="detail-text-title">*성 함</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" value="${helpRequest.reqName}">
+				<input type="text" id="dname" readonly disabled="disabled">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*연락처</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" value="${helpRequest.reqTell}">
+				<input type="text" id="dtell" readonly disabled="disabled">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*주 소</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" value="${helpRequest.reqAddress}">
+				<input type="text" id="daddress" readonly disabled="disabled">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*방문시간</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled"
-					value="${helpRequest.reqTime}">
+				<input type="text" id="dtime" readonly disabled="disabled">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*희망금액</div>
 			<div class="detail-text-input">
-				<input type="text" disabled="disabled" value="${helpRequest.reqPay}">
+				<input type="text" id="dpay" readonly disabled="disabled">
 			</div>
 		</div>
 		<div class="detail-text-area">
 			<div class="detail-text-title">*요청사항</div>
 			<div class="detail-text-input">
-				<textarea style="resize: none;" disabled="disabled" value="${helpRequest.reqContent}"></textarea>
+				<textarea style="resize: none;" id="dcontent" readonly disabled="disabled"></textarea>
 			</div>
 		</div>
 	</div>

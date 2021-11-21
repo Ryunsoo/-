@@ -89,6 +89,51 @@ let completeHelp = (reqIdx) => {
 	    modalNone();
 	})
 }
+//상세 페이지 클릭이벤트(견적 -> 상세)
+let detail = () => {
+	$('.left_page').css('display','block');
+	$('.right_page').css('display','block');
+	$('.company_list').css('display','none');
+	$('.company_detail').css('display','none');
+}
+//상세 페이지
+let showDetail = (reqIdx) => {
+	 fetch("/help/my-hehyeop-detail?reqIdx="+reqIdx)
+	 .then(response => response.json())
+	 .then(commandMap => {
+		let file = commandMap.files[0];
+	 	let helpRequest = commandMap.helpRequest;
+	 	//reqTime ex)2021-11-20T21:05 변환해주기
+	 	let reqTimeArr = helpRequest.reqTime.split("T");
+	 	let reqTime = reqTimeArr[0]+" "+reqTimeArr[1];
+	 	//값 세팅해주기
+	 	$('#fileImg').attr('src','/file/'+file.savePath+file.reName);
+	 	$('#dname').attr('value',helpRequest.reqName);
+	 	$('#dtell').attr('value',helpRequest.reqTell);
+	 	$('#daddress').attr('value',helpRequest.reqAddress);
+	 	$('#dtime').attr('value',reqTime);
+	 	$('#dpay').attr('value',helpRequest.reqPay);
+	 	$('#dcontent').html(helpRequest.reqContent);
+	 	//상세페이지 보이게하기
+	 	$('.breakdown').css('display','block');
+		$('.left_page').css('display','block');
+		$('.right_page').css('display','block');
+	 });
+}
+
+//견적 페이지
+let estimate = () => {
+	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
+	 .then(response => response.json())
+	 .then(commandMap => {
+		
+		
+		$('.left_page').css('display','none');
+		$('.right_page').css('display','none');
+		$('.company_list').css('display','block');
+		$('.company_detail').css('display','block');		
+	})
+}
 
 let filter = 'all';
 let page = 1;

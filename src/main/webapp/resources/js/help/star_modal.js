@@ -109,17 +109,3 @@ let createReviewModal = (reqIdx) => {
 		})
 	}
 }
-
-let detail = () => {
-	$('.company_list').css('display','none');
-	$('.company_detail').css('display','none');
-	$('.left_page').css('display','block');
-	$('.right_page').css('display','block');
-}
-
-let estimate = () => {
-	$('.left_page').css('display','none');
-	$('.right_page').css('display','none');
-	$('.company_list').css('display','block');
-	$('.company_detail').css('display','block');
-}
