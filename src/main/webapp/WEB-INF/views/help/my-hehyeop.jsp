@@ -51,9 +51,9 @@
 					<th style="width: 110px">지역</th>
 					<th style="width: 132px">신청일</th>
 					<th style="width: 110px">받은 견적</th>
-					<th style="width: 127px">서비스업체</th>
+					<th style="width: 160px">서비스업체</th>
 					<th style="width: 102px">결제방식</th>
-					<th style="width: 150px"></th>
+					<th style="width: 170px"></th>
 				</tr>
 				<tbody class='help_list'>
 				<c:forEach items='${helpList}' var='help'>
@@ -62,7 +62,25 @@
 						<td>${help.area}</td>
 						<td>${help.regDate}</td>
 						<td>${help.estimateCnt}</td>
-						<td>${help.company}</td>
+						<td>
+							<c:if test="${not empty company}">
+									<c:choose>
+										<c:when test="${grade == 'BRONZE'}">
+											<span style="color: #cc9900"><i class="fas fa-medal"></i></span>
+										</c:when>
+										<c:when test="${grade == 'SILVER'}">
+											<span style="color: silver"><i class="fas fa-medal"></i></span>
+										</c:when>
+										<c:when test="${grade == 'GOLD'}">
+											<span style="color: gold"><i class="fas fa-medal"></i></span>
+										</c:when>
+										<c:when test="${grade == 'DIA'}">
+											<span style="color: silver"><i class="fas fa-gem"></i></span>
+										</c:when>
+									</c:choose>
+							</c:if>
+							 ${help.company}
+						</td>
 						<td>${help.payMeans}</td> 
 						<td>
 							<c:choose>
@@ -93,8 +111,6 @@
 							</c:choose>
 						</td>
 						<input type="hidden" class="reqIdx" value="${help.reqIdx}">
-						<%-- <input type="hidden" class="state" value="${help.state}">
-						<input type="hidden" class="ongoing" value="${help.ongoing}"> --%>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -103,7 +119,9 @@
 				<i class="fas fa-caret-left" onclick="getList('${paging.url}?page=${paging.prev}')"></i>
 				<div>
 					<c:forEach var="i" begin="${paging.blockStart}" step="1" end="${paging.blockEnd}">
-						<span onclick="getList('${paging.url}?page=${i}')">${i}</span>
+						<span onclick="getList('${paging.url}?page=${i}')"
+							<c:if test="${i == 1}">class='selected'</c:if>
+						>${i}</span>
 					</c:forEach>
 				</div>
 				<i class="fas fa-caret-right" onclick="getList('${paging.url}?page=${paging.next}')"></i>
