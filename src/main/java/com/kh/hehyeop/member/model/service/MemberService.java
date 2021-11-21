@@ -52,5 +52,7 @@ public interface MemberService {
 
 	void deleterUser(Member member);
 
+	void deleteCUser(CMember cmember);
+
 
 }

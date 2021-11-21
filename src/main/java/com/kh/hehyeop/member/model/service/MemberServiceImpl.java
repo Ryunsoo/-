@@ -197,6 +197,10 @@ public class MemberServiceImpl implements MemberService{
 		memberRepository.deleterUser(member);
 		
 	}
+	
+	public void deleteCUser(CMember cmember) {
+		memberRepository.deleteCUser(cmember);
+	}
 
 }
 

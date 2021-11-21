@@ -455,6 +455,18 @@ public class MemberController {
 		return "redirect:/member/login-form";
 	}
 	
+	
+	@GetMapping("delete-company-user")
+	public String deleteCompanyUser(HttpSession session, RedirectAttributes redirectAttrs) {
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		
+		memberService.deleteCUser(cmember);
+		session.removeAttribute("authentication");
+		redirectAttrs.addFlashAttribute("message", "그동안 이용해주셔서 감사합니다.");
+		return "redirect:/member/login-form";
+	}
+	
+	
 	@GetMapping("logout")
 	public String logout(HttpSession session, RedirectAttributes redirectAttrs) {
 		

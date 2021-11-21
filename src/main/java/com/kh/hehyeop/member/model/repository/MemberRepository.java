@@ -84,5 +84,8 @@ public interface MemberRepository {
 
 	@Update("update member set is_leave = 1 where id = #{id} and password = #{password}")
 	void deleterUser(Member member);
+	
+	@Update("update member_c set is_leave = 1 where id = #{id} and password = #{password}")
+	void deleteCUser(CMember cmember);
 
 }

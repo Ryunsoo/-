@@ -308,13 +308,14 @@
 				<div class="alert_title">3. 회원 탈퇴 시, <div>&nbsp현재 보유하고 있는 캐시가 소멸&nbsp</div>됩니다.</div>
 			</div>
 			<div class="check">
-				<label><a>※ 1번 항목에 동의 하십니까?</a><input type="checkbox"></label>
-				<label><a>※ 2번 항목에 동의 하십니까?</a><input type="checkbox"></label>
-				<label><a>※ 3번 항목에 동의 하십니까?</a><input type="checkbox"></label>
+				<label><a>※ 1번 항목에 동의 하십니까?</a><input type="checkbox" id="check"></label>
+				<label><a>※ 2번 항목에 동의 하십니까?</a><input type="checkbox" id="check2"></label>
+				<label><a>※ 3번 항목에 동의 하십니까?</a><input type="checkbox" id="check3"></label>
 			</div>
+			<div id="alert_check" class="hidden" style="color: red;margin-left:348px; padding-top:15px;">* 탈퇴 진행을 원하신다면 모든 체크 박스를 선택해주세요.</div>
 			<div class="delete_user_button">
 				<button class="cancel" >취소</button>
-				<button class="confirm" onclick="real_delete_confirm()">회원탈퇴</button>
+				<button class="confirm">회원탈퇴</button>
 			</div>
 		</div>
 	</div>
@@ -554,8 +555,22 @@ let changeNomal = () => {
         
         /* 탈퇴 가즈아 */
         confirm.addEventListener("click",function(){
-        	bg.classList.add("hidden");
-        	delete_user.classList.add("hidden");
+        	const isChecked = document.querySelector("#check").checked;
+        	const isChecked2 = document.querySelector("#check2").checked;
+        	const isChecked3 = document.querySelector("#check3").checked;
+        	const alert_check = document.querySelector("#alert_check");	
+        	
+        	/* 3가지 항목이 모두 체크되었을 때 탈퇴진행 */
+  			console.dir(isChecked);
+        		if(isChecked == true & isChecked2 == true & isChecked3 == true){
+        			location.href='/member/delete-company-user';
+        			bg.classList.add("hidden");
+                	delete_user.classList.add("hidden");
+        	    }else{
+        	        const alert_check = document.querySelector("#alert_check");
+        	        alert_check.classList.remove("hidden");
+					console.dir("할루");
+        	    }
         });	
        
         
