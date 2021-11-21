@@ -79,6 +79,8 @@ body {
 
 /* 어필해협, 제품명 등등 title */
 .submit-input-title {
+	display: flex;
+	justify-content: space-between;
 	width: 100%;
 	font-weight: bold;
 	font-size: 19px;
@@ -126,8 +128,8 @@ body {
 }
 
 .half-size-content-wrapper> .input-content-wrapper> .text-input {
-	width: 200px;
-	padding: 0px;
+	width: 207px;
+	font-size: 13px;
 }
 
 
@@ -195,7 +197,15 @@ body {
 	cursor: pointer;
 }
 
-
+#addrBtn{
+	width: 64px;
+	height: 30px;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+	background-color: #34495E;
+	border-radius: 5px;
+}
 
 
 
