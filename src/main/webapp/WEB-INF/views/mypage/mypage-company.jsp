@@ -68,6 +68,20 @@
 .hidden{
 	display: none;
 }
+
+.modifyInfo_btn{
+	background-color: rgb(246, 199, 124);
+}
+.delete_user_btn{
+	background-color: rgb(244, 166, 159); 
+}
+.modifyInfo_btn:hover{
+	background-color: rgb(222, 184, 135);
+}
+
+.delete_user_btn:hover{
+	background-color: #c2787b;
+}
 </style>
 <script type="text/javascript">
 
