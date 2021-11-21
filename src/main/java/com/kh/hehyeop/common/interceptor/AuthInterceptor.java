@@ -38,6 +38,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 			case "help":
 				helpAuthorize(httpRequest, httpResponse, uriArr);
 				break;
+			case "purchase":
+				purchaseAuthorize(httpRequest, httpResponse, uriArr);
+				break;
 			default:
 				break;
 			}
@@ -47,6 +50,21 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void purchaseAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+		}
+		
+		if(user instanceof CMember) {
+			throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
+		}
+		
+	}
+
 
 	private void helpAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();
