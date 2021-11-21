@@ -7,6 +7,7 @@ import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Friend;
+import com.kh.hehyeop.mypage.model.dto.LinkMember;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.validator.JoinForm;
 import com.kh.hehyeop.mypage.validator.ModifyCompany;
@@ -35,7 +36,7 @@ public interface MypageService {
 	void deleteFriend(String id, String friendId);
 	void updateCompanyInfo(JoinForm form);
 	CMember authenticateCUser(CMember member);
-
+	LinkMember selectLink(String id);
 	
 	
 }

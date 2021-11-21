@@ -88,4 +88,7 @@ public interface MemberRepository {
 	@Update("update member_c set is_leave = 1 where id = #{id} and password = #{password}")
 	void deleteCUser(CMember cmember);
 
+	@Insert("insert into link_member(id, c_id, password) values(#{id}, #{cid}, #{password})")
+	void linkMember(@Param("id") String id, @Param("cid") String cid, @Param("password") String pw);
+
 }

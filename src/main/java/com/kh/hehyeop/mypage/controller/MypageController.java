@@ -3,6 +3,7 @@ package com.kh.hehyeop.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -42,6 +44,7 @@ import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.mypage.model.dto.Friend;
+import com.kh.hehyeop.mypage.model.dto.LinkMember;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
@@ -64,6 +67,7 @@ public class MypageController {
 	private final RestTemplate http;
 	private final ObjectMapper mapper;
 	private final MypageValidator mypageValidator;
+	private final PasswordEncoder passwordEncoder;
 	
 	@GetMapping("mypage-common")
 	public void mypageCommon(HttpSession session) { 
@@ -97,10 +101,15 @@ public class MypageController {
 		Wallet userWallet = mypageService.selectWallet(authCMember.getId());
 		List<String> myField = mypageService.selectField(authCMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
+		LinkMember linkedMember = mypageService.selectLink(authCMember.getId());
 		
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
 		session.setAttribute("myAddress", myAddress);
+		
+		if (linkedMember != null) {
+			session.setAttribute("linked", linkedMember);
+		}
 	}
 	
 	@GetMapping("getAuth")
@@ -338,7 +347,48 @@ public class MypageController {
 	}
 	
 	
+	@GetMapping("link")
+	public String linkMember(@RequestParam("id") String id, 
+							   @RequestParam("password") String password, 
+							   @RequestParam("confirmPw") String confirmPw,
+							   RedirectAttributes redirectAttr,
+							   HttpSession session) {
+		
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		Member member = new Member();
+		member.setId(id);
+		member.setPassword(password);
+		
+		if (!passwordEncoder.matches(confirmPw, cmember.getPassword())) {
+			redirectAttr.addFlashAttribute("message", "등록된 업체 비밀번호가 맞지 않습니다.");
+		} else if (memberService.authenticateUser(member) == null) {
+			redirectAttr.addFlashAttribute("message", "가입되지 않은 정보입니다.");
+		} else {
+			memberService.linkMember(id, cmember.getId(), password);
+			redirectAttr.addFlashAttribute("message", "회원 정보가 연결되었습니다.");
+		}
+		
+		return "redirect:/mypage/mypage-company";
+	}
 	
+	@GetMapping("change")
+	public String changeMember(HttpSession session) {
+		
+		LinkMember lm = (LinkMember) session.getAttribute("linked");
+		
+		session.removeAttribute("walletInfo");
+		session.removeAttribute("myField");
+		session.removeAttribute("linked");
+		session.removeAttribute("authentication");
+		session.removeAttribute("id");
+		
+		Member authMember = memberService.selectMember(lm.getId());
+		
+		session.setAttribute("authentication", authMember);
+		session.setAttribute("id", authMember.getNickname());
+		return "redirect:/"; 
+		
+	}
 	
 	@GetMapping("email-check")
 	@ResponseBody

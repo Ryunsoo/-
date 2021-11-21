@@ -202,5 +202,16 @@ public class MemberServiceImpl implements MemberService{
 		memberRepository.deleteCUser(cmember);
 	}
 
+	@Override
+	public void linkMember(String id, String cid, String password) {
+		String pw = passwordEncoder.encode(password);
+		memberRepository.linkMember(id, cid, pw);
+	}
+
+	@Override
+	public Member selectMember(String id) {
+		return memberRepository.selectMember(id);
+	}
+
 }
 

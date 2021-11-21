@@ -17,21 +17,21 @@ public interface MemberService {
 	Member selectMemberByUserId(String id);
 
 	String selectIdByEmail(String name, String tell, String email);
-	
+
 	Member changePasswordByEmail(String name, String id, String email);
-	
+
 	CMember C_changePasswordByEmail(String name, String id, String email);
-	
+
 	void authenticateByEmail(JoinForm form, String token);
-	
+
 	Member selectMemberByNickname(String nickname);
 
 	void insertCMember(JoinForm form);
 
 	Member authenticateUser(Member member);
-	
+
 	Member authenticateSocialUser(Member member);
-	
+
 	CMember authenticateCUser(CMember cmember);
 
 	ArrayList<FieldForm> selectField();
@@ -43,7 +43,7 @@ public interface MemberService {
 	void findPasswordByEmail(String email, String token);
 
 	void updatePassword(Member member, String newPw);
-	
+
 	void c_updatePassword(CMember cMember, String newPw);
 
 	CMember selectCMember(String id);
@@ -54,5 +54,8 @@ public interface MemberService {
 
 	void deleteCUser(CMember cmember);
 
+	void linkMember(String id, String cid, String password);
+
+	Member selectMember(String id);
 
 }
