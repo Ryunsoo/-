@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
@@ -100,5 +102,11 @@ public interface MypageRepository {
 
 	@Select("select * from link_member where c_id = #{id}")
 	LinkMember selectLink(String id);
+
+	void updateCompanyField(@Param("id") String id, @Param("fields") List<String> fields);
+
+	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
+			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
+	void uploadFile(FileDTO fileDTO);
 
 }

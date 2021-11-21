@@ -218,7 +218,7 @@ button:hover {
 	
 		<div class="main">
 			<img class="bee2" src="../../../resources/image/bee2.png">
-			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/co-modify" method="post">
+			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/co-modify" method="post" enctype="multipart/form-data">
 				<div class="title">
 					<div class="title_line"></div>
 					<div class="myInfo">내 정보</div>
