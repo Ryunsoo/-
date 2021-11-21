@@ -82,7 +82,16 @@ public class AuthInterceptor implements HandlerInterceptor{
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
 			}
 			break;
-
+		case "review":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}
+			break;
+		case "my-hehyeop":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}
+			break;
 		default:
 			break;
 		}

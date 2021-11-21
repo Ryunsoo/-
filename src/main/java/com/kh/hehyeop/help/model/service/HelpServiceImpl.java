@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,7 @@ import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
@@ -172,9 +174,9 @@ public class HelpServiceImpl implements HelpService{
 		return my;
 	}
 	
-	public List<Review> selectReviewList(Paging paging, String field) {
+	public List<Review> selectReviewList(Paging paging, String field, List<String> addressList) {
 		AddressUtil util = new AddressUtil();
-		List<Review> reviewList = helpRepository.selectReviewList(paging, field);
+		List<Review> reviewList = helpRepository.selectReviewList(paging, field, addressList);
 		
 		for (Review review : reviewList) {
 			review.setField(Field.getField(review.getField()).fullName);
@@ -195,8 +197,8 @@ public class HelpServiceImpl implements HelpService{
 	}
 
 	@Override
-	public int countReview(String field) {
-		return helpRepository.countReview(field);
+	public int countReview(String field,List<String> addressList) {
+		return helpRepository.countReview(field, addressList);
 	}
 	
 	@Override	
@@ -232,5 +234,11 @@ public class HelpServiceImpl implements HelpService{
 		List<FileDTO> files = helpRepository.selectFiles(reqIdx);
 		return Map.of("helpRequest",helpRequest,"files",files);
 	}
+
+	@Override
+	public MyAddress selectMyAreaList(String id) {
+		return helpRepository.selectMyAreaList(id);
+	}
+
 
 }

@@ -17,6 +17,7 @@ import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.Review;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
 @Mapper
 public interface HelpRepository {
@@ -46,7 +47,8 @@ public interface HelpRepository {
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
 	String selectCompanyByResIdx(HelpMatch match);
 	
-	List<Review> selectReviewList(@Param("paging")Paging paging, @Param("field") String field);
+	List<Review> selectReviewList(@Param("paging")Paging paging, @Param("field") String field
+								,@Param("addressList") List<String> addressList);
 
 	@Delete("delete from help_request where req_idx = #{reqIdx}")
 	int deleteRequest(String reqIdx);
@@ -54,7 +56,7 @@ public interface HelpRepository {
 	@Update("update help_request set reg_date = current_date where req_idx = #{reqIdx}")
 	int updateRegDate(String reqIdx);
 
-	int countReview(@Param("field") String field);
+	int countReview(@Param("field") String field, @Param("addressList") List<String> addressList);
 
 	@Update("update help_request set ongoing = 3 where req_idx = #{reqIdx}")
 	int cancelRegDate(String reqIdx);
@@ -80,7 +82,9 @@ public interface HelpRepository {
 	@Select("select * from file_info where type_idx = #{reqIdx}")
 	List<FileDTO> selectFiles(String reqIdx);
 
-	
+	@Select("select address1, address2, address3 from my_area where id = #{id}")
+	MyAddress selectMyAreaList(String id);
+
 
 
 
