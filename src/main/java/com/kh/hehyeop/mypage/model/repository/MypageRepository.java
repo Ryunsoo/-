@@ -20,7 +20,6 @@ import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.validator.JoinForm;
-import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 @Mapper
 public interface MypageRepository {

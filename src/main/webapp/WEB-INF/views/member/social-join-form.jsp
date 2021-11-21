@@ -48,12 +48,12 @@ input:focus {
 							
 							<div class=nameMargin>
 								<label>* 이름</label><br>
-									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off" value="123"/><br><br>
+									<input type="text" id="name" class="form-control_all" name="name" placeholder="이름을 입력해주세요." required autocomplete="off"/><br><br>
 							</div>
 							
 							<div class=tellMargin>
 								<label>* 전화번호<form:errors path="tell" cssClass="valid-msg"/></label><br>
-									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off" value="01011111111"/><br>
+									<input type="text" id="tell" class="form-control_all" name="tell" placeholder="숫자만 입력해주세요." required autocomplete="off"/><br>
 							</div>
 						</div>
 						<div class="idMargin">
@@ -62,7 +62,7 @@ input:focus {
 									<c:if test="${empty error.email}">
 										value = "${joinForm.email}"
 									</c:if>
-									required autofocus autocomplete="none"/><br><br>
+									required autofocus autocomplete="off"/><br><br>
 						</div>
 						
 						<div class="idMargin">
