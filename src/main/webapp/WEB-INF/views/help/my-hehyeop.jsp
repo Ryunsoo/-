@@ -105,8 +105,7 @@
 									취소 대기 중
 								</c:when>
 								<c:otherwise>
-									<button class="list_btn_red" id="clear" onclick="clearHelp(this,${help.reqIdx})">삭제</button>
-									<div>취소완료</div> 
+									진행취소 완료
 								</c:otherwise>
 							</c:choose>
 						</td>

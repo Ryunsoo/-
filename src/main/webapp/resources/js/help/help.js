@@ -1,22 +1,3 @@
-//클리어 버튼
-let clearHelp = (reqIdx) => {
-	modalNone();
-	let modal = initModal('modal', 1);
-	appendTitle(modal,'목록제거');
-	setButton(modal,'그만두기','확 인');
-	setContent(modal,true,true);
-	let modalBody = $('<div>목록에서 제거하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
-	$('.modal_content').append(modalBody);
-	modalBlock();
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-	$('.modal_right_btn').click(function() {
-	    location.href = '/help/deleteHelp?reqIdx='+reqIdx;
-	    modalNone();
-	})
-}
-
 //삭제 버튼
 let deleteHelp = (reqIdx) => {
 	modalNone();
@@ -192,9 +173,12 @@ let renewHelpList = (helpList) => {
 		regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
 		let payMeans = help.payMeans == null ? '' : help.payMeans;
 		let tr = $('<tr>');
-		tr.append($('<td>' + help.field + '</td>')).append($('<td>' + help.area + '</td>'))
-			.append($('<td>' + regDate + '</td>')).append($('<td>' + help.estimateCnt + '</td>'))
-			.append(getCompanyTd(help)).append($('<td>' + payMeans + '</td>'))
+		tr.append($('<td>' + help.field + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + help.area + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + regDate + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + help.estimateCnt + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append(getCompanyTd(help).attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + payMeans + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
 			.append(getBtnTd(help))
 			.append($('<input>').addClass('reqIdx').attr('type', 'hidden').val(help.reqIdx));
 		$('.help_list').append(tr);
@@ -241,14 +225,14 @@ let getBtnTd = (help) => {
 		case 3:
 			return td.html('완료 대기 중');
 		case 4:
-			let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal()');
+			let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
 			return td.append(reviewBtn);
 		case 5:
 			return td.html('★ ' + help.score);
 		case 6:
 			return td.html('취소 대기 중');
 		default:
-			return td.html('진행 취소');
+			return td.html('진행취소 완료');
 	}
 }
 
