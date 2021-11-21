@@ -7,20 +7,9 @@
 <link href="${contextPath}/resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="${contextPath}/resources/css/purchase/purchase-regist.css">
 <link rel='stylesheet' href="${contextPath}/resources/css/include/chat/chat.css">
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-
-
-
-
-
-
 <body>
-
-
-	
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
@@ -38,14 +27,16 @@
 		
 		
 		<!-- 이미지 & 이미지업로드 & 어필해협 -->
-		<form class="form-wrapper">
+		<form:form modelAttribute="registForm" method="post" enctype="multipart/form-data"  class="form-wrapper">
 			<div class="image-and-appeal-wrapper">
-				<div id="uploaded-image">
-					<img id="product-image" src = "../../../resources/image/product-image.png">
+				<div class="uploaded-image">
+					<div class='file'></div>
 				</div>
-				<div id="image-upload-section">
-					<input type="file" value="파일 선택" name="file"/>
+				<div class="upload">
+					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
+					<label class='upload_label' for="input-file"></label>
 				</div>
+				<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;" multiple>
 				<div class="submit-input-title">*어필해협</div>
 				<textarea id="appeal-help-content" placeholder="내용을 입력해주세요 ex)물 3개씩 구매하실 분만 신청해주세요 쌀: 구매개수 1개 = 1kg"></textarea>
 			</div>
@@ -114,11 +105,8 @@
 				
 				
 			</div>
-		</form>
-		
+		</form:form>
 
-		
-	
 	</div>
 	<!-- 섹션 끝 -->
 	
@@ -126,11 +114,8 @@
 	<!-- 후터 -->
 	<div class="hooter">
 	</div>
-
-
-
-
-	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
+<script type="text/javascript" src="../../../resources/js/common/file-upload-viewer.js"></script>
 </html>
