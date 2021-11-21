@@ -47,6 +47,7 @@ import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.service.MypageService;
 import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.ModifyCompany;
 import com.kh.hehyeop.mypage.validator.MypageValidator;
 
 import lombok.RequiredArgsConstructor;
@@ -420,11 +421,12 @@ public class MypageController {
 	}
 	
 	@GetMapping("company-modifyInfo")
-	public void modifyCompanyInfo(HttpSession session) { 
+	public void modifyCompanyInfo(HttpSession session, Model model) { 
 		
 		ArrayList<FieldForm> fieldList = memberService.selectField();
 		ArrayList<String> categoryList = memberService.selectCategory();
-		
+		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
+
 		session.setAttribute("fieldList", fieldList);
 		session.setAttribute("categoryList", categoryList);
 		
@@ -432,27 +434,28 @@ public class MypageController {
 		logger.debug("------------에러야 있니 : " + session.getAttribute("authentication"));
 	}
 	
-	@PostMapping("modify-company")
-	public String modifyCompay(@Validated JoinForm form, Errors errors, Model model, Member member, HttpSession session, RedirectAttributes redirectAttr) { 
+	@PostMapping("co-modify")
+	public String modifyCompay(@Validated JoinForm form, Errors errors, Model model, CMember member, HttpSession session, RedirectAttributes redirectAttr) { 
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
 		logger.debug("------------에러야 있니 : " + errors.toString());
+		logger.debug("------------form 있니 : " + form);
 		if (!errors.hasErrors()) {
 			AddressUtil autil = new AddressUtil();
 			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
-			mypageService.updateInfo(form);
-			System.out.println("member 바꼈냐");
+			mypageService.updateCompanyInfo(form);
+			System.out.println("Company info 바꼈냐");
 			session.removeAttribute("authentication");
-			Member authentication = mypageService.authenticateUser(member);
+			CMember authentication = mypageService.authenticateCUser(member);
 			session.setAttribute("authentication", authentication);
 			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
-			return "redirect:/mypage/modify-info";
+			return "redirect:/mypage/company-modifyInfo";
 		}
 		
 		if (errors.hasErrors()) {
 			vr.addErrors(errors);
-			return "mypage/modify-info";
+			return "mypage/company-modifyInfo";
 		}
 		
 		return null;

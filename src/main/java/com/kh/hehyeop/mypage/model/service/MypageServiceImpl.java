@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Location;
@@ -15,6 +16,7 @@ import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 import lombok.RequiredArgsConstructor;
 
@@ -99,6 +101,12 @@ public class MypageServiceImpl implements MypageService{
 		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		return mypageRepository.authenticateUser(member);
 	}
+	
+	@Override
+	public CMember authenticateCUser(CMember member) {
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
+		return mypageRepository.authenticateCUser(member);
+	}
 
 	@Override
 	public List<Location> selectLocationList(Location location) {
@@ -176,6 +184,12 @@ public class MypageServiceImpl implements MypageService{
 			mypageRepository.removeAddress3(id);
 		}
 		return;
+	}
+
+	@Override
+	public void updateCompanyInfo(JoinForm form) {
+		form.setPassword(passwordEncoder.encode(form.getPassword()));
+		mypageRepository.updateCompanyInfo(form);
 	}
 
 

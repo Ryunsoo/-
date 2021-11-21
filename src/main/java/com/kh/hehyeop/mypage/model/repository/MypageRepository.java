@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;
@@ -15,6 +17,7 @@ import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 @Mapper
 public interface MypageRepository {
@@ -45,6 +48,9 @@ public interface MypageRepository {
 
    @Select("select * from member where id = #{id} and is_leave = 0")
    Member authenticateUser(Member member);
+   
+   @Select("select * from member_c where id = #{id} and is_leave = 0")
+   CMember authenticateCUser(CMember member);
    
    @Update("update wallet set cash = cash + #{cash} where id = #{id}")
    void insertCash(Wallet chargeWallet);
@@ -87,5 +93,10 @@ public interface MypageRepository {
    
    @Delete("delete friend where id = #{id} and friend_id = #{friendId}")
    void deleteFriend(@Param("id") String id, @Param("friendId") String friendId);
+
+   @Update("update member_c set password = #{password}, name = #{name}, tell = #{tell}, email = #{email}, company = #{company}, address = #{address}, old_address = #{oldAddress} where id = #{id}")
+   void updateCompanyInfo(JoinForm form);
+
+
    
 }

@@ -218,7 +218,7 @@ button:hover {
 	
 		<div class="main">
 			<img class="bee2" src="../../../resources/image/bee2.png">
-			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/modify" method="post">
+			<form:form modelAttribute="joinForm" class="form-signin" action="/mypage/co-modify" method="post">
 				<div class="title">
 					<div class="title_line"></div>
 					<div class="myInfo">내 정보</div>
@@ -261,7 +261,7 @@ button:hover {
 					<div class="height">
 						* 업체명  
 						<br>
-						<input name="nickname" id="nickname" value="${authentication.company}" placeholder="&nbsp 업체명을 입력하세요." required autocomplete="off"/>
+						<input name="company" id="nickname" value="${authentication.company}" placeholder="&nbsp 업체명을 입력하세요." required autocomplete="off"/>
 					</div>
 					<div class="height">* 사업장 주소 <br>
 						<input class="form-control_adress" name="address"  id="form-address" value="${authentication.address}" placeholder="&nbsp 기본 주소를 입력해주세요." required readonly/>

@@ -2,12 +2,14 @@ package com.kh.hehyeop.mypage.model.service;
 
 import java.util.List;
 
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.validator.JoinForm;
+import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 public interface MypageService {
 
@@ -31,6 +33,8 @@ public interface MypageService {
 	void updateMemo(String id, String friendId, String memo);
 	List<String> selectField(String id);
 	void deleteFriend(String id, String friendId);
+	void updateCompanyInfo(JoinForm form);
+	CMember authenticateCUser(CMember member);
 
 	
 	
