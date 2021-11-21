@@ -91,11 +91,13 @@ let completeHelp = (reqIdx) => {
 }
 
 let filter = 'all';
+let page = 1;
 
 //상태 필터링
 let filtering = async () => {
 	$('.help_list').html('');
 	filter = $('.state_filter').val();
+	page = 1;
 	let datas = await filterFetch();
 	console.dir(datas);
 	renewPage(datas.paging);
@@ -117,9 +119,20 @@ let filterFetch = async () => {
 
 //페이징 번호나 화살표 눌렀을때
 let getList = async (pageUrl) => {
+	$('.help_list').html('');
+	urlArr = pageUrl.split('=');
+	page = Number(urlArr[1]);
 	let url = pageUrl + '&filter=' + filter;
 	let datas = await pageFetch(url);
-	console.dir(datas);
+	renewPage(datas.paging);
+	
+	if(datas.noList) {
+		let tr = $('<tr>');
+		tr.append($("<td colspan = '7'>조회된 해협 내역이 없습니다.</td>"));
+		$('.help_list').append(tr);
+		return;
+	}
+	renewHelpList(datas.helpList);
 }
 
 let pageFetch = async (url) => {
@@ -132,19 +145,41 @@ let renewHelpList = (helpList) => {
 	helpList.forEach(help => {
 		let regDate = new Date(help.regDate);
 		regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
-		let company = help.company == null ? '' : help.company;
 		let payMeans = help.payMeans == null ? '' : help.payMeans;
 		let tr = $('<tr>');
 		tr.append($('<td>' + help.field + '</td>')).append($('<td>' + help.area + '</td>'))
 			.append($('<td>' + regDate + '</td>')).append($('<td>' + help.estimateCnt + '</td>'))
-			.append($('<td>' + company + '</td>')).append($('<td>' + payMeans + '</td>'))
+			.append(getCompanyTd(help)).append($('<td>' + payMeans + '</td>'))
 			.append(getBtnTd(help))
 			.append($('<input>').addClass('reqIdx').attr('type', 'hidden').val(help.reqIdx));
-			//.append($('<input>').addClass('state').attr('type', 'hidden').val(help.reqIdx))
-			//.append($('<input>').addClass('ongoing').attr('type', 'hidden').val(help.reqIdx))
 		$('.help_list').append(tr);
 	})
 	
+}
+
+let getCompanyTd = (help) => {
+	let company = help.company == null ? '' : help.company;
+	if(!company) {
+		return $('<td>');
+	}
+	let comDiv = $('<td>');
+	let medalSpan;
+	switch(help.grade) {
+		case 'BRONZE':
+			medalSpan = $("<span style='color: #cc9900'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'SILVER':
+			medalSpan = $("<span style='color: silver'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'GOLD':
+			medalSpan = $("<span style='color: gold'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'DIA':
+			medalSpan = $("<span style='color: silver'><i class='fas fa-gem'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		default:
+			return $('<td>' + company + '</td>');
+	}
 }
 
 let getBtnTd = (help) => {
@@ -173,19 +208,20 @@ let getBtnTd = (help) => {
 }
 
 let renewPage = (paging) => {
-	console.dir(paging);
 	let pageDiv = $('.page');
 	pageDiv.html('');
-	pageDiv.append($('<i>').addClass('fas fa-caret-left').attr('onclick', 'getList(' + paging.url + '?page=' + paging.prev + ')'));
+	pageDiv.append($('<i>').addClass('fas fa-caret-left').attr('onclick', "getList('" + paging.url + "?page=" + paging.prev + "')"));
 	
 	let numDiv = $('<div>');
 	
 	for(let i = paging.blockStart; i <= paging.blockEnd; i++) {
-		numDiv.append($('<span>' + i + '</span>').attr('onclick', 'getList(' + paging.url + '?page=' + i + ')'))
+		let numSpan = $('<span>' + i + '</span>').attr('onclick', "getList('" + paging.url + "?page=" + i + "')");
+		if(i == page) numSpan.addClass('selected');
+		numDiv.append(numSpan);
 	}
 	
 	pageDiv.append(numDiv)
-			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', 'getList(' + paging.url + '?page=' + paging.next + ')'));
+			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', "getList('" + paging.url + "?page=" + paging.next + "')"));
 	
 	
 }

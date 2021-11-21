@@ -65,6 +65,7 @@ public class HelpController {
 	public void myHehyeop(HttpSession session, Model model) {
 		Member member = (Member) session.getAttribute("authentication");
 		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
+		System.out.println(helpList);
 		//전체 리스트
 		session.setAttribute("helpListAll", helpList);
 		

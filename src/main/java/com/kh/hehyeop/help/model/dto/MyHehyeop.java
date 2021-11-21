@@ -12,9 +12,10 @@ public class MyHehyeop {
 	private String area;
 	private Date regDate;
 	private int estimateCnt;
-	private String company;
-	private String payMeans;
-	private double score;
+	private String company; //선택
+	private String grade; //선택
+	private String payMeans; //선택
+	private double score; //선택
 	private int state;
 	private String ongoing;
 }
