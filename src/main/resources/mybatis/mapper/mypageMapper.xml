@@ -5,6 +5,12 @@
   
   <mapper namespace="com.kh.hehyeop.mypage.model.repository.MypageRepository"> 
   
+  	<delete id="updateCompanyField" statementType="CALLABLE">
+  		{call sp_field_update(#{id, mode=IN}, #{fields, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.FieldTypeHandler})}
+  	</delete>
+  	
+  	
+  
   	<update id="insertToken">
   		update push_token 
   		<set>

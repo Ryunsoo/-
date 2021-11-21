@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Friend;
@@ -196,6 +198,23 @@ public class MypageServiceImpl implements MypageService {
 	public void updateCompanyInfo(JoinForm form) {
 		form.setPassword(passwordEncoder.encode(form.getPassword()));
 		mypageRepository.updateCompanyInfo(form);
+	}
+
+	@Override
+	public void updateCompanyField(String id, List<String> fields) {
+		mypageRepository.updateCompanyField(id, fields);
+		
+	}
+
+	@Override
+	public void uploadFile(List<MultipartFile> files, String cIdx) {
+		FileUtil util = new FileUtil();
+		for (MultipartFile multipartFile : files) {
+			if(!multipartFile.isEmpty()) {
+				mypageRepository.uploadFile(util.fileUpload(multipartFile, cIdx));
+			}
+		}
+		
 	}
 
 }

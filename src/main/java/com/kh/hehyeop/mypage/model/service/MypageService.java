@@ -2,6 +2,8 @@ package com.kh.hehyeop.mypage.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.Location;
@@ -37,6 +39,8 @@ public interface MypageService {
 	void updateCompanyInfo(JoinForm form);
 	CMember authenticateCUser(CMember member);
 	LinkMember selectLink(String id);
+	void updateCompanyField(String id, List<String> fieldList);
+	void uploadFile(List<MultipartFile> files, String cIdx);
 	
 	
 }

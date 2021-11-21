@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -485,20 +487,36 @@ public class MypageController {
 	}
 	
 	@PostMapping("co-modify")
-	public String modifyCompay(@Validated JoinForm form, Errors errors, Model model, CMember member, HttpSession session, RedirectAttributes redirectAttr) { 
+	public String modifyCompay(@Validated JoinForm form, Errors errors, Model model, CMember member, List<MultipartFile> files, HttpSession session,HttpServletRequest request, RedirectAttributes redirectAttr) { 
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("error", vr.getError());
 		logger.debug("------------에러야 있니 : " + errors.toString());
 		logger.debug("------------form 있니 : " + form);
+		
+		List<String> fieldList = new ArrayList<String>();
+		String[] fieldParam = request.getParameterValues("fieldName");
+		
+		
+		for (String field : fieldParam) {
+			fieldList.add(field);
+		}
+		
+		logger.debug("------------field form 있니 : " +fieldList + "file" + files);
+		
 		if (!errors.hasErrors()) {
 			AddressUtil autil = new AddressUtil();
 			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
 			mypageService.updateCompanyInfo(form);
+			mypageService.updateCompanyField(form.getId(), fieldList);
+			member = (CMember) session.getAttribute("authentication");
+			mypageService.uploadFile(files, member.getCIdx());
 			System.out.println("Company info 바꼈냐");
 			session.removeAttribute("authentication");
 			CMember authentication = mypageService.authenticateCUser(member);
 			session.setAttribute("authentication", authentication);
+			
+			
 			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
 			return "redirect:/mypage/company-modifyInfo";
 		}
