@@ -126,17 +126,17 @@
 				<i class="fas fa-caret-right" onclick="getList('${paging.url}?page=${paging.next}')"></i>
 			</div>	
 		</div>
-
+	  <input type="hidden" class="saveReqIdx">
       <div class="breakdown">
          <button class="bk_btn" onclick="detail()">상세내역</button>
-         <button class="bk_btn" onclick="estimate(${help.reqIdx})">견적내역</button>
+         <button class="bk_btn" onclick="estimate()">견적내역</button>
          <div class="bk_body">
          <%@ include file="/WEB-INF/views/help/my-hehyeop-detail.jsp" %>
          <%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %>
          </div>
       </div>
 
-
+	
    </div>
 
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>

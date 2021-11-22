@@ -35,6 +35,7 @@ import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.service.HelpService;
@@ -305,5 +306,14 @@ public class HelpController {
 	public Map<String, Object> myHehyeopDetail(String reqIdx) {
 		Map<String, Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
 		return commandMap;
+	}
+	
+	@GetMapping("my-hehyeop-estimate")
+	@ResponseBody
+	public List<HelpResponse> myHehyeopEstimate(String reqIdx) {
+		List<HelpResponse> responseList = helpService.selectHehyeopResponse(reqIdx);
+		List<String> addressList = helpService.selectCompanyAddress(responseList);
+		System.out.println("addressList : " + addressList);
+		return responseList;
 	}
 }

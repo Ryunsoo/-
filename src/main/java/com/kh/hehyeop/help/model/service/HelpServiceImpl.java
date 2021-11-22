@@ -15,6 +15,7 @@ import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -238,6 +239,20 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public MyAddress selectMyAreaList(String id) {
 		return helpRepository.selectMyAreaList(id);
+	}
+
+	public List<HelpResponse> selectHehyeopResponse(String reqIdx) {
+		return helpRepository.selectHehyeopResponse(reqIdx);
+	}
+
+	@Override
+	public List<String> selectCompanyAddress(List<HelpResponse> responseList) {
+		List<String> addressList = new ArrayList<String>();
+		for(int i = 0; i < responseList.size(); i++) {
+			addressList.add(helpRepository.selectCompanyAddress(responseList.get(i).getId()));
+		}
+		
+		return addressList;
 	}
 
 
