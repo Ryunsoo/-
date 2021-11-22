@@ -76,7 +76,6 @@ public class PurchaseController {
 		String endDate = purchaseInfo.getEndTime().replace("T","  ");
 		purchaseInfo.setDealTime(dealDate);
 		purchaseInfo.setEndTime(endDate);
-		purchaseInfo.setRestNum(purchaseInfo.getTotalNum() - purchaseInfo.getBuyNum());
 		model.addAttribute("purchaseInfo", purchaseInfo);
 	}
 	

@@ -30,10 +30,7 @@ public interface PurchaseRepository {
 			+ "values(sc_file_idx.nextval, 'PURCHASE', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileUpload);
 
-	@Select("select * from purchase_register pr "
-			+ "join wallet w on pr.id = w.id "
-			+ "join file_info fi on pr.reg_idx = fi.type_idx "
-			+ "where reg_idx = #{regIdx} and file_category = 'PURCHASE'")
+	@Select("select * from V_SELECT_PURCHASE_REQUEST")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 
 	@Select("select * from v_select_purchase_main")
