@@ -1,6 +1,9 @@
 package com.kh.hehyeop.purchase.validator;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class RegisterForm {
 
@@ -8,13 +11,12 @@ public class RegisterForm {
 	private String itemName;
 	private String itemLink;
 	private String dealLoc;
-	private Date endTime;
-	private Date dealTime;
+	private String endTime;
+	private String dealTime;
 	private int price;
 	private int totalNum;
 	private int buyNum;
 	private String content;
-
 
 	public String getId() {
 		return id;
@@ -48,19 +50,19 @@ public class RegisterForm {
 		this.dealLoc = dealLoc;
 	}
 
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 
-	public Date getDealTime() {
+	public String getDealTime() {
 		return dealTime;
 	}
 
-	public void setDealTime(Date dealTime) {
+	public void setDealTime(String dealTime) {
 		this.dealTime = dealTime;
 	}
 
@@ -98,9 +100,9 @@ public class RegisterForm {
 
 	@Override
 	public String toString() {
-		return "RegisterForm [id=" + id + ", itemName=" + itemName + ", itemLink=" + itemLink
-				+ ", dealLoc=" + dealLoc + ", endTime=" + endTime + ", dealTime=" + dealTime + ", price=" + price
-				+ ", totalNum=" + totalNum + ", buyNum=" + buyNum + ", content=" + content + "]";
+		return "RegisterForm [id=" + id + ", itemName=" + itemName + ", itemLink=" + itemLink + ", dealLoc=" + dealLoc
+				+ ", endTime=" + endTime + ", dealTime=" + dealTime + ", price=" + price + ", totalNum=" + totalNum
+				+ ", buyNum=" + buyNum + ", content=" + content + "]";
 	}
 
 }
