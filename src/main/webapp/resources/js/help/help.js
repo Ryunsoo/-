@@ -151,10 +151,10 @@ let estimate = () => {
 			tr.append(btn);
 			let select = $('<button>선택하기</button>').css('margin-right','2px');
 			select.addClass('list_btn_green');
-			select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "')");
+			select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ pay + "', '" + reqIdx + "')");
 			let ask = $('<button>문의하기</button>').css('margin-left','2px');
 			ask.addClass('list_btn');
-			ask.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ pay + "', '" + reqIdx + "')");
+			ask.attr('onclick',"chatCompany('" + id + "', '" + resIdx + "')");
 			btn.append(select);
 			btn.append(ask);
 			console.dir('왜 안 만들어져??');
@@ -182,11 +182,11 @@ let estimateDetail = (resIdx,tell,time,pay) => {
 }
 
 //견적서 목록에서 선택하기 클릭시
-let selectCompany = () => {
+let selectCompany = (id,resIdx,resPay,reqIdx) => {
 	
 }
 //견적서 목록에서 문의하기 클릭시
-let chatCompany = (id,resIdx,resPay,reqIdx) => {
+let chatCompany = (id,resIdx) => {
 	
 }
 
