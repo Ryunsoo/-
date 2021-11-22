@@ -17,6 +17,7 @@ import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.Review;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
 @Mapper
 public interface HelpRepository {
@@ -46,7 +47,8 @@ public interface HelpRepository {
 	@Select("select company from v_company_from_response where res_idx = #{resIdx}")
 	String selectCompanyByResIdx(HelpMatch match);
 	
-	List<Review> selectReviewList(@Param("paging")Paging paging, @Param("field") String field);
+	List<Review> selectReviewList(@Param("paging")Paging paging, @Param("field") String field
+								,@Param("addressList") List<String> addressList);
 
 	@Delete("delete from help_request where req_idx = #{reqIdx}")
 	int deleteRequest(String reqIdx);
@@ -54,7 +56,7 @@ public interface HelpRepository {
 	@Update("update help_request set reg_date = current_date where req_idx = #{reqIdx}")
 	int updateRegDate(String reqIdx);
 
-	int countReview(@Param("field") String field);
+	int countReview(@Param("field") String field, @Param("addressList") List<String> addressList);
 
 	@Update("update help_request set ongoing = 3 where req_idx = #{reqIdx}")
 	int cancelRegDate(String reqIdx);
@@ -65,17 +67,24 @@ public interface HelpRepository {
 	@Select("select help_idx from help_match where req_idx = #{reqIdx}")
 	String selectHelpIdx(String reqIdx);
 
-	@Insert("insert into help_match(score) values(#{sc}) where help_idx = #{helpIdx}")
-	int insertReviewToHelpMatch(String helpIdx, Double sc);
-
-	@Insert("insert into help_review(help_idx, re_content) values(#{helpIdx}, #{comment}")
-	void insertReviewToHelpReview(String helpIdx, String comment);
+	@Update("update help_match set score = #{score}, review_date = current_date where help_idx = #{helpIdx}")
+	int insertReviewToHelpMatch(@Param("helpIdx") String helpIdx, @Param("score") Double score);
+	
+	@Update("update help_match set ongoing = 2 where help_idx = #{helpIdx}")
+	int updateOngoingHelpMatch(@Param("helpIdx") String helpIdx);
+	
+	@Insert("insert into help_review(review_idx, help_idx, re_content) values(sc_review_idx.nextval, #{helpIdx}, #{comment})")
+	void insertReviewToHelpReview(@Param("helpIdx") String helpIdx, @Param("comment") String comment);
 
 	@Select("select * from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectHelpRequest(String reqIdx);
 	
 	@Select("select * from file_info where type_idx = #{reqIdx}")
 	List<FileDTO> selectFiles(String reqIdx);
+
+	@Select("select address1, address2, address3 from my_area where id = #{id}")
+	MyAddress selectMyAreaList(String id);
+
 
 
 

@@ -92,13 +92,21 @@
 .req_list table{
 	width: 1010px;
 	text-align: center;
+	border-collapse: collapse;
+}
+
+.req_list tr{
+	height: 40px;
 }
 
 .req_list th, .req_list td{
 	border-bottom: 1px solid;
 	border-bottom-color:rgb(213,213,213);
 	height: 35px;
-	 
+}
+
+.help_list>tr:hover{
+	background-color: lightgray;
 }
 
 .list_btn{
@@ -175,7 +183,7 @@
 }
 
 .page>div>span:hover{
-	color: #bfbfbf;
+	color: black;
 	cursor: pointer;
 }
 
@@ -183,13 +191,15 @@
 	display: inline-block;
 	width: 26px;
 	text-align: center;
-}
-
-.page>div>.selected{
 	color: #bfbfbf;
 }
 
+.page>div>.selected{
+	color: black;
+}
+
 .breakdown{
+	display: none;
 	width: 1030px;
 	height: 800px;
 	margin-bottom: 30px;

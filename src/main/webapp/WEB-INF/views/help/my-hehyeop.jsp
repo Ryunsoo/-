@@ -58,11 +58,11 @@
 				<tbody class='help_list'>
 				<c:forEach items='${helpList}' var='help'>
 					<tr>
-						<td>${help.field}</td>
-						<td>${help.area}</td>
-						<td>${help.regDate}</td>
-						<td>${help.estimateCnt}</td>
-						<td>
+						<td onclick="showDetail(${help.reqIdx})">${help.field}</td>
+						<td onclick="showDetail(${help.reqIdx})">${help.area}</td>
+						<td onclick="showDetail(${help.reqIdx})">${help.regDate}</td>
+						<td onclick="showDetail(${help.reqIdx})">${help.estimateCnt}</td>
+						<td onclick="showDetail(${help.reqIdx})">
 							<c:if test="${not empty company}">
 									<c:choose>
 										<c:when test="${grade == 'BRONZE'}">
@@ -81,8 +81,8 @@
 							</c:if>
 							 ${help.company}
 						</td>
-						<td>${help.payMeans}</td> 
-						<td>
+						<td onclick="showDetail(${help.reqIdx})">${help.payMeans}</td> 
+						<td onclick="showDetail(${help.reqIdx})">
 							<c:choose>
 								<c:when test="${help.state == 1}">
 									<button class="list_btn_red" id="delete" onclick="deleteHelp(${help.reqIdx})">삭제</button>
@@ -96,7 +96,7 @@
 									완료 대기 중
 								</c:when>
 								<c:when test="${help.state == 4}">
-									<button class="list_btn_green" onclick="createReviewModal()">후기</button>
+									<button class="list_btn_green" onclick="createReviewModal(${help.reqIdx})">후기</button>
 								</c:when>
 								<c:when test="${help.state == 5}">
 									★ ${help.score}
@@ -105,8 +105,7 @@
 									취소 대기 중
 								</c:when>
 								<c:otherwise>
-									<button class="list_btn_red" id="clear" onclick="clearHelp(${help.reqIdx})">삭제</button>
-									<div>취소완료</div> 
+									진행취소 완료
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -130,7 +129,7 @@
 
       <div class="breakdown">
          <button class="bk_btn" onclick="detail()">상세내역</button>
-         <button class="bk_btn" onclick="estimate()">견적내역</button>
+         <button class="bk_btn" onclick="estimate(${help.reqIdx})">견적내역</button>
          <div class="bk_body">
          <%@ include file="/WEB-INF/views/help/my-hehyeop-detail.jsp" %>
          <%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %>

@@ -278,8 +278,13 @@ button:hover {
 							<div class="bathroom_check">
 								<c:forEach items="${fieldList}" var="fl">
 									<c:if test="${cl eq fl.fieldCategory}">
-										<label><input class="checkBox" id="checkBox" type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>							
-										<input class="myCheckBox"  type="checkbox"  value="${myField}" style="display:none;">
+											<label><input class="checkBox" id="checkBox" 
+											<c:forEach items="${myField}" var="mf">
+												<c:if test="${mf eq fl.field}">
+													checked
+												</c:if>
+											</c:forEach>
+											 type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -358,32 +363,6 @@ function searchAddr(){
 		document.getElementById("filename").value = e.target.files[0].name;
 	});
 	
-	
-	let checkBox = document.querySelectorAll(".checkBox");
-	let myCheckBox = document.querySelectorAll(".myCheckBox");
-	let checkBoxValue = '';
-	let myCheckBoxValue = '';
-	
-	for(let i = 0; i <checkBox.length; i++){
-		checkBoxValue = checkBox[i].defaultValue;
-		console.dir('checkBox : '+checkBoxValue);
-		
-		for(let j = 0; j<myCheckBox.length; j++){
-			myCheckBoxValue = myCheckBox[j].value.replace('[', '').replace(']','').split(',')[j];
-			console.dir('myCheckBox : ' + myCheckBoxValue);
-			
-			if(checkBoxValue===myCheckBoxValue){
-			console.dir('일치');
-			checkBox[j].checked=true;
-			
-		}
-		
-			
-	}
-		
-		
-		
-	}
 	
 </script>
 </body>

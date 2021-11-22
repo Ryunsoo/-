@@ -6,21 +6,46 @@
 <mapper namespace="com.kh.hehyeop.help.model.repositroy.HelpRepository"> 
   
   	<select id="countReview" resultType="_int">
-  		<if test="field == 'all'">
-  		select count(*) from v_review
-  		</if>
-  		<if test="field != 'all'">
-  		select count(*) from v_review where field = #{field}
-  		</if>
+  		
+  		select count(*) from v_review 
+  		<choose>
+  			<when test="field != 'all' and addressList == null">where field = #{field}</when>
+  			<when test="field == 'all' and addressList != null">
+  				where old_address in
+			  		<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach>
+			</when>
+  			<when test="field != 'all' and addressList != null">
+  				where field = #{field} and old_address in
+  				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
+				</foreach>
+  			</when>
+  		</choose>		
   	</select> 
   
 	<select id="selectReviewList" resultType="Review">
-		<if test="field == 'all'">
-		select * from (select rownum rnum, v.* from v_review v) where rnum between #{paging.start} and #{paging.end}
-		</if>
-		<if test="field != 'all'">
-		select * from (select rownum rnum, v.* from v_review v where field = #{field}) where rnum between #{paging.start} and #{paging.end}
-		</if>
+		select * 
+		from (select rownum rnum, v.* 
+			  from v_review v 
+			  <choose>
+			  	<when test="field != 'all' and addressList == null">where field = #{field}</when>
+			  	<when test="field == 'all' and addressList != null">
+			  		where old_address in
+			  		<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach>
+			  	</when>
+			  	<when test="field != 'all' and addressList != null">
+				  	where field = #{field} and old_address in
+		  				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+							#{list}
+						</foreach>
+			  	</when>
+			  </choose>
+			 ) 
+		where rnum between #{paging.start} and #{paging.end}
 	</select>
 	
 	<resultMap type="map" id="estimateCnt">

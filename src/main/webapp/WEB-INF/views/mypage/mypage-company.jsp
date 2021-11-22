@@ -64,6 +64,23 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+
+.hidden{
+	display: none;
+}
+
+.modifyInfo_btn{
+	background-color: rgb(246, 199, 124);
+}
+.delete_user_btn{
+	background-color: rgb(244, 166, 159); 
+}
+.modifyInfo_btn:hover{
+	background-color: rgb(222, 184, 135);
+}
+.delete_user_btn:hover{
+	background-color: #c2787b;
+}
 </style>
 <script type="text/javascript">
 
@@ -127,7 +144,7 @@ function alertMessage(msg){
 							</button>
 							<button type="button" class="btn btn-info hidden"
 								id="modifyInfo_btn"
-								style="background-color: rgb(246, 199, 124);">정보수정</button>
+								style="background-color: rgb(246, 199, 124);" >정보수정</button>
 							<button type="button" class="btn btn-info hidden"
 								id="delete_user_btn"
 								style="background-color: rgb(244, 166, 159);">회원탈퇴</button>
@@ -640,8 +657,7 @@ function goMember(){
         
         /* 정보 수정 버튼 */
         modifyInfo_btn.addEventListener("click",function(){
-        	modifyInfo_btn.classList.add("hidden");
-        	delete_user_btn.classList.add("hidden");
+        	location.href = '/mypage/company-modifyInfo'
         });
         
         /* div class wrap부분 누르면 하위 버튼들 사라짐 */

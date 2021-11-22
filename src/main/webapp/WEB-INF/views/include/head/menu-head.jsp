@@ -74,8 +74,8 @@
 				        <div class="medal">
 				        	<i class="fas fa-medal"></i>
 				        </div>
-				        <div class="mypage" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
-				        <div class="logout" onclick="location.href='/member/logout'">LOGOUT</div>
+				        <div class="mypage" style="cursor:pointer" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+				        <div class="logout" style="cursor:pointer" onclick="location.href='/member/logout'">LOGOUT</div>
 	        		</div>
 				</c:if>
 				<c:if test="${empty authentication}">
