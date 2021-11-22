@@ -122,7 +122,7 @@
 }
 
 .list_btn:hover{
-	box-shadow: inset 0 0 5px 1px #71180e;
+	box-shadow: inset 0 0 5px 1px grey;
 }
 
 .list_btn_red{
