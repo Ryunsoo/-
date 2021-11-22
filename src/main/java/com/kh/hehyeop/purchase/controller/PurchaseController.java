@@ -1,5 +1,7 @@
 package com.kh.hehyeop.purchase.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
+import com.kh.hehyeop.purchase.model.service.PurchaseService;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("purchase")
 public class PurchaseController {
-	
+	private final PurchaseService purchaseService;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
@@ -30,7 +37,12 @@ public class PurchaseController {
 	public void purchaseMainTest() {}
 	
 	@GetMapping("my-purchase")
-	public void purchaseMypurchaseTest() {}
+	public void purchaseMypurchaseTest(HttpSession session
+										, Model model) {
+		Member authMember = (Member) session.getAttribute("authentication");
+		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(authMember.getId());
+		model.addAttribute("myPurchaseInfo", myPurchaseInfo);
+	}
 	
 	@GetMapping("regist")
 	public void purchaseRegistTest(Model model) {
