@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.hehyeop.help.model.repositroy.HelpRepository"> 
+  
+  	<select id="countReview" resultType="_int">
+  		<if test="field == 'all'">
+  		select count(*) from v_review
+  		</if>
+  		<if test="field != 'all'">
+  		select count(*) from v_review where field = #{field}
+  		</if>
+  	</select> 
+  
+	<select id="selectReviewList" resultType="Review">
+		<if test="field == 'all'">
+		select * from (select rownum rnum, v.* from v_review v) where rnum between #{paging.start} and #{paging.end}
+		</if>
+		<if test="field != 'all'">
+		select * from (select rownum rnum, v.* from v_review v where field = #{field}) where rnum between #{paging.start} and #{paging.end}
+		</if>
+	</select>
+	
+	<resultMap type="map" id="estimateCnt">
+		<result column="req_idx" javaType="String" property="reqIdx"/>
+		<result column="estimate_cnt" javaType="int" property="estimateCnt"/>
+	</resultMap>
+	
+	<select id="selectEstimateCntById" resultMap="estimateCnt">
+		select q.req_idx as req_idx, count(*) as estimate_cnt from help_request q join help_response s on(q.req_idx = s.req_idx) where q.id = #{id} group by q.req_idx
+	</select>
+  
+</mapper>

@@ -1,6 +1,5 @@
 package com.kh.hehyeop.purchase.model.dto;
 
-import java.util.Date;
 
 import lombok.Data;
 
@@ -12,10 +11,10 @@ public class MyPurchaseInfo {
 	private String joinIdx;
 	private String id;
 	private String itemName;
-	private String itemLink;
 	private String dealLoc;
-	private Date endTime;
-	private Date dealTime;
+	private String dealTime;
+	private int joinBuyNum;
+	private String endTime;
 	private int price;
 	private int totalNum;
 	private int buyNum;
@@ -23,4 +22,9 @@ public class MyPurchaseInfo {
 	private String done;
 	private int restNum;
 	private int ongoing;
+	private String buyerId;
+	private String name;
+	private String tell;
+	private String nickname;
+
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="company_list">
-		<table>
+		<table id="response_list">
 			<tr>
 				<th>업체명</th>
 				<th>업체 주소</th>

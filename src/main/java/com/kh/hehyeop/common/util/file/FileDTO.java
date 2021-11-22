@@ -79,10 +79,6 @@ public class FileDTO {
 		this.typeIdx = typeIdx;
 	}
 
-	public String getLink() {
-	      return Config.DOMAIN.DESC + "/file/" + savePath + reName;
-	   }
-	
 	@Override
 	public String toString() {
 		return "FileDTO [fileIdx=" + fileIdx + ", fileCategory=" + fileCategory + ", originName=" + originName

@@ -1,22 +1,3 @@
-//클리어 버튼
-let clearHelp = (reqIdx) => {
-	modalNone();
-	let modal = initModal('modal', 1);
-	appendTitle(modal,'목록제거');
-	setButton(modal,'그만두기','확 인');
-	setContent(modal,true,true);
-	let modalBody = $('<div>목록에서 제거하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
-	$('.modal_content').append(modalBody);
-	modalBlock();
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-	$('.modal_right_btn').click(function() {
-	    location.href = '/help/deleteHelp?reqIdx='+reqIdx;
-	    modalNone();
-	})
-}
-
 //삭제 버튼
 let deleteHelp = (reqIdx) => {
 	modalNone();
@@ -89,13 +70,56 @@ let completeHelp = (reqIdx) => {
 	    modalNone();
 	})
 }
+//상세 페이지 클릭이벤트(견적 -> 상세)
+let detail = () => {
+	$('.left_page').css('display','block');
+	$('.right_page').css('display','block');
+	$('.company_list').css('display','none');
+	$('.company_detail').css('display','none');
+}
+//상세 페이지
+let showDetail = (reqIdx) => {
+	 fetch("/help/my-hehyeop-detail?reqIdx="+reqIdx)
+	 .then(response => response.json())
+	 .then(commandMap => {
+		let file = commandMap.files[0];
+	 	let helpRequest = commandMap.helpRequest;
+	 	//reqTime ex)2021-11-20T21:05 변환해주기
+	 	let reqTimeArr = helpRequest.reqTime.split("T");
+	 	let reqTime = reqTimeArr[0]+" "+reqTimeArr[1];
+	 	//값 세팅해주기
+	 	$('#fileImg').attr('src','/file/'+file.savePath+file.reName);
+	 	$('#dname').attr('value',helpRequest.reqName);
+	 	$('#dtell').attr('value',helpRequest.reqTell);
+	 	$('#daddress').attr('value',helpRequest.reqAddress);
+	 	$('#dtime').attr('value',reqTime);
+	 	$('#dpay').attr('value',helpRequest.reqPay);
+	 	$('#dcontent').html(helpRequest.reqContent);
+	 	//상세페이지 보이게하기
+	 	$('.breakdown').css('display','block');
+		$('.left_page').css('display','block');
+		$('.right_page').css('display','block');
+		//히든태그에 reqIdx 저장
+		$('.saveReqIdx').attr('value',reqIdx);
+	 });
+}
+
+//견적 페이지
+let estimate = () => {
+	let reqIdx = $('.saveReqIdx').val();
+	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
+	 .then(response => response.json())
+	 .then(responseList => console.dir(responseList))
+}
 
 let filter = 'all';
+let page = 1;
 
 //상태 필터링
 let filtering = async () => {
 	$('.help_list').html('');
 	filter = $('.state_filter').val();
+	page = 1;
 	let datas = await filterFetch();
 	console.dir(datas);
 	renewPage(datas.paging);
@@ -117,9 +141,20 @@ let filterFetch = async () => {
 
 //페이징 번호나 화살표 눌렀을때
 let getList = async (pageUrl) => {
+	$('.help_list').html('');
+	urlArr = pageUrl.split('=');
+	page = Number(urlArr[1]);
 	let url = pageUrl + '&filter=' + filter;
 	let datas = await pageFetch(url);
-	console.dir(datas);
+	renewPage(datas.paging);
+	
+	if(datas.noList) {
+		let tr = $('<tr>');
+		tr.append($("<td colspan = '7'>조회된 해협 내역이 없습니다.</td>"));
+		$('.help_list').append(tr);
+		return;
+	}
+	renewHelpList(datas.helpList);
 }
 
 let pageFetch = async (url) => {
@@ -132,19 +167,44 @@ let renewHelpList = (helpList) => {
 	helpList.forEach(help => {
 		let regDate = new Date(help.regDate);
 		regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
-		let company = help.company == null ? '' : help.company;
 		let payMeans = help.payMeans == null ? '' : help.payMeans;
 		let tr = $('<tr>');
-		tr.append($('<td>' + help.field + '</td>')).append($('<td>' + help.area + '</td>'))
-			.append($('<td>' + regDate + '</td>')).append($('<td>' + help.estimateCnt + '</td>'))
-			.append($('<td>' + company + '</td>')).append($('<td>' + payMeans + '</td>'))
+		tr.append($('<td>' + help.field + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + help.area + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + regDate + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + help.estimateCnt + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append(getCompanyTd(help).attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+			.append($('<td>' + payMeans + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
 			.append(getBtnTd(help))
 			.append($('<input>').addClass('reqIdx').attr('type', 'hidden').val(help.reqIdx));
-			//.append($('<input>').addClass('state').attr('type', 'hidden').val(help.reqIdx))
-			//.append($('<input>').addClass('ongoing').attr('type', 'hidden').val(help.reqIdx))
 		$('.help_list').append(tr);
 	})
 	
+}
+
+let getCompanyTd = (help) => {
+	let company = help.company == null ? '' : help.company;
+	if(!company) {
+		return $('<td>');
+	}
+	let comDiv = $('<td>');
+	let medalSpan;
+	switch(help.grade) {
+		case 'BRONZE':
+			medalSpan = $("<span style='color: #cc9900'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'SILVER':
+			medalSpan = $("<span style='color: silver'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'GOLD':
+			medalSpan = $("<span style='color: gold'><i class='fas fa-medal'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		case 'DIA':
+			medalSpan = $("<span style='color: silver'><i class='fas fa-gem'></i></span>");
+			return comDiv.append(medalSpan).append(company);
+		default:
+			return $('<td>' + company + '</td>');
+	}
 }
 
 let getBtnTd = (help) => {
@@ -156,36 +216,37 @@ let getBtnTd = (help) => {
 			return td.append(deleteBtn).append(refreshBtn);
 		case 2:
 			let finishBtn = $('<button>완료</button>').addClass('list_btn_green').attr('id', 'complete').attr('onclick', 'completeHelp(' + help.reqIdx + ')');
-			let cancelBtn = $('<button>취소</button>').addClass('list_btn_red').attr('id', 'cancel').attr('onclick', 'cancleHelp(' + help.reqIdx + ')');
+			let cancelBtn = $('<button>취소</button>').addClass('list_btn_red').attr('id', 'cancel').attr('onclick', 'cancelHelp(' + help.reqIdx + ')');
 			return td.append(finishBtn).append(cancelBtn);
 		case 3:
 			return td.html('완료 대기 중');
 		case 4:
-			let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal()');
+			let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
 			return td.append(reviewBtn);
 		case 5:
 			return td.html('★ ' + help.score);
 		case 6:
 			return td.html('취소 대기 중');
 		default:
-			return td.html('진행 취소');
+			return td.html('진행취소 완료');
 	}
 }
 
 let renewPage = (paging) => {
-	console.dir(paging);
 	let pageDiv = $('.page');
 	pageDiv.html('');
-	pageDiv.append($('<i>').addClass('fas fa-caret-left').attr('onclick', 'getList(' + paging.url + '?page=' + paging.prev + ')'));
+	pageDiv.append($('<i>').addClass('fas fa-caret-left').attr('onclick', "getList('" + paging.url + "?page=" + paging.prev + "')"));
 	
 	let numDiv = $('<div>');
 	
 	for(let i = paging.blockStart; i <= paging.blockEnd; i++) {
-		numDiv.append($('<span>' + i + '</span>').attr('onclick', 'getList(' + paging.url + '?page=' + i + ')'))
+		let numSpan = $('<span>' + i + '</span>').attr('onclick', "getList('" + paging.url + "?page=" + i + "')");
+		if(i == page) numSpan.addClass('selected');
+		numDiv.append(numSpan);
 	}
 	
 	pageDiv.append(numDiv)
-			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', 'getList(' + paging.url + '?page=' + paging.next + ')'));
+			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', "getList('" + paging.url + "?page=" + paging.next + "')"));
 	
 	
 }

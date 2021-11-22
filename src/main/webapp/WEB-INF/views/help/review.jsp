@@ -16,13 +16,13 @@
 
 		<div class="toggle_area">
 			<c:if test="${myArea eq 'on'}">
-				<input type="checkbox" id="toggle" class="toggle" onchange="myArea()" checked="checked"> 
+				<input type="checkbox" id="toggle" class="toggle" onchange="reviewFiltering()" checked="checked"> 
 					<label for="toggle" class="toggle_btn" > 
 				<span class="toggle_switch"></span>
 			</label>
 			</c:if>
 			<c:if test="${myArea eq 'off'}">
-				<input type="checkbox" id="toggle" class="toggle" onchange="myArea()"> 
+				<input type="checkbox" id="toggle" class="toggle" onchange="reviewFiltering()"> 
 					<label for="toggle" class="toggle_btn" > 
 				<span class="toggle_switch"></span>
 			</label>
@@ -36,10 +36,13 @@
 				<thead>
 				<tr>
 					<th class="fieldList">
-						<select class="filter" name="nation" onchange="fieldFiltering()">
+						<select class="filter" name="nation" onchange="reviewFiltering()" >
+							<c:if test=""></c:if>
 								<option value="all">전체</option>
 							<c:forEach var="fieldList" items="${fieldList}">
-								<option value="${fieldList.field}">${fieldList.fullName}</option>
+								<option value="${fieldList.field}"
+									<c:if test="${param.field == fieldList.field }">selected</c:if>
+								>${fieldList.fullName}</option>
 							</c:forEach>	
 						</select>
 					</th>
@@ -65,8 +68,8 @@
 		
 		<div class="pg_wrap" style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a class="pg_start" href="/help/review?nowPage=1&cntPerPage=${paging.cntPerPage}&field=${filter}">&lt;&lt;</a>
-			<a class="pg_prev" href="/help/review?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&field=${filter}">&lt;</a>
+			<a class="pg_start" href="/help/review?nowPage=1&cntPerPage=${paging.cntPerPage}&field=${filter}&myArea=${myArea}">&lt;&lt;</a>
+			<a class="pg_prev" href="/help/review?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&field=${filter}&myArea=${myArea}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -74,13 +77,13 @@
 					<a class="pg_current">${p }</a>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a class="pg_page" href="/help/review?nowPage=${p }&cntPerPage=${paging.cntPerPage}&field=${filter}">${p }</a>
+					<a class="pg_page" href="/help/review?nowPage=${p }&cntPerPage=${paging.cntPerPage}&field=${filter}&myArea=${myArea}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a class="pg_next" href="/help/review?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&field=${filter}">&gt;</a>
-			<a class="pg_end" href="/help/review?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&field=${filter}">&gt;&gt;</a>
+			<a class="pg_next" href="/help/review?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&field=${filter}&myArea=${myArea}">&gt;</a>
+			<a class="pg_end" href="/help/review?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&field=${filter}&myArea=${myArea}">&gt;&gt;</a>
 		</c:if>
 	</div>
 
@@ -89,15 +92,20 @@
 </body>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 <script type="text/javascript">
-function fieldFiltering() {
+let fieldName = 'all'; 
+
+function reviewFiltering() {
 	let field = $('.filter').val();
-	location.href='/help/review?field=' + field;
+	fieldName = field;
+	let AreaOn = document.querySelector('.toggle').checked;
+	location.href='/help/review?field=' + fieldName +'&myArea=' + AreaOn;
 } 
 
-function myArea() {
+
+/* function myArea() {
 	let AreaOn = document.querySelector('.toggle').checked;
-	location.href='/help/review?myArea=' + AreaOn; 
-}
+	location.href='/help/review?field=' + ${field} +'&myArea=' + AreaOn; 
+} */
 
 </script>
 </html>

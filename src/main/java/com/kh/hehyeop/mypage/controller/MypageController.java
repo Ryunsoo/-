@@ -496,37 +496,37 @@ public class MypageController {
 		
 		List<String> fieldList = new ArrayList<String>();
 		String[] fieldParam = request.getParameterValues("fieldName");
-		
-		
+
 		for (String field : fieldParam) {
 			fieldList.add(field);
 		}
-		
-		logger.debug("------------field form 있니 : " +fieldList + "file" + files);
 		
 		if (!errors.hasErrors()) {
 			AddressUtil autil = new AddressUtil();
 			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
 			mypageService.updateCompanyInfo(form);
+			
 			mypageService.updateCompanyField(form.getId(), fieldList);
 			member = (CMember) session.getAttribute("authentication");
 			mypageService.uploadFile(files, member.getCIdx());
 			System.out.println("Company info 바꼈냐");
+			
+			
 			session.removeAttribute("authentication");
+			session.removeAttribute("myField");
+			List<String> myField = mypageService.selectField(member.getId());
 			CMember authentication = mypageService.authenticateCUser(member);
 			session.setAttribute("authentication", authentication);
+			session.setAttribute("myField", myField);
 			
 			
 			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
 			return "redirect:/mypage/company-modifyInfo";
 		}
 		
-		if (errors.hasErrors()) {
 			vr.addErrors(errors);
 			return "mypage/company-modifyInfo";
-		}
-		
-		return null;
+			
 	}
 
 }

@@ -278,7 +278,13 @@ button:hover {
 							<div class="bathroom_check">
 								<c:forEach items="${fieldList}" var="fl">
 									<c:if test="${cl eq fl.fieldCategory}">
-										<label><input class="checkBox" type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>							
+											<label><input class="checkBox" id="checkBox" 
+											<c:forEach items="${myField}" var="mf">
+												<c:if test="${mf eq fl.field}">
+													checked
+												</c:if>
+											</c:forEach>
+											 type="checkbox" name="fieldName" value="${fl.field}"> ${fl.field}</label>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -357,7 +363,7 @@ function searchAddr(){
 		document.getElementById("filename").value = e.target.files[0].name;
 	});
 	
-
+	
 </script>
 </body>
 <!-- 토큰발급 -->

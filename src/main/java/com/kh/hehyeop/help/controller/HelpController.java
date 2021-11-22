@@ -1,5 +1,6 @@
 package com.kh.hehyeop.help.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,17 +29,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.page.Page;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
+import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.service.HelpService;
 import com.kh.hehyeop.help.validator.RequestForm;
 import com.kh.hehyeop.help.validator.RequestFormValidator;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
 import lombok.RequiredArgsConstructor;
 
@@ -65,6 +70,7 @@ public class HelpController {
 	public void myHehyeop(HttpSession session, Model model) {
 		Member member = (Member) session.getAttribute("authentication");
 		List<MyHehyeop> helpList = helpService.getHelpRequestList(member.getId());
+		System.out.println(helpList);
 		//전체 리스트
 		session.setAttribute("helpListAll", helpList);
 		
@@ -130,34 +136,51 @@ public class HelpController {
 	}
 
 	@GetMapping("review")
-	public void review(HttpSession session, Model model, Paging paging, @RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-			@RequestParam(value = "field", required = false) String field,
-			@RequestParam(value = "myArea", required = false) boolean myArea) {
+	public void review(HttpSession session, Model model, Paging paging
+			, @RequestParam(value = "nowPage", required = false) String nowPage
+			, @RequestParam(value = "cntPerPage", required = false) String cntPerPage
+			, @RequestParam(value = "field", required = false) String field
+			, @RequestParam(value = "myArea", required = false) boolean myArea) {
 		
-		System.out.println("myArea : " + myArea);
-		if(myArea) {
-			session.setAttribute("myArea", "on");
-		}else {
-			session.setAttribute("myArea", "off");
-		}
-
-		if (field == null)
-			field = "all";
-
-		int total = helpService.countReview(field);
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "2";
+			cntPerPage = "3";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) {
-			cntPerPage = "2";
+			cntPerPage = "3";
 		}
-
-		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		if (field == null)
+			field = "all";
+		
+		List<Review> reviewList = new ArrayList<Review>();
+		List<String> addressList = new ArrayList<String>();
+		
+		if(myArea) {
+			session.setAttribute("myArea", "on");
+			Member member = (Member) session.getAttribute("authentication");
+			MyAddress myAddress = helpService.selectMyAreaList(member.getId());
+			
+			addressList.add(myAddress.getAddress1());
+			if(myAddress.getAddress2() != null) addressList.add(myAddress.getAddress2());
+			if(myAddress.getAddress3() != null) addressList.add(myAddress.getAddress3());	
+			
+			int total = helpService.countReview(field, addressList);
+			paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			reviewList = helpService.selectReviewList(paging, field, addressList);
+		}else {
+			session.setAttribute("myArea", "off");
+			MyAddress myAddress = null;
+			int total = helpService.countReview(field, null);
+			paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			reviewList = helpService.selectReviewList(paging, field, null);
+		}
+		
 		model.addAttribute("paging", paging);
-		model.addAttribute("reviewList", helpService.selectReviewList(paging, field));
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("fieldList", Field.getFieldList());
 
 		session.setAttribute("filter", field);
@@ -215,70 +238,60 @@ public class HelpController {
 	@GetMapping("deleteHelp")
 	public String deleteHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.deleteRequest(reqIdx);
-		if (res == 1) {
-			redirectAttr.addFlashAttribute("msg", "삭제완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg", "잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		redirectAttr.addFlashAttribute("msg","해협 삭제가 완료 되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 
 	//해협 끌올
 	@GetMapping("refreshHelp")
 	public String refreshHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.refreshRequest(reqIdx);
-		if (res == 1) {
-			redirectAttr.addFlashAttribute("msg", "끌올완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg", "잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		redirectAttr.addFlashAttribute("msg","해협 순서 끝어올리기가 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//해협 취소
 	@GetMapping("cancelHelp")
 	public String cancelHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		int res = helpService.cancelRequest(reqIdx);
-		if(res == 1) {
-			redirectAttr.addFlashAttribute("msg","삭제요청 완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		helpService.cancelRequest(reqIdx);
+		redirectAttr.addFlashAttribute("msg","해협 취소 요청이 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//해협 완료
 	@GetMapping("completeHelp")
 	public String completeHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		int res = helpService.completeRequest(reqIdx);
-		if(res == 1) {
-			redirectAttr.addFlashAttribute("msg","완료완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		helpService.completeRequest(reqIdx);
+		redirectAttr.addFlashAttribute("msg","해협 완료 요청이 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//리뷰 등록
 	@GetMapping("registReview")
-	public String registReview(String reqIdx, String score, String comment, RedirectAttributes redirectAttr) {
-		String helpIdx = helpService.getHelpIdx(reqIdx);
-		String[] tempArr = comment.split(","); //"", 신속해요, 정확해요
-		String[] commentArr = new String[tempArr.length-1];
-		for (int i = 0; i < commentArr.length; i++) {
-			commentArr[i] = tempArr[i+1];
-		}
-		System.out.println(Arrays.toString(commentArr));
-		int res = helpService.registReview(helpIdx,score,commentArr); 
-		if(res == 3) {
-			redirectAttr.addFlashAttribute("msg","리뷰등록 완료"); 
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요."); 
-	    }
-		 
-		return "redirect:/help/my-hehyeop";
+	public String registReview(String reqIdx, double score, String comment, RedirectAttributes redirectAttr) {
+		System.out.println("score : " + comment);
+		String[] tempArr = comment.split(",");
+		System.out.println("score : " + Arrays.toString(tempArr));
+		helpService.registReview(reqIdx, score, tempArr); 
+		redirectAttr.addFlashAttribute("msg","리뷰등록이 완료되었습니다."); 
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	
 	@GetMapping("my-hehyeop-detail")
-	public void myHehyeopDetail(Model model, String reqIdx) {
-		Map<String,Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
-		model.addAllAttributes(commandMap);
+	@ResponseBody
+	public Map<String, Object> myHehyeopDetail(String reqIdx) {
+		Map<String, Object> commandMap = helpService.selectHehyeopDetail(reqIdx);
+		return commandMap;
+	}
+	
+	@GetMapping("my-hehyeop-estimate")
+	@ResponseBody
+	public List<HelpResponse> myHehyeopEstimate(String reqIdx) {
+		List<HelpResponse> responseList = helpService.selectHehyeopResponse(reqIdx);
+		List<String> addressList = helpService.selectCompanyAddress(responseList);
+		System.out.println("addressList : " + addressList);
+		return responseList;
 	}
 }

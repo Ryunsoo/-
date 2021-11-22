@@ -64,6 +64,25 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+
+.hidden{
+	display: none;
+}
+
+.modifyInfo_btn{
+	background-color: rgb(246, 199, 124);
+}
+.delete_user_btn{
+	background-color: rgb(244, 166, 159); 
+}
+.modifyInfo_btn:hover{
+	background-color: rgb(222, 184, 135);
+}
+
+.delete_user_btn:hover{
+	background-color: #c2787b;
+}
+
 </style>
 <script type="text/javascript">
 
@@ -125,13 +144,10 @@ function alertMessage(msg){
 							<button type="button" class="btn btn-info open" id="myInfo_btn">
 								내정보&nbsp<i class="fas fa-chevron-down"></i>
 							</button>
-							<button type="button" class="btn btn-info hidden"
-								id="modifyInfo_btn"
-								style="background-color: rgb(246, 199, 124);">정보수정</button>
-							<button type="button" class="btn btn-info hidden"
-								id="delete_user_btn"
-								style="background-color: rgb(244, 166, 159);">회원탈퇴</button>
-
+							<button type="button" class="btn btn-info hidden modifyInfo_btn"
+								id="modifyInfo_btn">정보수정</button>
+							<button type="button" class="btn btn-info hidden delete_user_btn"
+								id="delete_user_btn">회원탈퇴</button>
 						</div>
 						<div>
 							<c:choose>
@@ -365,8 +381,17 @@ function alertMessage(msg){
 										<i class="fas fa-tags"></i>
 									</div>
 									<div id="basic">my전문분야</div>
+									<c:if test="${authentication.isPermit eq 2}">
+									<div id="field_info">
+										<i class="fas fa-exclamation-circle"></i>&nbsp; Look
+										<div class="balloon4">
+											승인 대기 중인 전문분야는 <br>
+											<br> 관리자 승인 후 이용이 가능합니다.
+										</div>
+									</div>
+									</c:if>
 								</div>
-								<div id="specialty_body">
+							 <div id="specialty_body">
 									<c:forEach items="${myField}" var="mf">
 										<div id="item_wrap">
 											<button type="button" id="specialty_item"
@@ -424,41 +449,6 @@ function alertMessage(msg){
 	<script type="text/javascript"
 		src="../../../resources/js/include/head/menu_head.js"></script>
 	<script type="text/javascript">
-/* document.querySelector("#addtown").addEventListener('click', e => {
-	let idx = document.querySelectorAll('#list_wrap').length + 1;
-	if(idx > 3) {
-		alert("동네는 최대 3개까지만 추가할 수 있습니다.");
-	}else {
-		let inputAddress = prompt("주소를 입력하세요");
-		if(inputAddress == "") {
-			alert("주소를 입력해주세요.");
-		}else if(inputAddress != "") {
-			let listWrap = document.createElement("div");
-			listWrap.setAttribute("id", 'list_wrap');
-			document.querySelector("#townlist_con").appendChild(listWrap);
-			let listIdx = document.createElement("div");
-			listIdx.setAttribute("id", 'listidx');
-			listIdx.innerHTML = `${idx}`;
-			listWrap.appendChild(listIdx);
-			let listBody = document.createElement("div");
-			if(idx == 2) {
-				listBody.setAttribute("id", 'listbody2');
-			}else if(idx == 3) {
-				listBody.setAttribute("id", 'listbody3');
-			}
-			listBody.innerHTML = `<div id="address">${inputAddress}</div>`;
-			listWrap.appendChild(listBody);
-			let listDelete = document.createElement("div");
-			listDelete.setAttribute("id", 'listdelete');
-			listDelete.setAttribute("type", 'button');
-			listDelete.innerHTML = '<i class="fas fa-times-circle"></i>';
-			listWrap.appendChild(listDelete);
-			listDelete.addEventListener('click', () => {
-				listWrap.remove();
-			})
-		}
-	}
-}) */
 
 /* 재미로 만든 별점 올리기 */
 document.querySelector(".temp_btn").addEventListener('click', e => {
@@ -640,8 +630,7 @@ function goMember(){
         
         /* 정보 수정 버튼 */
         modifyInfo_btn.addEventListener("click",function(){
-        	modifyInfo_btn.classList.add("hidden");
-        	delete_user_btn.classList.add("hidden");
+        	location.href = '/mypage/company-modifyInfo'
         });
         
         /* div class wrap부분 누르면 하위 버튼들 사라짐 */
