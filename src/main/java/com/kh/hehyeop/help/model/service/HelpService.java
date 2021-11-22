@@ -54,5 +54,7 @@ public interface HelpService {
 	List<String> selectCommentsList(String helpIdx);
 
 	List<FileDTO> selectEstimateFile(String resIdx);
+	
+	String choiceCompany(Map<String, Object> commandMap);
 
 }

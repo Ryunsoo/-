@@ -81,5 +81,15 @@
 			, #{commentArr, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.ReviewTypeHandler}
 		)}
 	</insert>
+	
+	<insert id="insertHelpMatch" statementType="CALLABLE"> 
+		{call SP_INSERT_HELP_MATCH(
+			#{reqIdx, mode=IN}
+			, #{resIdx, mode=IN}
+			, #{payStatus, mode=IN}
+		)}
+	</insert>
+	
+	
 
 </mapper>

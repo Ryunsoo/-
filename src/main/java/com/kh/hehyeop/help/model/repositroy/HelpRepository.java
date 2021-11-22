@@ -87,5 +87,14 @@ public interface HelpRepository {
 	@Select("select * from file_info where type_idx = #{resIdx}")
 	List<FileDTO> selectEstimateFile(String resIdx);
 
+	@Select("select cash - cash_lock from wallet where id = #{id}")
+	int selectMyCash(String id);
+
+	@Update("update wallet set cash_lock = cash_lock + #{resPay} where id = #{id}")
+	void updateCash(@Param("id")String id, @Param("resPay")int resPay);
+
+	void insertHelpMatch(@Param("reqIdx") String reqIdx,@Param("resIdx") String resIdx , @Param("payStatus") int payStatus);
+
+
 
 }

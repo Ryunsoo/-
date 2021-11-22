@@ -291,3 +291,41 @@
 .selected_review{
 	color: rgb(106, 176, 223);
 }
+
+/* 업체 선택 모달*/
+.companyModal{
+	text-align: center;
+	display: flex;
+	margin-left: 54px;
+	padding-top: 10px;
+}
+
+.choice_icon{
+	font-size: 60px;
+	transform: translate(9px, -15px);
+	color: gray;
+}
+
+.choice_body{
+	margin-left: 37px;
+	font-size: 20px;
+	font-weight: bolder;
+	color: gray;
+}
+
+.choice_radio{
+	padding-left: 57px;
+	font-size: 20px;
+	color: gray;
+	font-weight: bolder;
+	margin-top: 10px;
+}
+
+#choice{
+	margin-left: 20px;
+}
+
+.choice_radio input[type=radio]{
+	height: 15px;
+	width: 15px;
+}
