@@ -132,25 +132,28 @@
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
 <script type="text/javascript">
 
-/* 
-	num price = document.querySelector('#price').value.replace('원','');
-	num myBuyCnt = document.querySelector('#myBuyCnt').value;
-	num myPoint = document.querySelector('#myPoint').value;
+ 
+	let price = document.querySelector('#price').value.replace('원','');
 	
 	document.querySelector("#myBuyCnt").addEventListener('input', e => {
 	
-		if((price*myBuyCnt)>myPoint){
+		if(document.querySelector('#myBuyCnt').value * parseInt(document.querySelector('#price').value) > parseInt(document.querySelector('#myPoint').value)){
 			alert('포인트가 부족합니다.');
+			
+			
+			let dom = document.querySelector('#submit-button');
+			
+			item.addEventListener('blur', event => {
+					dom.style.backgroundColor = 'lightgray';
+					dom.style.setProperty("pointer-events", "none");
+			})
+			
+			dom.style.setProperty('background-color', '#384c60');
+			dom.style.setProperty("pointer-events", "auto");
 		}
 	
 	
-	}) */
-	
-	document.querySelector("#myBuyCnt").addEventListener('input', e => {
-		
-		document.querySelector("#myBuyCnt").value;
-	
-	})
+	}) 
 	
 </script>
 </html>
