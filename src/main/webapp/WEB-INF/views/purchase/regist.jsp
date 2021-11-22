@@ -68,12 +68,14 @@
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*거래시간</div>
-						<input class="text-input" type="datetime-local" placeholder="  시간을 입력하세요" name="dealTime"/>
+
+						<input class="text-input" id="startTime" type="datetime-local" placeholder="  시간을 입력하세요" name="dealTime"/>
+
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*마감시간</div>
-						<input class="text-input" type="datetime-local" placeholder="  시간을 입력하세요" name="endTime"/>
+						<input class="text-input" id="endTime" type="datetime-local" placeholder="  시간을 입력하세요" name="endTime"/>
 					</div>
 				</div>
 				<br>
@@ -81,19 +83,19 @@
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*금액</div>
-					<input class="text-input" type="number" min="0.00" step="0.01" placeholder="금액을 입력하세요" name="price"/>
+					<input class="text-input" type="number" min="0.00" placeholder="금액을 입력하세요" name="price"/>
 				</div>
 				<br>
 				
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*총 개수</div>
-						<input class="text-input" type="number" min="0" placeholder="  물건의 총 개수를 입력" name="totalNum"/>
+						<input class="text-input" id="totalItem" type="number" placeholder="  물건의 총 개수를 입력" name="totalNum"/>
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input class="text-input" type="number" min="0" placeholder="  본인이 구매할 개수를 입력" name="buyNum"/>
+						<input class="text-input" id="myItem" type="number" min="0" placeholder="  본인이 구매할 개수를 입력" name="buyNum"/>
 					</div>
 				</div>
 				<br>
@@ -133,6 +135,58 @@ function searchAddr(){
     }).open();
 	
 }
+
+let today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+document.getElementById("startTime").setAttribute("min", today);
+document.getElementById("endTime").setAttribute("min", today);
+		
+document.getElementById("startTime").addEventListener("input", e => {
+	
+	document.getElementById("endTime").setAttribute("max", e.target.value);
+	
+	if(e.target.value < today){
+		alert("현재 시간보다 이전의 날짜는 설정할 수 없습니다.");
+		e.target.value = today;
+	}
+
+})
+
+document.getElementById("endTime").addEventListener("input", e => {
+	
+	let dealDate = document.getElementById("startTime").value;
+	let parseDate = new Date(dealDate);
+	parseDate.setHours(parseDate.getHours() - 1);
+	let limitDate = new Date(parseDate.getTime() - parseDate.getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+	
+	if(e.target.value < today){
+		alert("현재 시간보다 이전의 날짜는 설정할 수 없습니다.");
+		e.target.value = today;
+	}
+	
+	if(e.target.value >= limitDate){
+		alert("마감은 거래시간 한시간 전까지 가능합니다.");
+		e.target.value = limitDate;
+	}
+	
+})
+
+document.getElementById("myItem").addEventListener("input", e => {
+	
+	let totalItem = document.getElementById("totalItem").value;
+	console.dir(e.target.value);
+	
+	if (Number(e.target.value) >= Number(totalItem)) {
+		alert("총 개수보다 낮게 입력해주세요.");
+		e.target.value = 0;
+	}
+	
+})
+
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+  };
+}, true);
 
 </script>
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>

@@ -59,24 +59,13 @@ public interface HelpRepository {
 
 	int countReview(@Param("field") String field, @Param("addressList") List<String> addressList);
 
-	@Update("update help_request set ongoing = 3 where req_idx = #{reqIdx}")
-	int cancelRegDate(String reqIdx);
+	void cancelRequest(String reqIdx);
 
-	@Update("update help_request set ongoing = 2 where req_idx = #{reqIdx}")
-	int completeRegDate(String reqIdx);
+	void completeRequest(String reqIdx);
 
-	@Select("select help_idx from help_match where req_idx = #{reqIdx}")
-	String selectHelpIdx(String reqIdx);
-
-	@Update("update help_match set score = #{score}, review_date = current_date where help_idx = #{helpIdx}")
-	int insertReviewToHelpMatch(@Param("helpIdx") String helpIdx, @Param("score") Double score);
+	//리뷰 등록 프로시저 호출로 변경
+	void insertHelpReview(@Param("reqIdx") String reqIdx, @Param("score") double score, @Param("commentArr") String[] commentArr);
 	
-	@Update("update help_match set ongoing = 2 where help_idx = #{helpIdx}")
-	int updateOngoingHelpMatch(@Param("helpIdx") String helpIdx);
-	
-	@Insert("insert into help_review(review_idx, help_idx, re_content) values(sc_review_idx.nextval, #{helpIdx}, #{comment})")
-	void insertReviewToHelpReview(@Param("helpIdx") String helpIdx, @Param("comment") String comment);
-
 	@Select("select * from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectHelpRequest(String reqIdx);
 	

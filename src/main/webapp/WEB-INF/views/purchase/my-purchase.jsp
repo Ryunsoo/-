@@ -45,14 +45,25 @@
 				</thead>
 				
 				<tbody id="body-row">
-					<tr>
-						<td>2</td>
-						<td>공구참여</td>
-						<td>탐사수(2L x 12개)</td>
-						<td>2021년 12월 7일 오후 3:20</td>
-						<td>강남 kh정보교육원</td>
-						<td>구매확정</td>
-					</tr>
+					<c:forEach var="myPurchaseInfo" items="${myPurchaseInfo}">
+						<tr>
+							<td>1</td>
+							<td>
+							<c:choose>
+								<c:when test="${not empty myPurchaseInfo.matchIdx}">
+									공구모집
+								</c:when>
+								<c:otherwise>
+									공구참여
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td>${myPurchaseInfo.itemName}</td>
+							<td>${myPurchaseInfo.dealTime}</td>
+							<td>${myPurchaseInfo.dealLoc}</td>
+							<td>${myPurchaseInfo.ongoing}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 				
 			</table>

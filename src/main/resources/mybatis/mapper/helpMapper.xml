@@ -56,5 +56,21 @@
 	<select id="selectEstimateCntById" resultMap="estimateCnt">
 		select q.req_idx as req_idx, count(*) as estimate_cnt from help_request q join help_response s on(q.req_idx = s.req_idx) where q.id = #{id} group by q.req_idx
 	</select>
+	
+	<update id="cancelRequest" statementType="CALLABLE">
+		{call SP_UPDATE_HELP_REQUEST_CANCEL(#{reqIdx, mode=IN})}
+	</update>
+	
+	<update id="completeRequest" statementType="CALLABLE">
+		{call SP_UPDATE_HELP_REQUEST_COMPLETE(#{reqIdx, mode=IN})}
+	</update>
+	
+	<insert id="insertHelpReview" statementType="CALLABLE">
+		{call sp_insert_help_review(
+			#{reqIdx, mode=IN}
+			, #{score, mode=IN}
+			, #{commentArr, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.ReviewTypeHandler}
+		)}
+	</insert>
   
 </mapper>

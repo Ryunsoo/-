@@ -203,30 +203,18 @@ public class HelpServiceImpl implements HelpService{
 	}
 	
 	@Override	
-	public int cancelRequest(String reqIdx) {
-		return helpRepository.cancelRegDate(reqIdx);
+	public void cancelRequest(String reqIdx) {
+		helpRepository.cancelRequest(reqIdx);
 	}
 
 	@Override
-	public int completeRequest(String reqIdx) {
-		return helpRepository.completeRegDate(reqIdx);
+	public void completeRequest(String reqIdx) {
+		helpRepository.completeRequest(reqIdx);
 	}
 
 	@Override
-	public String getHelpIdx(String reqIdx) {
-		return helpRepository.selectHelpIdx(reqIdx);
-	}
-
-	@Override
-	public int registReview(String helpIdx, String score, String[] commentArr) {
-		int res1 = helpRepository.insertReviewToHelpMatch(helpIdx,Double.parseDouble(score));
-		int res2 = helpRepository.updateOngoingHelpMatch(helpIdx);
-		int res3 = 0;
-		for (String comment : commentArr) {
-			helpRepository.insertReviewToHelpReview(helpIdx,comment);
-			res3++;
-		}
-		return res1+res2+res3;
+	public void registReview(String reqIdx, double score, String[] commentArr) {
+		helpRepository.insertHelpReview(reqIdx, score, commentArr);
 	}
 
 	@Override
