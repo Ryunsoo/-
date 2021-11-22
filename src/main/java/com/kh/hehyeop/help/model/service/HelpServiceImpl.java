@@ -5,24 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.code.Field;
+import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
-import com.kh.hehyeop.help.model.dto.HelpRequest;
-import com.kh.hehyeop.help.model.dto.HelpResponse;
-import com.kh.hehyeop.help.model.dto.Review;
-import com.kh.hehyeop.help.model.repositroy.HelpRepository;
-import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpList;
-import com.kh.hehyeop.help.model.dto.HelpMatch;
+import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
+import com.kh.hehyeop.help.model.dto.Review;
+import com.kh.hehyeop.help.model.repositroy.HelpRepository;
+import com.kh.hehyeop.member.model.dto.CMember;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class HelpServiceImpl implements HelpService{
 
 	private final HelpRepository helpRepository;
+	private final PushSender pushSender;
 
 	@Override
 	public List<ProField> selectCategoryList() {
@@ -205,6 +206,12 @@ public class HelpServiceImpl implements HelpService{
 	@Override	
 	public void cancelRequest(String reqIdx) {
 		helpRepository.cancelRequest(reqIdx);
+		
+		//업체한테 푸시보내기
+		Map<String, String> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
+		CMember member = new CMember();
+		member.setId(map.get("id"));
+		pushSender.send(member, "자취해협", map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
 	}
 
 	@Override

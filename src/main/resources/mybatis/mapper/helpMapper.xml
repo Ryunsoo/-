@@ -57,6 +57,15 @@
 		select q.req_idx as req_idx, count(*) as estimate_cnt from help_request q join help_response s on(q.req_idx = s.req_idx) where q.id = #{id} group by q.req_idx
 	</select>
 	
+	<resultMap type="map" id="reqNameAndResId">
+		<result column="req_name" javaType="String" property="reqName"/>
+		<result column="id" javaType="String" property="id"/>
+	</resultMap>
+	
+	<select id="selectCMemberIdByReqIdx" resultMap="reqNameAndResId">
+		select q.req_name as req_name, s.id as id from help_request q join help_match m on(q.req_idx = m.req_idx) join help_response s on(m.res_idx = s.res_idx) where m.req_idx = #{reqIdx}
+	</select>
+	
 	<update id="cancelRequest" statementType="CALLABLE">
 		{call SP_UPDATE_HELP_REQUEST_CANCEL(#{reqIdx, mode=IN})}
 	</update>

@@ -101,6 +101,12 @@ let createReviewModal = (reqIdx) => {
 		document.querySelectorAll(".selected_review").forEach(e => {
 			comment.push(e.dataset.value);
 		})
+		
+		if(!comment.length) {
+			window.alert('후기를 하나 이상 선택하세요.');
+			return;
+		} 
+		
 		location.href = '/help/registReview?reqIdx='+reqIdx+'&score='+score+'&comment='+comment;
 		modalNone();
 	})

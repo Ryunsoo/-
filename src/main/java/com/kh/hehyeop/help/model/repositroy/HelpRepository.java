@@ -66,6 +66,8 @@ public interface HelpRepository {
 	//리뷰 등록 프로시저 호출로 변경
 	void insertHelpReview(@Param("reqIdx") String reqIdx, @Param("score") double score, @Param("commentArr") String[] commentArr);
 	
+	Map<String, String> selectCMemberIdByReqIdx(@Param("reqIdx") String reqIdx);
+	
 	@Select("select * from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectHelpRequest(String reqIdx);
 	
