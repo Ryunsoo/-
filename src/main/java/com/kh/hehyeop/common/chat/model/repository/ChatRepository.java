@@ -49,6 +49,8 @@ public interface ChatRepository {
 	@Select("select id from member where id = #{friendId}")
 	String selectMemberByFriendId(@Param("friendId")String friendId);
 
+	void insertChatRoom(@Param("idList") List<String> idList);
+
 
 	
 

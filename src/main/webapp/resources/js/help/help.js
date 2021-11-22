@@ -114,60 +114,60 @@ let showDetail = (reqIdx) => {
 
 //견적 페이지
 let estimate = () => {
-	let reqIdx = $('.saveReqIdx').val();
-	let table = $('#response_list');
-	table.html("<tr><th>업체명</th><th>업체 주소</th><th>신청일</th><th>업체 선택</th></tr>");
-	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
-	 .then(response => response.json())
-	 .then(responseList => {
-		console.dir(responseList);
-		for(let i = 0; i < responseList.length; i++) {
-			//주소 자르기
-		 	let addressArr = responseList[i].address.split(" ");
-		 	let address= addressArr[0]+" "+addressArr[1]; 
-			//regDate 변환하기
-			let regDate = new Date(responseList[i].regDate);
-			regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
-			//
-			let id = responseList[i].id;
-			let resIdx = responseList[i].resIdx;
-			let pay = responseList[i].resPay;
-			let tell = responseList[i].tell;
-			let timeArr = responseList[i].resTime.split("T");
-	 		let time = timeArr[0]+" "+timeArr[1];
-	 	
-			let tr = $('<tr></tr>');
-			table.append(tr);
-			let resName = $('<td>'+responseList[i].company+'</td>');
-			resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
-			let resAddress = $('<td>'+address+'</td>');
-			resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
-			let resRegDate = $('<td>'+regDate+'</td>');
-			resRegDate.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
-			let btn = $('<td></td>');
-			tr.append(resName);
-			tr.append(resAddress);
-			tr.append(resRegDate);
-			tr.append(btn);
-			let select = $('<button>선택하기</button>').css('margin-right','2px');
-			select.addClass('list_btn_green');
-			select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "')");
-			let ask = $('<button>문의하기</button>').css('margin-left','2px');
-			ask.addClass('list_btn');
-			ask.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ pay + "', '" + reqIdx + "')");
-			btn.append(select);
-			btn.append(ask);
-			console.dir('왜 안 만들어져??');
-		}	
-			$('.left_page').css('display','none');
-			$('.right_page').css('display','none');
-			$('#detailBtn').css('color','gray');
-			$('#detailBtn').css('background','rgb(239, 239, 239)');
-			$('#estimateBtn').css('background','rgb(190,190,190)');
-			$('#estimateBtn').css('color','black');
-			$('.company_list').css('display','flex');
-			$('.company_detail').css('display','block');
-	})
+   let reqIdx = $('.saveReqIdx').val();
+   let table = $('#response_list');
+   table.html("<tr><th>업체명</th><th>업체 주소</th><th>신청일</th><th>업체 선택</th></tr>");
+   fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
+    .then(response => response.json())
+    .then(responseList => {
+      console.dir(responseList);
+      for(let i = 0; i < responseList.length; i++) {
+         //주소 자르기
+          let addressArr = responseList[i].address.split(" ");
+          let address= addressArr[0]+" "+addressArr[1]; 
+         //regDate 변환하기
+         let regDate = new Date(responseList[i].regDate);
+         regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
+         //
+         let id = responseList[i].id;
+         let resIdx = responseList[i].resIdx;
+         let pay = responseList[i].resPay;
+         let tell = responseList[i].tell;
+         let timeArr = responseList[i].resTime.split("T");
+          let time = timeArr[0]+" "+timeArr[1];
+       
+         let tr = $('<tr></tr>');
+         table.append(tr);
+         let resName = $('<td>'+responseList[i].company+'</td>');
+         resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+         let resAddress = $('<td>'+address+'</td>');
+         resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+         let resRegDate = $('<td>'+regDate+'</td>');
+         resRegDate.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+         let btn = $('<td></td>');
+         tr.append(resName);
+         tr.append(resAddress);
+         tr.append(resRegDate);
+         tr.append(btn);
+         let select = $('<button>선택하기</button>').css('margin-right','2px');
+         select.addClass('list_btn_green');
+         select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ pay + "', '" + reqIdx + "')");
+         let ask = $('<button>문의하기</button>').css('margin-left','2px');
+         ask.addClass('list_btn');
+         ask.attr('onclick',"chatCompany('" + id + "', '" + resIdx + "')");
+         btn.append(select);
+         btn.append(ask);
+         console.dir('왜 안 만들어져??');
+      }   
+         $('.left_page').css('display','none');
+         $('.right_page').css('display','none');
+         $('#detailBtn').css('color','gray');
+         $('#detailBtn').css('background','rgb(239, 239, 239)');
+         $('#estimateBtn').css('background','rgb(190,190,190)');
+         $('#estimateBtn').css('color','black');
+         $('.company_list').css('display','flex');
+         $('.company_detail').css('display','block');
+   })
 }
 //견적서 목록 클릭시
 let estimateDetail = (resIdx,tell,time,pay) => {
@@ -182,12 +182,36 @@ let estimateDetail = (resIdx,tell,time,pay) => {
 }
 
 //견적서 목록에서 선택하기 클릭시
-let selectCompany = () => {
+let selectCompany = (id,resIdx,resPay,reqIdx) => {
 	
 }
 //견적서 목록에서 문의하기 클릭시
-let chatCompany = (id,resIdx,resPay,reqIdx) => {
+let chatCompany = (cId, resIdx) => {
+	modalNone();
+	let modal = initModal('modal', 3);
+	appendTitle(modal,'문의하기');
+	setButton(modal,'그만두기','계속하기');
+	setContent(modal,true,true);
+	let modalBody = $('<div>해당 업체와 채팅방을 개설하시겠습니까?<div>').height('10px')
+					.css("margin",'0 20px 0 20px').css("text-align",'center').css('padding-top', '8px');
+	$('.modal_content').append(modalBody);
+	modalBlock();
 	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+	$('.modal_right_btn').click(function() {
+	    fetch('/chat/create-chatRoom?friendId='+cId)
+	    	.then(response => {
+				return response.text();
+			})
+			.then(text => {
+				if(text == 'success') {
+					window.alert('채팅방이 생성되었습니다.');
+				}
+			})
+	    modalNone();
+	})
 }
 
 let filter = 'all';

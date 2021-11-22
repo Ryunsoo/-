@@ -141,4 +141,13 @@ public class ChatController {
 		
 		return "fail";
 	}
+	
+	@GetMapping("create-chatRoom")
+	@ResponseBody
+	public String createChatRoom(HttpSession session, String friendId) {
+		System.out.println(friendId);
+		User user = (User) session.getAttribute("authentication");
+		chatService.createChatRoom(List.of(user.getId(), friendId));
+		return "success";
+	}
 }
