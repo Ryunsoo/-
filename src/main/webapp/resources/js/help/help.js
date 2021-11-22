@@ -135,9 +135,9 @@ let estimate = () => {
 			tr.append(resRegDate);
 			tr.append(btn);
 			let select = $('<button>선택하기</button>').css('margin-right','2px');
-			select.attr('onclick','selectCompany('+responseList[i].id+')');
+			select.attr('onclick','selectCompany('+responseList[i].id+','+responseList[i].resIdx+')');
 			let ask = $('<button>문의하기</button>').css('margin-left','2px');;
-			ask.attr('onclick','chatCompany('+responseList[i].id+')');
+			ask.attr('onclick','chatCompany('+responseList[i].id+','+responseList[i].resIdx+')');
 			btn.append(select);
 			btn.append(ask);
 			console.dir('왜 안 만들어져??');
