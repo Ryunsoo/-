@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -46,5 +47,9 @@ public interface HelpService {
 	int countReview(String field,List<String> addressList);
 
 	MyAddress selectMyAreaList(String id);
+
+	List<HelpResponse> selectHehyeopResponse(String reqIdx);
+
+	List<String> selectCompanyAddress(List<HelpResponse> responseList);
 
 }

@@ -16,6 +16,7 @@ import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
@@ -30,7 +31,7 @@ public interface HelpRepository {
 	String selectReqIdx(HelpRequest helpRequest);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
-			+ "values(sc_c_idx.nextval, 'MEMBER', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
+			+ "values(sc_c_idx.nextval, 'HELP_REQUEST', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileDTO);
 
 	@Select("select * from pro_field")
@@ -84,6 +85,12 @@ public interface HelpRepository {
 
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectMyAreaList(String id);
+
+	@Select("select * from help_response where req_idx = #{reqIdx}")
+	List<HelpResponse> selectHehyeopResponse(String reqIdx);
+
+	@Select("select address from member_c where id = #{id}")
+	String selectCompanyAddress(@Param("id") String id);
 
 
 

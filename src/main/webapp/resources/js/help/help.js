@@ -99,21 +99,17 @@ let showDetail = (reqIdx) => {
 	 	$('.breakdown').css('display','block');
 		$('.left_page').css('display','block');
 		$('.right_page').css('display','block');
+		//히든태그에 reqIdx 저장
+		$('.saveReqIdx').attr('value',reqIdx);
 	 });
 }
 
 //견적 페이지
 let estimate = () => {
+	let reqIdx = $('.saveReqIdx').val();
 	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
 	 .then(response => response.json())
-	 .then(commandMap => {
-		
-		
-		$('.left_page').css('display','none');
-		$('.right_page').css('display','none');
-		$('.company_list').css('display','block');
-		$('.company_detail').css('display','block');		
-	})
+	 .then(responseList => console.dir(responseList))
 }
 
 let filter = 'all';

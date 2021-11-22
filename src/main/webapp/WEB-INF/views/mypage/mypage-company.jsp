@@ -78,9 +78,11 @@
 .modifyInfo_btn:hover{
 	background-color: rgb(222, 184, 135);
 }
+
 .delete_user_btn:hover{
 	background-color: #c2787b;
 }
+
 </style>
 <script type="text/javascript">
 
@@ -142,13 +144,10 @@ function alertMessage(msg){
 							<button type="button" class="btn btn-info open" id="myInfo_btn">
 								내정보&nbsp<i class="fas fa-chevron-down"></i>
 							</button>
-							<button type="button" class="btn btn-info hidden"
-								id="modifyInfo_btn"
-								style="background-color: rgb(246, 199, 124);" >정보수정</button>
-							<button type="button" class="btn btn-info hidden"
-								id="delete_user_btn"
-								style="background-color: rgb(244, 166, 159);">회원탈퇴</button>
-
+							<button type="button" class="btn btn-info hidden modifyInfo_btn"
+								id="modifyInfo_btn">정보수정</button>
+							<button type="button" class="btn btn-info hidden delete_user_btn"
+								id="delete_user_btn">회원탈퇴</button>
 						</div>
 						<div>
 							<c:choose>
