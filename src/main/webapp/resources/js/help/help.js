@@ -119,12 +119,17 @@ let estimate = () => {
 			//regDate 변환하기
 			let regDate = new Date(responseList[i].regDate);
 			regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
-
+			//
+			let id = responseList[i].id;
+			let resIdx = responseList[i].resIdx;
+			let pay = responseList[i].resPay;
+			let tell = responseList[i].tell;
+			let time = responseList[i].resTime;
 			
 			let tr = $('<tr></tr>');
 			table.append(tr);
 			let resName = $('<td>'+responseList[i].company+'</td>');
-			resName.attr('onclick','estimateDetail('+responseList[i].id+')');
+			resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 			let resAddress = $('<td>'+address+'</td>');
 			resAddress.attr('onclick','estimateDetail('+responseList[i].id+')');
 			let resRegDate = $('<td>'+regDate+'</td>');
@@ -135,9 +140,9 @@ let estimate = () => {
 			tr.append(resRegDate);
 			tr.append(btn);
 			let select = $('<button>선택하기</button>').css('margin-right','2px');
-			select.attr('onclick','selectCompany('+responseList[i].id+','+responseList[i].resIdx+')');
-			let ask = $('<button>문의하기</button>').css('margin-left','2px');;
-			ask.attr('onclick','chatCompany('+responseList[i].id+','+responseList[i].resIdx+')');
+			select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "')");
+			let ask = $('<button>문의하기</button>').css('margin-left','2px');
+			ask.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ resPay + "', '" + reqIdx + "')");
 			btn.append(select);
 			btn.append(ask);
 			console.dir('왜 안 만들어져??');
@@ -149,15 +154,20 @@ let estimate = () => {
 	})
 }
 //견적서 목록 클릭시
-let estimateDetail = () => {
-	
+let estimateDetail = (id,) => {
+	fetch("/help/my-hehyeop-estimateDetail?reqIdx="+reqIdx)
+	 .then(response => response.json())
+	 .then(responseList => {
+
+	})
 }
+
 //견적서 목록에서 선택하기 클릭시
 let selectCompany = () => {
 	
 }
 //견적서 목록에서 문의하기 클릭시
-let chatCompany = () => {
+let chatCompany = (id,resIdx,resPay,reqIdx) => {
 	
 }
 
