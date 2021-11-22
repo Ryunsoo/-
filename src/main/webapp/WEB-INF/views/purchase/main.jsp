@@ -61,12 +61,12 @@
 			<div class="item-list-line">
 				<c:forEach items="${registerMap}" var="rm">
 					<div class="item">
-						<div class="item-image"></div>
+						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.regInfo.link}"></div>
 						<div class="item-title-wrapper">
-							<span id="title">${rm.regInfo.itemName}</span> <span>5</span>
+							<span id="title">${rm.regInfo.itemName}</span> <span>(${rm.count}명)</span>
 						</div>
 						<div class="item-price">가격 : ${rm.regInfo.price}</div>
-						<div class="item-stock">남은수량 : ${rm.regInfo.totalNum}개</div>
+						<div class="item-stock">남은수량 : ${rm.regInfo.restNum}개</div>
 					</div>
 				</c:forEach>
 			</div>

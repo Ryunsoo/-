@@ -1,5 +1,6 @@
 package com.kh.hehyeop.purchase.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +40,17 @@ public class PurchaseController {
 	public void purchaseDetailWriterTest() {}
 	
 	@GetMapping("main")
-	public void purchaseMainTest(HttpSession session) {
+	public void purchaseMainTest(HttpSession session, 
+								 @RequestParam(value = "grade", required = false) String grade) {
 		
-		List<Map<String, Object>> registerList = purchaseService.selectRegisterList();
+		List<Map<String, Object>> registerList = new ArrayList<Map<String,Object>>();
+		
+		if (grade != null) {
+			registerList = purchaseService.selectRegisterListByGrade(grade);
+		} else {
+			registerList = purchaseService.selectRegisterList();
+		}
+
 		session.setAttribute("registerMap", registerList);
 		
 	}
@@ -72,6 +81,7 @@ public class PurchaseController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		form.setId(member.getId());
+		form.setRestNum(form.getTotalNum() - form.getBuyNum());
 		
 		if (purchaseService.registerInfo(form) < 0) {
 			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);

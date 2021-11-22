@@ -17,6 +17,7 @@ public class RegisterInfo {
 	private int price;
 	private int totalNum;
 	private int buyNum;
+	private int restNum;
 	private String content;
 	private char done;
 	

@@ -16,6 +16,16 @@ public class RegisterForm {
 	private int price;
 	private int totalNum;
 	private int buyNum;
+	private int restNum;
+
+	public int getRestNum() {
+		return restNum;
+	}
+
+	public void setRestNum(int restNum) {
+		this.restNum = restNum;
+	}
+
 	private String content;
 
 	public String getId() {

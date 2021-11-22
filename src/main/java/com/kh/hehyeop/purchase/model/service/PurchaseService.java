@@ -18,5 +18,6 @@ public interface PurchaseService {
 	MyPurchaseInfo selectPurchaseInfoByIdx(String regIdx);
 
 	List<Map<String, Object>> selectRegisterList();
+	List<Map<String, Object>> selectRegisterListByGrade(String grade);
 
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
+import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.repository.PurchaseRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,15 +63,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	public List<Map<String, Object>> selectRegisterList() {
-		List<RegisterInfo> regInfoList = purchaseRepository.selectRegisterList();
-		List<FileDTO> regFileList = purchaseRepository.selectRegisterFileList();
+		List<PurchaseMain> regInfoList = purchaseRepository.selectRegisterList();
+		List<Object> joinCount = purchaseRepository.selectjoinCount();
 		List<Map<String, Object>> mainList = new ArrayList<Map<String, Object>>();
 
 		for (int i = 0; i < regInfoList.size(); i++) {
-			mainList.add(Map.of("regInfo", regInfoList.get(i), "fileInfo", regFileList.get(i)));
+			mainList.add(Map.of("regInfo", regInfoList.get(i), "count", joinCount.get(i)));
 		}
 
 		return mainList;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectRegisterListByGrade(String grade) {
+		return null;
 	}
 
 }
