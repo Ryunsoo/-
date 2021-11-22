@@ -4,33 +4,30 @@
 	height: 130px;
 	overflow: hidden auto;
 	display: none;
+	justify-content: center;
 }
 
 .company_list table {
 	width: 900px;
-	border: 2px solid rgb(204, 204, 204);
 	border-collapse: collapse;
 	text-align: center;
 }
 
 .company_list th {
-	border: 1px solid rgb(204, 204, 204);
+	border-bottom: 1px solid rgb(204, 204, 204);
 	border-collapse: collapse;
 	background-color: rgb(234, 234, 234);
 	height: 40px;
 }
 
 .company_list td {
-	border: 1px solid rgb(204, 204, 204);
+	border-bottom: 1px solid rgb(204, 204, 204);
 	border-collapse: collapse;
 	height: 40px;
 }
 
-.company_list td>button {
-	width: 70px;
-	height: 30px;
-	border-radius: 5px;
-	background-color: rgb(213, 213, 213);
+.company_list tr:hover {
+	background:  rgb(204, 204, 204);
 }
 
 .company_detail {
@@ -43,16 +40,17 @@
 }
 
 .detail_body {
-	width: 900px;
-	height: 80px;
+	width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 .estilmate-text-area {
 	height: 70px;
 	width: 200px;
-	margin: 10px 80px 30px 10px;
 	display: inline-flex;
-	margin: 10px 80px 30px 10px;
 }
 
 .estilmate-text-title {
@@ -67,6 +65,7 @@
 	height: 35px;
 	border-radius: 5px;
 	border-color: rgb(213, 213, 213);
+	text-align-last: end;
 }
 
 .photo_title {

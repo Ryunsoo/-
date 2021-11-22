@@ -11,6 +11,7 @@ import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.ProField;
 
@@ -51,5 +52,7 @@ public interface HelpService {
 	List<EstimateList> selectHehyeopResponse(String reqIdx);
 
 	List<String> selectCommentsList(String helpIdx);
+
+	List<FileDTO> selectEstimateFile(String resIdx);
 
 }

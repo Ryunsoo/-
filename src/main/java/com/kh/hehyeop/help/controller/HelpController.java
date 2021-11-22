@@ -295,6 +295,14 @@ public class HelpController {
 		return estimateList;
 	}
 	
+	@GetMapping("my-hehyeop-estimateFile")
+	@ResponseBody
+	public List<FileDTO> myHehyeopEstimateFile(String resIdx) {
+		List<FileDTO> estimateFile = helpService.selectEstimateFile(resIdx);
+		System.out.println(estimateFile);
+		return estimateFile;
+	}
+	
 	@GetMapping("review-comments")
 	@ResponseBody
 	public List<String> comments(String helpIdx) {

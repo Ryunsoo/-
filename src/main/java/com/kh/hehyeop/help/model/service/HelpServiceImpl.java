@@ -253,5 +253,10 @@ public class HelpServiceImpl implements HelpService{
 		return helpRepository.selectCommentsList(helpIdx);
 	}
 
+	@Override
+	public List<FileDTO> selectEstimateFile(String resIdx) {
+		return helpRepository.selectEstimateFile(resIdx);
+	}
+
 
 }

@@ -74,6 +74,10 @@ let completeHelp = (reqIdx) => {
 let detail = () => {
 	$('.left_page').css('display','block');
 	$('.right_page').css('display','block');
+	$('#estimateBtn').css('color','gray');
+	$('#estimateBtn').css('background','rgb(239, 239, 239)');
+	$('#detailBtn').css('background','rgb(190,190,190)');
+	$('#detailBtn').css('color','black');
 	$('.company_list').css('display','none');
 	$('.company_detail').css('display','none');
 }
@@ -97,6 +101,10 @@ let showDetail = (reqIdx) => {
 	 	$('#dcontent').html(helpRequest.reqContent);
 	 	//상세페이지 보이게하기
 	 	$('.breakdown').css('display','block');
+		$('#detailBtn').css('background','rgb(190,190,190)');
+		$('#detailBtn').css('color','black');
+		$('#estimateBtn').css('background','rgb(239, 239, 239)');
+		$('#estimateBtn').css('color','gray');
 		$('.left_page').css('display','block');
 		$('.right_page').css('display','block');
 		//히든태그에 reqIdx 저장
@@ -108,6 +116,7 @@ let showDetail = (reqIdx) => {
 let estimate = () => {
 	let reqIdx = $('.saveReqIdx').val();
 	let table = $('#response_list');
+	table.html("<tr><th>업체명</th><th>업체 주소</th><th>신청일</th><th>업체 선택</th></tr>");
 	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
 	 .then(response => response.json())
 	 .then(responseList => {
@@ -124,41 +133,51 @@ let estimate = () => {
 			let resIdx = responseList[i].resIdx;
 			let pay = responseList[i].resPay;
 			let tell = responseList[i].tell;
-			let time = responseList[i].resTime;
-			
+			let timeArr = responseList[i].resTime.split("T");
+	 		let time = timeArr[0]+" "+timeArr[1];
+	 	
 			let tr = $('<tr></tr>');
 			table.append(tr);
 			let resName = $('<td>'+responseList[i].company+'</td>');
 			resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 			let resAddress = $('<td>'+address+'</td>');
-			resAddress.attr('onclick','estimateDetail('+responseList[i].id+')');
+			resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 			let resRegDate = $('<td>'+regDate+'</td>');
-			resRegDate.attr('onclick','estimateDetail('+responseList[i].id+')');
+			resRegDate.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 			let btn = $('<td></td>');
 			tr.append(resName);
 			tr.append(resAddress);
 			tr.append(resRegDate);
 			tr.append(btn);
 			let select = $('<button>선택하기</button>').css('margin-right','2px');
+			select.addClass('list_btn_green');
 			select.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "')");
 			let ask = $('<button>문의하기</button>').css('margin-left','2px');
-			ask.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ resPay + "', '" + reqIdx + "')");
+			ask.addClass('list_btn');
+			ask.attr('onclick',"selectCompany('" + id + "', '" + resIdx + "', '"+ pay + "', '" + reqIdx + "')");
 			btn.append(select);
 			btn.append(ask);
 			console.dir('왜 안 만들어져??');
 		}	
 			$('.left_page').css('display','none');
 			$('.right_page').css('display','none');
-			$('.company_list').css('display','block');
+			$('#detailBtn').css('color','gray');
+			$('#detailBtn').css('background','rgb(239, 239, 239)');
+			$('#estimateBtn').css('background','rgb(190,190,190)');
+			$('#estimateBtn').css('color','black');
+			$('.company_list').css('display','flex');
 			$('.company_detail').css('display','block');
 	})
 }
 //견적서 목록 클릭시
-let estimateDetail = (id,) => {
-	fetch("/help/my-hehyeop-estimateDetail?reqIdx="+reqIdx)
+let estimateDetail = (resIdx,tell,time,pay) => {
+	fetch("/help/my-hehyeop-estimateFile?resIdx="+resIdx)
 	 .then(response => response.json())
-	 .then(responseList => {
-
+	 .then(fileDto => {
+		$('#resTell').attr('value',tell);
+		$('#resTime').attr('value',time);
+		$('#resPay').attr('value',pay+'원');
+		$('#resPhoto').attr('src','/file/'+fileDto[0].savePath+fileDto[0].reName);
 	})
 }
 
@@ -306,6 +325,5 @@ let renewPage = (paging) => {
 	
 	pageDiv.append(numDiv)
 			.append($('<i>').addClass('fas fa-caret-right').attr('onclick', "getList('" + paging.url + "?page=" + paging.next + "')"));
-	
-	
+
 }

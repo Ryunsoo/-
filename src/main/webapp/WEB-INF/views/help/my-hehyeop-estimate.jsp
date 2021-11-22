@@ -24,7 +24,7 @@
 				<div class="estilmate-text-title">
 					*연락처
 					<div class="estilmate-text-input">
-						<input type="text" disabled="disabled" placeholder="01011112222">
+						<input type="text" id="resTell" readonly disabled="disabled">
 					</div>
 				</div>
 			</div>
@@ -32,23 +32,22 @@
 				<div class="estilmate-text-title">
 					*방문시간
 					<div class="estilmate-text-input">
-						<input type="text" disabled="disabled"
-							placeholder="2021-12-02 오전 00:00">
+						<input type="text" id="resTime" readonly disabled="disabled">
 					</div>
 				</div>
 			</div>
 			<div class="estilmate-text-area">
 				<div class="estilmate-text-title">
-					*희망금액
+					*예상금액
 					<div class="estilmate-text-input">
-						<input type="text" disabled="disabled" placeholder="100,000,000">
+						<input type="text" id="resPay" readonly disabled="disabled">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="photo_title">견적서</div>
 		<div class="detail_photo">
-			<img src="../../../resources/image/join-file-exam.jpeg">
+			<img id="resPhoto">
 		</div>
 	</div>
 </body>
