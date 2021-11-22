@@ -39,12 +39,10 @@
 		<form class="form-wrapper">
 			<div class="image-and-appeal-wrapper">
 				<div id="uploaded-image">
-					<img id="product-image" src = "../../../resources/image/product-image.png">
+					<img id="product-image" src="/file/${purchaseInfo.savePath}${purchaseInfo.reName}">
 				</div>
 				<div class="submit-input-title">*어필해협</div>
-				<div id="appeal-help-content">
-					"내용을 입력해주세요 ex)물 3개씩 구매하실 분만 신청해주세요 쌀: 구매개수 1개 = 1kg"
-				</div>
+				<input id="appeal-help-content" value="${purchaseInfo.content}" readonly/>
 			</div>
 			
 			
@@ -54,33 +52,25 @@
 			<br><br>
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*제품명</div>
-						<div class="text-output">
-							<p>탐사수 (2Lx12개)</p>
-						</div>
+					<input class="text-output" value="${purchaseInfo.itemName}" readonly/>
 				</div>
 				<br>
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*거래위치</div>
-						<div class="text-output">
-							<p>강남 kh정보교육원</p>
-						</div>
+						<input class="text-output" value="${purchaseInfo.dealLoc}" readonly/>
 				</div>
 				<br>
 				
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*거래시간</div>
-						<div class="text-output">
-							<p>12월 7일 오후 3:20</p>
-						</div>
+						<input class="text-output" value="${purchaseInfo.dealTime}" style="width:173px;" readonly/>
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*마감시간</div>
-						<div class="text-output">
-							<p>12월 7일 오후 3:40</p>
-						</div>
+						<input class="text-output" value="${purchaseInfo.endTime}" style="width:173px;" readonly/>
 					</div>
 				</div>
 				<br>
@@ -88,23 +78,19 @@
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*금액</div>
-					<div class="text-output">
-							<p>565원</p>
-					</div>
+					<input class="text-output" id="price" value="${purchaseInfo.price}원" readonly/>
 				</div>
 				<br>
 				
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*남은 개수</div>
-						<div class="text-output">
-							<p>15개</p>
-						</div>
+						<input class="text-output" value="${purchaseInfo.restNum}개" readonly/>
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input class="text-input" type="text" placeholder="  수량을 입력하세요" name="file"/>
+						<input id="myBuyCnt" class="text-input" type="text" placeholder="  수량을 입력하세요" name="file"/>
 					</div>
 				</div>
 				<br>
@@ -112,9 +98,7 @@
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내 포인트</div>
-						<div class="text-output">
-							<p>3,000P</p>
-						</div>
+						<input class="text-output" id="myPoint" value="${purchaseInfo.cash}P" readonly/>
 					</div>
 				</div>
 				<br>
@@ -146,4 +130,27 @@
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
+<script type="text/javascript">
+
+/* 
+	num price = document.querySelector('#price').value.replace('원','');
+	num myBuyCnt = document.querySelector('#myBuyCnt').value;
+	num myPoint = document.querySelector('#myPoint').value;
+	
+	document.querySelector("#myBuyCnt").addEventListener('input', e => {
+	
+		if((price*myBuyCnt)>myPoint){
+			alert('포인트가 부족합니다.');
+		}
+	
+	
+	}) */
+	
+	document.querySelector("#myBuyCnt").addEventListener('input', e => {
+		
+		document.querySelector("#myBuyCnt").value;
+	
+	})
+	
+</script>
 </html>

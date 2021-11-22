@@ -13,6 +13,7 @@ public class MyPurchaseInfo {
 	private String itemName;
 	private String dealLoc;
 	private String dealTime;
+	private String endTime;
 	private int joinBuyNum;
 	private int price;
 	private int totalNum;
@@ -25,5 +26,7 @@ public class MyPurchaseInfo {
 	private String name;
 	private String tell;
 	private String nickname;
-
+	private int cash;
+	private String savePath;
+	private String reName;
 }

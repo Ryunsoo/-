@@ -69,11 +69,16 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("request")
-	public void purchaseRequestTest(Model model, String regIdx) {
+	public void purchaseRequestTest(Model model, HttpSession session, String regIdx) {
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		logger.debug(purchaseInfo.toString());
+		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
+		String endDate = purchaseInfo.getEndTime().replace("T","  ");
+		purchaseInfo.setDealTime(dealDate);
+		purchaseInfo.setEndTime(endDate);
+		purchaseInfo.setRestNum(purchaseInfo.getTotalNum() - purchaseInfo.getBuyNum());
+		model.addAttribute("purchaseInfo", purchaseInfo);
 	}
-	
 	
 	
 	@PostMapping("register")
