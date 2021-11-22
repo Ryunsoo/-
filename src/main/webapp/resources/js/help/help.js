@@ -112,7 +112,7 @@ let estimate = () => {
 	 .then(response => response.json())
 	 .then(responseList => {
 		console.dir(responseList);
-		for(let i = 0; i < responseList.lenth(); i++) {
+		for(let i = 0; i < responseList.length; i++) {
 			//주소 자르기
 		 	let addressArr = responseList[i].address.split(" ");
 		 	let address= addressArr[0]+" "+addressArr[1]; 
@@ -124,12 +124,15 @@ let estimate = () => {
 			let tr = $('<tr></tr>');
 			table.append(tr);
 			let resName = $('<td>'+responseList[i].company+'</td>');
+			resName.attr('onclick','estimateDetail('+responseList[i].id+')');
 			let resAddress = $('<td>'+address+'</td>');
-			let regDate = $('<td>'+regDate+'</td>');
+			resAddress.attr('onclick','estimateDetail('+responseList[i].id+')');
+			let resRegDate = $('<td>'+regDate+'</td>');
+			resRegDate.attr('onclick','estimateDetail('+responseList[i].id+')');
 			let btn = $('<td></td>');
 			tr.append(resName);
 			tr.append(resAddress);
-			tr.append(regDate);
+			tr.append(resRegDate);
 			tr.append(btn);
 			let select = $('<button>선택하기</button>').css('margin-right','2px');
 			select.attr('onclick','selectCompany('+responseList[i].id+')');
@@ -143,8 +146,19 @@ let estimate = () => {
 			$('.right_page').css('display','none');
 			$('.company_list').css('display','block');
 			$('.company_detail').css('display','block');
-		
 	})
+}
+//견적서 목록 클릭시
+let estimateDetail = () => {
+	
+}
+//견적서 목록에서 선택하기 클릭시
+let selectCompany = () => {
+	
+}
+//견적서 목록에서 문의하기 클릭시
+let chatCompany = () => {
+	
 }
 
 let filter = 'all';
