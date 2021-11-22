@@ -294,4 +294,11 @@ public class HelpController {
 		System.out.println(estimateList);
 		return estimateList;
 	}
+	
+	@GetMapping("review-comments")
+	@ResponseBody
+	public List<String> comments(String helpIdx) {
+		List<String> commentsList = helpService.selectCommentsList(helpIdx);
+		return commentsList;
+	}
 }

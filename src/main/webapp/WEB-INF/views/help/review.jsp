@@ -58,7 +58,8 @@
 					<td>${reviewList.field}</td>
 					<td>${reviewList.oldAddress}</td>
 					<td>${reviewList.company}</td>
-					<td>★ ${reviewList.score}</td>
+					<td class="recomment" onmouseenter="recomment(this,${reviewList.helpIdx})" onmouseout="recommentOut(this)">★ ${reviewList.score}
+					<div class="recomment_box"></div></td>
 					<td>${reviewList.nickname}</td>
 					<td>${reviewList.reviewDate}</td>
 					</tr>
@@ -91,21 +92,5 @@
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
-<script type="text/javascript">
-let fieldName = 'all'; 
-
-function reviewFiltering() {
-	let field = $('.filter').val();
-	fieldName = field;
-	let AreaOn = document.querySelector('.toggle').checked;
-	location.href='/help/review?field=' + fieldName +'&myArea=' + AreaOn;
-} 
-
-
-/* function myArea() {
-	let AreaOn = document.querySelector('.toggle').checked;
-	location.href='/help/review?field=' + ${field} +'&myArea=' + AreaOn; 
-} */
-
-</script>
+<script type="text/javascript" src="../../../resources/js/help/review.js"></script>
 </html>

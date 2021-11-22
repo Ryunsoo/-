@@ -50,4 +50,6 @@ public interface HelpService {
 
 	List<EstimateList> selectHehyeopResponse(String reqIdx);
 
+	List<String> selectCommentsList(String helpIdx);
+
 }

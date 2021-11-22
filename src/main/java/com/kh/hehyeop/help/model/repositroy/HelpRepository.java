@@ -81,4 +81,8 @@ public interface HelpRepository {
 	@Select("select res_idx, a.reg_date, address, company, b.id from help_response a join member_c b on(a.id = b.id) where req_idx = #{reqIdx}")
 	List<EstimateList> selectResponseWithAddress(String reqIdx);
 
+	@Select("select re_content from help_review where help_idx = #{helpIdx}")
+	List<String> selectCommentsList(String helpIdx);
+
+
 }

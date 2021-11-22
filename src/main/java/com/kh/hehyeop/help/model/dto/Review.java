@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class Review {
+	private String helpIdx;
 	private String field;
 	private String oldAddress;
 	private String company;

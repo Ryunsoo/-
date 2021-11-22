@@ -247,5 +247,11 @@ public class HelpServiceImpl implements HelpService{
 		return helpRepository.selectResponseWithAddress(reqIdx);
 		
 	}
+	
+	@Override
+	public List<String> selectCommentsList(String helpIdx) {
+		return helpRepository.selectCommentsList(helpIdx);
+	}
+
 
 }

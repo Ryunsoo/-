@@ -91,6 +91,30 @@
 	width: 230px;
 }
 
+.recomment{
+	position: relative;
+}
+
+/* comments hover */
+.recomment:hover{
+	background-color: lightgray;
+}
+
+.recomment_box{
+	position: absolute;
+	top: 25px;
+	left: 80px;
+	width: 65px;
+	border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+	background:  rgb(131, 221, 169);
+	display: none;
+	z-index: 99;
+	font-weight: bolder;
+}
+
+
+
 /* 페이징 */
 
 .pg_wrap { clear:both; }
