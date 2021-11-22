@@ -219,6 +219,45 @@ html, body {
 	display: block;
 }
 
+#field_info:hover .balloon4{
+	display: block;
+	cursor: pointer;
+}
+
+#field_info {
+    font-size: 20px;
+    margin-left: 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.balloon4{
+    display: none;
+    position: absolute;
+    right: 282px;
+    top: 621px;
+    width: 280px;
+    height: 65px;
+    background: gray;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    font-weight: bolder;
+}
+
+.balloon4:after { 
+ border-top:0px solid transparent; 
+ border-left: 10px solid transparent; 
+ border-right: 10px solid transparent; 
+ border-bottom: 10px solid gray; 
+ content:""; 
+ position:absolute;
+ top:-10px;
+ right:30px;  
+}
+
+
 .balloon3 {  
   display: none;
   position: absolute;
@@ -880,8 +919,8 @@ html, body {
 }
 
 #specialty_head {
-	height: 20%;
-	display: flex;
+    height: 20%;
+    display: flex;
 }
 
 #specialty_body {

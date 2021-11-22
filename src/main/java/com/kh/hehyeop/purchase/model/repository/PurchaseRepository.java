@@ -3,10 +3,12 @@ package com.kh.hehyeop.purchase.model.repository;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.common.util.file.FileDTO;
+import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
 @Mapper
@@ -26,5 +28,8 @@ public interface PurchaseRepository {
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
 			+ "values(sc_file_idx.nextval, 'PURCHASE', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileUpload);
+
+	@Select("select * from purchase_register where reg_idx = #{regIdx}")
+	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 
 }

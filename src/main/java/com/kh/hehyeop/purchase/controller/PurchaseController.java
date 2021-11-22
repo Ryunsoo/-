@@ -54,7 +54,12 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("request")
-	public void purchaseRequestTest() {}
+	public void purchaseRequestTest(Model model, String regIdx) {
+		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		logger.debug(purchaseInfo.toString());
+	}
+	
+	
 	
 	@PostMapping("register")
 	public String register(RegisterForm form, Model model, @RequestParam List<MultipartFile> files, HttpSession session, RedirectAttributes redirectAttr) {

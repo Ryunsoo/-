@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.util.file.FileUtil;
+import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +47,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public List<MyPurchaseInfo> selectMyPurchaseInfo(String id) {
 		return purchaseRepository.selectMyPurchaseInfo(id);
+	}
+
+	@Override
+	public MyPurchaseInfo selectPurchaseInfoByIdx(String regIdx) {
+		return purchaseRepository.selectPurchaseInfoByIdx(regIdx);
 	}
 
 }
