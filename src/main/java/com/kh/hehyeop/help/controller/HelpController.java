@@ -238,67 +238,45 @@ public class HelpController {
 	@GetMapping("deleteHelp")
 	public String deleteHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.deleteRequest(reqIdx);
-		if (res == 1) {
-			redirectAttr.addFlashAttribute("msg", "삭제완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg", "잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		redirectAttr.addFlashAttribute("msg","해협 삭제가 완료 되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 
 	//해협 끌올
 	@GetMapping("refreshHelp")
 	public String refreshHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.refreshRequest(reqIdx);
-		if (res == 1) {
-			redirectAttr.addFlashAttribute("msg", "끌올완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg", "잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		redirectAttr.addFlashAttribute("msg","해협 순서 끝어올리기가 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//해협 취소
 	@GetMapping("cancelHelp")
 	public String cancelHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		int res = helpService.cancelRequest(reqIdx);
-		if(res == 1) {
-			redirectAttr.addFlashAttribute("msg","삭제요청 완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		helpService.cancelRequest(reqIdx);
+		redirectAttr.addFlashAttribute("msg","해협 취소 요청이 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//해협 완료
 	@GetMapping("completeHelp")
 	public String completeHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		int res = helpService.completeRequest(reqIdx);
-		if(res == 1) {
-			redirectAttr.addFlashAttribute("msg","완료완료");
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요.");
-		}
-		return "redirect:/help/my-hehyeop";
+		helpService.completeRequest(reqIdx);
+		redirectAttr.addFlashAttribute("msg","해협 완료 요청이 완료되었습니다.");
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	//리뷰 등록
 	@GetMapping("registReview")
-	public String registReview(String reqIdx, String score, String comment, RedirectAttributes redirectAttr) {
-		System.out.println("reqpIdx잘나오나??: " + reqIdx);
-		String helpIdx = helpService.getHelpIdx(reqIdx);
-		System.out.println("helpIdx잘나오나??: " + helpIdx);
-		String[] tempArr = comment.split(","); //"", 신속해요, 정확해요
-		String[] commentArr = new String[tempArr.length-1];
-		for (int i = 0; i < commentArr.length; i++) {
-			commentArr[i] = tempArr[i+1];
-		}
-		System.out.println(Arrays.toString(commentArr));
-		int res = helpService.registReview(helpIdx,score,commentArr); 
-		if(res == (2+commentArr.length)) {
-			redirectAttr.addFlashAttribute("msg","리뷰등록 완료"); 
-		} else {
-			redirectAttr.addFlashAttribute("msg","잠시 후 다시 시도해주세요."); 
-	    }
-		 
-		return "redirect:/help/my-hehyeop";
+	public String registReview(String reqIdx, double score, String comment, RedirectAttributes redirectAttr) {
+		System.out.println("score : " + comment);
+		String[] tempArr = comment.split(",");
+		System.out.println("score : " + Arrays.toString(tempArr));
+		helpService.registReview(reqIdx, score, tempArr); 
+		redirectAttr.addFlashAttribute("msg","리뷰등록이 완료되었습니다."); 
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
 	}
 	
 	@GetMapping("my-hehyeop-detail")

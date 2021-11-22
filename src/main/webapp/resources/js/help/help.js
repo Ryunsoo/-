@@ -216,7 +216,7 @@ let getBtnTd = (help) => {
 			return td.append(deleteBtn).append(refreshBtn);
 		case 2:
 			let finishBtn = $('<button>완료</button>').addClass('list_btn_green').attr('id', 'complete').attr('onclick', 'completeHelp(' + help.reqIdx + ')');
-			let cancelBtn = $('<button>취소</button>').addClass('list_btn_red').attr('id', 'cancel').attr('onclick', 'cancleHelp(' + help.reqIdx + ')');
+			let cancelBtn = $('<button>취소</button>').addClass('list_btn_red').attr('id', 'cancel').attr('onclick', 'cancelHelp(' + help.reqIdx + ')');
 			return td.append(finishBtn).append(cancelBtn);
 		case 3:
 			return td.html('완료 대기 중');

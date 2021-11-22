@@ -49,12 +49,12 @@ let createReviewModal = (reqIdx) => {
 	
 	let selectWrap = $('<div>').height('240px').addClass('modal_select_wrapper');
 	
-	selectWrap.append($('<div><i class="fas fa-check"></i> 친절해요</div>').addClass('select_text'))
-				.append($('<div data-value="신속해요"><i class="fas fa-check"></i> 신속해요</div>').addClass('select_text'))
-				.append($('<div data-value="안전해요"><i class="fas fa-check"></i> 안전해요</div>').addClass('select_text'))
-				.append($('<div data-value="전문적이에요"><i class="fas fa-check"></i> 전문적이에요</div>').addClass('select_text'))
-				.append($('<div data-value="시간을 잘 지켜요"><i class="fas fa-check"></i> 시간을 잘 지켜요</div>').addClass('select_text'))
-				.append($('<div data-value="비용이 합리적이에요"><i class="fas fa-check"></i> 비용이 합리적이에요</div>').addClass('select_text'))
+	selectWrap.append($('<div data-value="친절"><i class="fas fa-check"></i> 친절해요</div>').addClass('select_text'))
+				.append($('<div data-value="신속"><i class="fas fa-check"></i> 신속해요</div>').addClass('select_text'))
+				.append($('<div data-value="안전"><i class="fas fa-check"></i> 안전해요</div>').addClass('select_text'))
+				.append($('<div data-value="전문"><i class="fas fa-check"></i> 전문적이에요</div>').addClass('select_text'))
+				.append($('<div data-value="시간"><i class="fas fa-check"></i> 시간을 잘 지켜요</div>').addClass('select_text'))
+				.append($('<div data-value="비용"><i class="fas fa-check"></i> 비용이 합리적이에요</div>').addClass('select_text'))
 	
 	$('.modal_content').append(selectWrap);
 	
@@ -98,14 +98,16 @@ let createReviewModal = (reqIdx) => {
 	$('.modal_left_btn').click(function() {
 		//let score 별점
 		//let coment 후기코멘트
-		makeArray(comment);
+		document.querySelectorAll(".selected_review").forEach(e => {
+			comment.push(e.dataset.value);
+		})
 		location.href = '/help/registReview?reqIdx='+reqIdx+'&score='+score+'&comment='+comment;
 		modalNone();
 	})
 
-	let makeArray = (comment) => {
+	/*let makeArray = (comment) => {
 		document.querySelectorAll(".selected_review").forEach(e => {
 			comment.push(e.dataset.value);
 		})
-	}
+	}*/
 }

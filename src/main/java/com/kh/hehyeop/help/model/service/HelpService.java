@@ -34,13 +34,11 @@ public interface HelpService {
 
 	int refreshRequest(String reqIdx);
 
-	int cancelRequest(String reqIdx);
+	void cancelRequest(String reqIdx);
 
-	int completeRequest(String reqIdx);
+	void completeRequest(String reqIdx);
 
-	String getHelpIdx(String reqIdx);
-
-	int registReview(String helpIdx, String score, String[] commentArr);
+	void registReview(String helpIdx, double score, String[] commentArr);
 
 	Map<String, Object> selectHehyeopDetail(String reqIdx);
 
