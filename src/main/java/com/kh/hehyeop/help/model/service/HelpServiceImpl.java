@@ -258,5 +258,33 @@ public class HelpServiceImpl implements HelpService{
 		return helpRepository.selectEstimateFile(resIdx);
 	}
 
+	public String choiceCompany(Map<String, Object> commandMap) {
+		System.out.println(commandMap);
+		if(commandMap.get("payWay").equals("offline")) {
+			updateChoiceState(commandMap, 2);
+			return "success";
+		}else {
+			if(checkMyCash((String) commandMap.get("id"), (int) commandMap.get("resPay"))) {
+				updateCash((String) commandMap.get("id"), (int) commandMap.get("resPay"));
+				updateChoiceState(commandMap, 1);
+				return "success";
+			}else {
+				return "fail";
+			}
+		} 
+		
+	}
+	
+	private boolean checkMyCash(String id, int resPay) {
+		int myCash = helpRepository.selectMyCash(id);
+		return resPay <= myCash;
+	}
+	
+	private void updateChoiceState(Map<String, Object> commandMap, int payStatus) {
+		helpRepository.insertHelpMatch((String)commandMap.get("reqIdx"),(String)commandMap.get("resIdx") , payStatus); 
+	}
 
+	private void updateCash(String id, int resPay) {
+		helpRepository.updateCash(id, resPay);
+	}
 }

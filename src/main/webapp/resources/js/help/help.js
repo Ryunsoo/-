@@ -182,8 +182,39 @@ let estimateDetail = (resIdx,tell,time,pay) => {
 }
 
 //견적서 목록에서 선택하기 클릭시
-let selectCompany = (id,resIdx,resPay,reqIdx) => {
+let selectCompany = (cid,resIdx,resPay,reqIdx) => {	
+	let modal = initModal('modal', 1);
+	appendTitle(modal,'결제 선택');
+	setButton(modal,'그만두기','확 인');
+	setContent(modal,true,true);
 	
+	let companyModal = $('<div>').addClass('companyModal');
+	$('.modal_content').append(companyModal);
+	let choiceIcon = $('<div class="choice_icon"><i class="fas fa-coins"></i><div>'); 
+	$('.companyModal').append(choiceIcon);
+	let choiceInfo = $('<div class="choice_body">업체 견적 금액<br>' + resPay + '<div>');
+	$('.companyModal').append(choiceInfo);
+	let choiceRadio = $('<div class="choice_radio"><input type="radio" class="choice1" id="choice" name="payWay" checked="checked"><label for="choice">현장 결제</label><input type="radio" id="choice" name="payWay"><label for="choice">캐시 결제</label><div>');
+	$('.modal_content').append(choiceRadio);
+
+	
+	modalBlock();
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+	$('.modal_right_btn').click(function() {
+		let payWay;
+		let check = $('.choice1').is(":checked");
+		if(check) {
+			payWay = "offline";
+		}else {
+			payWay = "online";
+		}
+
+		location.href = '/help/choice-company?cid=' + cid + '&resIdx=' + resIdx + '&resPay=' + resPay + '&reqIdx=' + reqIdx + '&payWay=' + payWay;
+	    modalNone();
+	})
 }
 //견적서 목록에서 문의하기 클릭시
 let chatCompany = (cId, resIdx) => {

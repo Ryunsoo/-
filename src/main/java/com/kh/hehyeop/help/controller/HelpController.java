@@ -309,4 +309,43 @@ public class HelpController {
 		List<String> commentsList = helpService.selectCommentsList(helpIdx);
 		return commentsList;
 	}
+	
+	@GetMapping("choice-company")
+	public String choiceCompany(HttpSession session, RedirectAttributes redirectAttr
+								,String cid, String resIdx
+								,int resPay, String reqIdx ,String payWay) {
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		
+		String res = helpService.choiceCompany(Map.of("id",id,"cid",cid,"resIdx",resIdx,"resPay",resPay,"reqIdx",reqIdx,"payWay",payWay));
+		
+		if(res.equals("success")) {
+			redirectAttr.addFlashAttribute("msg","업체 선택이 완료되었습니다.");
+		}else {
+			redirectAttr.addFlashAttribute("msg","현재 보유 캐시가 부족해 업체 선택에 실패했습니다.");
+		}
+		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+		return "redirect:/error/result";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
