@@ -134,7 +134,7 @@ let estimate = () => {
          let pay = responseList[i].resPay;
          let tell = responseList[i].tell;
          let timeArr = responseList[i].resTime.split("T");
-          let time = timeArr[0]+" "+timeArr[1];
+         let time = timeArr[0]+" "+timeArr[1];
        
          let tr = $('<tr></tr>');
          table.append(tr);
