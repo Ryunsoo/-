@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.common.util.file.FileDTO;
-import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
 @Mapper

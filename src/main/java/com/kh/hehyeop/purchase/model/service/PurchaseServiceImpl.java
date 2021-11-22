@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.util.file.FileUtil;
-import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
+
 import lombok.RequiredArgsConstructor;
 
 @Service

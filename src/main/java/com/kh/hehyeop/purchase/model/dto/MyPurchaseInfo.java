@@ -14,7 +14,6 @@ public class MyPurchaseInfo {
 	private String dealLoc;
 	private String dealTime;
 	private int joinBuyNum;
-	private String endTime;
 	private int price;
 	private int totalNum;
 	private int buyNum;
