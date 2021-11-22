@@ -218,6 +218,12 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public void completeRequest(String reqIdx) {
 		helpRepository.completeRequest(reqIdx);
+		
+		//업체한테 푸시보내기
+		Map<String, String> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
+		CMember member = new CMember();
+		member.setId(map.get("id"));
+		pushSender.send(member, "자취해협", map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
 	}
 
 	@Override
