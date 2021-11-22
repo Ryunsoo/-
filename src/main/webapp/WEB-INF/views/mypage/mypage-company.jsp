@@ -381,8 +381,17 @@ function alertMessage(msg){
 										<i class="fas fa-tags"></i>
 									</div>
 									<div id="basic">my전문분야</div>
+									<c:if test="${authentication.isPermit eq 2}">
+									<div id="field_info">
+										<i class="fas fa-exclamation-circle"></i>&nbsp; Look
+										<div class="balloon4">
+											승인 대기 중인 전문분야는 <br>
+											<br> 관리자 승인 후 이용이 가능합니다.
+										</div>
+									</div>
+									</c:if>
 								</div>
-								<div id="specialty_body">
+							 <div id="specialty_body">
 									<c:forEach items="${myField}" var="mf">
 										<div id="item_wrap">
 											<button type="button" id="specialty_item"
@@ -440,41 +449,6 @@ function alertMessage(msg){
 	<script type="text/javascript"
 		src="../../../resources/js/include/head/menu_head.js"></script>
 	<script type="text/javascript">
-/* document.querySelector("#addtown").addEventListener('click', e => {
-	let idx = document.querySelectorAll('#list_wrap').length + 1;
-	if(idx > 3) {
-		alert("동네는 최대 3개까지만 추가할 수 있습니다.");
-	}else {
-		let inputAddress = prompt("주소를 입력하세요");
-		if(inputAddress == "") {
-			alert("주소를 입력해주세요.");
-		}else if(inputAddress != "") {
-			let listWrap = document.createElement("div");
-			listWrap.setAttribute("id", 'list_wrap');
-			document.querySelector("#townlist_con").appendChild(listWrap);
-			let listIdx = document.createElement("div");
-			listIdx.setAttribute("id", 'listidx');
-			listIdx.innerHTML = `${idx}`;
-			listWrap.appendChild(listIdx);
-			let listBody = document.createElement("div");
-			if(idx == 2) {
-				listBody.setAttribute("id", 'listbody2');
-			}else if(idx == 3) {
-				listBody.setAttribute("id", 'listbody3');
-			}
-			listBody.innerHTML = `<div id="address">${inputAddress}</div>`;
-			listWrap.appendChild(listBody);
-			let listDelete = document.createElement("div");
-			listDelete.setAttribute("id", 'listdelete');
-			listDelete.setAttribute("type", 'button');
-			listDelete.innerHTML = '<i class="fas fa-times-circle"></i>';
-			listWrap.appendChild(listDelete);
-			listDelete.addEventListener('click', () => {
-				listWrap.remove();
-			})
-		}
-	}
-}) */
 
 /* 재미로 만든 별점 올리기 */
 document.querySelector(".temp_btn").addEventListener('click', e => {
