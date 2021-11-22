@@ -12,8 +12,8 @@ public class RegisterInfo {
 	private String itemName;
 	private String itemLink;
 	private String dealLoc;
-	private Date endTime;
-	private Date dealTime;
+	private String endTime;
+	private String dealTime;
 	private int price;
 	private int totalNum;
 	private int buyNum;

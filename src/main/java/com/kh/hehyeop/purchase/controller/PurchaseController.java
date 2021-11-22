@@ -1,6 +1,7 @@
 package com.kh.hehyeop.purchase.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,7 +39,12 @@ public class PurchaseController {
 	public void purchaseDetailWriterTest() {}
 	
 	@GetMapping("main")
-	public void purchaseMainTest() {}
+	public void purchaseMainTest(HttpSession session) {
+		
+		List<Map<String, Object>> registerList = purchaseService.selectRegisterList();
+		session.setAttribute("registerMap", registerList);
+		
+	}
 	
 	@GetMapping("my-purchase")
 	public void purchaseMypurchaseTest(HttpSession session

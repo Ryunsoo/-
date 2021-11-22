@@ -38,7 +38,7 @@
 					<option selected>전체</option>
 					<option value="dia">다이아</option>
 					<option value="gold">골드</option>
-					<option value="silber">실버</option>
+					<option value="silver">실버</option>
 					<option value="bronze">브론즈</option>
 				</select>
 				
@@ -56,104 +56,20 @@
 		
 		
 		<!-- 물품 list wrapper-->
-		<div class="item-list-wrapper">
-			
+		<div class="item-list-wrapper">	
 			<!-- 물품 list 첫번째 줄 -->
 			<div class="item-list-line">
-			
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
+				<c:forEach items="${registerMap}" var="rm">
+					<div class="item">
+						<div class="item-image"></div>
+						<div class="item-title-wrapper">
+							<span id="title">${rm.regInfo.itemName}</span> <span>5</span>
+						</div>
+						<div class="item-price">가격 : ${rm.regInfo.price}</div>
+						<div class="item-stock">남은수량 : ${rm.regInfo.totalNum}개</div>
 					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
+				</c:forEach>
 			</div>
-			
-			<!-- 물품 list 두번째 줄 -->
-			<div class="item-list-line">
-			
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-			</div>
-			
-			<!-- 물품 list 세번째 줄 -->
-			<div class="item-list-line">
-			
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-				<div class="item">
-					<div class="item-image"></div>
-					<div class="item-title-wrapper">
-						<span id="title">상품 제목</span> <span>(예약된 인원수)</span>
-					</div>
-					<div class="item-price">가격 : 150000원</div>
-					<div class="item-stock">남은수량 : 15개</div>
-				</div>
-				
-			</div>
-			
 		</div>
 		
 		<!-- 물품 list 끝 -->

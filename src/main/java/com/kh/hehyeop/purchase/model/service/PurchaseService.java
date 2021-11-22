@@ -1,6 +1,7 @@
 package com.kh.hehyeop.purchase.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,5 +16,7 @@ public interface PurchaseService {
 	int registerInfo(RegisterForm form);
 	int uploadFile(List<MultipartFile> files, String typeIdx);
 	MyPurchaseInfo selectPurchaseInfoByIdx(String regIdx);
+
+	List<Map<String, Object>> selectRegisterList();
 
 }
