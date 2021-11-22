@@ -73,5 +73,10 @@ public class ChatServiceImpl implements ChatService{
 		return chatRepository.selectMemberByFriendId(friendId);
 	}
 
+	@Override
+	public void createChatRoom(List<String> idList) {
+		chatRepository.insertChatRoom(idList);
+	}
+
 
 }

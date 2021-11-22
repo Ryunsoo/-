@@ -30,5 +30,7 @@ public interface ChatService {
 
 	String selectMemberByFriendId(String friendId);
 
+	void createChatRoom(List<String> idList);
+
 
 }
