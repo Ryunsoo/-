@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
+import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.repository.PurchaseRepository;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -44,6 +45,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 
 		return res;
+	}
+
+	@Override
+	public MyPurchaseInfo selectPurchaseInfoByIdx(String regIdx) {
+		return purchaseRepository.selectPurchaseInfoByIdx(regIdx);
 	}
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -51,8 +52,8 @@ public class PurchaseController {
 	
 	@GetMapping("request")
 	public void purchaseRequestTest(Model model, String regIdx) {
-		//MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
-		 //model.addAllAttributes((Collection<?>) purchaseInfo);
+		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		logger.debug(purchaseInfo.toString());
 	}
 	
 	
