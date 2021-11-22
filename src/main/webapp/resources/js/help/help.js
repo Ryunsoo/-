@@ -107,9 +107,44 @@ let showDetail = (reqIdx) => {
 //견적 페이지
 let estimate = () => {
 	let reqIdx = $('.saveReqIdx').val();
+	let table = $('#response_list');
 	fetch("/help/my-hehyeop-estimate?reqIdx="+reqIdx)
 	 .then(response => response.json())
-	 .then(responseList => console.dir(responseList))
+	 .then(responseList => {
+		console.dir(responseList);
+		for(let i = 0; i < responseList.lenth(); i++) {
+			//주소 자르기
+		 	let addressArr = responseList[i].address.split(" ");
+		 	let address= addressArr[0]+" "+addressArr[1]; 
+			//regDate 변환하기
+			let regDate = new Date(responseList[i].regDate);
+			regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
+
+			
+			let tr = $('<tr></tr>');
+			table.append(tr);
+			let resName = $('<td>'+responseList[i].company+'</td>');
+			let resAddress = $('<td>'+address+'</td>');
+			let regDate = $('<td>'+regDate+'</td>');
+			let btn = $('<td></td>');
+			tr.append(resName);
+			tr.append(resAddress);
+			tr.append(regDate);
+			tr.append(btn);
+			let select = $('<button>선택하기</button>').css('margin-right','2px');
+			select.attr('onclick','selectCompany('+responseList[i].id+')');
+			let ask = $('<button>문의하기</button>').css('margin-left','2px');;
+			ask.attr('onclick','chatCompany('+responseList[i].id+')');
+			btn.append(select);
+			btn.append(ask);
+			console.dir('왜 안 만들어져??');
+		}	
+			$('.left_page').css('display','none');
+			$('.right_page').css('display','none');
+			$('.company_list').css('display','block');
+			$('.company_detail').css('display','block');
+		
+	})
 }
 
 let filter = 'all';
@@ -250,6 +285,3 @@ let renewPage = (paging) => {
 	
 	
 }
-
-
-

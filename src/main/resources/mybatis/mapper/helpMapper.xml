@@ -56,7 +56,7 @@
 	<select id="selectEstimateCntById" resultMap="estimateCnt">
 		select q.req_idx as req_idx, count(*) as estimate_cnt from help_request q join help_response s on(q.req_idx = s.req_idx) where q.id = #{id} group by q.req_idx
 	</select>
-	
+
 	<resultMap type="map" id="reqNameAndResId">
 		<result column="req_name" javaType="String" property="reqName"/>
 		<result column="id" javaType="String" property="id"/>
@@ -81,5 +81,5 @@
 			, #{commentArr, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.ReviewTypeHandler}
 		)}
 	</insert>
-  
+
 </mapper>

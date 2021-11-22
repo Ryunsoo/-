@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.ProField;
+import com.kh.hehyeop.help.model.dto.EstimateList;
 import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpMatch;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -77,14 +78,7 @@ public interface HelpRepository {
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectMyAreaList(String id);
 
-	@Select("select * from help_response where req_idx = #{reqIdx}")
-	List<HelpResponse> selectHehyeopResponse(String reqIdx);
+	@Select("select res_idx, a.reg_date, address, company, b.id from help_response a join member_c b on(a.id = b.id) where req_idx = #{reqIdx}")
+	List<EstimateList> selectResponseWithAddress(String reqIdx);
 
-	@Select("select address from member_c where id = #{id}")
-	String selectCompanyAddress(@Param("id") String id);
-
-
-
-
-	
 }

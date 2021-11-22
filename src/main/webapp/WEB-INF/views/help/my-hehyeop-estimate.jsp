@@ -15,33 +15,6 @@
 				<th>신청일</th>
 				<th>업체 선택</th>
 			</tr>
-			<tr>
-				<td>싱크내게맡겨</td>
-				<td>서울 강남</td>
-				<td>2021/10/17</td>
-				<td>
-					<button>선택하기</button>
-					<button>문의하기</button>
-				</td>
-			</tr>
-			<tr>
-				<td>싱크싱크</td>
-				<td>서울 강남</td>
-				<td>2021/10/18</td>
-				<td>
-					<button>선택하기</button>
-					<button>문의하기</button>
-				</td>
-			</tr>
-			<tr>
-				<td>싱크~</td>
-				<td>서울 강남</td>
-				<td>2021/10/18</td>
-				<td>
-					<button>선택하기</button>
-					<button>문의하기</button>
-				</td>
-			</tr>
 		</table>
 	</div>
 

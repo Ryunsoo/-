@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.hehyeop.help.model.dto.EstimateList;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
@@ -46,8 +48,6 @@ public interface HelpService {
 
 	MyAddress selectMyAreaList(String id);
 
-	List<HelpResponse> selectHehyeopResponse(String reqIdx);
-
-	List<String> selectCompanyAddress(List<HelpResponse> responseList);
+	List<EstimateList> selectHehyeopResponse(String reqIdx);
 
 }

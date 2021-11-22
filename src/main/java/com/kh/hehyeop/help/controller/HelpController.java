@@ -34,6 +34,7 @@ import com.kh.hehyeop.common.util.page.Page;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.company.model.dto.ProField;
+import com.kh.hehyeop.help.model.dto.EstimateList;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
@@ -288,10 +289,9 @@ public class HelpController {
 	
 	@GetMapping("my-hehyeop-estimate")
 	@ResponseBody
-	public List<HelpResponse> myHehyeopEstimate(String reqIdx) {
-		List<HelpResponse> responseList = helpService.selectHehyeopResponse(reqIdx);
-		List<String> addressList = helpService.selectCompanyAddress(responseList);
-		System.out.println("addressList : " + addressList);
-		return responseList;
+	public List<EstimateList> myHehyeopEstimate(String reqIdx) {
+		List<EstimateList> estimateList = helpService.selectHehyeopResponse(reqIdx);
+		System.out.println(estimateList);
+		return estimateList;
 	}
 }
