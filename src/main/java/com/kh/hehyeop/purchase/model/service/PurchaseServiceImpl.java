@@ -16,7 +16,8 @@ import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
-
+import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.RegisterInfo;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -64,13 +65,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword) {
-		return purchaseRepository.selectRegisterList(grade, addressList, keyword);
+	public List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword, Paging paging) {
+		return purchaseRepository.selectRegisterList(grade, addressList, keyword, paging);
 	}
 
 	@Override
-	public List<String> selectAddress(String id) {
+	public MyAddress selectAddress(String id) {
 		return purchaseRepository.selectAddress(id);
+	}
+
+	@Override
+	public int countRegister(String grade, List<String> addressList, String keyword) {
+		return purchaseRepository.countRegister(grade, addressList, keyword);
 	}
 
 }

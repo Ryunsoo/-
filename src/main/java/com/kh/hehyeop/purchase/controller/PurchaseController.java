@@ -2,7 +2,6 @@ package com.kh.hehyeop.purchase.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
@@ -42,23 +43,46 @@ public class PurchaseController {
 	
 	@GetMapping("main")
 	public void purchaseMainTest(HttpSession session,
+								 Model model, Paging paging,
+								 @RequestParam(value = "nowPage", required = false) String nowPage,
+								 @RequestParam(value = "cntPerPage", required = false) String cntPerPage,
 								 @RequestParam(value = "grade", required = false) String grade,
 								 @RequestParam(value = "area", required = false) boolean myArea,
 								 @RequestParam(value = "keyword", required = false) String keyword) {
-
+		
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "20";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "20";
+		}
+		
 		Member member = (Member) session.getAttribute("authentication");
+		List<String> addressList = new ArrayList<String>();
 		
 		if (grade == null) grade = "all";
 		
 		if(myArea) {
-			
-			List<String> adressList = purchaseService.selectAddress(member.getId());
-			
+			MyAddress address = purchaseService.selectAddress("1992554869");
+			addressList.add(address.getAddress1());
+			if(address.getAddress2() != null) addressList.add(address.getAddress2());
+			if(address.getAddress3() != null) addressList.add(address.getAddress3());
+			session.setAttribute("btn", "on");
+		} else {
+			addressList = null;
+			session.setAttribute("btn", "off");
 		}
 		
-		List<PurchaseMain> registerList = purchaseService.selectRegisterList(grade, null, keyword);
-		session.setAttribute("registerList", registerList);
-		
+		int total = purchaseService.countRegister(grade, addressList, keyword);
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<PurchaseMain> registerList = purchaseService.selectRegisterList(grade, addressList, keyword, paging);
+		model.addAttribute("registerList", registerList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("grade", grade);
+		model.addAttribute("area", myArea);
 	}
 	
 	@GetMapping("my-purchase")

@@ -20,12 +20,12 @@
 			<div class="search">
 				<div class="this-page-name">구매해협</div>
 				
-				<form class="search-form">
+				<div class="search-form">
 					<input id="search-input" type="text" placeholder="검색어를 입력하세요.">
-					<div id="search-submit">
+					<div id="search-submit" onclick="changeList()">
 						<i class="fas fa-search"></i>
 					</div>
-				</form>
+				</div>
 			</div>
 			
 			<!-- 필터 파트 -->
@@ -35,19 +35,26 @@
 			
 				<!-- 등급 선택 -->
 				<select id="grade-dropdown" name="grade" onchange="changeList()">
-					<option value="all">전체</option>
-					<option value="DIA">다이아</option>
-					<option value="GOLD">골드</option>
-					<option value="SILVER">실버</option>
-					<option value="BRONZE">브론즈</option>
-					<option value="NORMAL">노말</option>
+					<option value="all" <c:if test="${param.grade eq 'all'}">selected</c:if>>전체</option>
+					<option value="DIA" <c:if test="${param.grade eq 'DIA'}">selected</c:if>>다이아</option>
+					<option value="GOLD" <c:if test="${param.grade eq 'GOLD'}">selected</c:if>>골드</option>
+					<option value="SILVER" <c:if test="${param.grade eq 'SILVER'}">selected</c:if>>실버</option>
+					<option value="BRONZE" <c:if test="${param.grade eq 'BRONZE'}">selected</c:if>>브론즈</option>
+					<option value="NORMAL" <c:if test="${param.grade eq 'NORMAL'}">selected</c:if>>노말</option>
 				</select>
 				
 				<div>우리 동네만</div>
 				
 				<!-- toggle switch -->
 				<label class="switch">
-				  <input type="checkbox" id="checkArea" name="area" value="on" onchange="changeList()">
+				  <c:choose>
+				  	<c:when test="${btn eq 'on'}">
+				  		<input type="checkbox" id="checkArea" name="area" value="on" checked onchange="changeList()">
+				  	</c:when>
+				  	<c:otherwise>
+				  		<input type="checkbox" id="checkArea" name="area" value="on" onchange="changeList()">
+				  	</c:otherwise>
+				  </c:choose>
 				  <span class="slider round"></span>
 				</label>
 			
@@ -61,7 +68,7 @@
 			<!-- 물품 list 첫번째 줄 -->
 			<div class="item-list-line">
 				<c:forEach items="${registerList}" var="rm">
-					<div class="item">
+					<div class="item" onclick="location.href = '/purchase/detail?regIdx=${rm.regIdx}';">
 						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.link}"></div>
 						<div class="item-title-wrapper">
 							<span id="title">${rm.itemName}</span> <span>(2명)</span>
@@ -79,20 +86,25 @@
 		
 		
 		<!-- 물품 list 페이징 -->
-		<div class="list-paging-wrapper">
-			<div class="list-paging">
-				<div>
-					<i class="fas fa-chevron-left"></i>
-				</div>
-				<div>1</div>
-				<div>2</div>
-				<div>3</div>
-				<div>4</div>
-				<div>5</div>
-				<div>
-					<i class="fas fa-chevron-right"></i>
-				</div>
-			</div>
+		<div class="pg_wrap" style="display: block; text-align: center;">
+			<c:if test="${paging.startPage != 1 }">
+				<a class="pg_start" href="/purchase/main?nowPage=1&cntPerPage=${paging.cntPerPage}&grade=${grade}&area=${area}&keyword=${keyword}">&lt;&lt;</a>
+				<a class="pg_prev" href="/purchase/main?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&grade=${grade}&area=${area}&keyword=${keyword}">&lt;</a>
+			</c:if>
+			<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == paging.nowPage }">
+						<a class="pg_current">${p }</a>
+					</c:when>
+					<c:when test="${p != paging.nowPage }">
+						<a class="pg_page" href="/purchase/main?nowPage=${p }&cntPerPage=${paging.cntPerPage}&grade=${grade}&area=${area}&keyword=${keyword}">${p }</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${paging.endPage != paging.lastPage}">
+				<a class="pg_next" href="/purchase/main?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&grade=${grade}&area=${area}&keyword=${keyword}">&gt;</a>
+				<a class="pg_end" href="/purchase/main?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&grade=${grade}&area=${area}&keyword=${keyword}">&gt;&gt;</a>
+			</c:if>
 		</div>
 		
 		
@@ -110,9 +122,9 @@
 function changeList(){
 	let gradeVal = document.getElementById("grade-dropdown").value;
 	let areaVal = document.getElementById("checkArea").checked;
+	let keyword = document.getElementById("search-input").value;
 	
-	location.href = "/purchase/main?grade="+gradeVal+"&area="+areaVal;
-	 
+	location.href = "/purchase/main?grade="+gradeVal+"&area="+areaVal+"&keyword="+keyword;
 }
 
 </script>

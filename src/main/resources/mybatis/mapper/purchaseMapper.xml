@@ -6,42 +6,87 @@
 <mapper namespace="com.kh.hehyeop.purchase.model.repository.PurchaseRepository"> 
   
 	<select id="selectRegisterList" resultType="PurchaseMain">
-	
-	select reg_idx, price, item_name, rest_num, deal_loc, link from v_select_purchase_main
+	select *
+	from (select rownum rnum, v.reg_idx, v.price, v.item_name, v.rest_num, v.deal_loc, v.link from v_select_purchase_main v
 	
 	<choose>
-		<when test="grade != 'all' and area == null and keyword == null">
+		<when test="grade != 'all' and addressList == null and keyword == null">
+			where v.grade = #{grade}
+		</when>
+		<when test="grade == 'all' and addressList != null and keyword == null">
+			where v.deal_loc in
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
+				</foreach>
+		</when>
+		<when test="grade == 'all' and addressList == null and keyword != null">
+			where v.item_name like '%'||#{keyword}||'%'
+		</when>
+		<when test="grade != 'all' and addressList != null and keyword == null">
+			where v.grade = #{grade} and v.deal_loc in
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
+				</foreach>
+		</when>
+		<when test="grade == 'all' and addressList != null and keyword != null">
+			where v.deal_loc in
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
+				</foreach> and v.item_name like '%'||#{keyword}||'%'
+		</when>
+		<when test="grade != 'all' and addressList == null and keyword != null">
+			where v.grade = #{grade} and v.item_name like '%'||#{keyword}||'%'
+		</when>
+		<when test="grade != 'all' and addressList != null and keyword != null">
+			where v.grade = #{grade} and v.item_name like '%'||#{keyword}||'%'
+			and v.deal_loc in
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
+				</foreach>
+		</when>
+	</choose>
+	)
+	where rnum between #{paging.start} and #{paging.end}
+	</select>
+	
+	
+	<select id="countRegister" resultType="_int">
+	
+	select count(*) from v_select_purchase_main
+	
+	<choose>
+		<when test="grade != 'all' and addressList == null and keyword == null">
 			where grade = #{grade}
 		</when>
-		<when test="grade == 'all' and area != null and keyword == null">
+		<when test="grade == 'all' and addressList != null and keyword == null">
 			where deal_loc in
-				<foreach collection="addressList" item="area" open="(" close=")" separator=",">
-					#{area}
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
 				</foreach>
 		</when>
-		<when test="grade == 'all' and area == null and keyword != null">
+		<when test="grade == 'all' and addressList == null and keyword != null">
 			where item_name like '%'||#{keyword}||'%'
 		</when>
-		<when test="grade != 'all' and area != null and keyword == null">
+		<when test="grade != 'all' and addressList != null and keyword == null">
 			where grade = #{grade} and deal_loc in
-				<foreach collection="addressList" item="area" open="(" close=")" separator=",">
-					#{area}
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
 				</foreach>
 		</when>
-		<when test="grade == 'all' and area != null and keyword != null">
+		<when test="grade == 'all' and addressList != null and keyword != null">
 			where deal_loc in
-				<foreach collection="addressList" item="area" open="(" close=")" separator=",">
-					#{area}
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
 				</foreach> and item_name like '%'||#{keyword}||'%'
 		</when>
-		<when test="grade != 'all' and area == null and keyword != null">
+		<when test="grade != 'all' and addressList == null and keyword != null">
 			where grade = #{grade} and item_name like '%'||#{keyword}||'%'
 		</when>
-		<when test="grade != 'all' and area != null and keyword != null">
+		<when test="grade != 'all' and addressList != null and keyword != null">
 			where grade = #{grade} and item_name like '%'||#{keyword}||'%'
 			and deal_loc in
-				<foreach collection="addressList" item="area" open="(" close=")" separator=",">
-					#{area}
+				<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+					#{list}
 				</foreach>
 		</when>
 	</choose>

@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
+import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
@@ -33,7 +35,7 @@ public interface PurchaseRepository {
 	@Select("select * from V_SELECT_PURCHASE_REQUEST")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 
-	List<PurchaseMain> selectRegisterList(@Param("grade") String grade, @Param("area") List<String> addressList, @Param("keyword") String keyword);
+	List<PurchaseMain> selectRegisterList(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword, @Param("paging") Paging paging);
 	
 	@Select("select count(join_idx) FROM purchase_register left join purchase_match using (reg_idx) group by reg_idx order by reg_idx desc")
 	List<Object> selectjoinCount();
@@ -43,6 +45,9 @@ public interface PurchaseRepository {
 			+ "group by reg_idx order by reg_idx desc")
 	List<Object> selectjoinCountByGrade(String grade);
 
-	List<String> selectAddress(String id);
+	@Select("select address1, address2, address3 from my_area where id = #{id}")
+	MyAddress selectAddress(String id);
+
+	int countRegister(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword);
 
 }
