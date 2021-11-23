@@ -20,6 +20,8 @@ document.querySelector(".myBuyCnt").addEventListener('input', e => {
 		
 		$('.modal_left_btn').click(function() {
 			modalNone();
+			document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
+			document.querySelector('#submit-button').style.setProperty("pointer-events", "none");
 		})
 		$('.modal_right_btn').click(function() {
 			modalNone();

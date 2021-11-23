@@ -39,7 +39,16 @@ public class PurchaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
-	public void purchaseDetailTest() {}
+	public void purchaseDetailTest(HttpSession session, String regIdx) {
+		
+		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
+		String endDate = purchaseInfo.getEndTime().replace("T","  ");
+		purchaseInfo.setDealTime(dealDate);
+		purchaseInfo.setEndTime(endDate);
+		session.setAttribute("purchaseInfo", purchaseInfo);
+		
+	}
 	
 	@GetMapping("detail-writer")
 	public void purchaseDetailWriterTest(Model model, HttpSession session, String regIdx) {
@@ -156,7 +165,7 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("request")
-	public void purchaseRequestTest(Model model, HttpSession session, String regIdx) {
+	public void purchaseRequestTest(HttpSession session, String regIdx) {
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
