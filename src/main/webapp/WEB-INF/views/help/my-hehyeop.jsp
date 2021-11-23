@@ -57,12 +57,13 @@
 				<tbody class='help_list'>
 				<c:forEach items='${helpList}' var='help'>
 					<tr>
-						<td onclick="showDetail(${help.reqIdx})">${help.field}</td>
-						<td onclick="showDetail(${help.reqIdx})">${help.area}</td>
-						<td onclick="showDetail(${help.reqIdx})">${help.regDate}</td>
-						<td onclick="showDetail(${help.reqIdx})">${help.estimateCnt}</td>
-						<td onclick="showDetail(${help.reqIdx})">
-							<c:if test="${not empty help.company}">
+
+						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.field}</td>
+						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.area}</td>
+						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.regDate}</td>
+						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.estimateCnt}</td>
+						<td onclick="showDetail(${help.reqIdx},${help.state})">
+							<c:if test="${not empty company}">
 									<c:choose>
 										<c:when test="${help.grade eq 'BRONZE'}">
 											<span style="color: #cc9900"><i class="fas fa-medal"></i></span>
@@ -80,8 +81,8 @@
 							</c:if>
 							 ${help.company}
 						</td>
-						<td onclick="showDetail(${help.reqIdx})">${help.payMeans}</td> 
-						<td onclick="showDetail(${help.reqIdx})">
+						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.payMeans}</td> 
+						<td onclick="showDetail(${help.reqIdx},${help.state})">
 							<c:choose>
 								<c:when test="${help.state == 1}">
 									<button class="list_btn_red" id="delete" onclick="deleteHelp(${help.reqIdx})">삭제</button>
@@ -126,6 +127,7 @@
 			</div>	
 		</div>
 	  <input type="hidden" class="saveReqIdx">
+	  <input type="hidden" class="saveHelpState">
       <div class="breakdown">
          <button class="bk_btn" id="detailBtn" onclick="detail()">상세내역</button>
          <button class="bk_btn" id="estimateBtn" onclick="estimate()">견적내역</button>

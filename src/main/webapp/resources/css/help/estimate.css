@@ -11,6 +11,7 @@
 	width: 900px;
 	border-collapse: collapse;
 	text-align: center;
+	height: 42.5px;
 }
 
 .company_list th {
@@ -79,4 +80,13 @@
 	margin-top: 30px;
 	text-align: center;
 	position: relative;
+}
+
+.emptyResult {
+	height: 43px;
+	border: none;
+}
+
+.emptyMessage {
+	text-align: center;
 }
