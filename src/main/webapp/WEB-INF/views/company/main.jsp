@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/include/head/company-head.jsp" %>
-<link rel="stylesheet" href="${contextPath}/resources/css/company/help-list.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/company/main.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
 <body>
@@ -44,21 +44,24 @@
 								<tr>
 									<th>신청 분야</th>
 									<th>지역</th>
+									<th>신청인</th>
 									<th>요청일</th>
 									<th>희망 금액</th>
+									<th>상세보기</th>
+									
 								</tr>
 							</thead>
 							<tbody>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>50,000 원</td></tr>
+							<c:forEach var="requestList" items="${requestList}">
+								<tr>
+									<td>${requestList.field}</td>
+									<td>${requestList.oldAddress}</td>
+									<td>${requestList.reqName}</td>
+									<td>${requestList.reqTime}</td>
+									<td>${requestList.reqPay} 원</td>
+									<td class='td-icon'><i class="fas fa-file-alt" onclick="showReqDetail(${requestList.reqIdx})"></i></td>
+								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
@@ -97,4 +100,5 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 	<!-- </footer> -->
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
+	<script type="text/javascript" src="../../../resources/js/company/detail.js"></script>
 </html>

@@ -5,4 +5,15 @@
   
 <mapper namespace="com.kh.hehyeop.company.model.repository.CompanyRepository"> 
 
+	<select id="selectRequestList" resultType="HelpRequest">
+		select * from help_request where ongoing = 0 and old_address in
+		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
+						#{addressList}
+		</foreach>
+		and field in
+		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
+						#{companyFieldList.field}
+		</foreach>
+	</select>
+
 </mapper>

@@ -15,6 +15,7 @@
   		<typeAlias alias="Paging" type="com.kh.hehyeop.common.util.paging.Paging"/>
   		<typeAlias alias="PurchaseMain" type="com.kh.hehyeop.purchase.model.dto.PurchaseMain"/>
   		<typeAlias alias="MyPurchaseInfo" type="com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo"/>
+  		<typeAlias alias="HelpRequest" type="com.kh.hehyeop.help.model.dto.HelpRequest"/>
   	</typeAliases>
   	
   	<mappers>

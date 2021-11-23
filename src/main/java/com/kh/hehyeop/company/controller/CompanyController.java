@@ -1,12 +1,18 @@
 package com.kh.hehyeop.company.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.hehyeop.company.model.service.CompanyService;
-import com.kh.hehyeop.help.model.service.HelpService;
-
+import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.member.model.dto.CMember;
 import lombok.RequiredArgsConstructor;
 
 
@@ -24,7 +30,16 @@ public class CompanyController {
 	public void helpJoinFrom() {}
 	
 	@GetMapping("main")
-	public void helpListForm() {}
+	public void main(HttpSession session,Model model) {
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		
+		List<HelpRequest> requestList = new ArrayList<HelpRequest>();
+		
+		requestList = companyService.selectRequestList(cmember.getId());
+		
+		model.addAttribute("requestList", requestList);
+		
+	}
 	
 	@GetMapping("ongoing-help")
 	public void ongoingHelpForm() {}
