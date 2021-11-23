@@ -7,7 +7,7 @@
   
 	<select id="selectRegisterList" resultType="PurchaseMain">
 	select *
-	from (select rownum rnum, v.reg_idx, v.price, v.item_name, v.rest_num, v.deal_loc, v.link from v_select_purchase_main v
+	from (select rownum rnum, v.id, v.reg_idx, v.price, v.item_name, v.rest_num, v.deal_loc, v.link from v_select_purchase_main v
 	
 	<choose>
 		<when test="grade != 'all' and addressList == null and keyword == null">
