@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class PurchaseMain {
 	
+	private String id;
 	private String regIdx;
 	private int price;
 	private String itemName;

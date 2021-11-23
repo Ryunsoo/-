@@ -219,7 +219,7 @@ public class HelpServiceImpl implements HelpService{
 		
 		if((int)map.get("ongoing") == 3 && (int)map.get("payStatus") == 0) {
 			//캐시 lock 풀어주기
-			MypageRepository.substractCashLock((String)map.get("reqId"), (int)map.get("resPay"));
+			mypageRepository.substractCashLock((String)map.get("reqId"), (int)map.get("resPay"));
 			
 			Member member = new Member();
 			member.setId((String) map.get("reqId"));

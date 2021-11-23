@@ -68,7 +68,16 @@
 			<!-- 물품 list 첫번째 줄 -->
 			<div class="item-list-line">
 				<c:forEach items="${registerMap}" var="rm">
-					<div class="item" onclick="location.href = '/purchase/detail?regIdx=${rm.registerInfo.regIdx}';">
+					<div class="item" 
+					<c:choose>
+						<c:when test="${rm.registerInfo.id eq authentication.id}">
+							onclick="location.href = '/purchase/detail-writer?regIdx=${rm.registerInfo.regIdx}';"
+						</c:when>
+						<c:otherwise>
+							onclick="location.href = '/purchase/detail?regIdx=${rm.registerInfo.regIdx}';"
+						</c:otherwise>
+					</c:choose>
+					>
 						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.registerInfo.link}"></div>
 						<div class="item-title-wrapper">
 							<span id="title">${rm.registerInfo.itemName}</span> <span>(${rm.count}명)</span>

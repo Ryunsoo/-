@@ -82,7 +82,7 @@
 							 ${help.company}
 						</td>
 						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.payMeans}</td> 
-						<td onclick="showDetail(${help.reqIdx},${help.state})">
+						<td>
 							<c:choose>
 								<c:when test="${help.state == 1}">
 									<button class="list_btn_red" id="delete" onclick="deleteHelp(${help.reqIdx})">삭제</button>
