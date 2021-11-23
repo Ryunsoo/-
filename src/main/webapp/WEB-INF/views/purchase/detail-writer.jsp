@@ -68,7 +68,7 @@
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
 						거래 위치 : ${detailInfo.dealLoc} 
-						<span><i class="fas fa-map-marker-alt" onclick="viewMap('${detailInfo.dealLoc}')"></i></span>
+						<span><i style="margin-left:5px;" class="fas fa-map-marker-alt" onclick="viewMap('${detailInfo.dealLoc}')"></i></span>
 					</div>
 					
 					<div>
@@ -76,7 +76,7 @@
 					</div>
 					
 					<div id="remaining-time">
-						신청 마감시간 : ${detailInfo.endTime}
+						* 신청 마감시간 : ${detailInfo.endTime}
 					</div>
 				</div>
 				<br>
@@ -88,7 +88,7 @@
 					</div>
 					
 					<div>
-						${detailInfo.price}
+						${detailInfo.price}원
 					</div>
 				</div>
 				<br>
@@ -130,13 +130,11 @@
 					<li>남은 개수 : ${detailInfo.restNum}개</li>
 				</ul>
 				
-				<progress value="${buyNum}" max="${detailInfo.totalNum}"></progress>
+				<progress style="height:50px; width:300px;" value="${buyNum}" max="${detailInfo.totalNum}"></progress>
 			</div>
 			
 			<div class="submit-ask">
-				<div>
-					<p>구매확정</p>
-				</div>
+				구매확정
 			</div>
 			
 			

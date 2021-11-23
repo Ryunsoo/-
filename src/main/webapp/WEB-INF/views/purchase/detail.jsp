@@ -15,19 +15,15 @@
 <body>
 <div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+
+	<!-- 페이지 제목 -->
+		<div class="title">
+			<div id="this-page-name"></div>
+		</div>
+
+
 	<!-- 섹션 시작 -->
 	<div class="section">
-		
-		<!-- 페이지 제목 -->
-		<div class="title">
-			<div id="this-page-name">&nbsp&nbsp조회해협</div>
-			
-			<!-- 구분선 -->
-			<div id="line-wrapper">
-				<hr id="seprate-line">
-			</div>
-			
-		</div>
 		
 		
 		
@@ -64,7 +60,7 @@
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
 						${purchaseInfo.dealLoc}
-						<span><i class="fas fa-map-marker-alt"></i></span>
+						<span><i style="margin-left: 5px;" class="fas fa-map-marker-alt"></i></span>
 					</div>
 					
 					<div>
@@ -72,7 +68,7 @@
 					</div>
 					
 					<div id="remaining-time">
-						신청 마감일 : ${purchaseInfo.endTime}
+						* 신청 마감일 : ${purchaseInfo.endTime}
 					</div>
 				</div>
 				<br>
@@ -109,9 +105,7 @@
 		
 		
 		<!-- 구분선 -->
-		<div id="line-bottom-wrapper">
-			<hr id="seprate-line">
-		</div>
+			<div id="seprate-line"></div>
 		
 		
 		
@@ -126,16 +120,16 @@
 					<li>남은 개수 : ${purchaseInfo.restNum}개</li>
 				</ul>
 				
-				<progress value="${buyNum}" max="${purchaseInfo.totalNum}"></progress>
+				<progress style="height:50px;width:300px;" value="${buyNum}" max="${purchaseInfo.totalNum}"></progress>
 				
 			</div>
 			
-			<div class="submit-ask">
-				<div>
-					<a style="color: white; font-weight: bold;" onclick="location.href = '/purchase/request?regIdx=${purchaseInfo.regIdx}'">신청해협</a>
+			<div class="submit-ask-wrapper">
+				<div class="submit-ask" onclick="location.href = '/purchase/request?regIdx=${purchaseInfo.regIdx}'">
+					신청해협
 				</div>
-				<div>
-					<p id="chat">문의해협</p>
+				<div class="submit-ask" id="chat">
+					문의해협
 				</div>
 			</div>
 			<textarea style="display: none;" id="sellerId" name=sellerId>${purchaseInfo.sellerId}</textarea>

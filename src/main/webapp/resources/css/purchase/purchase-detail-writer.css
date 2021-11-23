@@ -173,17 +173,11 @@ progress {
 
 
 /* 신청해협 & 문의해협 버튼 wrapper */
-.submit-ask {
-	display: flex;
-	justify-content: flex-end;
-	width: 220px;
-}
-
-.submit-ask> div{
-	width: 100px;
+.submit-ask{
+	width: 500px;
 	height: 100px;
 	border-radius: 25px;
-	background-color: #e67e22;
+	background-color: rgb(52, 73, 94);
 	display: flex;
 	justify-content: center;
     align-items: center;
@@ -195,8 +189,9 @@ progress {
 }
 
 /* 신청해협/ 문의해협 버튼 호버 */
-.submit-ask> div:hover{
-	background-color: #f9b67a;
+.submit-ask:hover{
+	background-color: #4888c8;
+	cursor: pointer;
 }
 
 #stock-list {
@@ -226,5 +221,12 @@ progress {
 /* 후터 */
 .hooter {
 	height: 200px;
+}
+
+.location-and-time {
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
