@@ -58,12 +58,17 @@
 	</select>
 
 	<resultMap type="map" id="reqNameAndResId">
+		<result column="req_id" javaType="String" property="reqId"/>
 		<result column="req_name" javaType="String" property="reqName"/>
-		<result column="id" javaType="String" property="id"/>
+		<result column="ongoing" javaType="int" property="ongoing"/>
+		<result column="pay_status" javaType="int" property="payStatus"/>
+		<result column="res_id" javaType="String" property="resId"/>
+		<result column="res_pay" javaType="int" property="resPay"/>
 	</resultMap>
 	
 	<select id="selectCMemberIdByReqIdx" resultMap="reqNameAndResId">
-		select q.req_name as req_name, s.id as id from help_request q join help_match m on(q.req_idx = m.req_idx) join help_response s on(m.res_idx = s.res_idx) where m.req_idx = #{reqIdx}
+		select q.id as req_id, q.req_name as req_name, m.ongoing as ongoing, m.pay_status as pay_status, s.id as res_id, s.res_pay as res_pay
+		from help_request q join help_match m on(q.req_idx = m.req_idx) join help_response s on(m.res_idx = s.res_idx) where m.req_idx = #{reqIdx}
 	</select>
 	
 	<update id="cancelRequest" statementType="CALLABLE">
@@ -89,7 +94,6 @@
 			, #{payStatus, mode=IN}
 		)}
 	</insert>
-	
 	
 
 </mapper>

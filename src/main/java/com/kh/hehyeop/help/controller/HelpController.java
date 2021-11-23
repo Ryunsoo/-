@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Field;
+import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.page.Page;
@@ -42,6 +43,7 @@ import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.service.HelpService;
 import com.kh.hehyeop.help.validator.RequestForm;
 import com.kh.hehyeop.help.validator.RequestFormValidator;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -57,6 +59,7 @@ public class HelpController {
 
 	private final HelpService helpService;
 	private final RequestFormValidator requestFormValidator;
+	private final PushSender pushSender;
 
 	@GetMapping("main")
 	public void help1(HttpSession session) {
@@ -317,11 +320,15 @@ public class HelpController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
+		CMember cmember = new CMember();
+		cmember.setId(cid);
 		
 		String res = helpService.choiceCompany(Map.of("id",id,"cid",cid,"resIdx",resIdx,"resPay",resPay,"reqIdx",reqIdx,"payWay",payWay));
 		
 		if(res.equals("success")) {
 			redirectAttr.addFlashAttribute("msg","업체 선택이 완료되었습니다.");
+			String reqName = helpService.selectReqNameByReqIdx(reqIdx);
+			pushSender.send(cmember, "자취해협", reqName + "님과 매칭되었습니다. 거래를 진행해주세요.");
 		}else {
 			redirectAttr.addFlashAttribute("msg","현재 보유 캐시가 부족해 업체 선택에 실패했습니다.");
 		}

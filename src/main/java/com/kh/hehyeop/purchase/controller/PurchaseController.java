@@ -21,6 +21,7 @@ import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
+import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -40,18 +41,23 @@ public class PurchaseController {
 	public void purchaseDetailWriterTest() {}
 	
 	@GetMapping("main")
-	public void purchaseMainTest(HttpSession session, 
-								 @RequestParam(value = "grade", required = false) String grade) {
-		
-		List<Map<String, Object>> registerList = new ArrayList<Map<String,Object>>();
-		
-		if (grade != null) {
-			registerList = purchaseService.selectRegisterListByGrade(grade);
-		} else {
-			registerList = purchaseService.selectRegisterList();
-		}
+	public void purchaseMainTest(HttpSession session,
+								 @RequestParam(value = "grade", required = false) String grade,
+								 @RequestParam(value = "area", required = false) boolean myArea,
+								 @RequestParam(value = "keyword", required = false) String keyword) {
 
-		session.setAttribute("registerMap", registerList);
+		Member member = (Member) session.getAttribute("authentication");
+		
+		if (grade == null) grade = "all";
+		
+		if(myArea) {
+			
+			List<String> adressList = purchaseService.selectAddress(member.getId());
+			
+		}
+		
+		List<PurchaseMain> registerList = purchaseService.selectRegisterList(grade, null, keyword);
+		session.setAttribute("registerList", registerList);
 		
 	}
 	

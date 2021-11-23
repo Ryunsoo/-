@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.hehyeop.common.code.ErrorCode;
+import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
 
@@ -62,21 +64,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectRegisterList() {
-		List<PurchaseMain> regInfoList = purchaseRepository.selectRegisterList();
-		List<Object> joinCount = purchaseRepository.selectjoinCount();
-		List<Map<String, Object>> mainList = new ArrayList<Map<String, Object>>();
-
-		for (int i = 0; i < regInfoList.size(); i++) {
-			mainList.add(Map.of("regInfo", regInfoList.get(i), "count", joinCount.get(i)));
-		}
-
-		return mainList;
+	public List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword) {
+		return purchaseRepository.selectRegisterList(grade, addressList, keyword);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectRegisterListByGrade(String grade) {
-		return null;
+	public List<String> selectAddress(String id) {
+		return purchaseRepository.selectAddress(id);
 	}
 
 }

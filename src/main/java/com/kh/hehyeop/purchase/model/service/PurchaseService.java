@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
+import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
+
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -16,8 +18,7 @@ public interface PurchaseService {
 	int registerInfo(RegisterForm form);
 	int uploadFile(List<MultipartFile> files, String typeIdx);
 	MyPurchaseInfo selectPurchaseInfoByIdx(String regIdx);
-
-	List<Map<String, Object>> selectRegisterList();
-	List<Map<String, Object>> selectRegisterListByGrade(String grade);
+	List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword);
+	List<String> selectAddress(String id);
 
 }

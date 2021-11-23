@@ -18,12 +18,13 @@ import com.kh.hehyeop.company.model.dto.ProField;
 import com.kh.hehyeop.help.model.dto.EstimateList;
 import com.kh.hehyeop.help.model.dto.HelpList;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
-import com.kh.hehyeop.help.model.dto.HelpResponse;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.member.model.dto.CMember;
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,6 +34,7 @@ public class HelpServiceImpl implements HelpService{
 
 	private final HelpRepository helpRepository;
 	private final PushSender pushSender;
+	private final MypageRepository mypageRepository;
 
 	@Override
 	public List<ProField> selectCategoryList() {
@@ -206,24 +208,43 @@ public class HelpServiceImpl implements HelpService{
 	
 	@Override	
 	public void cancelRequest(String reqIdx) {
+		//상태 바꿔주기
 		helpRepository.cancelRequest(reqIdx);
+		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		
 		//업체한테 푸시보내기
-		Map<String, String> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		CMember member = new CMember();
-		member.setId(map.get("id"));
+		member.setId((String)map.get("id"));
 		pushSender.send(member, "자취해협", map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
+		
+		if((int)map.get("ongoing") == 3 && (int)map.get("payStatus") == 0) {
+			
+		}
+		
 	}
 
 	@Override
 	public void completeRequest(String reqIdx) {
+		//상태 바꿔주기
 		helpRepository.completeRequest(reqIdx);
+		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		
 		//업체한테 푸시보내기
-		Map<String, String> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
-		CMember member = new CMember();
-		member.setId(map.get("id"));
-		pushSender.send(member, "자취해협", map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
+		CMember cmember = new CMember();
+		cmember.setId((String) map.get("resId"));
+		pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
+		
+		//매치 ongoing에 따라 완전 완료처리
+		if((int)map.get("ongoing") == 2 && (int)map.get("payStatus") == 0) {
+			mypageRepository.addCashToWallet((String)map.get("resId"), (int)map.get("resPay"));
+			mypageRepository.substractCashAndCashLock((String)map.get("reqId"), (int)map.get("resPay"));
+			helpRepository.updateHelpMatchPayStatus(reqIdx);
+			
+			Member member = new Member();
+			member.setId((String) map.get("reqId"));
+			pushSender.send(List.of(member, cmember), "자취해협", "완료된 해협의 캐시 결제가 완료되었습니다.");
+		}
+		
 	}
 
 	@Override
@@ -266,7 +287,7 @@ public class HelpServiceImpl implements HelpService{
 		}else {
 			if(checkMyCash((String) commandMap.get("id"), (int) commandMap.get("resPay"))) {
 				updateCash((String) commandMap.get("id"), (int) commandMap.get("resPay"));
-				updateChoiceState(commandMap, 1);
+				updateChoiceState(commandMap, 0);
 				return "success";
 			}else {
 				return "fail";
@@ -286,5 +307,10 @@ public class HelpServiceImpl implements HelpService{
 
 	private void updateCash(String id, int resPay) {
 		helpRepository.updateCash(id, resPay);
+	}
+
+	@Override
+	public String selectReqNameByReqIdx(String reqIdx) {
+		return helpRepository.selectReqNameByReqIdx(reqIdx);
 	}
 }
