@@ -31,8 +31,6 @@ public class PurchaseControllerTest {
 	
 	@Autowired
 	WebApplicationContext wac;
-	@Autowired
-	JavaMailSenderImpl mailSender;
 	MockMvc mockMvc;
 	
 	@Before
@@ -49,6 +47,16 @@ public class PurchaseControllerTest {
 				.sessionAttr("authentication", member))
 		.andExpect(status().isOk())  //redirect
 		.andDo(print());
+	}
+	
+	
+	@Test
+	public void participantsListTest() throws Exception {
+		mockMvc.perform(get("/purchase/participants-list")
+				.param("regIdx", "100002"))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
 	}
 	
 }

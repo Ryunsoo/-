@@ -16,10 +16,10 @@ import com.kh.hehyeop.purchase.validator.RegisterForm;
 
 @Mapper
 public interface PurchaseRepository {
-
-	@Select("select join_idx, reg_idx, match_idx, PR.id, item_name, deal_loc, deal_time, ongoing, join_buy_num, PJ.id AS buyer_id, nickname, name, tell from purchase_register PR left join purchase_match PM"
-			+ " using(reg_idx) left join purchase_join PJ using(join_idx) left join Member M on(M.id = PJ.id) where PR.id = #{id} OR PJ.id = #{id}")
-	List<MyPurchaseInfo> selectMyPurchaseInfo(String id);
+	
+//	@Select("select join_idx, reg_idx, match_idx, PR.id, item_name, deal_loc, deal_time, done, ongoing, join_buy_num, PJ.id AS buyer_id, nickname, name, tell from purchase_register PR left join purchase_match PM"
+//			+ " using(reg_idx) left join purchase_join PJ using(join_idx) left join Member M on(M.id = PJ.id) where PR.id = #{id} OR PJ.id = #{id}")
+//	List<MyPurchaseInfo> selectMyPurchaseInfo(String id);
 
 	@Insert("insert into purchase_register(reg_idx, id, item_name, item_link, deal_loc, end_time, deal_time, price, total_num, buy_num, content, rest_num) "
 			+ "values (sc_reg_idx.nextval, #{id}, #{itemName}, #{itemLink}, #{dealLoc}, #{endTime}, #{dealTime}, #{price}, #{totalNum}, #{buyNum}, #{content}, #{restNum})")
@@ -34,6 +34,10 @@ public interface PurchaseRepository {
 
 	@Select("select * from V_SELECT_PURCHASE_REQUEST")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
+	
+	@Select("select join_buy_num, nickname, name, tell from purchase_register PR left join purchase_match PM "
+			+ "using(reg_idx) left join purchase_join PJ using(join_idx) left join Member M on(M.id = PJ.id) where reg_idx = #{regIdx}")
+	List<MyPurchaseInfo> purchaseParticipantsList(@Param("regIdx") String regIdx);
 
 	List<PurchaseMain> selectRegisterList(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword, @Param("paging") Paging paging);
 	
@@ -44,6 +48,13 @@ public interface PurchaseRepository {
 			+ "left join purchase_match using(reg_idx) "
 			+ "group by reg_idx order by reg_idx desc")
 	List<Object> selectjoinCountByGrade(String grade);
+
+	
+	int countMyPurchase(@Param("ongoing") String ongoing, @Param("id") String id);
+
+	List<MyPurchaseInfo> selectMyPurchaseInfo(@Param("paging") Paging paging
+											, @Param("ongoing") String ongoing
+											, @Param("id") String id);
 
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectAddress(String id);

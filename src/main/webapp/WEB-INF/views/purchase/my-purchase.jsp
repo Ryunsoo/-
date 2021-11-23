@@ -7,8 +7,19 @@
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/purchase/purchase-mypurchase.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 
+<style type="text/css">
+
+#tempbody> td{
+	border: 0.5px solid #cccccc;
+	height: 150px;
+	text-align: center;
+	font-size: 19px;
+}
+
+</style>
 
 </head>
 
@@ -45,23 +56,49 @@
 				</thead>
 				
 				<tbody id="body-row">
-					<c:forEach var="myPurchaseInfo" items="${myPurchaseInfo}">
-						<tr>
-							<td>1</td>
+					<c:forEach var="myPurchaseInfo" items="${myPurchaseInfo}" varStatus="status">
+						<tr onclick = "participantsList('${myPurchaseInfo.regIdx}')">
+							<td>${status.count}</td>
 							<td>
 							<c:choose>
 								<c:when test="${not empty myPurchaseInfo.matchIdx}">
-									공구모집
+									공구참여
 								</c:when>
 								<c:otherwise>
-									공구참여
+									공구모집
 								</c:otherwise>
 							</c:choose>
 							</td>
 							<td>${myPurchaseInfo.itemName}</td>
 							<td>${myPurchaseInfo.dealTime}</td>
 							<td>${myPurchaseInfo.dealLoc}</td>
-							<td>${myPurchaseInfo.ongoing}</td>
+							<td>
+								<c:choose>
+									<c:when test="${not empty myPurchaseInfo.ongoing}">
+										<c:choose>
+											<c:when test="${myPurchaseInfo.ongoing eq 0}">
+												구매대기
+											</c:when>
+											<c:when test="${myPurchaseInfo.ongoing eq 1}">
+												구매확정
+											</c:when>
+											<c:when test="${myPurchaseInfo.ongoing eq 2}">
+												거래완료
+											</c:when>
+										</c:choose>
+									</c:when>
+									<c:when test="${empty myPurchaseInfo.ongoing}">
+										<c:choose>
+											<c:when test="${myPurchaseInfo.done eq 'N'}">
+												모집중
+											</c:when>
+											<c:when test="${myPurchaseInfo.done eq 'Y'}">
+												모집완료
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -117,54 +154,9 @@
 					</tr>
 				</thead>
 				
-				<tbody>
-					<tr id="detail-table-body">
-						<td>구구</td>
-						<td>권구현</td>
-						<td>010-1111-2222</td>
-						<td>2</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>babyfox225</td>
-						<td>황륜수</td>
-						<td>010-3333-4444</td>
-						<td>3</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>구구</td>
-						<td>권구현</td>
-						<td>010-1111-2222</td>
-						<td>2</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>babyfox225</td>
-						<td>황륜수</td>
-						<td>010-3333-4444</td>
-						<td>3</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>구구</td>
-						<td>권구현</td>
-						<td>010-1111-2222</td>
-						<td>2</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>babyfox225</td>
-						<td>황륜수</td>
-						<td>010-3333-4444</td>
-						<td>3</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>구구</td>
-						<td>권구현</td>
-						<td>010-1111-2222</td>
-						<td>2</td>
-					</tr>
-					<tr id="detail-table-body">
-						<td>babyfox225</td>
-						<td>황륜수</td>
-						<td>010-3333-4444</td>
-						<td>3</td>
+				<tbody id="participants-list">
+					<tr id="tempbody">
+						<td colspan='4'>공구 참여자 정보</td>
 					</tr>
 				</tbody>
 				
@@ -186,11 +178,47 @@
 	<!-- 후터 -->
 	<div class="hooter">
 	</div>
+	
+
 
 
 
 
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
+
+<script type="text/javascript">
+
+
+let tbody = $('#participants-list');
+let participantsList = (regIdx) => {
+	let participants;
+	fetch("http://localhost:9090/purchase/participants-list?regIdx=" + regIdx)
+	.then((response) => response.json())
+	.then((response) => {
+		participants = response;
+		console.log(participants);
+		tbody.empty();
+		if(participants){
+			for(let i = 0; i<participants.length; i++) {
+				  tbody.append('<tr id="detail-table-body">'
+						   + '<td>' + participants[i].nickname + '</td>'
+						   + '<td>' + participants[i].name + '</td>'
+						   + '<td>' + participants[i].tell + '</td>'
+						   + '<td>' + participants[i].joinBuyNum + '</td>'
+						   + '</tr>');
+			 }
+		} else {
+			tbody.append('<tr id="tempbody"><td colspan="4">참여자가 없습니다</td></tr>');
+		}
+	   
+	});
+}
+
+
+
+</script>
+
+
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

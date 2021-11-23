@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -86,11 +87,46 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("my-purchase")
-	public void purchaseMypurchaseTest(HttpSession session
-										, Model model) {
+	public void purchaseMypurchase(HttpSession session
+										, Model model
+										, Paging paging
+							, @RequestParam(value="nowPage", required = false) String nowPage
+							, @RequestParam(value="cntPerPage", required = false) String cntPerPage
+							, @RequestParam(value="ongoing", required = false) String ongoing) {
+		
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "3";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "3";
+		}
+		
 		Member authMember = (Member) session.getAttribute("authentication");
-		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(authMember.getId());
+		String id = authMember.getId();
+		int total = purchaseService.countMyPurchase(ongoing, id);
+		
+		System.out.println(total);
+		
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		
+		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, id);
+		for (MyPurchaseInfo info : myPurchaseInfo) {
+			info.setDealTime(info.getDealTime().replace("T", " "));
+			System.out.println(info.getOngoing());
+		}
+		model.addAttribute("paging", paging);
 		model.addAttribute("myPurchaseInfo", myPurchaseInfo);
+	}
+	
+	@GetMapping("participants-list")
+	@ResponseBody
+	public List<MyPurchaseInfo> purchaseParticipantsList(Model model 
+										,@RequestParam("regIdx") String regIdx) {
+		List<MyPurchaseInfo> participantsList = purchaseService.purchaseParticipantsList(regIdx);
+		return participantsList;
 	}
 	
 	@GetMapping("regist")
