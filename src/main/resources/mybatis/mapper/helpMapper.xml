@@ -67,7 +67,7 @@
 	</resultMap>
 	
 	<select id="selectCMemberIdByReqIdx" resultMap="reqNameAndResId">
-		select q.id as req_id, q.req_name as req_name, m.ongoing as ongoing, m.pay_status as pay_status, s.id as res_id, s.res_pay as res_pay
+		select q.id as req_id, q.req_name as req_name, s.ongoing as ongoing, m.pay_status as pay_status, s.id as res_id, s.res_pay as res_pay
 		from help_request q join help_match m on(q.req_idx = m.req_idx) join help_response s on(m.res_idx = s.res_idx) where m.req_idx = #{reqIdx}
 	</select>
 	

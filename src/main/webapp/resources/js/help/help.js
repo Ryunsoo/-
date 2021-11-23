@@ -221,7 +221,7 @@ let selectCompany = (cid,resIdx,resPay,reqIdx) => {
    $('.companyModal').append(choiceIcon);
    let choiceInfo = $('<div class="choice_body">업체 견적 금액<br>' + resPay + '<div>');
    $('.companyModal').append(choiceInfo);
-   let choiceRadio = $('<div class="choice_radio"><input type="radio" class="choice1" id="choice" name="payWay" checked="checked"><label for="choice">현장 결제</label><input type="radio" id="choice" name="payWay"><label for="choice">캐시 결제</label><div>');
+   let choiceRadio = $('<div class="choice_radio"><input type="radio" class="choice1" id="choice1" name="payWay" checked="checked"><label for="choice1">현장 결제</label><input type="radio" id="choice2" name="payWay"><label for="choice2">캐시 결제</label><div>');
    $('.modal_content').append(choiceRadio);
 
    
@@ -330,12 +330,12 @@ let renewHelpList = (helpList) => {
       regDate = regDate.getFullYear() + '-' + (regDate.getMonth()+1) + '-' + regDate.getDate();
       let payMeans = help.payMeans == null ? '' : help.payMeans;
       let tr = $('<tr>');
-      tr.append($('<td>' + help.field + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
-         .append($('<td>' + help.area + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
-         .append($('<td>' + regDate + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
-         .append($('<td>' + help.estimateCnt + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
-         .append(getCompanyTd(help).attr('onclick', 'showDetail(' + help.reqIdx + ')'))
-         .append($('<td>' + payMeans + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ')'))
+      tr.append($('<td>' + help.field + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
+         .append($('<td>' + help.area + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
+         .append($('<td>' + regDate + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
+         .append($('<td>' + help.estimateCnt + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
+         .append(getCompanyTd(help).attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
+         .append($('<td>' + payMeans + '</td>').attr('onclick', 'showDetail(' + help.reqIdx + ',' + help.state + ')'))
          .append(getBtnTd(help))
          .append($('<input>').addClass('reqIdx').attr('type', 'hidden').val(help.reqIdx));
       $('.help_list').append(tr);
