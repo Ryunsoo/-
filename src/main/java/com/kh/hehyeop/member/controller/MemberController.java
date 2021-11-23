@@ -36,6 +36,8 @@ import com.kh.hehyeop.member.model.service.MemberService;
 import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.member.validator.JoinForm;
 import com.kh.hehyeop.member.validator.JoinFormValidator;
+import com.kh.hehyeop.mypage.model.dto.LinkMember;
+import com.kh.hehyeop.mypage.model.service.MypageService;
 
 @Controller
 @RequestMapping("member")
@@ -45,11 +47,13 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private JoinFormValidator joinFormValidator;
+	private MypageService mypageService;
 
-	public MemberController(MemberService memberService, JoinFormValidator joinFormValidator) {
+	public MemberController(MemberService memberService, JoinFormValidator joinFormValidator, MypageService mypageService) {
 		super();
 		this.memberService = memberService;
 		this.joinFormValidator = joinFormValidator;
+		this.mypageService = mypageService;
 	}
 
 	@GetMapping("login-form")
@@ -66,6 +70,10 @@ public class MemberController {
 			return "redirect:/"; 
 		} else if (certifiedCUser != null){
 			session.setAttribute("authentication", certifiedCUser);
+			LinkMember linkedMember = mypageService.selectLink(certifiedCUser.getId());
+			if(linkedMember != null) {
+				session.setAttribute("linked", linkedMember);
+			}
 			session.setAttribute("id", certifiedCUser.getCompany());
 			return "redirect:/company/main"; 
 		} else {
@@ -471,6 +479,7 @@ public class MemberController {
 	public String logout(HttpSession session, RedirectAttributes redirectAttrs) {
 		
 		session.removeAttribute("authentication");
+		session.removeAttribute("linked");
 		redirectAttrs.addFlashAttribute("message", "로그아웃 되었습니다.");
 		return "redirect:/member/login-form";
 	}

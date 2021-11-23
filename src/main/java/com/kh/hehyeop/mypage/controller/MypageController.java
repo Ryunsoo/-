@@ -102,15 +102,10 @@ public class MypageController {
 		Wallet userWallet = mypageService.selectWallet(authCMember.getId());
 		List<String> myField = mypageService.selectField(authCMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
-		LinkMember linkedMember = mypageService.selectLink(authCMember.getId());
 		
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
 		session.setAttribute("myAddress", myAddress);
-		
-		if (linkedMember != null) {
-			session.setAttribute("linked", linkedMember);
-		}
 	}
 	
 	@GetMapping("getAuth")
