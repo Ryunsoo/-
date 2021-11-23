@@ -36,7 +36,7 @@
 					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
 					<label class='upload_label' for="input-file">견적서 업로드</label>
 				</div>
-					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;" multiple>
+					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' required style="visibility: hidden;" multiple>
 			</div>
 			<div class="info">
 				<img alt="info" src="../../../resources/image/heyeop_info.png">
@@ -46,13 +46,13 @@
 			<div class="text-area">
 				<div class="text-title">*성  함</div>
 				<div class="text-input">
-					<input type="text" name="reqName" placeholder="이름을 입력해주세요.">
+					<input type="text" name="reqName" required placeholder="이름을 입력해주세요.">
 				</div>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*연락처</div>
 				<div class="text-input">
-					<input type="text" name="reqTell" placeholder="연락처를 입력해주세요.">
+					<input type="text" name="reqTell" required placeholder="연락처를 입력해주세요.">
 				</div>
 				<form:errors path="reqTell" cssClass="valid-msg" id="valid-msg"/>
 			</div>	
@@ -75,13 +75,13 @@
 			<div class="text-area">
 				<div class="text-title">*방문시간</div>
 				<div class="text-input">
-					<input type="datetime-local" id="dateTimeLocal" name="reqTime" onchange="setMinValue()">
+					<input type="datetime-local" id="dateTimeLocal" required name="reqTime" onchange="setMinValue()">
 				</div>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*희망금액</div>
 				<div class="text-input">
-					<input type="number" name="reqPay" placeholder="희망금액을 입력해주세요.">
+					<input type="number" name="reqPay" required placeholder="희망금액을 입력해주세요." min="0">
 				</div>
 				<form:errors path="reqPay" cssClass="valid-msg"/>
 			</div>

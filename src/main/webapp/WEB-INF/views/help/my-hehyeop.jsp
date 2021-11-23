@@ -127,7 +127,7 @@
 			</div>	
 		</div>
 	  <input type="hidden" class="saveReqIdx">
-	  <input type="hidden" class="saveHelpState">
+	  <input type="hidden" class="saveHelpState">	
       <div class="breakdown">
          <button class="bk_btn" id="detailBtn" onclick="detail()">상세내역</button>
          <button class="bk_btn" id="estimateBtn" onclick="estimate()">견적내역</button>
