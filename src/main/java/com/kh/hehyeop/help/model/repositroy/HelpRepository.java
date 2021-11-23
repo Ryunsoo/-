@@ -102,4 +102,9 @@ public interface HelpRepository {
 	@Update("update help_match set pay_status = 1 where req_idx = #{reqIdx}")
 	void updateHelpMatchPayStatus(@Param("reqIdx") String reqIdx);
 
+	@Select("select id from help_response where req_idx = #{reqIdx} and ongoing = 2")
+	String selectIdByReqIdx(@Param("reqIdx")String reqIdx);
+	
+	void updatePointByScore(@Param("id") String id,@Param("score")double score);
+
 }

@@ -250,6 +250,9 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public void registReview(String reqIdx, double score, String[] commentArr) {
 		helpRepository.insertHelpReview(reqIdx, score, commentArr);
+		
+		String id = helpRepository.selectIdByReqIdx(reqIdx);
+		helpRepository.updatePointByScore(id, score);
 	}
 
 	@Override
