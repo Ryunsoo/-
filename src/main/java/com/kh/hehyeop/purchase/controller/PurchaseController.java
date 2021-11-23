@@ -56,7 +56,7 @@ public class PurchaseController {
 		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
 		Member member = (Member) session.getAttribute("authentication");
 		
-		if (detailInfo.getId() != member.getId()) {
+		if (!detailInfo.getId().equals(member.getId())) {
 			throw new HandlableException(ErrorCode.MATCH_BOARD_ERROR);
 		}
 		
@@ -74,12 +74,16 @@ public class PurchaseController {
 	public String purchaseCommit(@RequestParam(value = "id") String id,
 			 					 @RequestParam(value = "regIdx") String regIdx) {
 		
-		purchaseService.updatePoint(id);
-		List<String> joinList = purchaseService.selectJoinId(regIdx);
+		List<String> joinIdList = purchaseService.selectJoinId(regIdx);
+		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
 		
-		purchaseService.updateJoinPoint(joinList);
+		if(joinIdList != null && joinIdxList != null) {
+			purchaseService.updateJoinPoint(joinIdList, joinIdxList);
+			purchaseService.updatePoint(id);
+		}
 		
-		return "success";
+		
+		return "redirect:/purchase/main";
 	}
 	
 	@GetMapping("main")

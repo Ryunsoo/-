@@ -140,8 +140,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void updateJoinPoint(List<String> joinList) {
-		purchaseRepository.updateJoinPoint(joinList);
+	public void updateJoinPoint(List<String> joinIdList, List<String> joinIdxList) {
+		purchaseRepository.updateJoinPoint(joinIdList, joinIdxList);
+	}
+
+	@Override
+	public List<String> selectJoinList(String regIdx) {
+		return purchaseRepository.selectJoinList(regIdx);
 	}
 
 }

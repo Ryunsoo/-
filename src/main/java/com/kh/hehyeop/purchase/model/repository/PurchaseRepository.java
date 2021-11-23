@@ -81,10 +81,13 @@ public interface PurchaseRepository {
 	@Update("update member set point = point + 3 where id = #{id}")
 	void updatePoint(String id);
 
-	@Select("select distinct id from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
+	@Select("select id from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
 	List<String> selectJoinId(String regIdx);
+	
+	@Select("select join_idx from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
+	List<String> selectJoinList(String regIdx);
 
-	void updateJoinPoint(List<String> joinList);
+	void updateJoinPoint(@Param("joinIdList") List<String> joinIdList, @Param("joinIdxList") List<String> joinIdxList);
 
 	
 }
