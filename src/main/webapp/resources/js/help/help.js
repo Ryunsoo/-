@@ -151,7 +151,21 @@ let estimate = () => {
 	       
 	         let tr = $('<tr></tr>');
 	         table.append(tr);
-	         let resName = $('<td>'+responseList[i].company+'</td>');
+	         
+	         let resName;
+	         console.dir(responseList[i].grade);
+	         if(responseList[i].grade == "NORMAL") {
+				resName = $('<td>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "BRONZE") {
+				resName = $('<td><span style="color: #cc9900"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "SILVER") {
+				resName = $('<td><span style="color: silver"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "GOLD") {
+				resName = $('<td><span style="color: gold"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else {
+				resName = $('<td><span style="color: silver"><i class="fas fa-gem"></i></span>'+responseList[i].company+'</td>');
+	         }
+	         
 	         resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 	         let resAddress = $('<td>'+address+'</td>');
 	         resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
