@@ -213,12 +213,17 @@ public class HelpServiceImpl implements HelpService{
 		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		
 		//업체한테 푸시보내기
-		CMember member = new CMember();
-		member.setId((String)map.get("id"));
-		pushSender.send(member, "자취해협", map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
+		CMember cmember = new CMember();
+		cmember.setId((String)map.get("resId"));
+		pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
 		
 		if((int)map.get("ongoing") == 3 && (int)map.get("payStatus") == 0) {
+			//캐시 lock 풀어주기
+			MypageRepository.substractCashLock((String)map.get("reqId"), (int)map.get("resPay"));
 			
+			Member member = new Member();
+			member.setId((String) map.get("reqId"));
+			pushSender.send(member, "자취해협", "해협 진행 취소로 해당 금액의 lock이 해제되었습니다.");
 		}
 		
 	}
@@ -233,6 +238,11 @@ public class HelpServiceImpl implements HelpService{
 		CMember cmember = new CMember();
 		cmember.setId((String) map.get("resId"));
 		pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
+		
+		//결제여부 상관없이 매치테이블의 진행여부가 2(완료)일때, 업체에게 점수를 3점 부여한다.
+		if((int)map.get("ongoing") == 2) {
+			helpRepository.updateMemberCPoint((String)map.get("resId"));
+		}
 		
 		//매치 ongoing에 따라 완전 완료처리
 		if((int)map.get("ongoing") == 2 && (int)map.get("payStatus") == 0) {
@@ -250,6 +260,9 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public void registReview(String reqIdx, double score, String[] commentArr) {
 		helpRepository.insertHelpReview(reqIdx, score, commentArr);
+		
+		String id = helpRepository.selectIdByReqIdx(reqIdx);
+		helpRepository.updatePointByScore(id, score);
 	}
 
 	@Override

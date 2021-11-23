@@ -1,6 +1,5 @@
 package com.kh.hehyeop.purchase.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.hehyeop.common.code.ErrorCode;
-import com.kh.hehyeop.common.exception.HandlableException;
-import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.file.FileUtil;
-
-import com.kh.hehyeop.purchase.model.dto.RegisterInfo;
+import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
 import lombok.RequiredArgsConstructor;
@@ -54,8 +50,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<MyPurchaseInfo> selectMyPurchaseInfo(String id) {
-		return purchaseRepository.selectMyPurchaseInfo(id);
+	public List<MyPurchaseInfo> selectMyPurchaseInfo(Paging paging, String ongoing, String id) {
+		return purchaseRepository.selectMyPurchaseInfo(paging, ongoing, id);
 	}
 
 	@Override
@@ -64,13 +60,60 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword) {
-		return purchaseRepository.selectRegisterList(grade, addressList, keyword);
+	public List<MyPurchaseInfo> purchaseParticipantsList(String regIdx) {
+		return purchaseRepository.purchaseParticipantsList(regIdx);
+	}
+	
+	@Override
+	public List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword, Paging paging) {
+		return purchaseRepository.selectRegisterList(grade, addressList, keyword, paging);
 	}
 
 	@Override
-	public List<String> selectAddress(String id) {
+	public MyAddress selectAddress(String id) {
 		return purchaseRepository.selectAddress(id);
+	}
+
+	@Override
+	public int countMyPurchase(String ongoing, String id) {
+		return purchaseRepository.countMyPurchase(ongoing, id);
+	}
+
+	@Override
+	public int countRegister(String grade, List<String> addressList, String keyword) {
+		return purchaseRepository.countRegister(grade, addressList, keyword);
+	}
+
+	@Override
+	public void purchaseRequest(int buyNum, String id) {
+		purchaseRepository.purchaseRequest(buyNum, id);
+	}
+
+	@Override
+	public void purchaseMatch(String regIdx, int restNum, String join_idx) {
+		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx);
+		
+	}
+
+	@Override
+	public String selectJoinIdx() {
+		return purchaseRepository.selectJoinIdx();
+	}
+
+	@Override
+	public void usedPoint(String id, int cash) {
+		purchaseRepository.usedPoint(id, cash);
+		
+	}
+
+	@Override
+	public int getCash(String id) {
+		return purchaseRepository.getCash(id);
+	}
+	
+	@Override
+	public List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging) {
+		return purchaseRepository.selectjoinCount(grade, addressList, keyword);
 	}
 
 }

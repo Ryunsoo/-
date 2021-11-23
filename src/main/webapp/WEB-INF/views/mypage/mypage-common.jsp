@@ -555,6 +555,8 @@ function alertMessage(msg){
 		let save_memo_btn = document.querySelectorAll("#confirm");
 		let delete_btn = document.querySelectorAll("#delete");
 		let neighborname = document.querySelectorAll("#neighborname");
+		let chat_btn = document.querySelectorAll("#chat");
+		
 
 		
 		/* memo */
@@ -593,9 +595,39 @@ function alertMessage(msg){
 									location.href='mypage-common';
 								})
 							}
-				 	
-		})
-	})
+						})
+					})
+					
+			chat_btn[i].addEventListener("click", () => {
+				
+				 fetch('/chat/create-chatRoom?friendId=' + friendId)
+				  .then(res=> res.text())
+					.then(text=> {
+						if(text) {
+							
+								let modal = initModal('modal', 3);
+								appendTitle(modal, '');
+								setButton(modal, '닫기');
+								setContent(modal, true, true);
+								modalBlock();
+								
+								let modalBody = $('<div class="alertMessage">채팅방이 생성 되었습니다.</div><br>')
+								.addClass('send_modal_content');
+								
+								$('.modal_content').append(modalBody);
+								
+								$('.modal_left_btn').click(function() {
+									modalNone();
+									location.href='mypage-common';
+								})
+							}
+						})
+					})
+	
+	
+			
+	
+	
 }
 		const myInfo_btn = document.querySelector("#myInfo_btn");
         const modifyInfo_btn = document.querySelector("#modifyInfo_btn");

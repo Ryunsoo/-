@@ -95,5 +95,34 @@
 		)}
 	</insert>
 	
+	<update id="updatePointByScore">
+		<choose>
+			<when test="score == 0.5">
+				update member_c
+				<set>point = point-3</set>
+				where id = #{id}
+			</when>
+			<when test="score == 1 || score == 1.5">
+				update member_c
+				<set>point = point-2</set>
+				where id = #{id}
+			</when>
+			<when test="score == 2 || score == 2.5">
+				update member_c
+				<set>point = point-1</set>
+				where id = #{id}
+			</when>
+			<when test="score == 3.5 || score == 4">
+				update member_c
+				<set>point = point+1</set>
+				where id = #{id}
+			</when>
+			<when test="score == 4.5 || score == 5">
+				update member_c
+				<set>point = point+2</set>
+				where id = #{id}
+			</when>
+		</choose>
+	</update>
 
 </mapper>

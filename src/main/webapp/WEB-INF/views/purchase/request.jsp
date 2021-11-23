@@ -36,7 +36,7 @@
 		
 		
 		<!-- 이미지 & 어필해협 -->
-		<form class="form-wrapper">
+		<form class="form-wrapper" action="/purchase/purchase-request" method="get">
 			<div class="image-and-appeal-wrapper">
 				<div id="uploaded-image">
 					<img id="product-image" src="/file/${purchaseInfo.savePath}${purchaseInfo.reName}">
@@ -90,7 +90,7 @@
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input id="myBuyCnt" class="text-input" type="text" placeholder="  수량을 입력하세요" name="file"/>
+						<input id="myBuyCnt" class="text-input" name="buyNum" type="text" placeholder="  수량을 입력하세요" name="file"/>
 					</div>
 				</div>
 				<br>
@@ -103,8 +103,8 @@
 				</div>
 				<br>
 				
-				
-				<button class="submit-button">
+				<input id="regIdx" name="regIdx" value="${purchaseInfo.regIdx}"style="display: none"/>
+				<button type="submit" class="submit-button" id="submit-button">
 					SUBMIT!
 				</button>
 				
@@ -132,28 +132,23 @@
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
 <script type="text/javascript">
 
- 
-	let price = document.querySelector('#price').value.replace('원','');
+(()=>{
+let price = document.querySelector('#price').value.replace('원','');
 	
-	document.querySelector("#myBuyCnt").addEventListener('input', e => {
-	
-		if(document.querySelector('#myBuyCnt').value * parseInt(document.querySelector('#price').value) > parseInt(document.querySelector('#myPoint').value)){
-			alert('포인트가 부족합니다.');
+	if(document.querySelector('#myBuyCnt').value * parseInt(document.querySelector('#price').value) > parseInt(document.querySelector('#myPoint').value)){
 			
-			
-			let dom = document.querySelector('#submit-button');
-			
-			item.addEventListener('blur', event => {
-					dom.style.backgroundColor = 'lightgray';
-					dom.style.setProperty("pointer-events", "none");
-			})
-			
-			dom.style.setProperty('background-color', '#384c60');
-			dom.style.setProperty("pointer-events", "auto");
+		document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
+		document.querySelector('#submit-button').style.setProperty("pointer-events", "none");
+			//alert('포인트가 부족합니다.');
 		}
+			
+		//document.querySelector('#submit-button').style.setProperty('background-color', '#384c60');
+		//document.querySelector('#submit-button').style.setProperty("pointer-events", "auto");
 	
 	
-	}) 
+	
+	})();
+	
 	
 </script>
 </html>

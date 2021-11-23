@@ -21,7 +21,7 @@ public class MyPurchaseInfo {
 	private String content;
 	private String done;
 	private int restNum;
-	private int ongoing;
+	private Integer ongoing;
 	private String buyerId;
 	private String name;
 	private String tell;
