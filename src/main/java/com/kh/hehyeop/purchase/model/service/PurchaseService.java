@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
@@ -43,5 +44,9 @@ public interface PurchaseService {
 	void usedPoint(String id, int cash);
 	
 	int getCash(String id);
+
+	DetailInfo selectPurchaseDetail(String regIdx);
+
+	int selectBuyNum(String regIdx);
 
 }

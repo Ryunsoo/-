@@ -1,7 +1,6 @@
 package com.kh.hehyeop.purchase.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +23,7 @@ import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
@@ -42,7 +42,18 @@ public class PurchaseController {
 	public void purchaseDetailTest() {}
 	
 	@GetMapping("detail-writer")
-	public void purchaseDetailWriterTest() {}
+	public void purchaseDetailWriterTest(Model model, HttpSession session, String regIdx) {
+		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
+		int buyNum = purchaseService.selectBuyNum(regIdx);
+		
+		String dealDate = detailInfo.getDealTime().replace("T","  ");
+		String endDate = detailInfo.getEndTime().replace("T","  ");
+		detailInfo.setDealTime(dealDate);
+		detailInfo.setEndTime(endDate);
+		
+		model.addAttribute("detailInfo", detailInfo);
+		model.addAttribute("buyNum", buyNum);
+	}
 	
 	@GetMapping("main")
 	public void purchaseMainTest(HttpSession session,

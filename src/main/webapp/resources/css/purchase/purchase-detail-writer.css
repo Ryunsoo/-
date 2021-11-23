@@ -167,7 +167,9 @@ body {
 	border-radius: 100px 100px 100px 100px;
 }
 
-
+progress {
+	width: 300px;
+}
 
 
 /* 신청해협 & 문의해협 버튼 wrapper */
@@ -206,7 +208,15 @@ body {
 
 
 /* 섹션 끝 */
-
+#map{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: transparent;
+	z-index: 9000000000;
+	border-radius: 15px;
+	display: none;
+}
 
 
 

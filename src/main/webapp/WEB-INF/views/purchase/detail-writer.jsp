@@ -13,7 +13,7 @@
 
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
-	
+	<div id="map"></div>
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
@@ -22,7 +22,6 @@
 			<div class="page-title-wrapper">
 				<div id="this-page-name">&nbsp&nbsp조회해협</div>
 				<div id="update-delete-icon">
-					<i class="fas fa-pen"></i>
 					<i class="fas fa-trash"></i>
 				</div>
 			</div>
@@ -41,7 +40,7 @@
 			<!-- 이미지 -->
 			<div class="product-detail-image">
 				<div id="uploaded-image">
-					<img id="product-image" src = "../../../resources/image/product-image.png">
+					<img id="product-image" src = "${detailInfo.link}">
 				</div>
 			</div>
 			
@@ -51,15 +50,15 @@
 			<div class="product-info">
 				<!-- 제품명 -->
 				<div class="product-name">
-					탐사수 (2Lx12개)
+					${detailInfo.itemName}
 				</div>
 				<br>
 				
 				<!-- 제품링크 -->
 				<div class="product-link">
 					<div class="orange-color-subtitle">제품 링크</div>
-					<a href="https://www.coupang.com/vp/products/27613130?itemId=109846121&vendorItemId=3213757282&sourceType=CAMPAIGN&campaignId=82&categoryId=194176&isAddedCart=">
-					https://www.coupang.com/vp/products/27613130?itemId=109846121&vendorItemId=3213757282&sourceType=CAMPAIGN&campaignId=82&categoryId=194176&isAddedCart=
+					<a href="http://${detailInfo.itemLink}">
+						${detailInfo.itemLink}
 					</a>
 				</div>
 				<br>
@@ -68,16 +67,16 @@
 				<div class="location-and-time">
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
-						거래 위치 : 강남 kh정보교육원 
-						<span><i class="fas fa-map-marker-alt"></i></span>
+						거래 위치 : ${detailInfo.dealLoc} 
+						<span><i class="fas fa-map-marker-alt" onclick="viewMap('${detailInfo.dealLoc}')"></i></span>
 					</div>
 					
 					<div>
-						거래 시간 : 12월 7일 오후 3:20
+						거래 시간 : ${detailInfo.dealTime}
 					</div>
 					
 					<div id="remaining-time">
-						신청 마감시간 : 60일 언저리
+						신청 마감시간 : ${detailInfo.endTime}
 					</div>
 				</div>
 				<br>
@@ -89,7 +88,7 @@
 					</div>
 					
 					<div>
-						6,790원(1roekd 565원)
+						${detailInfo.price}
 					</div>
 				</div>
 				<br>
@@ -101,7 +100,7 @@
 					</div>
 					
 					<div>
-						물 3개씩 구매하실 분만 신청해주세요
+						${detailInfo.content}
 					</div>
 				</div>
 				
@@ -127,14 +126,11 @@
 			<!-- 재고/신청 현황 -->
 			<div class="stock-status">
 				<ul id="stock-list">
-					<li>현재 남은 신청개수 : 5개</li>
-					<li>남은 개수 : 7개</li>
+					<li>현재 신청개수 : ${buyNum}개</li>
+					<li>남은 개수 : ${detailInfo.restNum}개</li>
 				</ul>
 				
-				<div id="status-bar-outer">
-					<div id="status-bar-inner">
-					</div>
-				</div>
+				<progress value="${buyNum}" max="${detailInfo.totalNum}"></progress>
 			</div>
 			
 			<div class="submit-ask">
@@ -155,8 +151,47 @@
 	<!-- 후터 -->
 	<div class="hooter">
 	</div>
-
-
+	
+	
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5cd0153e48da9da48f6b22ac3f45bfd&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: coords
+    });
+
+    // 인포윈도우로 장소에 대한 설명을 표시합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+    });
+    infowindow.open(map, marker);
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(coords);
+} 
+}); 
+</script>
 </html>

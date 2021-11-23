@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
@@ -69,6 +70,12 @@ public interface PurchaseRepository {
 
 	@Select("select cash from wallet where id = #{id}")
 	int getCash(@Param("id") String id);
+
+	@Select("select * from v_select_purchase_detail where reg_idx = #{regIdx}")
+	DetailInfo selectPurchaseDetail(String regIdx);
+
+	@Select("select NVL(sum(join_buy_num), 0) as join_num from purchase_match left join purchase_join using(join_idx) where reg_idx = #{regIdx}")
+	int selectBuyNum(String regIdx);
 
 	
 }

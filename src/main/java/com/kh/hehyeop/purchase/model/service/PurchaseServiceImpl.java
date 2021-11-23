@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.repository.PurchaseRepository;
@@ -114,6 +116,16 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging) {
 		return purchaseRepository.selectjoinCount(grade, addressList, keyword);
+	}
+
+	@Override
+	public DetailInfo selectPurchaseDetail(String regIdx) {
+		return purchaseRepository.selectPurchaseDetail(regIdx);
+	}
+
+	@Override
+	public int selectBuyNum(String regIdx) {
+		return purchaseRepository.selectBuyNum(regIdx);
 	}
 
 }
