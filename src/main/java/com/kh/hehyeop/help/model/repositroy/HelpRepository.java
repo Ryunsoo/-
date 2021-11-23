@@ -84,6 +84,7 @@ public interface HelpRepository {
 	@Select("select re_content from help_review where help_idx = #{helpIdx}")
 	List<String> selectCommentsList(String helpIdx);
 
+
 	@Select("select * from file_info where type_idx = #{resIdx}")
 	List<FileDTO> selectEstimateFile(String resIdx);
 
@@ -94,6 +95,7 @@ public interface HelpRepository {
 	void updateCash(@Param("id")String id, @Param("resPay")int resPay);
 
 	void insertHelpMatch(@Param("reqIdx") String reqIdx,@Param("resIdx") String resIdx , @Param("payStatus") int payStatus);
+
 
 
 

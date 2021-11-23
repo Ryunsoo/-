@@ -34,19 +34,20 @@
 				<div>등급</div>
 			
 				<!-- 등급 선택 -->
-				<select id="grade-dropdown" name="grade">
-					<option selected>전체</option>
-					<option value="dia">다이아</option>
-					<option value="gold">골드</option>
-					<option value="silver">실버</option>
-					<option value="bronze">브론즈</option>
+				<select id="grade-dropdown" name="grade" onchange="changeList()">
+					<option value="all">전체</option>
+					<option value="DIA">다이아</option>
+					<option value="GOLD">골드</option>
+					<option value="SILVER">실버</option>
+					<option value="BRONZE">브론즈</option>
+					<option value="NORMAL">노말</option>
 				</select>
 				
 				<div>우리 동네만</div>
 				
 				<!-- toggle switch -->
 				<label class="switch">
-				  <input type="checkbox">
+				  <input type="checkbox" id="checkArea" name="area" value="on" onchange="changeList()">
 				  <span class="slider round"></span>
 				</label>
 			
@@ -59,14 +60,15 @@
 		<div class="item-list-wrapper">	
 			<!-- 물품 list 첫번째 줄 -->
 			<div class="item-list-line">
-				<c:forEach items="${registerMap}" var="rm">
+				<c:forEach items="${registerList}" var="rm">
 					<div class="item">
-						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.regInfo.link}"></div>
+						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.link}"></div>
 						<div class="item-title-wrapper">
-							<span id="title">${rm.regInfo.itemName}</span> <span>(${rm.count}명)</span>
+							<span id="title">${rm.itemName}</span> <span>(2명)</span>
 						</div>
-						<div class="item-price">가격 : ${rm.regInfo.price}</div>
-						<div class="item-stock">남은수량 : ${rm.regInfo.restNum}개</div>
+
+						<div class="item-price">가격 : ${rm.price}</div>
+						<div class="item-stock">남은수량 : ${rm.restNum}개</div>
 					</div>
 				</c:forEach>
 			</div>
@@ -103,4 +105,15 @@
 	<div class="hooter">
 	</div>
 </body>
+<script type="text/javascript">
+
+function changeList(){
+	let gradeVal = document.getElementById("grade-dropdown").value;
+	let areaVal = document.getElementById("checkArea").checked;
+	
+	location.href = "/purchase/main?grade="+gradeVal+"&area="+areaVal;
+	 
+}
+
+</script>
 </html>

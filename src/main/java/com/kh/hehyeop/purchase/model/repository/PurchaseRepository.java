@@ -33,10 +33,16 @@ public interface PurchaseRepository {
 	@Select("select * from V_SELECT_PURCHASE_REQUEST")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 
-	@Select("select * from v_select_purchase_main")
-	List<PurchaseMain> selectRegisterList();
+	List<PurchaseMain> selectRegisterList(@Param("grade") String grade, @Param("area") List<String> addressList, @Param("keyword") String keyword);
 	
 	@Select("select count(join_idx) FROM purchase_register left join purchase_match using (reg_idx) group by reg_idx order by reg_idx desc")
 	List<Object> selectjoinCount();
+	
+	@Select("select count(join_idx) from (select * from v_select_purchase_main join member using(id) where grade = #{grade}) "
+			+ "left join purchase_match using(reg_idx) "
+			+ "group by reg_idx order by reg_idx desc")
+	List<Object> selectjoinCountByGrade(String grade);
+
+	List<String> selectAddress(String id);
 
 }
