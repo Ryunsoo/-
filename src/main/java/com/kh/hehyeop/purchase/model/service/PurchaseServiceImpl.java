@@ -128,4 +128,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseRepository.selectBuyNum(regIdx);
 	}
 
+	@Override
+	public void updatePoint(String id) {
+		purchaseRepository.updatePoint(id);
+	}
+
+	@Override
+	public List<String> selectJoinId(String regIdx) {
+		return purchaseRepository.selectJoinId(regIdx);
+	}
+
 }

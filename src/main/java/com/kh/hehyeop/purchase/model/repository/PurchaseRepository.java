@@ -77,5 +77,11 @@ public interface PurchaseRepository {
 	@Select("select NVL(sum(join_buy_num), 0) as join_num from purchase_match left join purchase_join using(join_idx) where reg_idx = #{regIdx}")
 	int selectBuyNum(String regIdx);
 
+	@Update("update member set point = point + 3 where id = #{id}")
+	void updatePoint(String id);
+
+	@Select("select distinct id from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
+	List<String> selectJoinId(String regIdx);
+
 	
 }

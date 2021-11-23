@@ -54,6 +54,12 @@ public class PurchaseController {
 	@GetMapping("detail-writer")
 	public void purchaseDetailWriterTest(Model model, HttpSession session, String regIdx) {
 		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
+		Member member = (Member) session.getAttribute("authentication");
+		
+		if (detailInfo.getId() != member.getId()) {
+			throw new HandlableException(ErrorCode.MATCH_BOARD_ERROR);
+		}
+		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		String dealDate = detailInfo.getDealTime().replace("T","  ");
 		String endDate = detailInfo.getEndTime().replace("T","  ");
@@ -62,6 +68,18 @@ public class PurchaseController {
 		
 		model.addAttribute("detailInfo", detailInfo);
 		model.addAttribute("buyNum", buyNum);
+	}
+	
+	@GetMapping("purchase-commit")
+	public String purchaseCommit(@RequestParam(value = "id") String id,
+			 					 @RequestParam(value = "regIdx") String regIdx) {
+		
+		purchaseService.updatePoint(id);
+		List<String> joinList = purchaseService.selectJoinId(regIdx);
+		
+//		purchaseService.updateJoinPoint(joinList);
+		
+		return "success";
 	}
 	
 	@GetMapping("main")

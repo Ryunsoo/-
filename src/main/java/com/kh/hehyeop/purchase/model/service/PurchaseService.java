@@ -48,4 +48,8 @@ public interface PurchaseService {
 
 	int selectBuyNum(String regIdx);
 
+	void updatePoint(String id);
+
+	List<String> selectJoinId(String regIdx);
+
 }
