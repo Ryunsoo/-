@@ -29,4 +29,6 @@ public class MyPurchaseInfo {
 	private int cash;
 	private String savePath;
 	private String reName;
+	private String itemLink;
+	private String sellerId;
 }

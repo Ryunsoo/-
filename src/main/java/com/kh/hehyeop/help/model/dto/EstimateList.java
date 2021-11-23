@@ -16,4 +16,5 @@ public class EstimateList {
 	private String company;
 	private String id;
 	private String tell;
+	private String grade;
 }

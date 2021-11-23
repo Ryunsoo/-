@@ -1,7 +1,6 @@
 package com.kh.hehyeop.purchase.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +23,7 @@ import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
@@ -39,10 +39,48 @@ public class PurchaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
-	public void purchaseDetailTest() {}
+	public void purchaseDetailTest(HttpSession session, String regIdx) {
+		
+		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		int buyNum = purchaseService.selectBuyNum(regIdx);
+		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
+		String endDate = purchaseInfo.getEndTime().replace("T","  ");
+		purchaseInfo.setDealTime(dealDate);
+		purchaseInfo.setEndTime(endDate);
+		session.setAttribute("purchaseInfo", purchaseInfo);
+		session.setAttribute("buyNum", buyNum);
+	}
 	
 	@GetMapping("detail-writer")
-	public void purchaseDetailWriterTest() {}
+	public void purchaseDetailWriterTest(Model model, HttpSession session, String regIdx) {
+		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
+		Member member = (Member) session.getAttribute("authentication");
+		
+		if (detailInfo.getId() != member.getId()) {
+			throw new HandlableException(ErrorCode.MATCH_BOARD_ERROR);
+		}
+		
+		int buyNum = purchaseService.selectBuyNum(regIdx);
+		String dealDate = detailInfo.getDealTime().replace("T","  ");
+		String endDate = detailInfo.getEndTime().replace("T","  ");
+		detailInfo.setDealTime(dealDate);
+		detailInfo.setEndTime(endDate);
+		
+		model.addAttribute("detailInfo", detailInfo);
+		model.addAttribute("buyNum", buyNum);
+	}
+	
+	@GetMapping("purchase-commit")
+	public String purchaseCommit(@RequestParam(value = "id") String id,
+			 					 @RequestParam(value = "regIdx") String regIdx) {
+		
+		purchaseService.updatePoint(id);
+		List<String> joinList = purchaseService.selectJoinId(regIdx);
+		
+		purchaseService.updateJoinPoint(joinList);
+		
+		return "success";
+	}
 	
 	@GetMapping("main")
 	public void purchaseMainTest(HttpSession session,
@@ -102,7 +140,11 @@ public class PurchaseController {
 										, Paging paging
 							, @RequestParam(value="nowPage", required = false) String nowPage
 							, @RequestParam(value="cntPerPage", required = false) String cntPerPage
-							, @RequestParam(value="ongoing", required = false) String ongoing) {
+							, @RequestParam(value="ongoing", required = false) String ongoing
+							, @RequestParam(value="done", required = false) String done) {
+		
+		System.out.println("ongoing : " + ongoing);
+		System.out.println("done : " + done);
 		
 		if(nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -115,17 +157,16 @@ public class PurchaseController {
 		
 		Member authMember = (Member) session.getAttribute("authentication");
 		String id = authMember.getId();
-		int total = purchaseService.countMyPurchase(ongoing, id);
+		int total = purchaseService.countMyPurchase(ongoing, done, id);
 		
-		System.out.println(total);
-		
+		System.out.println("total : " + total);
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
 		
-		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, id);
+		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
 		for (MyPurchaseInfo info : myPurchaseInfo) {
 			info.setDealTime(info.getDealTime().replace("T", " "));
-			System.out.println(info.getOngoing());
+			System.out.println("ongoing : " + info.getOngoing());
 		}
 		model.addAttribute("paging", paging);
 		model.addAttribute("myPurchaseInfo", myPurchaseInfo);
@@ -145,7 +186,7 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("request")
-	public void purchaseRequestTest(Model model, HttpSession session, String regIdx) {
+	public void purchaseRequestTest(HttpSession session, String regIdx) {
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
@@ -187,8 +228,6 @@ public class PurchaseController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
-		
-		logger.debug("----------------buyNum : " + buyNum + "///// id : " + id + " //// regIdx : " + regIdx);
 		
 		purchaseService.purchaseRequest(buyNum, id);
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo");

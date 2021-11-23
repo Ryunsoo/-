@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="title">해협 신청서</div>
-		<form:form modelAttribute="requestForm" action="${contextPath}/help/uploadRequest" method="post" enctype="multipart/form-data">
+		<form:form modelAttribute="requestForm" id="frm" action="${contextPath}/help/uploadRequest" method="post" enctype="multipart/form-data">
 		<div class="left_page">
 			<div class='content_left'>
 				<div class='file_img'>
@@ -36,7 +36,7 @@
 					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
 					<label class='upload_label' for="input-file">견적서 업로드</label>
 				</div>
-					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' required style="visibility: hidden;" multiple>
+					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' required style="visibility: hidden;">
 			</div>
 			<div class="info">
 				<img alt="info" src="../../../resources/image/heyeop_info.png">
@@ -81,7 +81,7 @@
 			<div class="text-area">
 				<div class="text-title">*희망금액</div>
 				<div class="text-input">
-					<input type="number" name="reqPay" required placeholder="희망금액을 입력해주세요." min="0">
+					<input type="number" name="reqPay" required placeholder="희망금액을 입력해주세요.">
 				</div>
 				<form:errors path="reqPay" cssClass="valid-msg"/>
 			</div>
@@ -93,7 +93,7 @@
 			</div>
 			<input type="hidden" name="field" value="${field}">
 			<div class="submit">
-				<button>신청서 제출</button>
+				<button id="submit-btn">신청서 제출</button>
 			</div>
 		</div>
 		</form:form >
@@ -146,6 +146,19 @@
             }).open();
         	
         }
+        
+        $("#submit-btn").on("click", function(e){
+            e.preventDefault();
+            let frm = $("#frm");
+            let photo = $("#input-file").val();
+
+            if(photo == '') {
+                alert("사진을 첨부해주세요.");
+                return;
+            } else {
+                frm.submit();
+            } 
+        })
     </script>
 </body>
 

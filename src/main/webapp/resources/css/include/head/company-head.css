@@ -3,7 +3,6 @@
 body, html{
 	position: relative;
 	min-height: 690px;
-	weight: 1130px;
 	min-width: 1130px;
 	display: flex;
 	flex-direction: column;
@@ -79,6 +78,8 @@ button{
 
 .mypage{
 	margin: 0 5px 0 5px;
+	color: #888888;
+	font-weight: bold;
 }
 
 .mypage>a{

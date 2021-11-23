@@ -1,19 +1,19 @@
 package com.kh.hehyeop.purchase.model.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
 public interface PurchaseService {
 
-	List<MyPurchaseInfo> selectMyPurchaseInfo(Paging paging, String ongoing, String id);
+	List<MyPurchaseInfo> selectMyPurchaseInfo(Paging paging, String ongoing, String done, String id);
 	
 	String selectRegIdx();
 	
@@ -25,7 +25,7 @@ public interface PurchaseService {
 	
 	List<MyPurchaseInfo> purchaseParticipantsList(String regIdx);
 	
-	int countMyPurchase(String ongoing, String id);
+	int countMyPurchase(String ongoing, String id, String done);
 	
 	List<PurchaseMain> selectRegisterList(String grade, List<String> addressList, String keyword, Paging paging);
 	
@@ -43,5 +43,15 @@ public interface PurchaseService {
 	void usedPoint(String id, int cash);
 	
 	int getCash(String id);
+
+	DetailInfo selectPurchaseDetail(String regIdx);
+
+	int selectBuyNum(String regIdx);
+
+	void updatePoint(String id);
+
+	List<String> selectJoinId(String regIdx);
+
+	void updateJoinPoint(List<String> joinList);
 
 }

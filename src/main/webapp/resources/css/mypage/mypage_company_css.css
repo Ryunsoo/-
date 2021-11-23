@@ -1,10 +1,14 @@
 html, body {
 	width: 100%;
-	height: 100%;
+	height: 900px;
 	min-width: 1130px;
 	display: flex;
 	justify-content: center;
 	position: relative;
+}
+
+.header{
+	margin-top: 10px;
 }
 
 .wrap {
@@ -174,6 +178,7 @@ html, body {
 	min-height: 360px;
 	border: 4px solid lightgray;
 	justify-content: space-around;
+	margin-top: 66px;
 	align-items: center;
 	border-radius: 10px;
 }

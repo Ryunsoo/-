@@ -109,8 +109,8 @@ function alertMessage(msg){
 	<div id='modal'></div>
 	<div id="bg" class="hidden"></div>
 	<%@ include file="/WEB-INF/views/include/chat/chat2.jsp"%>
+	<%@ include file="/WEB-INF/views/include/head/company-head.jsp"%>
 	<div class="wrap">
-		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp"%>
 		<div class="main">
 			<div class="box1">
 				<img src="../../../resources/image/돼지저금통.png" class="pig">

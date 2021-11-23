@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.model.repository.PurchaseRepository;
@@ -50,8 +52,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public List<MyPurchaseInfo> selectMyPurchaseInfo(Paging paging, String ongoing, String id) {
-		return purchaseRepository.selectMyPurchaseInfo(paging, ongoing, id);
+	public List<MyPurchaseInfo> selectMyPurchaseInfo(Paging paging, String ongoing, String done, String id) {
+		return purchaseRepository.selectMyPurchaseInfo(paging, ongoing, done, id);
 	}
 
 	@Override
@@ -75,8 +77,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public int countMyPurchase(String ongoing, String id) {
-		return purchaseRepository.countMyPurchase(ongoing, id);
+	public int countMyPurchase(String ongoing, String id, String done) {
+		System.out.println("ongoing : " + ongoing);
+		return purchaseRepository.countMyPurchase(ongoing, id, done);
 	}
 
 	@Override
@@ -114,6 +117,31 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging) {
 		return purchaseRepository.selectjoinCount(grade, addressList, keyword);
+	}
+
+	@Override
+	public DetailInfo selectPurchaseDetail(String regIdx) {
+		return purchaseRepository.selectPurchaseDetail(regIdx);
+	}
+
+	@Override
+	public int selectBuyNum(String regIdx) {
+		return purchaseRepository.selectBuyNum(regIdx);
+	}
+
+	@Override
+	public void updatePoint(String id) {
+		purchaseRepository.updatePoint(id);
+	}
+
+	@Override
+	public List<String> selectJoinId(String regIdx) {
+		return purchaseRepository.selectJoinId(regIdx);
+	}
+
+	@Override
+	public void updateJoinPoint(List<String> joinList) {
+		purchaseRepository.updateJoinPoint(joinList);
 	}
 
 }

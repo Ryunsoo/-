@@ -78,7 +78,7 @@ public interface HelpRepository {
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectMyAreaList(String id);
 
-	@Select("select res_idx, res_time, res_pay, res_content, ongoing, a.reg_date, address, company, b.id, tell from help_response a join member_c b on(a.id = b.id) where req_idx = #{reqIdx}")
+	@Select("select res_idx, res_time, res_pay, res_content, ongoing, a.reg_date, address, company, b.id, tell, grade from help_response a join member_c b on(a.id = b.id) where req_idx = #{reqIdx}")
 	List<EstimateList> selectResponseWithAddress(String reqIdx);
 
 	@Select("select re_content from help_review where help_idx = #{helpIdx}")

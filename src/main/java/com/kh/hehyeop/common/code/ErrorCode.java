@@ -10,7 +10,9 @@ public enum ErrorCode {
 	UNAUTHORIZED_PAGE_ERROR("접근 권한이 없는 페이지 입니다."),
 	FAILED_FILE_UPLOAD_ERROR("파일업로드에 실패하였습니다."),
 	BEFORE_LOGIN_ERROR("로그인 후 이용 가능합니다.", "/member/login-form"),
-	COMPANY_LOGIN_ERROR("업체회원은 이용할 수 없습니다.", "/company/all-help"),
+	COMPANY_LOGIN_ERROR("일반회원 전용 페이지입니다.", "/company/main"),
+	NORMAL_LOGIN_ERROR("업체회원 전용 페이지입니다."),
+	MATCH_BOARD_ERROR("글 작성자가 아닙니다.", "/purchase/main"),
 	REDIRECT("");
 	
 	public final String MESSAGE;

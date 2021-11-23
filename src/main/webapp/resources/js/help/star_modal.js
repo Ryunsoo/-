@@ -51,10 +51,10 @@ let createReviewModal = (reqIdx) => {
 	
 	selectWrap.append($('<div data-value="친절"><i class="fas fa-check"></i> 친절해요</div>').addClass('select_text'))
 				.append($('<div data-value="신속"><i class="fas fa-check"></i> 신속해요</div>').addClass('select_text'))
-				.append($('<div data-value="안전"><i class="fas fa-check"></i> 안전해요</div>').addClass('select_text'))
 				.append($('<div data-value="전문"><i class="fas fa-check"></i> 전문적이에요</div>').addClass('select_text'))
 				.append($('<div data-value="시간"><i class="fas fa-check"></i> 시간을 잘 지켜요</div>').addClass('select_text'))
 				.append($('<div data-value="비용"><i class="fas fa-check"></i> 비용이 합리적이에요</div>').addClass('select_text'))
+				.append($('<div data-value="불만족"><i class="fas fa-check"></i> 만족스럽지 않아요</div>').addClass('select_text'));
 	
 	$('.modal_content').append(selectWrap);
 	

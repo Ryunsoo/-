@@ -7,11 +7,13 @@
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/purchase/purchase-detail.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 </head>
 
 
 <body>
+<div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 	<!-- 섹션 시작 -->
 	<div class="section">
@@ -34,7 +36,7 @@
 			<!-- 이미지 -->
 			<div class="product-detail-image">
 				<div id="uploaded-image">
-					<img id="product-image" src = "../../../resources/image/product-image.png">
+					<img id="product-image" src="/file/${purchaseInfo.savePath}${purchaseInfo.reName}">
 				</div>
 			</div>
 			
@@ -44,15 +46,15 @@
 			<div class="product-info">
 				<!-- 제품명 -->
 				<div class="product-name">
-					탐사수 (2Lx12개)
+					${purchaseInfo.itemName}
 				</div>
 				<br>
 				
 				<!-- 제품링크 -->
 				<div class="product-link">
 					<div class="orange-color-subtitle">제품 링크</div>
-					<a href="https://www.coupang.com/vp/products/27613130?itemId=109846121&vendorItemId=3213757282&sourceType=CAMPAIGN&campaignId=82&categoryId=194176&isAddedCart=">
-					https://www.coupang.com/vp/products/27613130?itemId=109846121&vendorItemId=3213757282&sourceType=CAMPAIGN&campaignId=82&categoryId=194176&isAddedCart=
+					<a href="${purchaseInfo.itemLink}">
+					${purchaseInfo.itemLink}
 					</a>
 				</div>
 				<br>
@@ -61,16 +63,16 @@
 				<div class="location-and-time">
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
-						거래 위치 : 강남 kh정보교육원 
+						${purchaseInfo.dealLoc}
 						<span><i class="fas fa-map-marker-alt"></i></span>
 					</div>
 					
 					<div>
-						거래 시간 : 12월 7일 오후 3:20
+						거래 시간 : ${purchaseInfo.dealTime}
 					</div>
 					
 					<div id="remaining-time">
-						신청 마감시간 : 60일 언저리
+						신청 마감일 : ${purchaseInfo.endTime}
 					</div>
 				</div>
 				<br>
@@ -78,11 +80,11 @@
 				<!-- 제품 금액 -->
 				<div class="product-price">
 					<div class="orange-color-subtitle">
-						제품 금액
+						제품 금액 (1개 당)
 					</div>
 					
 					<div>
-						6,790원(1roekd 565원)
+						${purchaseInfo.price}원
 					</div>
 				</div>
 				<br>
@@ -94,7 +96,7 @@
 					</div>
 					
 					<div>
-						물 3개씩 구매하실 분만 신청해주세요
+						${purchaseInfo.content}
 					</div>
 				</div>
 				
@@ -120,25 +122,23 @@
 			<!-- 재고/신청 현황 -->
 			<div class="stock-status">
 				<ul id="stock-list">
-					<li>현재 남은 신청개수 : 5개</li>
-					<li>남은 개수 : 7개</li>
+					<li>현재 신청개수 : ${purchaseInfo.buyNum}개</li>
+					<li>남은 개수 : ${purchaseInfo.restNum}개</li>
 				</ul>
 				
-				<div id="status-bar-outer">
-					<div id="status-bar-inner">
-					</div>
-				</div>
+				<progress value="${buyNum}" max="${purchaseInfo.totalNum}"></progress>
+				
 			</div>
 			
 			<div class="submit-ask">
 				<div>
-					<p>신청해협</p>
+					<a style="color: white; font-weight: bold;" onclick="location.href = '/purchase/request?regIdx=${purchaseInfo.regIdx}'">신청해협</a>
 				</div>
 				<div>
-					<p>문의해협</p>
+					<p id="chat">문의해협</p>
 				</div>
 			</div>
-			
+			<textarea style="display: none;" id="sellerId" name=sellerId>${purchaseInfo.sellerId}</textarea>
 			
 		</div>
 		
@@ -165,5 +165,31 @@
 
 
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+<script type="text/javascript">
+document.querySelector("#chat").addEventListener("click", () => {
+	
+	 fetch('/chat/create-chatRoom?friendId=' + sellerId)
+	  .then(res=> res.text())
+		.then(text=> {
+			if(text) {
+				
+					let modal = initModal('modal', 3);
+					appendTitle(modal, '');
+					setButton(modal, '닫기');
+					setContent(modal, true, true);
+					modalBlock();
+					
+					let modalBody = $('<div class="alertMessage">채팅방이 생성 되었습니다.</div><br>')
+					.addClass('send_modal_content');
+					
+					$('.modal_content').append(modalBody);
+					
+					$('.modal_left_btn').click(function() {
+						modalNone();
+					})
+				}
+			})
+		})
+</script>
 </body>
 </html>

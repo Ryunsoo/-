@@ -7,7 +7,7 @@
   
 	<select id="selectRegisterList" resultType="PurchaseMain">
 	select *
-	from (select rownum rnum, v.reg_idx, v.price, v.item_name, v.rest_num, v.deal_loc, v.link from v_select_purchase_main v
+	from (select rownum rnum, v.id, v.reg_idx, v.price, v.item_name, v.rest_num, v.deal_loc, v.link from v_select_purchase_main v
 	
 	<choose>
 		<when test="grade != 'all' and addressList == null and keyword == null">
@@ -98,11 +98,11 @@
 	<select id="countMyPurchase" resultType = "_int">
 		select count(*) from purchase_register
 		<choose>
-			<when test = "ongoing =='0' or ongoing =='1' or ongoing == '2'">
+			<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2">
 			PR left join purchase_match PM using(reg_idx) left join purchase_join PJ using(join_idx) where (PR.id = #{id} OR PJ.id = #{id}) and ongoing = #{ongoing}
 			</when>
-			<when test = "ongoing == 'N' or ongoing == 'Y'">
-			where id = #{id} and done = #{ongoing}
+			<when test = '"N".equals(done) or "Y".equals(done)'>
+			where id = #{id} and done = #{done}
 			</when>
 			<otherwise>
 			PR left join purchase_match PM using(reg_idx) left join purchase_join PJ using(join_idx) where (PR.id = #{id} OR PJ.id = #{id})
@@ -117,11 +117,11 @@
 			(select join_idx, reg_idx, match_idx, PR.id, item_name, deal_loc, deal_time, done, ongoing, join_buy_num, PJ.id AS buyer_id from purchase_register PR left join purchase_match PM 
 			using(reg_idx) left join purchase_join PJ using(join_idx)
 			  <choose>
-			  	<when test = "ongoing =='0' or ongoing =='1' or ongoing == '2'">
+			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
 			  		where (PR.id = #{id} OR PJ.id = #{id}) and ongoing = #{ongoing}) v)
 			  	</when>
-			  	<when test = "ongoing == 'N' or ongoing == 'Y'">
-				  	where (PR.id = #{id} OR PJ.id = #{id}) and done = #{ongoing} and ongoing is null) v)
+			  	<when test = '"N".equals(done) or "Y".equals(done)'>
+				  	where (PR.id = #{id} OR PJ.id = #{id}) and done = #{done} and ongoing is null) v)
 			  	</when>
 			  	<otherwise>
 				  	where PR.id = #{id} OR PJ.id = #{id}) v)

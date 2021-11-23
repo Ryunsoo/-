@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
@@ -44,10 +45,11 @@ public interface PurchaseRepository {
 	
 	List<Object> selectjoinCount(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword);
 	
-	int countMyPurchase(@Param("ongoing") String ongoing, @Param("id") String id);
+	int countMyPurchase(@Param("ongoing") String ongoing, @Param("done") String done, @Param("id") String id);
 
 	List<MyPurchaseInfo> selectMyPurchaseInfo(@Param("paging") Paging paging
 											, @Param("ongoing") String ongoing
+											, @Param("done") String done
 											, @Param("id") String id);
 
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
@@ -69,6 +71,20 @@ public interface PurchaseRepository {
 
 	@Select("select cash from wallet where id = #{id}")
 	int getCash(@Param("id") String id);
+
+	@Select("select * from v_select_purchase_detail where reg_idx = #{regIdx}")
+	DetailInfo selectPurchaseDetail(String regIdx);
+
+	@Select("select NVL(sum(join_buy_num), 0) as join_num from purchase_match left join purchase_join using(join_idx) where reg_idx = #{regIdx}")
+	int selectBuyNum(String regIdx);
+
+	@Update("update member set point = point + 3 where id = #{id}")
+	void updatePoint(String id);
+
+	@Select("select distinct id from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
+	List<String> selectJoinId(String regIdx);
+
+	void updateJoinPoint(List<String> joinList);
 
 	
 }

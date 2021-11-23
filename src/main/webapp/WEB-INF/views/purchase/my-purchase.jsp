@@ -110,7 +110,12 @@
 		<!-- 처리상태 select -->
 		<div class="status-select">
 			<select id="status-dropdown" name="ongoing" onchange="statusFiltering()">
+<<<<<<< HEAD
+					<option disabled selected>상태 필터</option>
+					<option value="reset">전체보기</option>
+=======
 					<option selected>처리상태</option>
+>>>>>>> branch 'main' of https://github.com/Ryunsoo/final-project
 					<option value="0">구매대기</option>
 					<option value="1">구매확정</option>
 					<option value="2">거래완료</option>
@@ -225,11 +230,21 @@ let participantsList = (regIdx) => {
 
 
 
-let ongoing = '';
+let temp = '';
 
 function statusFiltering() {
-	ongoing = $('#status-dropdown').val();
-	location.href='/purchase/my-purchase?ongoing=' + ongoing;
+	temp = $('#status-dropdown').val();
+	let ongoing;
+	let done;
+	if(temp == '0' || temp == '1' || temp == '2') {
+		ongoing = temp;
+		location.href='/purchase/my-purchase?ongoing=' + ongoing;
+	} else if(temp == 'Y' || temp == 'N'){
+		done = temp;
+		location.href='/purchase/my-purchase?done=' + done;
+	} else {
+		location.href='/purchase/my-purchase';
+	}
 } 
 
 

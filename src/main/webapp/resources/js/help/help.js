@@ -20,11 +20,12 @@ let deleteHelp = (reqIdx) => {
 //최신화 버튼
 let refreshHelp = (reqIdx) => {
    modalNone();
-   let modal = initModal('modal', 1);
+   let modal = initModal('modal', 3);
    appendTitle(modal,'해협갱신');
    setButton(modal,'그만두기','확 인');
    setContent(modal,true,true);
    let modalBody = $('<div>해협신청을 갱신하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
+   modalBody.css("padding-top",'5px');
    $('.modal_content').append(modalBody);
    modalBlock();
    $('.modal_left_btn').click(function() {
@@ -38,11 +39,12 @@ let refreshHelp = (reqIdx) => {
 //취소 버튼
 let cancelHelp = (reqIdx) => {
    modalNone();
-   let modal = initModal('modal', 1);
+   let modal = initModal('modal', 3);
    appendTitle(modal,'해협취소');
    setButton(modal,'그만두기','확 인');
    setContent(modal,true,true);
    let modalBody = $('<div>취소요청을 보내시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
+   modalBody.css("padding-top",'5px');
    $('.modal_content').append(modalBody);
    modalBlock();
    $('.modal_left_btn').click(function() {
@@ -56,11 +58,12 @@ let cancelHelp = (reqIdx) => {
 //완료 버튼
 let completeHelp = (reqIdx) => {
    modalNone();
-   let modal = initModal('modal', 1);
+   let modal = initModal('modal', 3);
    appendTitle(modal,'해협완료');
    setButton(modal,'그만두기','확 인');
    setContent(modal,true,true);
    let modalBody = $('<div>해협 완료를 진행하시겠습니까?<div>').height('10px').css("margin",'0 20px 0 20px');
+   modalBody.css("padding-top",'5px');
    $('.modal_content').append(modalBody);
    modalBlock();
    $('.modal_left_btn').click(function() {
@@ -148,7 +151,21 @@ let estimate = () => {
 	       
 	         let tr = $('<tr></tr>');
 	         table.append(tr);
-	         let resName = $('<td>'+responseList[i].company+'</td>');
+	         
+	         let resName;
+	         console.dir(responseList[i].grade);
+	         if(responseList[i].grade == "NORMAL") {
+				resName = $('<td>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "BRONZE") {
+				resName = $('<td><span style="color: #cc9900"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "SILVER") {
+				resName = $('<td><span style="color: silver"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else if(responseList[i].grade == "GOLD") {
+				resName = $('<td><span style="color: gold"><i class="fas fa-medal"></i></span>'+responseList[i].company+'</td>');
+	         }else {
+				resName = $('<td><span style="color: silver"><i class="fas fa-gem"></i></span>'+responseList[i].company+'</td>');
+	         }
+	         
 	         resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
 	         let resAddress = $('<td>'+address+'</td>');
 	         resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
@@ -382,7 +399,7 @@ let getBtnTd = (help) => {
       case 3:
          return td.html('완료 대기 중');
       case 4:
-         let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
+         let reviewBtn = $('<button>후기</button>').addClass('list_btn_green').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
          return td.append(reviewBtn);
       case 5:
          return td.html('★ ' + help.score);

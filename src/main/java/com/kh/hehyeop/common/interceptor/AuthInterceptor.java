@@ -41,6 +41,8 @@ public class AuthInterceptor implements HandlerInterceptor{
 			case "purchase":
 				purchaseAuthorize(httpRequest, httpResponse, uriArr);
 				break;
+			case "company":
+				companyAuthorize(httpRequest, httpResponse, uriArr);
 			default:
 				break;
 			}
@@ -50,6 +52,20 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void companyAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+		}
+		
+		if(user instanceof Member) {
+			throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
+		}
+	}
+
 
 	private void purchaseAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();
@@ -106,12 +122,16 @@ public class AuthInterceptor implements HandlerInterceptor{
 		case "mypage-common":
 			if(user == null) {
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}else if(user instanceof CMember) {
+				throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
 			}
 			break;
 			
 		case "mypage-company":
 			if(user == null) {
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}else if(user instanceof Member) {
+				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
 			}
 			break;
 		default:
