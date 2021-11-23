@@ -67,7 +67,7 @@ public class MemberController {
 		} else if (certifiedCUser != null){
 			session.setAttribute("authentication", certifiedCUser);
 			session.setAttribute("id", certifiedCUser.getCompany());
-			return "redirect:/company/all-help"; 
+			return "redirect:/company/main"; 
 		} else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
 			return "redirect:/member/login-form";

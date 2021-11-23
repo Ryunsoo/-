@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class='header'>
-		<div class='logo' onclick="location.href = '/company/all-help'"></div>
+		<div class='logo' onclick="location.href = '/company/main'"></div>
 		<div class='user_menu'>
 			<div class='switch_user'>
 				<a href='#'><span class='text'>개인회원으로 전환</span> <span class='icon'><i class="fas fa-sync-alt"></i></span></a>
