@@ -106,5 +106,9 @@ public interface HelpRepository {
 	String selectIdByReqIdx(@Param("reqIdx")String reqIdx);
 	
 	void updatePointByScore(@Param("id") String id,@Param("score")double score);
+	
+	@Update("update member_c set point = point + 3 where id = #{cId}")
+	void updateMemberCPoint(@Param("cId") String cId);
+
 
 }
