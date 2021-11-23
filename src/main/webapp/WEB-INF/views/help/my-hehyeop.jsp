@@ -62,18 +62,18 @@
 						<td onclick="showDetail(${help.reqIdx})">${help.regDate}</td>
 						<td onclick="showDetail(${help.reqIdx})">${help.estimateCnt}</td>
 						<td onclick="showDetail(${help.reqIdx})">
-							<c:if test="${not empty company}">
+							<c:if test="${not empty help.company}">
 									<c:choose>
-										<c:when test="${grade == 'BRONZE'}">
+										<c:when test="${help.grade eq 'BRONZE'}">
 											<span style="color: #cc9900"><i class="fas fa-medal"></i></span>
 										</c:when>
-										<c:when test="${grade == 'SILVER'}">
+										<c:when test="${help.grade eq 'SILVER'}">
 											<span style="color: silver"><i class="fas fa-medal"></i></span>
 										</c:when>
-										<c:when test="${grade == 'GOLD'}">
+										<c:when test="${help.grade eq 'GOLD'}">
 											<span style="color: gold"><i class="fas fa-medal"></i></span>
 										</c:when>
-										<c:when test="${grade == 'DIA'}">
+										<c:when test="${help.grade eq 'DIA'}">
 											<span style="color: silver"><i class="fas fa-gem"></i></span>
 										</c:when>
 									</c:choose>

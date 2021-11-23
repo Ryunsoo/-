@@ -108,4 +108,10 @@ public interface MypageRepository {
 			+ "values(sc_file_idx.nextval, 'MEMBER_C', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	void uploadFile(FileDTO fileDTO);
 
+	@Update("update wallet set cash = cash + #{cash} where id = #{id}")
+	void addCashToWallet(@Param("id") String id, @Param("cash") int cash);
+
+	@Update("update wallet set cash = cash - #{cash}, cash_lock = cash_lock - #{cash} where id = #{id}")
+	void substractCashAndCashLock(@Param("id") String id, @Param("cash") int cash);
+
 }

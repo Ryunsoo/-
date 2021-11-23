@@ -16,7 +16,7 @@ let deleteHelp = (reqIdx) => {
 	    location.href = '/help/deleteHelp?reqIdx='+reqIdx;
 	    modalNone();
 	})
-}
+} 
 //최신화 버튼
 let refreshHelp = (reqIdx) => {
    modalNone();
