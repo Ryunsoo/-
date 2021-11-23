@@ -109,32 +109,39 @@
 		
 		<!-- 처리상태 select -->
 		<div class="status-select">
-			<select id="status-dropdown" name="status">
+			<select id="status-dropdown" name="ongoing" onchange="statusFiltering()">
 					<option selected>처리상태</option>
-					<option value="?">구매대기</option>
-					<option value="?">구매확정</option>
-					<option value="?">거래완료</option>
+					<option value="0">구매대기</option>
+					<option value="1">구매확정</option>
+					<option value="2">거래완료</option>
+					<option value="N">모집중</option>
+					<option value="Y">모집완료</option>
 			</select>
 		</div>
 		
 		<br>
 		
 		<!-- 물품 list 페이징 -->
-		<div class="list-paging-wrapper">
-			<div class="list-paging">
-				<div>
-					<i class="fas fa-chevron-left"></i>
-				</div>
-				<div>1</div>
-				<div>2</div>
-				<div>3</div>
-				<div>4</div>
-				<div>5</div>
-				<div>
-					<i class="fas fa-chevron-right"></i>
-				</div>
-			</div>
-		</div>
+		<div class="pg_wrap" style="display: block; text-align: center;">		
+		<c:if test="${paging.startPage != 1 }">
+			<a class="pg_start" href="/purchase/my-purchase?nowPage=1&cntPerPage=${paging.cntPerPage}&ongoing=${filter}&myArea=${myArea}">&lt;&lt;</a>
+			<a class="pg_prev" href="/purchase/my-purchase?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&ongoing=${filter}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage }">
+					<a class="pg_current">${p }</a>
+				</c:when>
+				<c:when test="${p != paging.nowPage }">
+					<a class="pg_page" href="/purchase/my-purchase?nowPage=${p }&cntPerPage=${paging.cntPerPage}&ongoing=${filter}&myArea=${myArea}">${p }</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<a class="pg_next" href="/purchase/my-purchase?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&ongoing=${filter}">&gt;</a>
+			<a class="pg_end" href="/purchase/my-purchase?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&ongoing=${filter}">&gt;&gt;</a>
+		</c:if>
+	</div>
 		
 		
 		<!-- MY공구 상세내역 -->
@@ -215,6 +222,15 @@ let participantsList = (regIdx) => {
 	});
 }
 
+
+
+
+let ongoing = '';
+
+function statusFiltering() {
+	ongoing = $('#status-dropdown').val();
+	location.href='/purchase/my-purchase?ongoing=' + ongoing;
+} 
 
 
 </script>
