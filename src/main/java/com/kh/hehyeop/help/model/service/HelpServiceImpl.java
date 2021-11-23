@@ -287,7 +287,7 @@ public class HelpServiceImpl implements HelpService{
 		}else {
 			if(checkMyCash((String) commandMap.get("id"), (int) commandMap.get("resPay"))) {
 				updateCash((String) commandMap.get("id"), (int) commandMap.get("resPay"));
-				updateChoiceState(commandMap, 1);
+				updateChoiceState(commandMap, 0);
 				return "success";
 			}else {
 				return "fail";
