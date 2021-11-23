@@ -210,8 +210,8 @@ progress {
 /* 섹션 끝 */
 #map{
 	position: absolute;
-	height: 100%;
-	width: 100%;
+	height: 500px;
+	width: 500px;
 	background-color: transparent;
 	z-index: 9000000000;
 	border-radius: 15px;
