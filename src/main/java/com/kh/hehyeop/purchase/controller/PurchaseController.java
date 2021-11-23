@@ -77,7 +77,7 @@ public class PurchaseController {
 		purchaseService.updatePoint(id);
 		List<String> joinList = purchaseService.selectJoinId(regIdx);
 		
-//		purchaseService.updateJoinPoint(joinList);
+		purchaseService.updateJoinPoint(joinList);
 		
 		return "success";
 	}

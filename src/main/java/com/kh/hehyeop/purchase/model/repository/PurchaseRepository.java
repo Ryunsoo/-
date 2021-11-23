@@ -83,5 +83,7 @@ public interface PurchaseRepository {
 	@Select("select distinct id from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
 	List<String> selectJoinId(String regIdx);
 
+	void updateJoinPoint(List<String> joinList);
+
 	
 }

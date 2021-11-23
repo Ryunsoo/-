@@ -138,4 +138,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseRepository.selectJoinId(regIdx);
 	}
 
+	@Override
+	public void updateJoinPoint(List<String> joinList) {
+		purchaseRepository.updateJoinPoint(joinList);
+	}
+
 }
