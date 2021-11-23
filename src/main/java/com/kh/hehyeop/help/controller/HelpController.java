@@ -148,11 +148,11 @@ public class HelpController {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "3";
+			cntPerPage = "10";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) {
-			cntPerPage = "3";
+			cntPerPage = "10";
 		}
 		
 		if (field == null)
