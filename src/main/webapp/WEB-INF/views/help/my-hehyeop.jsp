@@ -63,7 +63,7 @@
 						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.regDate}</td>
 						<td onclick="showDetail(${help.reqIdx},${help.state})">${help.estimateCnt}</td>
 						<td onclick="showDetail(${help.reqIdx},${help.state})">
-							<c:if test="${not empty company}">
+							<c:if test="${not empty help.company}">
 									<c:choose>
 										<c:when test="${help.grade eq 'BRONZE'}">
 											<span style="color: #cc9900"><i class="fas fa-medal"></i></span>

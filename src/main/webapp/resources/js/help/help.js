@@ -385,7 +385,7 @@ let getBtnTd = (help) => {
       case 3:
          return td.html('완료 대기 중');
       case 4:
-         let reviewBtn = $('<button>후기</button>').addClass('list_btn').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
+         let reviewBtn = $('<button>후기</button>').addClass('list_btn_green').attr('onclick', 'createReviewModal(' + help.reqIdx + ')');
          return td.append(reviewBtn);
       case 5:
          return td.html('★ ' + help.score);

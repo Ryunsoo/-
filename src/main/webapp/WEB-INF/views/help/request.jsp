@@ -36,7 +36,7 @@
 					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
 					<label class='upload_label' for="input-file">견적서 업로드</label>
 				</div>
-					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;" multiple>
+					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' required style="visibility: hidden;">
 			</div>
 			<div class="info">
 				<img alt="info" src="../../../resources/image/heyeop_info.png">
