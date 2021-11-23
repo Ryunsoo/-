@@ -7,6 +7,7 @@
 <link href="${contextPath}/resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="${contextPath}/resources/css/purchase/purchase-request.css">
 <link rel='stylesheet' href="${contextPath}/resources/css/include/chat/chat.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 
 </head>
@@ -17,8 +18,7 @@
 
 
 <body>
-
-
+<div id='modal'></div>
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
@@ -85,12 +85,12 @@
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*남은 개수</div>
-						<input class="text-output" value="${purchaseInfo.restNum}개" readonly/>
+						<input id="restCnt" class="text-output" value="${purchaseInfo.restNum}개" readonly/>
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input id="myBuyCnt" class="text-input" name="buyNum" type="text" placeholder="  수량을 입력하세요" name="file"/>
+						<input id="myBuyCnt" class="text-input myBuyCnt" name="buyNum" type="text" placeholder="  수량을 입력하세요" name="file"/>
 					</div>
 				</div>
 				<br>
@@ -126,29 +126,8 @@
 
 
 
-
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
-<script type="text/javascript">
-
-(()=>{
-let price = document.querySelector('#price').value.replace('원','');
-	
-	if(document.querySelector('#myBuyCnt').value * parseInt(document.querySelector('#price').value) > parseInt(document.querySelector('#myPoint').value)){
-			
-		document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
-		document.querySelector('#submit-button').style.setProperty("pointer-events", "none");
-			//alert('포인트가 부족합니다.');
-		}
-			
-		//document.querySelector('#submit-button').style.setProperty('background-color', '#384c60');
-		//document.querySelector('#submit-button').style.setProperty("pointer-events", "auto");
-	
-	
-	
-	})();
-	
-	
-</script>
+<script type="text/javascript" src="../../../resources/js/purchase/request.js"></script>
 </html>
