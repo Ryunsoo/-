@@ -142,6 +142,8 @@ public class ChatController {
 		return "fail";
 	}
 	
+	
+	//1:1 생성 패치로 여기 오기 / 친구 아이디 파람파람
 	@GetMapping("create-chatRoom")
 	@ResponseBody
 	public String createChatRoom(HttpSession session, String friendId) {

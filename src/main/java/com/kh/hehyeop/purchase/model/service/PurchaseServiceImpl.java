@@ -1,6 +1,7 @@
 package com.kh.hehyeop.purchase.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
@@ -81,6 +82,45 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public int countRegister(String grade, List<String> addressList, String keyword) {
 		return purchaseRepository.countRegister(grade, addressList, keyword);
+	}
+
+	@Override
+	public void purchaseRequest(int buyNum, String id) {
+		purchaseRepository.purchaseRequest(buyNum, id);
+	}
+
+	@Override
+	public void purchaseMatch(String regIdx, int restNum, String join_idx) {
+		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx);
+		
+	}
+
+	@Override
+	public String selectJoinIdx() {
+		return purchaseRepository.selectJoinIdx();
+	}
+
+	@Override
+	public void usedPoint(String id, int cash) {
+		purchaseRepository.usedPoint(id, cash);
+		
+	}
+
+	@Override
+	public int getCash(String id) {
+		return purchaseRepository.getCash(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectRegisterList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> selectRegisterListByGrade(String grade) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
