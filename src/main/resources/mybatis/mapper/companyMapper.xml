@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.kh.hehyeop.company.model.repository.CompanyRepository"> 
-
 	<select id="selectRequestList" resultType="HelpRequest">
 		select * from help_request where ongoing = 0 and old_address in
 		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
@@ -16,4 +15,9 @@
 		</foreach>
 	</select>
 
+	<select id="selectRequestListById" resultMap="HelpRequest">
+		select * from help_request 
+		where req_idx in 
+		(select req_idx from help_response where c_id = #{id} and ongoing = #{state})          
+	</select>
 </mapper>

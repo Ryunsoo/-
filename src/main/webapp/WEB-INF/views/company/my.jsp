@@ -23,7 +23,7 @@
 				<div class='select_wrapper'>
 					<div class='sub_menu'>
 						<!-- 현재 선택된 메뉴에 selected class를 추가해주면 자동으로 css 바뀝니다!! -->
-						<div><button class='selected'>전체내역</button></div>
+						<div><button class='selected'>대기내역</button></div>
 						<div><button>진행내역</button></div>
 						<div><button>취소내역</button></div>
 						<div><button>완료내역</button></div>
@@ -47,20 +47,19 @@
 									<th>지역</th>
 									<th>방문날짜</th>
 									<th>처리구분</th>
-									<th>상세보기</th>
+									<th>신청자명</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>대기중</td><td class='td-icon'><i class="fas fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>대기중</td><td class='td-icon'><i class="fas fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td><button class='finish'>완료</button><button class='cancel'>취소</button></td><td class='td-icon'><i class="fas fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>완료</td><td class='td-icon'><i class="far fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>취소</td><td class='td-icon'><i class="far fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>완료</td><td class='td-icon'><i class="far fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td><button class='finish'>완료</button><button class='cancel'>취소</button></td><td class='td-icon'><i class="far fa-file-alt"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td><button class='finish'>완료</button><button class='cancel'>취소</button></td><td class='td-icon'><i class="fas fa-clipboard-list"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>취소</td><td class='td-icon'><i class="fas fa-clipboard-list"></i></td></tr>
-								<tr><td>[수리 | 보수]   가전</td><td>서울시 강남구 역삼동</td><td>2021/10/16</td><td>취소</td><td class='td-icon'><i class="fas fa-clipboard-list"></i></td></tr>
+								<c:forEach var="requestList" items="${requestList}">
+									<tr>
+										<td>${requestList.field}</td>
+										<td>${requestList.oldAddress}</td>
+										<td>${requestList.reqTime}</td>
+										<td>대기중</td>
+										<td>${requestList.reqName}</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>

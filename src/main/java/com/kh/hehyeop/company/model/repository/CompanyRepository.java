@@ -5,16 +5,17 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
 import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
 import com.kh.hehyeop.company.model.dto.RequestDetail;
+import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.dto.HelpResponse;
 
 @Mapper
 public interface CompanyRepository {
-
+	
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectMyAreaList(String id);
 
@@ -27,5 +28,11 @@ public interface CompanyRepository {
 
 	@Select("select * from v_request_detail where req_idx = #{reqIdx}")
 	RequestDetail selectRequestDetailByReqIdx(@Param("reqIdx") String reqIdx);
+
+	@Select("select * from help_response where c_id = #{id}")
+	List<HelpResponse> selectResponseList(@Param("id") String id);
+
+	List<HelpRequest> selectRequestListById(@Param("id") String id, @Param("state") String state);
+
 
 }
