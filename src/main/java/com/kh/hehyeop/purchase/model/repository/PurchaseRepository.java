@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
@@ -32,7 +33,7 @@ public interface PurchaseRepository {
 			+ "values(sc_file_idx.nextval, 'PURCHASE', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileUpload);
 
-	@Select("select * from V_SELECT_PURCHASE_REQUEST")
+	@Select("select * from V_SELECT_PURCHASE_REQUEST where reg_idx = #{regIdx}")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 	
 	@Select("select join_buy_num, nickname, name, tell from purchase_register PR left join purchase_match PM "
@@ -59,4 +60,20 @@ public interface PurchaseRepository {
 
 	int countRegister(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword);
 
+	@Insert("insert into purchase_join(join_idx, id, join_buy_num) values (sc_join_idx.nextval, #{id}, #{buyNum})")
+	void purchaseRequest(@Param("buyNum") int buyNum, @Param("id") String id);
+
+	@Insert("insert into purchase_match(match_idx, reg_idx, join_idx, rest_num, ongoing) values (sc_match_idx.nextval, #{regIdx}, #{join_idx}, #{restNum}, 1)")
+	void purchaseMatch(@Param("regIdx") String regIdx, @Param("restNum") int restNum, @Param("join_idx") String join_idx);
+
+	@Select("select join_idx from (select join_idx, rownum rnum from purchase_join order by join_idx desc) where rownum = 1")
+	String selectJoinIdx();
+
+	@Update("UPDATE WALLET SET CASH = #{cash} WHERE id = #{id}")
+	void usedPoint(@Param("id") String id, @Param("cash") int cash);
+
+	@Select("select cash from wallet where id = #{id}")
+	int getCash(@Param("id") String id);
+
+	
 }

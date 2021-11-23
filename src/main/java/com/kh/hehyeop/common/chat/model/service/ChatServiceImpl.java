@@ -73,6 +73,7 @@ public class ChatServiceImpl implements ChatService{
 		return chatRepository.selectMemberByFriendId(friendId);
 	}
 
+	//단체 채팅 / 이것만 호출 / 아이디 리스트 파람파람
 	@Override
 	public void createChatRoom(List<String> idList) {
 		chatRepository.insertChatRoom(idList);

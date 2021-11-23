@@ -816,6 +816,7 @@ html, body {
 	flex-shrink: 0;
 	flex-wrap: wrap;
 	margin-right: 15px;
+	width: 60%;
 }
 
 #neighboricon {

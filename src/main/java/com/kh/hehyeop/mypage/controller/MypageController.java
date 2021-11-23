@@ -86,7 +86,6 @@ public class MypageController {
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myAddress", myAddress);
 		
-		
 		List<Friend> friendList = mypageService.selectFriend(authMember.getId());
 		
 		session.setAttribute("friendList", friendList);

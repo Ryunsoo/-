@@ -137,12 +137,16 @@ public class PurchaseController {
 	@GetMapping("request")
 	public void purchaseRequestTest(Model model, HttpSession session, String regIdx) {
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		int cash = purchaseService.getCash(id);
+		purchaseInfo.setCash(cash);
 		logger.debug(purchaseInfo.toString());
 		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
 		String endDate = purchaseInfo.getEndTime().replace("T","  ");
 		purchaseInfo.setDealTime(dealDate);
 		purchaseInfo.setEndTime(endDate);
-		model.addAttribute("purchaseInfo", purchaseInfo);
+		session.setAttribute("purchaseInfo", purchaseInfo);
 	}
 	
 	
@@ -167,4 +171,27 @@ public class PurchaseController {
 		return "redirect:/purchase/main";
 		
 	}
+	
+	@GetMapping("purchase-request")
+	public String purchaseRequest(String regIdx, int buyNum, HttpSession session, RedirectAttributes redirectAttr) {
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		
+		logger.debug("----------------buyNum : " + buyNum + "///// id : " + id + " //// regIdx : " + regIdx);
+		
+		purchaseService.purchaseRequest(buyNum, id);
+		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo");
+		int restNum = purchaseInfo.getRestNum()-buyNum;
+		String join_idx = purchaseService.selectJoinIdx();
+		purchaseService.purchaseMatch(regIdx, restNum, join_idx);
+		int cash = purchaseInfo.getCash()-(purchaseInfo.getPrice()*buyNum);
+		purchaseService.usedPoint(id, cash);
+		
+		return "redirect:/purchase/main";
+		
+	}
+	
+	
+	
 }
