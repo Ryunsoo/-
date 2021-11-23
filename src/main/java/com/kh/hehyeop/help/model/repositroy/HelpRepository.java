@@ -96,6 +96,9 @@ public interface HelpRepository {
 
 	void insertHelpMatch(@Param("reqIdx") String reqIdx,@Param("resIdx") String resIdx , @Param("payStatus") int payStatus);
 
+	@Select("select req_name from help_request where req_idx = #{reqIdx}")
+	String selectReqNameByReqIdx(String reqIdx);
+
 
 
 

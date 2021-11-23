@@ -287,4 +287,9 @@ public class HelpServiceImpl implements HelpService{
 	private void updateCash(String id, int resPay) {
 		helpRepository.updateCash(id, resPay);
 	}
+
+	@Override
+	public String selectReqNameByReqIdx(String reqIdx) {
+		return helpRepository.selectReqNameByReqIdx(reqIdx);
+	}
 }

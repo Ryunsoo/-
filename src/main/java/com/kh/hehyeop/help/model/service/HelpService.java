@@ -57,5 +57,6 @@ public interface HelpService {
 	
 	String choiceCompany(Map<String, Object> commandMap);
 
+	String selectReqNameByReqIdx(String reqIdx);
 
 }
