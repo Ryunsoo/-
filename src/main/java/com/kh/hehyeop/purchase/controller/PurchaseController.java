@@ -1,7 +1,9 @@
 package com.kh.hehyeop.purchase.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -79,7 +81,15 @@ public class PurchaseController {
 		int total = purchaseService.countRegister(grade, addressList, keyword);
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		List<PurchaseMain> registerList = purchaseService.selectRegisterList(grade, addressList, keyword, paging);
-		model.addAttribute("registerList", registerList);
+		List<Object> joinCount = purchaseService.selectjoinCount(grade, addressList, keyword, paging);
+		
+		List<Map<String, Object>> registerMap = new ArrayList<Map<String,Object>>();
+		
+		for (int i=0; i<registerList.size(); i++) {
+			registerMap.add(Map.of("registerInfo", registerList.get(i), "count", joinCount.get(i)));
+		}
+		
+		model.addAttribute("registerMap", registerMap);
 		model.addAttribute("paging", paging);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("grade", grade);

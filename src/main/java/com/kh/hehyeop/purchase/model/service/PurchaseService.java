@@ -32,11 +32,8 @@ public interface PurchaseService {
 	MyAddress selectAddress(String id);
 	
 	int countRegister(String grade, List<String> addressList, String keyword);
+	List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging);
 
-	List<Map<String, Object>> selectRegisterList();
-	
-	List<Map<String, Object>> selectRegisterListByGrade(String grade);
-	
 	void purchaseMatch(String regIdx, int restNum, String join_idx);
 	
 	void purchaseRequest(int buyNum, String id);

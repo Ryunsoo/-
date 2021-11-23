@@ -110,17 +110,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int getCash(String id) {
 		return purchaseRepository.getCash(id);
 	}
-
+	
 	@Override
-	public List<Map<String, Object>> selectRegisterList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Map<String, Object>> selectRegisterListByGrade(String grade) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging) {
+		return purchaseRepository.selectjoinCount(grade, addressList, keyword);
 	}
 
 }

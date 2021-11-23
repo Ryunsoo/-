@@ -130,6 +130,48 @@
 		where rnum between #{paging.start} and #{paging.end}
 	</select>
 	
-
+	
+	<select id="selectjoinCount" resultType="_int">
+		select count(join_idx) 
+		FROM v_select_purchase_main v left join purchase_match using (reg_idx) 
+		<choose>
+			<when test="grade != 'all' and addressList == null and keyword == null">
+				where v.grade = #{grade}
+			</when>
+			<when test="grade == 'all' and addressList != null and keyword == null">
+				where v.deal_loc in
+					<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach>
+			</when>
+			<when test="grade == 'all' and addressList == null and keyword != null">
+				where v.item_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="grade != 'all' and addressList != null and keyword == null">
+				where v.grade = #{grade} and v.deal_loc in
+					<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach>
+			</when>
+			<when test="grade == 'all' and addressList != null and keyword != null">
+				where v.deal_loc in
+					<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach> and v.item_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="grade != 'all' and addressList == null and keyword != null">
+				where v.grade = #{grade} and v.item_name like '%'||#{keyword}||'%'
+			</when>
+			<when test="grade != 'all' and addressList != null and keyword != null">
+				where v.grade = #{grade} and v.item_name like '%'||#{keyword}||'%'
+				and v.deal_loc in
+					<foreach collection="addressList" item="list" open="(" close=")" separator=",">
+						#{list}
+					</foreach>
+			</when>
+		
+		</choose>
+		group by reg_idx order by reg_idx desc
+	</select>
   
 </mapper>  

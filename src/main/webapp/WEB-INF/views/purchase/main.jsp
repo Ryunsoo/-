@@ -67,15 +67,15 @@
 		<div class="item-list-wrapper">	
 			<!-- 물품 list 첫번째 줄 -->
 			<div class="item-list-line">
-				<c:forEach items="${registerList}" var="rm">
-					<div class="item" onclick="location.href = '/purchase/detail?regIdx=${rm.regIdx}';">
-						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.link}"></div>
+				<c:forEach items="${registerMap}" var="rm">
+					<div class="item" onclick="location.href = '/purchase/detail?regIdx=${rm.registerInfo.regIdx}';">
+						<div class="item-image"><img style="width: 100%; height: 100%;" src="${rm.registerInfo.link}"></div>
 						<div class="item-title-wrapper">
-							<span id="title">${rm.itemName}</span> <span>(2명)</span>
+							<span id="title">${rm.registerInfo.itemName}</span> <span>(${rm.count}명)</span>
 						</div>
 
-						<div class="item-price">가격 : ${rm.price}</div>
-						<div class="item-stock">남은수량 : ${rm.restNum}개</div>
+						<div class="item-price">가격 : ${rm.registerInfo.price}</div>
+						<div class="item-stock">남은수량 : ${rm.registerInfo.restNum}개</div>
 					</div>
 				</c:forEach>
 			</div>

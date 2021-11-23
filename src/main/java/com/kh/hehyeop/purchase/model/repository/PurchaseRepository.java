@@ -44,11 +44,6 @@ public interface PurchaseRepository {
 	
 	List<Object> selectjoinCount(@Param("grade") String grade, @Param("addressList") List<String> addressList, @Param("keyword") String keyword);
 	
-	@Select("select count(join_idx) from (select * from v_select_purchase_main join member using(id) where grade = #{grade}) "
-			+ "left join purchase_match using(reg_idx) "
-			+ "group by reg_idx order by reg_idx desc")
-	List<Object> selectjoinCountByGrade(String grade);
-
 	int countMyPurchase(@Param("ongoing") String ongoing, @Param("id") String id);
 
 	List<MyPurchaseInfo> selectMyPurchaseInfo(@Param("paging") Paging paging
