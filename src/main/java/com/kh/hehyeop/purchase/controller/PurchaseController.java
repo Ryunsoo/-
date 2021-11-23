@@ -42,19 +42,19 @@ public class PurchaseController {
 	public void purchaseDetailTest(HttpSession session, String regIdx) {
 		
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
+		int buyNum = purchaseService.selectBuyNum(regIdx);
 		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
 		String endDate = purchaseInfo.getEndTime().replace("T","  ");
 		purchaseInfo.setDealTime(dealDate);
 		purchaseInfo.setEndTime(endDate);
 		session.setAttribute("purchaseInfo", purchaseInfo);
-		
+		session.setAttribute("buyNum", buyNum);
 	}
 	
 	@GetMapping("detail-writer")
 	public void purchaseDetailWriterTest(Model model, HttpSession session, String regIdx) {
 		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		
 		String dealDate = detailInfo.getDealTime().replace("T","  ");
 		String endDate = detailInfo.getEndTime().replace("T","  ");
 		detailInfo.setDealTime(dealDate);
@@ -207,8 +207,6 @@ public class PurchaseController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
-		
-		logger.debug("----------------buyNum : " + buyNum + "///// id : " + id + " //// regIdx : " + regIdx);
 		
 		purchaseService.purchaseRequest(buyNum, id);
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo");
