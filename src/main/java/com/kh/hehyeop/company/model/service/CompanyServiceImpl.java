@@ -5,17 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.company.model.dto.RequestDetail;
+import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.company.model.dto.CompanyField;
-import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
-import com.kh.hehyeop.company.model.dto.RequestDetail;
-import com.kh.hehyeop.company.model.repository.CompanyRepository;
-import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.HelpResponse;
-import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -56,7 +53,7 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyRepository.selectRequestDetailByReqIdx(reqIdx);
 	}
 	
-	public List<HelpRequest> selectRequestList(String id, String state) {
+	public List<HelpRequest> selectRequestListById(String id, String state) {
 		List<HelpRequest> requestList = companyRepository.selectRequestListById(id,state);
 		
 		for (HelpRequest helpRequest: requestList) {

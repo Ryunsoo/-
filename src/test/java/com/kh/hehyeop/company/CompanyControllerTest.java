@@ -40,7 +40,7 @@ public class CompanyControllerTest {
 	public void helpDetail() throws Exception {
 		mockMvc.perform(get("/company/help-detail")
 				.param("reqIdx", "100062"))
-		.andExpect(view().name("/events/form"))
+		.andExpect(status().isOk())
 		.andDo(print());
 	}
 	

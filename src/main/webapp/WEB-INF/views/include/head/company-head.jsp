@@ -36,7 +36,7 @@
 					<div class='mypage' style="cursor:pointer" onclick="location.href = '/mypage/mypage-company'">마이페이지</div>
 				</c:when>
 				<c:otherwise>
-					<div class='mypage' style="cursor:pointer" onclick="location.href = '/mypage/main'">메인페이지</div>
+					<div class='mypage' style="cursor:pointer" onclick="location.href = '/company/main'">메인페이지</div>
 				</c:otherwise>
 			</c:choose>
 			<div class='logout' style="cursor:pointer"><a href='/member/logout'>LOGOUT</a></div>

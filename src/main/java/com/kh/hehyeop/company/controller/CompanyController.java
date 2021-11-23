@@ -65,7 +65,7 @@ public class CompanyController {
 	public void allHelpForm(HttpSession session, @RequestParam(value = "state", required = false) String state) {
 		Member member = (Member) session.getAttribute("authentication");
 		if(state == null) state = "0";
-		List<HelpRequest> requestList = companyService.selectRequestList(member.getId(), state);
+		List<HelpRequest> requestList = companyService.selectRequestListById(member.getId(), state);
 	}
 	
 }

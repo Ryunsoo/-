@@ -28,7 +28,7 @@
 							
 							</c:when>
 							<c:otherwise>
-								<div class='help_img' style="background-image:url('${uploadPath}${detail.savePath}\\${detail.}')"></div>
+								<div class='help_img' style="background-image:url('${uploadPath}${detail.savePath}\\${detail.reName}')"></div>
 							</c:otherwise>
 						</c:choose>
 						<div class='inp_title'>* 요청사항</div>
