@@ -10,6 +10,8 @@ import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 
+import com.kh.hehyeop.company.model.dto.RequestDetail;
+
 @Mapper
 public interface CompanyRepository {
 
@@ -23,5 +25,7 @@ public interface CompanyRepository {
 										, @Param("companyFieldList") List<CompanyField> companyFieldList);
 
 
+	@Select("select * from v_request_detail where req_idx = #{reqIdx}")
+	RequestDetail selectRequestDetailByReqIdx(@Param("reqIdx") String reqIdx);
 
 }

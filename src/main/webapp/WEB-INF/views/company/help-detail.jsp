@@ -23,11 +23,18 @@
 				<div class='menu_title'>해협 조회</div>
 				<div class='content_wrapper'>
 					<div class='content_left'>
-						<div class='help_img'></div>
+						<c:choose>
+							<c:when test="${format eq 'pdf'}">
+							
+							</c:when>
+							<c:otherwise>
+								<div class='help_img' style="background-image:url('${uploadPath}${detail.savePath}\\${detail.}')"></div>
+							</c:otherwise>
+						</c:choose>
 						<div class='inp_title'>* 요청사항</div>
 						<textarea rows="10" cols="50" readonly>
-물이 안빠져요. 고쳐주세요ㅠ
-날짜, 시간 조정 가능합니다!! 연락주세요!
+<!-- 요청사항 내용 넣기 -->
+
 						</textarea>
 					</div>
 					<div class='content_right'>

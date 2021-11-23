@@ -11,6 +11,7 @@ import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
+import com.kh.hehyeop.company.model.dto.RequestDetail;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +44,11 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 
 		return requestList;
+	}
+	
+	@Override
+	public RequestDetail selectRequestDetailByReqIdx(String reqIdx) {
+		return companyRepository.selectRequestDetailByReqIdx(reqIdx);
 	}
 
 }

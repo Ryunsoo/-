@@ -10,9 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.hehyeop.common.code.Config;
+import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.company.model.service.CompanyService;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.member.model.dto.CMember;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -24,7 +27,17 @@ public class CompanyController {
 	private final CompanyService companyService;
 
 	@GetMapping("help-detail")
-	public void helpDetailForm() {}
+	public void helpDetailForm(Model model, String reqIdx) {
+		RequestDetail detail = companyService.selectRequestDetailByReqIdx(reqIdx);
+		String reName = detail.getReName();
+		int formatIdx = reName.lastIndexOf(".");
+		System.out.println(reName.substring(formatIdx+1));
+		System.out.println(detail);
+		System.out.println(Config.UPLOAD_PATH.DESC);
+		model.addAttribute("format", reName.substring(formatIdx+1));
+		model.addAttribute("requestDetail", detail);
+		model.addAttribute("uploadPath", Config.UPLOAD_PATH.DESC);
+	}
 	
 	@GetMapping("help-join")
 	public void helpJoinFrom() {}
