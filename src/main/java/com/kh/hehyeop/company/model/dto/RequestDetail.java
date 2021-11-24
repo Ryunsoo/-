@@ -14,4 +14,7 @@ public class RequestDetail {
 	private String reqContent;
 	private String reName;
 	private String savePath;
+	
+	//formatting 한 값 저장 변수
+	private String price;
 }

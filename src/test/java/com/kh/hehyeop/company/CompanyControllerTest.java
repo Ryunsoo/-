@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.kh.hehyeop.member.model.dto.CMember;
+
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/**/*-context.xml"})
@@ -38,8 +40,11 @@ public class CompanyControllerTest {
 	
 	@Test
 	public void helpDetail() throws Exception {
+		CMember member = new CMember();
+		
 		mockMvc.perform(get("/company/help-detail")
-				.param("reqIdx", "100062"))
+				.sessionAttr("authentication", member)
+				.param("reqIdx", "100093"))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}

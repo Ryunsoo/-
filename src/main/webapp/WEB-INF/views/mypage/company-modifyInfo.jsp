@@ -4,7 +4,6 @@
 <html>
 <head>
 <link href="../../../resources/css/mypage/modal.css" type="text/css" rel="stylesheet">
-<link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
@@ -214,7 +213,7 @@ button:hover {
 <body>
 <div id='modal'></div>
 <div class="wrap">
-	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+	<%@ include file="/WEB-INF/views/include/head/company-head.jsp" %>
 	
 		<div class="main">
 			<img class="bee2" src="../../../resources/image/bee2.png">

@@ -21,37 +21,53 @@
 		<div class='section'>
 			<div class='wrapper'>
 				<div class='menu_title'>해협 참가 신청</div>
-				<div class='content_wrapper'>
-					<div class='content_left'>
-						<div class='file_img'>
-							<div class='file'></div>
-							<div class='deco'></div>
+				<form:form modelAttribute="responseForm" action="/company/upload-estimate?reqIdx=${reqIdx}" method="post" enctype="multipart/form-data">
+					<div class='content_wrapper'>
+						<div class='content_left'>
+							<div class='file_img'>
+								<div class='file'></div>
+								<div class='deco'></div>
+							</div>
+							<div class='upload'>
+								<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
+								<label class='upload_label' for="input-file">견적서 업로드</label>
+								<form:errors path="files" cssClass="upload_valid"></form:errors>
+							</div>
+								<input type="file" name='files' id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;">
 						</div>
-						<div class='upload'>
-							<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
-							<label class='upload_label' for="input-file">견적서 업로드</label>
+						<div class='content_right'>
+							<div class='inp_title'>* 성 함</div><form:errors path="resName" cssClass="valid_msg"></form:errors>
+							<input type="text" name='resName' placeholder="해협을 진행하실 분의 성함을 입력하세요."
+								<c:if test="${empty error.resName}">
+									value="${responseForm.resName}"
+								</c:if>
+							required>
+							<div class='inp_title'>* 연락처</div><form:errors path="resTell" cssClass="valid_msg"></form:errors>
+							<input type="tel" name='resTell' placeholder="연락 가능한 전화번호를 입력하세요."
+								<c:if test="${empty error.resTell}">
+									value="${responseForm.resTell}"
+								</c:if>
+							required>
+							<div class='inp_title'>* 원하는 시간</div><form:errors path="resTime" cssClass="valid_msg"></form:errors>
+							<input type="datetime-local" name='resTime'
+								<c:if test="${empty error.resTime}">
+									value="${responseForm.resTime}"
+								</c:if>
+							required>
+							<div class='inp_title'>* 견적금액</div><form:errors path="resPrice" cssClass="valid_msg"></form:errors>
+							<input type="number" name='resPrice' min="0"
+								<c:if test="${empty error.resPrice}">
+									value="${responseForm.resPrice}"
+								</c:if>
+							required>
 						</div>
-							<input type="file" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;">
 					</div>
-					<div class='content_right'>
-						<div class='inp_title'>* 성 함</div>
-						<input type="text" value='권구현'>
-						<div class='inp_title'>* 연락처</div>
-						<input type="tel" value='010-0000-0000'>
-						<div class='inp_title'>* 원하는 시간</div>
-						<input type="datetime-local" value='2021-11-02T10:30'>
-						<div class='inp_title'>* 희망금액</div>
-						<input type="text" value='50,000'>
+					<div class='content_bottom'>
+						<div class='inp_title'>* 업체의 어필</div>
+						<textarea rows="10" cols="50" name='resContent' placeholder="어필하고자 하는 내용을 적어보세요.">${responseForm.resContent}</textarea>
+						<button>견적서 제출</button>
 					</div>
-				</div>
-				<div class='content_bottom'>
-				<div class='inp_title'>* 요청사항</div>
-				<textarea rows="10" cols="50">
-전달드린 견적 확인하시고 궁금한 점 있으면 연락주세요!
-신속, 정확하게! 해결해드리겠습니다.
-날짜 / 시간은 조율 가능합니다~</textarea>
-				<button>견적서 제출</button>
-				</div>
+				</form:form>
 			</div>
 		</div>
 	</div>

@@ -361,6 +361,11 @@ public class MypageController {
 			redirectAttr.addFlashAttribute("message", "가입되지 않은 정보입니다.");
 		} else {
 			memberService.linkMember(id, cmember.getId(), password);
+			LinkMember linkMember = new LinkMember();
+			linkMember.setCId(cmember.getId());
+			linkMember.setId(id);
+			linkMember.setPassword(password);
+			session.setAttribute("linked", linkMember);
 			redirectAttr.addFlashAttribute("message", "회원 정보가 연결되었습니다.");
 		}
 		

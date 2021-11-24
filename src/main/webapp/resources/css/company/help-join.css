@@ -86,10 +86,11 @@
 }
 
 .inp_title{
-	display: flex;
+	display: inline-flex;
 	margin-top : 20px;
 	height: 30px;
 	align-items: center;
+	margin-right: 29px;
 	color: #e67e00;
 	font-size: 15px;
 	font-weight: bold;
@@ -141,6 +142,7 @@
 .upload{
 	display: flex;
 	margin-top: 35px;
+	flex-wrap: wrap;
 	height: 28px;
 	width: 100%;
 }
@@ -167,6 +169,19 @@
 	cursor: pointer;
 }
 
+.upload_valid{
+	display: inline-flex;
+	margin: 10px 0 0 55px;
+	font-size: 11px;
+	color: red;
+	font-weight: bold;
+}
+
+.valid_msg{
+	font-size: 11px;
+	color: red;
+	font-weight: bold;
+}
 
 textarea{
 	resize: none;
@@ -204,7 +219,7 @@ textarea:focus, input:focus{
 
 .content_bottom{
 	height: 300px;
-	margin-top: 20px;
+	margin-top: 13px;
 }
 
 .content_bottom>button{

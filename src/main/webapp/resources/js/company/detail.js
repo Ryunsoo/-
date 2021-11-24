@@ -1,3 +1,3 @@
 let showReqDetail = (reqIdx) => {
-	console.dir(reqIdx);
+	location.href = '/company/help-detail?reqIdx=' + reqIdx;
 }

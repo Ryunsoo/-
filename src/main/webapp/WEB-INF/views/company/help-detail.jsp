@@ -25,32 +25,29 @@
 					<div class='content_left'>
 						<c:choose>
 							<c:when test="${format eq 'pdf'}">
-							
+								<iframe class="help_img" src='/file/${detail.savePath}/${detail.reName}'></iframe>
 							</c:when>
 							<c:otherwise>
-								<div class='help_img' style="background-image:url('${uploadPath}${detail.savePath}\\${detail.reName}')"></div>
+								<div class='help_img' style="background-image:url('/file/${detail.savePath}/${detail.reName}')"></div>
 							</c:otherwise>
 						</c:choose>
 						<div class='inp_title'>* 요청사항</div>
-						<textarea rows="10" cols="50" readonly>
-<!-- 요청사항 내용 넣기 -->
-
-						</textarea>
+						<textarea rows="10" cols="50" readonly>${detail.reqContent}</textarea>
 					</div>
 					<div class='content_right'>
 						<div class='inp_title'>* 성 함</div>
-						<input type="text" value='권구현' readonly>
+						<input type="text" value='${detail.reqName}' readonly>
 						<div class='inp_title'>* 연락처</div>
-						<input type="tel" value='010-0000-0000' readonly>
+						<input type="tel" value='${detail.reqTell}' readonly>
 						<div class='inp_title'>* 주 소</div>
-						<input type="text" value='서울시 강남구 역삼동' readonly>
+						<input type="text" value='${detail.reqAddress}' readonly>
 						<div class='inp_title'>* 원하는 시간</div>
-						<input type="datetime-local" value='2021-11-02T10:30' readonly>
+						<input type="datetime-local" value='${detail.reqTime}' readonly>
 						<div class='inp_title'>* 희망금액</div>
-						<input type="text" value='50,000' readonly>
+						<input type="text" value='${detail.price} 원' readonly>
 					</div>
 				</div>
-				<div class='join_btn'><button>해협 참가하기</button></div>
+				<div class='join_btn'><button onclick="location.href='/company/help-join?reqIdx=${detail.reqIdx}'">해협 참가하기</button></div>
 			</div>
 		</div>
 	</div>
