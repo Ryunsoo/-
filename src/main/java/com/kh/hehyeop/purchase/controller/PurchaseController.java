@@ -142,22 +142,32 @@ public class PurchaseController {
 	public void purchaseMypurchase(HttpSession session
 										, Model model
 										, Paging paging
+										, MyPurchaseInfo field
 							, @RequestParam(value="nowPage", required = false) String nowPage
 							, @RequestParam(value="cntPerPage", required = false) String cntPerPage
 							, @RequestParam(value="ongoing", required = false) String ongoing
 							, @RequestParam(value="done", required = false) String done) {
 		
-		System.out.println("ongoing : " + ongoing);
-		System.out.println("done : " + done);
-		
 		if(nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "3";
+			cntPerPage = "1";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) { 
-			cntPerPage = "3";
+			cntPerPage = "1";
 		}
+		
+		if(ongoing != null && ongoing.equals("N")) {
+			ongoing = null;
+			done = "N";
+		}else if(ongoing != null && ongoing.equals("Y")) {
+			ongoing = null;
+			done = "Y";
+		}
+		
+		
+		System.out.println("done : " + done);
+		System.out.println("ongoing : " + ongoing);
 		
 		Member authMember = (Member) session.getAttribute("authentication");
 		String id = authMember.getId();
@@ -170,10 +180,16 @@ public class PurchaseController {
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
 		for (MyPurchaseInfo info : myPurchaseInfo) {
 			info.setDealTime(info.getDealTime().replace("T", " "));
-			System.out.println("ongoing : " + info.getOngoing());
 		}
+		
+		if(ongoing == null && done==null) {
+			ongoing = "3";
+			field.setOngoing(Integer.parseInt(ongoing));
+		}
+		field.setDone(done);
 		model.addAttribute("paging", paging);
 		model.addAttribute("myPurchaseInfo", myPurchaseInfo);
+		session.setAttribute("field", field);
 	}
 	
 	@GetMapping("participants-list")
