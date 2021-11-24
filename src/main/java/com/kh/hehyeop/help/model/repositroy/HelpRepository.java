@@ -90,7 +90,7 @@ public interface HelpRepository {
 	@Select("select cash - cash_lock from wallet where id = #{id}")
 	int selectMyCash(String id);
 
-	@Update("update wallet set cash_lock = cash_lock + #{resPay} where id = #{id}")
+	@Update("update wallet set cash = cash - #{resPay}, cash_lock = cash_lock + #{resPay} where id = #{id}")
 	void updateCash(@Param("id")String id, @Param("resPay")int resPay);
 
 	void insertHelpMatch(@Param("reqIdx") String reqIdx,@Param("resIdx") String resIdx , @Param("payStatus") int payStatus);

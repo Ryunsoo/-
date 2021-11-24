@@ -111,10 +111,10 @@ public interface MypageRepository {
 	@Update("update wallet set cash = cash + #{cash} where id = #{id}")
 	void addCashToWallet(@Param("id") String id, @Param("cash") int cash);
 
-	@Update("update wallet set cash = cash - #{cash}, cash_lock = cash_lock - #{cash} where id = #{id}")
+	@Update("update wallet set cash_lock = cash_lock - #{cash} where id = #{id}")
 	void substractCashAndCashLock(@Param("id") String id, @Param("cash") int cash);
 
-	@Update("update wallet set cash_lock = cash_lock - #{cash} where id = #{id}")
+	@Update("update wallet set cash = cash + #{cash}, cash_lock = cash_lock - #{cash} where id = #{id}")
 	void substractCashLock(@Param("id") String id, @Param("cash") int cash);
 	
 	
