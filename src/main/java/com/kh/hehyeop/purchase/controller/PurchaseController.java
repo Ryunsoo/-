@@ -49,20 +49,24 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		int buyNum = purchaseService.selectBuyNum(regIdx);
+		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
+		String endDate = purchaseInfo.getEndTime().replace("T","  ");
+		purchaseInfo.setDealTime(dealDate);
+		purchaseInfo.setEndTime(endDate);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
 		
 		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date test = fDate.parse(purchaseInfo.getDealTime());
 		Date today = new Date();
-
-		if (today.compareTo(test) == -1) {
+		
+		if (today.compareTo(test) == 1) {
 			session.setAttribute("dealTime", "Y");
 		}
 		
 		session.setAttribute("purchaseInfo", purchaseInfo);
 		session.setAttribute("buyNum", buyNum);
-		logger.debug("=========="+purchaseInfo);
+		logger.debug("test : " + test + " today : " + today + " 비교 : " + today.compareTo(test) + "dealTime : " + today.compareTo(test));
 	}
 	
 	@GetMapping("detail-writer")

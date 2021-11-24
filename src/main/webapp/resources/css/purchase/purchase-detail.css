@@ -236,3 +236,16 @@ i.fas.fa-map-marker-alt {
     cursor: pointer;
     margin-left: 5px;
 }
+
+#map{
+	position: absolute;
+	height: 500px;
+	width: 500px;
+	background-color: transparent;
+	z-index: 9000000000;
+	border-radius: 15px;
+	display: none;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

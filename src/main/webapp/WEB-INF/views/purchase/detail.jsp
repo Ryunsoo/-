@@ -15,7 +15,7 @@
 <body>
 <div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
-
+<div id="map"></div>
 	<!-- 페이지 제목 -->
 		<div class="title">
 			<div id="this-page-name"></div>
@@ -60,7 +60,7 @@
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
 						${purchaseInfo.dealLoc}
-						<span><i class="fas fa-map-marker-alt"></i></span>
+						<span><i class="fas fa-map-marker-alt" onclick="viewMap('${purchaseInfo.dealLoc}')"></i></span>
 					</div>
 					
 					<div>
@@ -193,6 +193,7 @@
 
 
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5cd0153e48da9da48f6b22ac3f45bfd&libraries=services"></script>
 <script type="text/javascript">
 document.querySelector("#chat").addEventListener("click", () => {
 	
@@ -218,6 +219,50 @@ document.querySelector("#chat").addEventListener("click", () => {
 				}
 			})
 		})
+		
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+function viewMap(loc){
+	
+	if (mapContainer.style.display == 'none'){
+		//주소로 좌표를 검색합니다
+		geocoder.addressSearch(loc, function(result, status) {
+
+		// 정상적으로 검색이 완료됐으면 
+		 if (status === kakao.maps.services.Status.OK) {
+
+		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+		    // 결과값으로 받은 위치를 마커로 표시합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map,
+		        position: coords
+		    });
+
+		    mapContainer.style.display = 'block';
+		    map.relayout();
+
+		    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		    map.setCenter(coords);
+		    marker.setPosition(coords);
+		} 
+		});
+		
+	} else {
+		mapContainer.style.display = 'none';
+	}
+	
+}
 </script>
 </body>
 </html>
