@@ -191,8 +191,8 @@ body {
 
 /* 신청해협/ 문의해협 버튼 호버 */
 .submit-ask:hover{
-	background-color: #4888c8;
-	cursor: pointer;
+	background-color: #5ca6b5;
+    border-color: #569caa;
 }
 
 #stock-list {
@@ -223,4 +223,16 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+i.fas.fa-map-marker-alt:hover {
+    color: orange;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+i.fas.fa-map-marker-alt {
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 5px;
 }

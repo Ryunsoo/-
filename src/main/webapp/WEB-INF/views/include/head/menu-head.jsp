@@ -31,30 +31,30 @@
                   <li class="gnb-2depth">
                      <ul class="gnb-2depth__list">
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">구매해협</a>
+                           <a href="/purchase/main">구매해협</a>
                         </li>
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">작성해협</a>
+                           <a href="/purchase/regist">작성해협</a>
                         </li>
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">마이공구</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class="gnb-2depth">
-                     <ul class="gnb-2depth__list">
-                        <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">나의 냉장고</a>
-                        </li>
-                        <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/">나의 가계부</a>
+                           <a href="/purchase/my-purchase">마이공구</a>
                         </li>
                      </ul>
                   </li>
                   <li class="gnb-2depth">
                      <ul class="gnb-2depth__list">
                         <li class="gnb-2depth__item">
-                           <a href="https://www.naver.com/"><div>소통해협</div></a>
+                           <a href="/management/myIcebox">나의 냉장고</a>
+                        </li>
+                        <li class="gnb-2depth__item">
+                           <a href="/management/myAccountBook">나의 가계부</a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="gnb-2depth">
+                     <ul class="gnb-2depth__list">
+                        <li class="gnb-2depth__item">
+                           <a href="/community/list"><div>소통해협</div></a>
                         </li>
                      </ul>
                   </li>
@@ -89,10 +89,10 @@
 					</div>
 				</c:if>
          <div class="nav_title">
-            <a href=""><div class="help">해협신청</div></a>
-            <a href=""><div class="together">공구해협</div></a>
-            <a href=""><div class="manage">관리해협</div></a>
-            <a href=""><div class="talk">소통해협</div></a>
+            <div class="help" onclick="location.href='/help/main'">해협신청</div>
+            <div class="together" onclick="location.href='/purchase/main'">공구해협</div>
+            <div class="manage" onclick="location.href='/management/myIcebox'">관리해협</div>
+           <div class="talk" onclick="location.href='/community/list'">소통해협</div>
          </div>
       </div>
    </nav>

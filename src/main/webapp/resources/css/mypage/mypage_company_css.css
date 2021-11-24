@@ -218,10 +218,16 @@ html, body {
 
 #setting {
 	color: black;
+	cursor: pointer;
+}
+
+#push_info{
+	cursor: pointer;
 }
 
 #push_info:hover .balloon3{
 	display: block;
+	cursor: pointer;
 }
 
 #field_info:hover .balloon4{
@@ -239,8 +245,8 @@ html, body {
 .balloon4{
     display: none;
     position: absolute;
-    right: 282px;
-    top: 621px;
+    right: 372px;
+    top: 661px;
     width: 280px;
     height: 65px;
     background: gray;
@@ -426,6 +432,7 @@ html, body {
 	height: 50%;
 	display: flex;
 	justify-content: space-between;
+	cursor: pointer;
 }
 
 #infobox1 {

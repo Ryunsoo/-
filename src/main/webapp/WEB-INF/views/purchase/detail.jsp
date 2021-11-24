@@ -60,7 +60,7 @@
 					<div class="orange-color-subtitle">거래 위치 및 시간</div>
 					<div>
 						${purchaseInfo.dealLoc}
-						<span><i style="margin-left: 5px;" class="fas fa-map-marker-alt"></i></span>
+						<span><i class="fas fa-map-marker-alt"></i></span>
 					</div>
 					
 					<div>

@@ -99,8 +99,8 @@
 			<div class="cate_wrap">
 				<div onclick = "location.href = '/help/main'">신청해협</div>
 				<div onclick = "location.href='/purchase/main'">공구해협</div>
-				<div>관리해협</div>
-				<div>소통해협</div>
+				<div onclick="location.href='/management/myIcebox'">관리해협</div>
+				<div onclick="location.href='/community/list'">소통해협</div>
 			</div>
 		</div>
 	</div>

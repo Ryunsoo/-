@@ -44,12 +44,22 @@ body {
 }
 
 /* 제목 옆에 수정삭제 아이콘 호버 */
-#update-delete-icon> i:hover {
+#update-delete-icon> i:hover{
 	cursor: pointer;
 	color: #909090;
 }
 
+i.fas.fa-map-marker-alt:hover {
+    color: orange;
+    font-size: 20px;
+    cursor: pointer;
+}
 
+i.fas.fa-map-marker-alt {
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 5px;
+}
 /* 구분선 */
 
 .line-wrapper> #seprate-line {
@@ -190,8 +200,8 @@ progress {
 
 /* 신청해협/ 문의해협 버튼 호버 */
 .submit-ask:hover{
-	background-color: #4888c8;
-	cursor: pointer;
+	background-color: #5ca6b5;
+    border-color: #569caa;
 }
 
 #stock-list {
