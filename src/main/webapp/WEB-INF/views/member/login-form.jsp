@@ -101,7 +101,6 @@ function failLogin(msg){
 						<div>
 							<div class="kakao_btn" onclick="kakaoLogin()">카카오로 로그인/회원가입</div>
 						</div>
-						<div class="txt_find">
 					</div>
 
 				</div>
