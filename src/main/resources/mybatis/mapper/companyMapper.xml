@@ -8,14 +8,19 @@
 		select *
 		from (select rownum rnum, v.*
         		from help_request v
-        		where old_address in
-		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
-						#{addressList}
-		</foreach>
-		and field in
+        		where field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
 		</foreach>
+		<if test="area == null">
+		and old_address in
+		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
+						#{addressList}
+		</foreach>
+		</if>
+		<if test="area != null">
+		and old_address like '%'||#{area}||'%'  
+		</if>
 		order by v.reg_date desc)
 		where rnum between #{paging.start} and #{paging.end}
 	</select>
@@ -29,14 +34,20 @@
 	
 	<select id="countRequest" resultType="_int">
 		select count(*) from help_request
-		where ongoing = 0 and old_address in
-		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
-						#{addressList}
-		</foreach>
-		and field in
+		where ongoing = 0 and field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
 		</foreach>
+		
+		<if test="area == null">
+		and old_address in
+		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
+						#{addressList}
+		</foreach>
+		</if>
+		<if test="area != null">
+		and old_address like '%'||#{area}||'%'  
+		</if>
 	</select>
 	
 </mapper>

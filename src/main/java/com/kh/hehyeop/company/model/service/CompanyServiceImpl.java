@@ -26,9 +26,9 @@ public class CompanyServiceImpl implements CompanyService{
 	private final CompanyRepository companyRepository;
 
 	@Override
-	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList) {
+	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList, String area) {
 			
-		List<HelpRequest> requestList = companyRepository.selectRequestList(paging,addressList,companyFieldList);
+		List<HelpRequest> requestList = companyRepository.selectRequestList(paging,addressList,companyFieldList,area);
 		
 		AddressUtil util = new AddressUtil();
 		for (HelpRequest helpRequest : requestList) {
@@ -64,8 +64,8 @@ public class CompanyServiceImpl implements CompanyService{
 		return address;
 	}
 	@Override
-	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList) {
-		return companyRepository.countRequest(addressList, companyFieldList);
+	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList, String area) {
+		return companyRepository.countRequest(addressList, companyFieldList, area);
 	}
 
 	@Override

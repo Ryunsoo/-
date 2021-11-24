@@ -14,27 +14,16 @@
 		<!-- 사이트 메뉴(조회해협 & MY 해협) -->
 		<!-- <aside> -->
 		<div class='aside'>
-			<button class="help_list">조회 해협</button>
-			<button class="my_help">MY 해협</button>
+			<button class="help_list" onclick="location.href='/company/main'">조회 해협</button>
+			<button class="my_help" onclick="location.href='/company/my'">MY 해협</button>
 		</div>
 		<!-- </aside> -->
 		<div class='section'>
 			<div class='wrapper'>
 				<div class='search_area'>
 					<div>
-						<input name='area' placeholder='지역 검색'>
-						<i class="fas fa-search"></i>
-					</div>
-				</div>
-				<div class='search_num'>
-					<div class='date'>
-						<input type="date"><span> - </span><input type="date">
-					</div>
-					<div class='amount'>
-						<input type="text" placeholder="최소 금액"><span> ~ </span><input type="text" placeholder="최대 금액">
-					</div>
-					<div class='search'>
-						<button>조회</button>
+						<input class='area' name='area' placeholder='지역 검색' onkeypress="if(event.keyCode==13){searchArea()}">
+						<i class="fas fa-search" onclick="searchArea()"></i>
 					</div>
 				</div>
 				<div class='wrap_list'>
@@ -59,7 +48,7 @@
 									<td>${requestList.reqName}</td>
 									<td>${requestList.reqTime}</td>
 									<td>${requestList.reqPay} 원</td>
-									<td class='td-icon'><i class="fas fa-file-alt" onclick="showReqDetail(${requestList.reqIdx})"></i></td>
+									<td class='td-icon'><i class="far fa-file-alt" onclick="showReqDetail(${requestList.reqIdx})"></i></td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -68,8 +57,9 @@
 					<div class="page">
 					<div class="pg_wrap" style="display: block; text-align: center;">		
 					<c:if test="${paging.startPage != 1 }">
-						<a class="pg_start" href="/company/main?nowPage=1&cntPerPage=${paging.cntPerPage}">&lt;&lt;</a>
-						<a class="pg_prev" href="/company/main?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+						
+						<a class="pg_start" href="/company/main?nowPage=1&cntPerPage=${paging.cntPerPage}<c:if test="${not empty area}">&area=${area}</c:if>">&lt;&lt;</a>
+						<a class="pg_prev" href="/company/main?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}<c:if test="${not empty area}">&area=${area}</c:if>">&lt;</a>
 					</c:if>
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 						<c:choose>
@@ -77,13 +67,13 @@
 								<a class="pg_current">${p }</a>
 							</c:when>
 							<c:when test="${p != paging.nowPage }">
-								<a class="pg_page" href="/company/main?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+								<a class="pg_page" href="/company/main?nowPage=${p }&cntPerPage=${paging.cntPerPage}<c:if test="${not empty area}">&area=${area}</c:if>">${p }</a>
 							</c:when>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${paging.endPage != paging.lastPage}">
-						<a class="pg_next" href="/company/main?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-						<a class="pg_end" href="/company/main?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}">&gt;&gt;</a>
+						<a class="pg_next" href="/company/main?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}<c:if test="${not empty area}">&area=${area}</c:if>">&gt;</a>
+						<a class="pg_end" href="/company/main?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}<c:if test="${not empty area}">&area=${area}</c:if>">&gt;&gt;</a>
 					</c:if>
 				</div>
 				</div>
@@ -117,5 +107,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 	<!-- </footer> -->
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
+	<script type="text/javascript" src="../../../resources/js/company/main.js"></script>
 	<script type="text/javascript" src="../../../resources/js/company/detail.js"></script>
 </html>

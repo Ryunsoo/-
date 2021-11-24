@@ -24,7 +24,8 @@ public interface CompanyRepository {
 	List<CompanyField> selectCompanyFieldListById(String id);
 	
 	List<HelpRequest> selectRequestList(@Param("paging")Paging paging,@Param("addressList")List<String> addressList
-										, @Param("companyFieldList") List<CompanyField> companyFieldList);
+										, @Param("companyFieldList") List<CompanyField> companyFieldList
+										, @Param("area")String area);
 
 
 	@Select("select * from help_response where c_id = #{id}")
@@ -37,6 +38,6 @@ public interface CompanyRepository {
 	RequestDetail selectRequestDetailByReqIdx(@Param("reqIdx") String reqIdx);
 
 	int countRequest(@Param("addressList")List<String> addressList
-					, @Param("companyFieldList")List<CompanyField> companyFieldList);
+					, @Param("companyFieldList")List<CompanyField> companyFieldList, @Param("area") String area);
 
 }
