@@ -23,28 +23,12 @@
 	border-radius: 20px;
 }
 
-.req_img1 img {
-	width: 400px;
-	height: 250px;
+.req_img1 #fileImg {
+	width: 425px;
+	height: 370px;
 	border-radius: 20px;
 	position: relative;
     transform: translate(52px, 179px);
-}
-
-.reg_img2 img {
-	margin: 30px 0 30px 30px;
-	width: 150px;
-	height: 150px;
-	border-radius: 20px;
-	float: left;
-}
-
-.reg_img3 img {
-	margin: 30px;
-	width: 150px;
-	height: 150px;
-	border-radius: 20px;
-	float: right;
 }
 
 .detail-text-area {

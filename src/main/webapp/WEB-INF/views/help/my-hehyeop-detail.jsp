@@ -9,7 +9,6 @@
 <body>
 	<div class="left_page">
 		<div class="req_img1">
-			<img id="fileImg">
 		</div>
 	</div>                                    
 	<div class="right_page">

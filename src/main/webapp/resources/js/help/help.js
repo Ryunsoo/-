@@ -95,8 +95,21 @@ let showDetail = (reqIdx,helpState) => {
 	 	//reqTime ex)2021-11-20T21:05 변환해주기
 	 	let reqTimeArr = helpRequest.reqTime.split("T");
 	 	let reqTime = reqTimeArr[0]+" "+reqTimeArr[1];
+	 	
+	 	$('.req_img1').html('');
+	 	let lastIdx = file.reName.lastIndexOf('.');
+	 	let type = file.reName.substring(lastIdx+1)
+	 	let img;
+	 	if(type == 'pdf') {
+			img = $('<iframe>');
+		}else {
+			img = $('<img>');
+		}
+		img.attr('id', 'fileImg').attr('src','/file/'+file.savePath+file.reName)
+			.css("object-fit", "contain");
+		$('.req_img1').append(img);
+	 	
 	 	//값 세팅해주기
-	 	$('#fileImg').attr('src','/file/'+file.savePath+file.reName);
 	 	$('#dname').attr('value',helpRequest.reqName);
 	 	$('#dtell').attr('value',helpRequest.reqTell);
 	 	$('#daddress').attr('value',helpRequest.reqAddress);
@@ -221,7 +234,20 @@ let estimateDetail = (resIdx,tell,time,pay) => {
       $('#resTell').attr('value',tell);
       $('#resTime').attr('value',time);
       $('#resPay').attr('value',pay+'원');
-      $('#resPhoto').attr('src','/file/'+fileDto[0].savePath+fileDto[0].reName);
+      
+      $('.detail_photo').html('');
+      let reName = fileDto[0].reName;
+	  let lastIdx = reName.lastIndexOf('.');
+	  let type = reName.substring(lastIdx+1);
+	  let img;
+	  if(type == 'pdf') {
+			img = $('<iframe>');
+	  }else {
+			img = $('<img>');
+	  }
+	  img.attr('id', 'resPhoto').attr('src','/file/'+fileDto[0].savePath+reName)
+			.css("object-fit", "contain");
+	  $('.detail_photo').append(img);
    })
 }
 

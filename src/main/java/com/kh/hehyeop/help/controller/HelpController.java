@@ -329,10 +329,11 @@ public class HelpController {
 			redirectAttr.addFlashAttribute("msg","업체 선택이 완료되었습니다.");
 			String reqName = helpService.selectReqNameByReqIdx(reqIdx);
 			pushSender.send(cmember, "자취해협", reqName + "님과 매칭되었습니다. 거래를 진행해주세요.");
+			redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
 		}else {
-			redirectAttr.addFlashAttribute("msg","현재 보유 캐시가 부족해 업체 선택에 실패했습니다.");
+			redirectAttr.addFlashAttribute("msg","현재 보유 캐시가 부족해 마이페이지로 이동합니다.");
+			redirectAttr.addFlashAttribute("url","/mypage/mypage-common");
 		}
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
 		return "redirect:/error/result";
 	}
 	

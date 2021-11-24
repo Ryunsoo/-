@@ -47,7 +47,7 @@
 		</div>
 		<div class="photo_title">견적서</div>
 		<div class="detail_photo">
-			<img id="resPhoto">
+			<!-- <img id="resPhoto"> -->
 		</div>
 	</div>
 </body>
