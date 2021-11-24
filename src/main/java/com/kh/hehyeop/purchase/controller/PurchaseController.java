@@ -196,9 +196,7 @@ public class PurchaseController {
 		
 		
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
-		for (MyPurchaseInfo info : myPurchaseInfo) {
-			info.setDealTime(info.getDealTime().replace("T", " "));
-		}
+		
 		
 		if(ongoing == null && done==null) {
 			ongoing = "3";
