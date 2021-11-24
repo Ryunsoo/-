@@ -62,10 +62,29 @@ public class CompanyController {
 	public void ongoingHelpForm() {}
 	
 	@GetMapping("my")
-	public void allHelpForm(HttpSession session, @RequestParam(value = "state", required = false) String state) {
-		Member member = (Member) session.getAttribute("authentication");
+	public void allHelpForm(HttpSession session, Model model, @RequestParam(value = "state", required = false) String state) {
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		String status = "";
 		if(state == null) state = "0";
-		List<HelpRequest> requestList = companyService.selectRequestListById(member.getId(), state);
+		List<HelpRequest> requestList = companyService.selectRequestListById(cmember.getId(), state);	
+		switch (state) {
+		case "0":
+			status = "대기중";
+			break;
+		case "1":
+			status = "진행중";
+			break;
+		case "2":
+			status = "완료";
+			break;
+		case "3":
+			status = "취소";
+			break;
+		default:
+			break;
+		}
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("status", status);
 	}
 	
 }

@@ -109,5 +109,4 @@ public interface HelpRepository {
 	@Update("update member_c set point = point + 3 where id = #{cId}")
 	void updateMemberCPoint(@Param("cId") String cId);
 
-
 }

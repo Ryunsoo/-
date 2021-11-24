@@ -56,7 +56,7 @@
 										<td>${requestList.field}</td>
 										<td>${requestList.oldAddress}</td>
 										<td>${requestList.reqTime}</td>
-										<td>대기중</td>
+										<td>${status}</td>
 										<td>${requestList.reqName}</td>
 									</tr>
 								</c:forEach>

@@ -18,6 +18,6 @@
 	<select id="selectRequestListById" resultType="HelpRequest">
 		select * from help_request 
 		where req_idx in 
-		(select req_idx from help_response where c_id = #{id} and ongoing = #{state})          
+		(select req_idx from help_response where id = #{id} and ongoing = #{state})          
 	</select>
 </mapper>

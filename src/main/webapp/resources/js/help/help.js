@@ -132,6 +132,10 @@ let showDetail = (reqIdx,helpState) => {
 
 //견적 페이지
 let estimate = () => {
+   $('#resTell').attr('value',"");
+   $('#resTime').attr('value',"");
+   $('#resPay').attr('value',"");
+   $('#resPhoto').attr('src',"");	
    let reqIdx = $('.saveReqIdx').val();
    let helpState = $('.saveHelpState').val();
    let table = $('#response_list');
