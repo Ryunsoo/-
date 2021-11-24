@@ -36,12 +36,8 @@
 								<input type="file" name='files' id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;">
 						</div>
 						<div class='content_right'>
-							<div class='inp_title'>* 성 함</div><form:errors path="resName" cssClass="valid_msg"></form:errors>
-							<input type="text" name='resName' placeholder="해협을 진행하실 분의 성함을 입력하세요."
-								<c:if test="${empty error.resName}">
-									value="${responseForm.resName}"
-								</c:if>
-							required>
+							<div class='inp_title'>* 업체명</div>
+							<input type="text" value='${authentication.company}' readonly>
 							<div class='inp_title'>* 연락처</div><form:errors path="resTell" cssClass="valid_msg"></form:errors>
 							<input type="tel" name='resTell' placeholder="연락 가능한 전화번호를 입력하세요."
 								<c:if test="${empty error.resTell}">
@@ -96,4 +92,5 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
 <script type="text/javascript" src="${contextPath}/resources/js/common/file-upload-viewer.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/company/help-join.js"></script>
 </html>
