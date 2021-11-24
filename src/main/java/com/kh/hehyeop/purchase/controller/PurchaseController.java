@@ -42,7 +42,7 @@ public class PurchaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
-	public void purchaseDetailTest(HttpSession session, String regIdx) {
+	public void purchaseDetailTest(HttpSession session, String regIdx) throws ParseException  {
 		
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		
@@ -55,6 +55,15 @@ public class PurchaseController {
 		purchaseInfo.setEndTime(endDate);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
+		
+		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date test = fDate.parse(purchaseInfo.getDealTime());
+		Date today = new Date();
+
+		if (today.compareTo(test) == -1) {
+			session.setAttribute("dealTime", "Y");
+		}
+		
 		session.setAttribute("purchaseInfo", purchaseInfo);
 		session.setAttribute("buyNum", buyNum);
 		logger.debug("=========="+purchaseInfo);

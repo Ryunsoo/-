@@ -132,17 +132,27 @@
 					</div>
 				</c:when>
 				<c:when test="${purchaseInfo.ongoing eq 1}">
-					<div class="submit-ask" style="background-color: lightgray;">
-						거래중
-					</div>
+					<c:if test="${empty dealTime}">
+						<div class="submit-ask" style="background-color: lightgray; cursor: default;">
+							거래중
+						</div>
+					</c:if>
+					<c:if test="${not empty dealTime}">
+						<div class="submit-ask">
+							거래완료
+						</div>
+					</c:if>
 				</c:when>
 				<c:when test="${purchaseInfo.ongoing eq 2}">
-					<div class="submit-ask" style="background-color: lightgray;">
+					<div class="submit-ask" style="background-color: lightgray; cursor: default;">
+						거래완료
+					</div>
+					<div class="submit-ask" style="background-color: lightgray; cursor: default;">
 						거래완료
 					</div>
 				</c:when>
 				<c:when test="${purchaseInfo.ongoing eq 3}">
-					<div class="submit-ask" style="background-color: lightgray;">
+					<div class="submit-ask" style="background-color: lightgray; cursor: default;">
 						거래취소
 					</div>
 				</c:when>
