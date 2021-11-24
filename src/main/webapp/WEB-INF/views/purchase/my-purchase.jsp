@@ -145,6 +145,7 @@
 	</div>
 		
 		
+		
 		<!-- MY공구 상세내역 -->
 		
 		<div id="table-title">
