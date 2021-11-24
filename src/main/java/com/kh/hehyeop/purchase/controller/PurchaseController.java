@@ -178,6 +178,7 @@ public class PurchaseController {
 		}
 		
 		
+		
 		System.out.println("done : " + done);
 		System.out.println("ongoing : " + ongoing);
 		
