@@ -49,10 +49,6 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
-		String endDate = purchaseInfo.getEndTime().replace("T","  ");
-		purchaseInfo.setDealTime(dealDate);
-		purchaseInfo.setEndTime(endDate);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
 		
@@ -248,18 +244,21 @@ public class PurchaseController {
 		String endDate = form.getEndTime().replace("T","  ");
 		form.setDealTime(dealDate);
 		form.setEndTime(endDate);
-
 		
-		if (purchaseService.registerInfo(form) < 0) {
-			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);
+		logger.debug(files.toString());
+			
+		if (files.get(0).getOriginalFilename().isEmpty()) {
+			redirectAttr.addFlashAttribute("message", "파일을 첨부해주세요");
+			return "redirect:/purchase/regist";
 		}
 		
+		purchaseService.registerInfo(form);
 		String typeIdx = purchaseService.selectRegIdx();
 		
 		if (purchaseService.uploadFile(files, typeIdx) < 0) {
 			throw new HandlableException(ErrorCode.FAILED_FILE_UPLOAD_ERROR);
 		}
-		
+
 		
 		return "redirect:/purchase/main";
 		

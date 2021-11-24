@@ -111,8 +111,9 @@
 
 	</div>
 	<!-- 섹션 끝 -->
-	
-	
+	<c:if test="${not empty message}">
+		<script>alert("${message}")</script>
+	</c:if>
 	<!-- 후터 -->
 	<div class="hooter">
 	</div>
