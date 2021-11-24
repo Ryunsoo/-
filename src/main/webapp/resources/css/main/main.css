@@ -303,20 +303,20 @@ html, body{
 	margin: 30px 0 0 10px;
 }
 
-#weak_weather{
-	position: relative;
-	right: 930px;
-	bottom: 235px;
-	width: 1130px;
-	height: 380px;
-	background-color: white;
-	border-color: silver;
-	border-style: solid;
-	box-shadow: 20px;
-	border-radius: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+#weak_weather {
+    position: relative;
+    right: 895px;
+    bottom: 245px;
+    width: 1130px;
+    height: 380px;
+    background-color: white;
+    border-color: silver;
+    border-style: solid;
+    box-shadow: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .weak_title{
