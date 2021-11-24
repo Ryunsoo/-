@@ -144,6 +144,7 @@
 </body>
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <script type="text/javascript" src="../../../resources/js/help/help.js"></script>
+<script type="text/javascript" src="../../../resources/js/urlEncoder.js"></script>
 <script type="text/javascript" src="../../../resources/js/help/star_modal.js"></script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

@@ -244,6 +244,10 @@ let estimateDetail = (resIdx,tell,time,pay) => {
 	  let lastIdx = reName.lastIndexOf('.');
 	  let type = reName.substring(lastIdx+1);
 	  let img;
+	  let originName = fileDto[0].originName;
+	  let savePath = fileDto[0].savePath;
+	  let download = $('<div class="download"><i class="fas fa-download"></i><div>');
+	  download.attr('onclick',"downloadFile('" + originName + "', '"+ reName + "', '" + savePath + "')");
 	  if(type == 'pdf') {
 			img = $('<iframe>');
 	  }else {
@@ -252,6 +256,7 @@ let estimateDetail = (resIdx,tell,time,pay) => {
 	  img.attr('id', 'resPhoto').attr('src','/file/'+fileDto[0].savePath+reName)
 			.css("object-fit", "contain");
 	  $('.detail_photo').append(img);
+	  $('.detail_photo').append(download);
    })
 }
 
@@ -457,3 +462,11 @@ let renewPage = (paging) => {
          .append($('<i>').addClass('fas fa-caret-right').attr('onclick', "getList('" + paging.url + "?page=" + paging.next + "')"));
 
 }
+
+let downloadFile = (originName, reName, savePath) =>  { 
+		let paramObj = {'originName':originName
+				,'reName':reName
+				,'savePath':savePath};
+		
+		location.href='/download?' + urlEncoder(paramObj);
+	}

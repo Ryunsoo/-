@@ -78,6 +78,10 @@ public class FileDTO {
 	public void setTypeIdx(String typeIdx) {
 		this.typeIdx = typeIdx;
 	}
+	
+	public String getLink() {
+		return Config.DOMAIN.DESC + "/file/" + savePath + reName;
+	}
 
 	@Override
 	public String toString() {

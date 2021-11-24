@@ -342,3 +342,10 @@
 	height: 15px;
 	width: 15px;
 }
+
+/* 다운로드 */
+.download {
+	display: inline-flex;
+	margin-left: 15px;
+	font-size: 30px;	
+}
