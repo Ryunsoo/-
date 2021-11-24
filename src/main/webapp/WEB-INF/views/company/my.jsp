@@ -70,17 +70,56 @@
 										<td>${requestList.field}</td>
 										<td>${requestList.oldAddress}</td>
 										<td>${requestList.reqTime}</td>
-										<td>${status}</td>
+										<td>
+										<c:choose>
+											<c:when test="${requestList.status == 0}">
+												요청 대기 중
+											</c:when>										
+											<c:when test="${requestList.status == 1}">
+												<button class="list_btn_green" id="completeBtn" onclick="">완료</button>
+                           						<button class="list_btn_red" id="cancelBtn" onclick="">취소</button>
+											</c:when>
+											<c:when test="${requestList.status == 2}">
+												완료 대기 중
+											</c:when>
+											<c:when test="${requestList.status == 3}">
+												완료됨
+											</c:when>
+											<c:when test="${requestList.status == 4}">
+												취소 대기 중
+											</c:when>
+											<c:otherwise>
+												취소됨
+											</c:otherwise>
+										</c:choose>
+										</td>
 										<td>${requestList.reqName}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
-					<div class='page'>
-						<i class="fas fa-caret-left"></i>
-						<div><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-						<i class="fas fa-caret-right"></i>
+					<div class="page">
+						<div class="pg_wrap" style="display: block; text-align: center;">		
+							<c:if test="${paging.startPage != 1 }">
+								<a class="pg_start" href="/company/my?nowPage=1&cntPerPage=${paging.cntPerPage}&state=${state}">&lt;&lt;</a>
+								<a class="pg_prev" href="/company/my?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&state=${state}">&lt;</a>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<a class="pg_current">${p }</a>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<a class="pg_page" href="/company/my?nowPage=${p }&cntPerPage=${paging.cntPerPage}&state=${state}">${p }</a>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<a class="pg_next" href="/company/my?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&state=${state}">&gt;</a>
+								<a class="pg_end" href="/company/my?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&state=${state}">&gt;&gt;</a>
+							</c:if>
+						</div>
 					</div>
 				</div>
 			</div>

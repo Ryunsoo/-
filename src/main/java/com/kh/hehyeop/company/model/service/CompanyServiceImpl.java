@@ -45,16 +45,31 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyRepository.selectRequestDetailByReqIdx(reqIdx);
 	}
 	
-	public List<MyRequest> selectRequestListById(String id, String state) {
-		//ongoing 상황에 맞는 신청해협 리스트
-		List<MyRequest> requestList = companyRepository.selectRequestListById(id,state);
-		for (MyRequest helpRequest: requestList) {
-			helpRequest.setField(Field.getField(helpRequest.getField()).fullName);
-			helpRequest.setOldAddress(convertAddress(helpRequest.getOldAddress()));
-			helpRequest.setReqTime(convertTime(helpRequest.getReqTime()));
-			helpRequest.setStatus(setStatus(state,helpRequest));
+	public List<MyRequest> selectRequestListById(Paging paging, String id, String state) {
+		//state(ongoing)로 받아온 리스트
+		List<MyRequest> requestList1 = companyRepository.selectRequestListById(paging, id,state);
+		
+		//위 리스트를 돌면서 (23, 32) 조건에 걸리면 update진행 
+		for (MyRequest myRequest: requestList1) {
+			if(state.equals("2") && myRequest.getOngoing() == 3) {
+				companyRepository.updateRequestOngoing(id);
+				companyRepository.updateResponseOngoing(id);
+			}else if(state.equals("3") && myRequest.getOngoing() == 2) {
+				companyRepository.updateRequestOngoing(id);
+				companyRepository.updateResponseOngoing(id);
+			}
 		}
-		return requestList;
+		
+		//update 이후에 한번 더 받아오기
+		List<MyRequest> requestList2 = companyRepository.selectRequestListById(paging, id,state);
+		
+		for (MyRequest myRequest2: requestList2) {
+			myRequest2.setField(Field.getField(myRequest2.getField()).fullName);
+			myRequest2.setOldAddress(convertAddress(myRequest2.getOldAddress()));
+			myRequest2.setReqTime(convertTime(myRequest2.getReqTime()));
+			myRequest2.setStatus(setStatus(state,myRequest2));
+		}
+		return requestList2;
 	}
 	
 	//ex) 서울시 강남구 역삼동 까지만 반환
@@ -81,13 +96,33 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 	//status 설정해주기
 	private int setStatus(String state, MyRequest helpRequest) {
-		//대기중에서 사용자가 업체를 선택한 경우
-		//if(state.equals("1"))
+		int status = 0;
+		int reqOngoing = helpRequest.getOngoing();
+		//업체 대기상태(0) //요청 대기 중
+		if(state.equals("0")) status = 0;
 		
+		//업체 진행상태(1) //완료,취소 버튼
+		if(state.equals("1") && reqOngoing == 1) status = 1;
+		if(state.equals("1") && reqOngoing == 2) status = 1;
+		if(state.equals("1") && reqOngoing == 3) status = 1;
 		
+		//업체 완료상태(2)
+		//신청자 진행상태(1) //완료 대기 중
+		if(state.equals("2") && reqOngoing == 1) status = 2;
+		//신청자 완료상태(2) //완료됨
+		if(state.equals("2") && reqOngoing == 2) status = 3;
 		
+		//업체 취소상태(3)
+		//신청자 미취소시(1) //취소 대기 중
+		if(state.equals("3") && reqOngoing == 1) status = 4;
+		//신청자 취소(3) //취소됨
+		if(state.equals("3") && reqOngoing == 3) status = 5;
 		
-		return 0;
+		return status;
+	}
+
+	public int selectRequestListCntById(String id, String state) {
+		return companyRepository.selectRequestListCntById(id,state);
 	}
 
 }

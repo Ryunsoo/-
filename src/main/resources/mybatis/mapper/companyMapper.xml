@@ -25,12 +25,21 @@
 		where rnum between #{paging.start} and #{paging.end}
 	</select>
 
-	<select id="selectRequestListById" resultType="HelpRequest">
-		select * from help_request 
-		where req_idx in 
-		(select req_idx from help_response where id = #{id} and ongoing = #{state})          
+	<select id="selectRequestListById" resultType="MyRequest">
+		select *
+		from (select rownum rnum ,v.* 
+				from help_request v
+				where req_idx in 
+				(select req_idx from help_response where id = #{id} and ongoing = #{state})   
+				order by v.reg_date desc)   
+		where rnum between #{paging.start} and #{paging.end}		    
 	</select>
 	
+	<select id="selectRequestListCntById" resultType="_int">
+		select count(*) from help_request
+		where req_idx in 
+		(select req_idx from help_response where id = #{id} and ongoing = #{state}) 
+	</select>
 	
 	<select id="countRequest" resultType="_int">
 		select count(*) from help_request

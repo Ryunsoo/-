@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
@@ -31,7 +32,7 @@ public interface CompanyRepository {
 	@Select("select * from help_response where c_id = #{id}")
 	List<HelpResponse> selectResponseList(@Param("id") String id);
 
-	List<MyRequest> selectRequestListById(@Param("id") String id, @Param("state") String state);
+	List<MyRequest> selectRequestListById(@Param("paging")Paging paging, @Param("id") String id, @Param("state") String state);
 
 
 	@Select("select * from v_request_detail where req_idx = #{reqIdx}")
@@ -39,5 +40,13 @@ public interface CompanyRepository {
 
 	int countRequest(@Param("addressList")List<String> addressList
 					, @Param("companyFieldList")List<CompanyField> companyFieldList, @Param("area") String area);
+
+	@Update("update help_request set ongoing = 1 where req_idx in (select req_idx from help_response where id = #{id})")
+	void updateRequestOngoing(String id);
+	
+	@Update("update help_response set ongoing = 1 where id = #{id}")
+	void updateResponseOngoing(String id);
+
+	int selectRequestListCntById(@Param("id") String id, @Param("state") String state);
 
 }

@@ -92,29 +92,28 @@ public class CompanyController {
 	public void ongoingHelpForm() {}
 	
 	@GetMapping("my")
-	public void allHelpForm(HttpSession session, Model model, @RequestParam(value = "state", required = false) String state) {
-		CMember cmember = (CMember) session.getAttribute("authentication");
-		String status = "";
-		if(state == null) state = "0";
-		List<MyRequest> requestList = companyService.selectRequestListById(cmember.getId(), state);	
-		switch (state) {
-		case "0":
-			status = "대기중";
-			break;
-		case "1":
-			status = "진행중";
-			break;
-		case "2":
-			status = "완료";
-			break;
-		case "3":
-			status = "취소";
-			break;
-		default:
-			break;
+	public void allHelpForm(HttpSession session, Model model
+			, Paging paging
+			, @RequestParam(value = "nowPage", required = false) String nowPage
+			, @RequestParam(value = "cntPerPage", required = false) String cntPerPage
+			, @RequestParam(value = "state", required = false) String state) {
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "1";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "1";
 		}
+		if(state == null) state = "0";
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		int total = companyService.selectRequestListCntById(cmember.getId(),state);
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		List<MyRequest> requestList = companyService.selectRequestListById(paging, cmember.getId(), state);	
 		model.addAttribute("requestList", requestList);
-		model.addAttribute("status", status);
+		model.addAttribute("state", state);
+		model.addAttribute("paging", paging);
 	}
 	
 }

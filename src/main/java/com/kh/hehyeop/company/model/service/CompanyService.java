@@ -14,9 +14,11 @@ public interface CompanyService {
 
 	RequestDetail selectRequestDetailByReqIdx(String reqIdx);
 
-	List<MyRequest> selectRequestListById(String id, String state);
+	List<MyRequest> selectRequestListById(Paging paging, String id, String state);
 
 	int countRequest(List<String> addressList, List<CompanyField> companyFieldList, String area);
 
 	List<CompanyField> selectCompanyFieldListById(String id);
+
+	int selectRequestListCntById(String id, String state);
 }
