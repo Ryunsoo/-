@@ -143,11 +143,11 @@
 			
 		</div>
 		
-
-	
 	</div>
 	<!-- 섹션 끝 -->
-	
+	<c:if test="${not empty message}">
+		<script>alert('${message}')</script>
+	</c:if>
 	
 	<!-- 후터 -->
 	<div class="hooter">
@@ -171,28 +171,35 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 function viewMap(loc){
-	//주소로 좌표를 검색합니다
-	geocoder.addressSearch(loc, function(result, status) {
+	
+	if (mapContainer.style.display == 'none'){
+		//주소로 좌표를 검색합니다
+		geocoder.addressSearch(loc, function(result, status) {
 
-	// 정상적으로 검색이 완료됐으면 
-	 if (status === kakao.maps.services.Status.OK) {
+		// 정상적으로 검색이 완료됐으면 
+		 if (status === kakao.maps.services.Status.OK) {
 
-	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-	    // 결과값으로 받은 위치를 마커로 표시합니다
-	    var marker = new kakao.maps.Marker({
-	        map: map,
-	        position: coords
-	    });
+		    // 결과값으로 받은 위치를 마커로 표시합니다
+		    var marker = new kakao.maps.Marker({
+		        map: map,
+		        position: coords
+		    });
 
-	    mapContainer.style.display = 'block';
-	    map.relayout();
+		    mapContainer.style.display = 'block';
+		    map.relayout();
 
-	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	    map.setCenter(coords);
-	    marker.setPosition(coords);
-	} 
-	}); 	
+		    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		    map.setCenter(coords);
+		    marker.setPosition(coords);
+		} 
+		});
+		
+	} else {
+		mapContainer.style.display = 'none';
+	}
+	
 }
 
 </script>

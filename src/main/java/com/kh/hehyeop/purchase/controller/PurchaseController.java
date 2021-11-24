@@ -74,28 +74,21 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("purchase-commit")
-	public String purchaseCommit(@RequestParam(value = "id") String id,
-			 					 @RequestParam(value = "regIdx") String regIdx,
-			 					 HttpSession session) throws ParseException {
+	public String purchaseCommit(@RequestParam(value = "regIdx") String regIdx,
+			 					 HttpSession session, RedirectAttributes redirectAttr) throws ParseException {
 		
 		DetailInfo detailInfo = (DetailInfo) session.getAttribute("detailInfo");
-		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date test = fDate.parse(detailInfo.getDealTime());
-		Date today = new Date();
-		
-		if (today.compareTo(test) == -1) {
-			throw new HandlableException(ErrorCode.MATCH_DATE_ERROR);
-		}
-		
-		List<String> joinIdList = purchaseService.selectJoinId(regIdx);
 		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
 		
-		if(joinIdList != null && joinIdxList != null) {
-			purchaseService.updateJoinPoint(joinIdList, joinIdxList, regIdx);
-			purchaseService.updatePoint(id);
+		if (joinIdxList == null) {
+			throw new HandlableException(ErrorCode.EMPTY_JOIN_ERROR);
 		}
 		
-		return "redirect:/purchase/main";
+		purchaseService.updateJoinStatus(joinIdxList);
+		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
+		
+		
+		return "redirect:/purchase/detail-writer?regIdx="+regIdx;
 	}
 	
 	@GetMapping("main")

@@ -174,10 +174,8 @@
 		group by reg_idx order by reg_idx desc
 	</select>
 	
-	<update id="updateJoinPoint" statementType="CALLABLE">
-		{call SP_UPDATE_JOIN_POINT(#{joinIdList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdListTypeHandler}, 
-								   #{joinIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler},
-								   #{regIdx, mode=IN})}
+	<update id="updateJoinStatus" statementType="CALLABLE">
+		{call SP_UPDATE_JOIN_STATUS(#{joinIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler})}
 	</update>
   
 </mapper>  

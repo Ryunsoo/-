@@ -14,6 +14,7 @@ public enum ErrorCode {
 	NORMAL_LOGIN_ERROR("업체회원 전용 페이지입니다."),
 	MATCH_BOARD_ERROR("글 작성자가 아닙니다.", "/purchase/main"),
 	MATCH_DATE_ERROR("거래 시간 이전에는 누를 수 없습니다.", "/purchase/main"),
+	EMPTY_JOIN_ERROR("아직 참여한 회원이 없습니다.", "/purchase/main"),
 	REDIRECT("");
 	
 	public final String MESSAGE;

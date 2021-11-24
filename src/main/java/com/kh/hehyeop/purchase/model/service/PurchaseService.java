@@ -52,7 +52,7 @@ public interface PurchaseService {
 
 	List<String> selectJoinId(String regIdx);
 
-	void updateJoinPoint(List<String> joinIdList, List<String> joinIdxList, String regIdx);
+	void updateJoinStatus(List<String> joinIdxList);
 
 	List<String> selectJoinList(String regIdx);
 
