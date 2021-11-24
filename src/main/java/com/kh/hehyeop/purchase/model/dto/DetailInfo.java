@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DetailInfo {
 
-	private String regIdx;
+	private String regIdx; 
 	private String id;
 	private String itemName;
 	private String itemLink;
