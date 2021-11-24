@@ -49,4 +49,15 @@ public interface CompanyRepository {
 
 	int selectRequestListCntById(@Param("id") String id, @Param("state") String state);
 
+	@Update("update help_response set ongoing = #{state} where id = #{id} and req_idx = #{reqIdx}")
+	void updateOngoing(String id, String reqIdx, int state);
+	
+	@Select("select ongoing from help_request where req_idx = #{reqIdx}")
+	int selectOngoingByReqIdx(String reqIdx);
+	
+	@Select("select res_pay from help_response where req_idx = #{reqIdx}")
+	int selectResPayByReqIdx(String reqIdx);
+	
+	@Update("update wallet set cash= cash + #{resPay} where id = #{id}")
+	void completeCashByReqIdx(@Param("id") String id, @Param("resPay") int resPay);
 }

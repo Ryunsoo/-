@@ -21,4 +21,8 @@ public interface CompanyService {
 	List<CompanyField> selectCompanyFieldListById(String id);
 
 	int selectRequestListCntById(String id, String state);
+
+	int completeCashByReqIdx(String id, String reqIdx);
+
+	int cancelCashByReqIdx(String id, String reqIdx);
 }

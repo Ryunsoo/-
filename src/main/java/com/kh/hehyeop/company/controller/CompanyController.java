@@ -161,25 +161,7 @@ public class CompanyController {
 		model.addAttribute("state", state);
 		model.addAttribute("paging", paging);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private String getFormattedTime(String reqTime) {
 		String[] dateTimeArr = reqTime.split("T");
 		String dateStr = dateTimeArr[0];
@@ -205,5 +187,19 @@ public class CompanyController {
 			return String.format("%s-%s-%s", tell.substring(0, 3), tell.substring(3, 7), tell.substring(7));
 		}
 		return String.format("%s-%s-%s", tell.substring(0, 3), tell.substring(3, 6), tell.substring(6));
+	}
+	
+	@GetMapping("completeService")
+	public String completeService(HttpSession session, String reqIdx) {
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		int res = companyService.completeCashByReqIdx(cmember.getId(),reqIdx);
+		return null;
+	}
+	
+	@GetMapping("cancelService")
+	public String cancelService(HttpSession session, String reqIdx) {
+		CMember cmember = (CMember) session.getAttribute("authentication");
+		int res = companyService.cancelCashByReqIdx(cmember.getId(),reqIdx);
+		return null;
 	}
 }

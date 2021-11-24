@@ -125,4 +125,36 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyRepository.selectRequestListCntById(id,state);
 	}
 
+	@Override
+	public int completeCashByReqIdx(String id, String reqIdx) {
+		//ongoing 2로 바꿔주기
+		int state = 2;
+		companyRepository.updateOngoing(id,reqIdx,state);
+		//신청자기 이미 완료한 상태라면 최종완료 절차(업체상태 완료로 바꾸고 업체한테 돈 넣어주기)
+		int ongoing = companyRepository.selectOngoingByReqIdx(reqIdx);
+		if(ongoing == 2) {
+			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+			companyRepository.completeCashByReqIdx(id,resPay);
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+
+	@Override
+	public int cancelCashByReqIdx(String id, String reqIdx) {
+		//ongoing 3로 바꿔주기
+		int state = 3;
+		companyRepository.updateOngoing(id,reqIdx,state);
+		//신청자가 이미 취소인 상태이면 최종취소 절차(업체상태 취소로 바꾸고 신청자의 cash_lock을 빼고 cash로 이동시키기)
+		int ongoing = companyRepository.selectOngoingByReqIdx(reqIdx);
+		if(ongoing == 3) {
+			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+			//
+			return 0;
+		}else {
+			return 1;
+		}
+	}
+
 }

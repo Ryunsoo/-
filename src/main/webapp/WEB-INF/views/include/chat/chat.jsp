@@ -15,4 +15,4 @@
 <iframe id="chattingRoom" src="http://localhost:9090/chat/chatting" style="display: none"></iframe>	
 <div class='chatting' onclick="clickChatting()"></div>
 <div class='chatting2' style="display: none" onclick="clickChatting2()"></div>
-<div id="frogue-container" style="display: none" class="position-right-bottom" onclick="closeChat()" data-chatbot="1f5298b0-f1da-4b09-9a3b-f2fa5e500d3e" data-user="lhj132824@gmail.com"></div>
+<div id="frogue-container" style="display: none" class="position-right-bottom" onclick="closeChat()" data-chatbot="9561f4b3-21d0-423a-b4ca-23960053b7f9" data-user="lhj132824@naver.com"></div>

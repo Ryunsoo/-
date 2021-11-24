@@ -66,7 +66,7 @@
 							</thead>
 							<tbody>
 								<c:forEach var="requestList" items="${requestList}">
-									<tr>
+									<tr onclick="viewDetail()">
 										<td>${requestList.field}</td>
 										<td>${requestList.oldAddress}</td>
 										<td>${requestList.reqTime}</td>
@@ -76,8 +76,8 @@
 												요청 대기 중
 											</c:when>										
 											<c:when test="${requestList.status == 1}">
-												<button class="list_btn_green" id="completeBtn" onclick="">완료</button>
-                           						<button class="list_btn_red" id="cancelBtn" onclick="">취소</button>
+												<button class="list_btn_green" id="completeBtn" onclick="completeService(${requestList.reqIdx})">완료</button>
+                           						<button class="list_btn_red" id="cancelBtn" onclick="cancelService(${requestList.reqIdx})">취소</button>
 											</c:when>
 											<c:when test="${requestList.status == 2}">
 												완료 대기 중
