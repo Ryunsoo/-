@@ -125,9 +125,33 @@
 			</div>
 			
 			<div class="submit-ask-wrapper">
-				<div class="submit-ask" onclick="location.href = '/purchase/request?regIdx=${purchaseInfo.regIdx}'">
-					신청해협
-				</div>
+			<c:choose>
+				<c:when test="${purchaseInfo.ongoing eq 0}">
+					<div class="submit-ask">
+						취소해협
+					</div>
+				</c:when>
+				<c:when test="${purchaseInfo.ongoing eq 1}">
+					<div class="submit-ask" style="background-color: lightgray;">
+						거래중
+					</div>
+				</c:when>
+				<c:when test="${purchaseInfo.ongoing eq 2}">
+					<div class="submit-ask" style="background-color: lightgray;">
+						거래완료
+					</div>
+				</c:when>
+				<c:when test="${purchaseInfo.ongoing eq 3}">
+					<div class="submit-ask" style="background-color: lightgray;">
+						거래취소
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="submit-ask" onclick="location.href = '/purchase/request?regIdx=${purchaseInfo.regIdx}'">
+						신청해협
+					</div>
+				</c:otherwise>
+			</c:choose>
 				<div class="submit-ask" id="chat">
 					문의해협
 				</div>

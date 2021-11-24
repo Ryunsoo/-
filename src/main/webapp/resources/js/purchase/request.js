@@ -32,7 +32,7 @@ document.querySelector(".myBuyCnt").addEventListener('input', e => {
 			document.querySelector('#submit-button').style.setProperty("pointer-events", "auto");
 		}
 	
-	if(document.querySelector('#restCnt').value<document.querySelector('#myBuyCnt').value){
+	if(parseInt(document.querySelector('#restCnt').value)<document.querySelector('#myBuyCnt').value){
 			
 		document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
 		document.querySelector('#submit-button').style.setProperty("pointer-events", "none");

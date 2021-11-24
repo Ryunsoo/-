@@ -34,13 +34,13 @@ public interface PurchaseService {
 	int countRegister(String grade, List<String> addressList, String keyword);
 	List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging);
 
-	void purchaseMatch(String regIdx, int restNum, String join_idx);
+	void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash);
 	
 	void purchaseRequest(int buyNum, String id);
 	
 	String selectJoinIdx();
 	
-	void usedPoint(String id, int cash);
+	void updateWallet(String id, int cash, int WalletLockedCash);
 	
 	int getCash(String id);
 
@@ -55,5 +55,7 @@ public interface PurchaseService {
 	void updateJoinStatus(List<String> joinIdxList);
 
 	List<String> selectJoinList(String regIdx);
+
+	Integer ongoing(String regIdx, String id);
 
 }

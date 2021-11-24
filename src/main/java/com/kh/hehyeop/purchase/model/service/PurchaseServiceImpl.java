@@ -93,8 +93,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void purchaseMatch(String regIdx, int restNum, String join_idx) {
-		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx);
+	public void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash) {
+		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx,matchLockedCash);
 		
 	}
 
@@ -104,8 +104,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void usedPoint(String id, int cash) {
-		purchaseRepository.usedPoint(id, cash);
+	public void updateWallet(String id, int cash, int WalletLockedCash) {
+		purchaseRepository.updateWallet(id, cash, WalletLockedCash);
 		
 	}
 
@@ -147,6 +147,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public List<String> selectJoinList(String regIdx) {
 		return purchaseRepository.selectJoinList(regIdx);
+	}
+
+	@Override
+	public Integer ongoing(String regIdx, String id) {
+		return purchaseRepository.ongoing(regIdx, id);
 	}
 
 }

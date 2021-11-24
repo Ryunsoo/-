@@ -60,14 +60,14 @@ public interface PurchaseRepository {
 	@Insert("insert into purchase_join(join_idx, id, join_buy_num) values (sc_join_idx.nextval, #{id}, #{buyNum})")
 	void purchaseRequest(@Param("buyNum") int buyNum, @Param("id") String id);
 
-	@Insert("insert into purchase_match(match_idx, reg_idx, join_idx, rest_num) values (sc_match_idx.nextval, #{regIdx}, #{join_idx}, #{restNum})")
-	void purchaseMatch(@Param("regIdx") String regIdx, @Param("restNum") int restNum, @Param("join_idx") String join_idx);
+	@Insert("insert into purchase_match(match_idx, reg_idx, join_idx, rest_num, cash_lock) values (sc_match_idx.nextval, #{regIdx}, #{join_idx}, #{restNum} , #{matchLockedCash})")
+	void purchaseMatch(@Param("regIdx") String regIdx, @Param("restNum") int restNum, @Param("join_idx") String join_idx, @Param("matchLockedCash") int matchLockedCash);
 
 	@Select("select join_idx from (select join_idx, rownum rnum from purchase_join order by join_idx desc) where rownum = 1")
 	String selectJoinIdx();
 
-	@Update("UPDATE WALLET SET CASH = #{cash} WHERE id = #{id}")
-	void usedPoint(@Param("id") String id, @Param("cash") int cash);
+	@Update("update wallet set cash = #{cash}, cash_lock =  #{WalletLockedCash}  where id = #{id}")
+	void updateWallet(@Param("id") String id, @Param("cash") int cash, @Param("WalletLockedCash") int WalletLockedCash);
 
 	@Select("select cash from wallet where id = #{id}")
 	int getCash(@Param("id") String id);
@@ -89,5 +89,7 @@ public interface PurchaseRepository {
 
 	void updateJoinStatus(@Param("joinIdxList") List<String> joinIdxList);
 
-	
+	@Select("select distinct ongoing from v_select_join_and_match where reg_idx = #{regIdx} and id = #{id}")
+	Integer ongoing(@Param("regIdx") String regIdx, @Param("id") String id);
+
 }
