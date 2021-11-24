@@ -138,15 +138,12 @@
 						</div>
 					</c:if>
 					<c:if test="${not empty dealTime}">
-						<div class="submit-ask">
+						<div class="submit-ask" onclick="location.href = '/purchase/deal-done?regIdx=${purchaseInfo.regIdx}'">
 							거래완료
 						</div>
 					</c:if>
 				</c:when>
 				<c:when test="${purchaseInfo.ongoing eq 2}">
-					<div class="submit-ask" style="background-color: lightgray; cursor: default;">
-						거래완료
-					</div>
 					<div class="submit-ask" style="background-color: lightgray; cursor: default;">
 						거래완료
 					</div>
