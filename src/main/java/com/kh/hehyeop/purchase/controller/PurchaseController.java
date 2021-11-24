@@ -49,10 +49,6 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
-		String endDate = purchaseInfo.getEndTime().replace("T","  ");
-		purchaseInfo.setDealTime(dealDate);
-		purchaseInfo.setEndTime(endDate);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
 		
@@ -79,10 +75,6 @@ public class PurchaseController {
 		}
 		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		String dealDate = detailInfo.getDealTime().replace("T","  ");
-		String endDate = detailInfo.getEndTime().replace("T","  ");
-		detailInfo.setDealTime(dealDate);
-		detailInfo.setEndTime(endDate);
 		
 		session.setAttribute("detailInfo", detailInfo);
 		model.addAttribute("buyNum", buyNum);
@@ -199,9 +191,7 @@ public class PurchaseController {
 		
 		
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
-		for (MyPurchaseInfo info : myPurchaseInfo) {
-			info.setDealTime(info.getDealTime().replace("T", " "));
-		}
+		
 		
 		if(ongoing == null && done==null) {
 			ongoing = "3";
@@ -233,10 +223,6 @@ public class PurchaseController {
 		String id = member.getId();
 		int cash = purchaseService.getCash(id);
 		purchaseInfo.setCash(cash);
-		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
-		String endDate = purchaseInfo.getEndTime().replace("T","  ");
-		purchaseInfo.setDealTime(dealDate);
-		purchaseInfo.setEndTime(endDate);
 		session.setAttribute("purchaseInfo", purchaseInfo);
 	}
 	
@@ -247,6 +233,11 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		form.setId(member.getId());
 		form.setRestNum(form.getTotalNum() - form.getBuyNum());
+		String dealDate = form.getDealTime().replace("T","  ");
+		String endDate = form.getEndTime().replace("T","  ");
+		form.setDealTime(dealDate);
+		form.setEndTime(endDate);
+
 		
 		if (purchaseService.registerInfo(form) < 0) {
 			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);
