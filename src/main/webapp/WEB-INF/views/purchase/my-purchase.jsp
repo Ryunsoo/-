@@ -62,11 +62,11 @@
 							<td>${status.count}</td>
 							<td>
 							<c:choose>
-								<c:when test="${not empty myPurchaseInfo.matchIdx}">
-									공구참여
+								<c:when test="${authentication.id eq myPurchaseInfo.id}">
+									공구모집
 								</c:when>
 								<c:otherwise>
-									공구모집
+									공구참여
 								</c:otherwise>
 							</c:choose>
 							</td>
@@ -75,28 +75,23 @@
 							<td>${myPurchaseInfo.dealLoc}</td>
 							<td>
 								<c:choose>
-									<c:when test="${not empty myPurchaseInfo.ongoing}">
-										<c:choose>
-											<c:when test="${myPurchaseInfo.ongoing eq 0}">
-												구매대기
-											</c:when>
-											<c:when test="${myPurchaseInfo.ongoing eq 1}">
-												구매확정
-											</c:when>
-											<c:when test="${myPurchaseInfo.ongoing eq 2}">
-												거래완료
-											</c:when>
-										</c:choose>
+									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 0}">
+										구매대기
 									</c:when>
-									<c:when test="${empty myPurchaseInfo.ongoing}">
-										<c:choose>
-											<c:when test="${myPurchaseInfo.done eq 'N'}">
-												모집중
-											</c:when>
-											<c:when test="${myPurchaseInfo.done eq 'Y'}">
-												모집완료
-											</c:when>
-										</c:choose>
+									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 1}">
+										구매확정
+									</c:when>
+									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 2}">
+										거래완료
+									</c:when>
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'N'}">
+										모집중
+									</c:when>
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'Y'}">
+										모집완료
+									</c:when>
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'C'}">
+										거래취소
 									</c:when>
 								</c:choose>
 							</td>
@@ -117,6 +112,7 @@
 					<option value="2" <c:if test="${field.ongoing eq '2'}">selected</c:if>>거래완료</option>
 					<option value="N" <c:if test="${field.done eq 'N'}">selected</c:if>>모집중</option>
 					<option value="Y" <c:if test="${field.done eq 'Y'}">selected</c:if>>모집완료</option>
+					<option value="C" <c:if test="${field.done eq 'C'}">selected</c:if>>거래취소</option>
 			</select>
 		</div>
 		
@@ -236,7 +232,7 @@ function statusFiltering() {
 	if(temp == '0' || temp == '1' || temp == '2') {
 		ongoing = temp;
 		location.href='/purchase/my-purchase?ongoing=' + ongoing;
-	} else if(temp == 'Y' || temp == 'N'){
+	} else if(temp == 'Y' || temp == 'N' || temp == 'C'){
 		done = temp;
 		location.href='/purchase/my-purchase?done=' + done;
 	} else {

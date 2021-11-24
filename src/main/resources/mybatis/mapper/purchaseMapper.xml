@@ -96,38 +96,39 @@
 	
 	
 	<select id="countMyPurchase" resultType = "_int">
-		select count(*) from purchase_register
+		select count(*) from purchase_register P left join purchase_match 
+		using(reg_idx) left join purchase_join J using(join_idx) 
+		
 		<choose>
 			<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2">
-			PR left join purchase_match PM using(reg_idx) left join purchase_join PJ using(join_idx) where (PR.id = #{id} OR PJ.id = #{id}) and ongoing = #{ongoing}
+			where (P.id= #{id} or J.id = #{id}) and ongoing = #{ongoing} and P.id != #{id} order by reg_idx desc
 			</when>
-			<when test = '"N".equals(done) or "Y".equals(done)'>
-			where id = #{id} and done = #{done}
+			<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
+			where (P.id= #{id} or J.id = #{id}) and done = #{done} and P.id = #{id} order by reg_idx desc
 			</when>
 			<otherwise>
-			PR left join purchase_match PM using(reg_idx) left join purchase_join PJ using(join_idx) where (PR.id = #{id} OR PJ.id = #{id})
+			where P.id = #{id} or J.id = #{id} order by reg_idx desc
 			</otherwise>
 		</choose>
 	</select>
 	
 	
 	<select id="selectMyPurchaseInfo" resultType="myPurchaseInfo">
-		select * 
-			from (select rownum rnum, v.* from 
-			(select join_idx, reg_idx, match_idx, PR.id, item_name, deal_loc, deal_time, done, ongoing, join_buy_num, PJ.id AS buyer_id from purchase_register PR left join purchase_match PM 
-			using(reg_idx) left join purchase_join PJ using(join_idx)
+		select * from (select rownum rnum, v.* from (
+		select reg_idx, P.id, item_name, deal_loc, deal_time, join_idx, done, ongoing, join_buy_num, J.id AS buyer_id 
+		from purchase_register P left join purchase_match using(reg_idx) left join purchase_join J using(join_idx) 
 			  <choose>
-			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
-			  		where (PR.id = #{id} OR PJ.id = #{id}) and ongoing = #{ongoing}) v)
+			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 ">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
+			  		where (P.id= #{id} or J.id = #{id}) and ongoing = #{ongoing} and P.id != #{id} order by reg_idx desc
 			  	</when>
-			  	<when test = '"N".equals(done) or "Y".equals(done)'>
-				  	where (PR.id = #{id} OR PJ.id = #{id}) and done = #{done} and ongoing is null) v)
+			  	<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
+				  	where (P.id = #{id} or J.id = #{id}) and done = #{done} and P.id = #{id} order by reg_idx desc
 			  	</when>
 			  	<otherwise>
-				  	where PR.id = #{id} OR PJ.id = #{id}) v)
+				  	where P.id = #{id} or J.id = #{id} order by reg_idx desc
 			  	</otherwise>
 			  </choose>
-		where rnum between #{paging.start} and #{paging.end}
+		) v) where rnum between #{paging.start} and #{paging.end}
 	</select>
 	
 	

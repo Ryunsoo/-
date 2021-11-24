@@ -42,19 +42,24 @@ public class PurchaseController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
-	public void purchaseDetailTest(HttpSession session, String regIdx) {
+	public void purchaseDetailTest(HttpSession session, String regIdx) throws ParseException  {
 		
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
-		String endDate = purchaseInfo.getEndTime().replace("T","  ");
-		purchaseInfo.setDealTime(dealDate);
-		purchaseInfo.setEndTime(endDate);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
+		
+		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date test = fDate.parse(purchaseInfo.getDealTime());
+		Date today = new Date();
+
+		if (today.compareTo(test) == -1) {
+			session.setAttribute("dealTime", "Y");
+		}
+		
 		session.setAttribute("purchaseInfo", purchaseInfo);
 		session.setAttribute("buyNum", buyNum);
 		logger.debug("=========="+purchaseInfo);
@@ -70,10 +75,6 @@ public class PurchaseController {
 		}
 		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
-		String dealDate = detailInfo.getDealTime().replace("T","  ");
-		String endDate = detailInfo.getEndTime().replace("T","  ");
-		detailInfo.setDealTime(dealDate);
-		detailInfo.setEndTime(endDate);
 		
 		session.setAttribute("detailInfo", detailInfo);
 		model.addAttribute("buyNum", buyNum);
@@ -174,9 +175,14 @@ public class PurchaseController {
 		}else if(ongoing != null && ongoing.equals("Y")) {
 			ongoing = null;
 			done = "Y";
+		}else if(ongoing != null && ongoing.equals("C")) {
+			ongoing = null;
+			done = "C";
 		}
 		
-		
+		if(done != null) {
+			ongoing = null;
+		}
 		
 		System.out.println("done : " + done);
 		System.out.println("ongoing : " + ongoing);
@@ -204,6 +210,8 @@ public class PurchaseController {
 		session.setAttribute("field", field);
 	}
 	
+	
+	
 	@GetMapping("participants-list")
 	@ResponseBody
 	public List<MyPurchaseInfo> purchaseParticipantsList(Model model 
@@ -224,10 +232,6 @@ public class PurchaseController {
 		String id = member.getId();
 		int cash = purchaseService.getCash(id);
 		purchaseInfo.setCash(cash);
-		String dealDate = purchaseInfo.getDealTime().replace("T","  ");
-		String endDate = purchaseInfo.getEndTime().replace("T","  ");
-		purchaseInfo.setDealTime(dealDate);
-		purchaseInfo.setEndTime(endDate);
 		session.setAttribute("purchaseInfo", purchaseInfo);
 	}
 	
@@ -238,6 +242,11 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		form.setId(member.getId());
 		form.setRestNum(form.getTotalNum() - form.getBuyNum());
+		String dealDate = form.getDealTime().replace("T","  ");
+		String endDate = form.getEndTime().replace("T","  ");
+		form.setDealTime(dealDate);
+		form.setEndTime(endDate);
+
 		
 		if (purchaseService.registerInfo(form) < 0) {
 			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);
