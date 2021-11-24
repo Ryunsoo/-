@@ -89,10 +89,10 @@
 					</div>
 				</c:if>
          <div class="nav_title">
-            <div class="help" onclick="location.href='/help/main'">해협신청</div>
-            <div class="together" onclick="location.href='/purchase/main'">공구해협</div>
-            <div class="manage" onclick="location.href='/management/myIcebox'">관리해협</div>
-           <div class="talk" onclick="location.href='/community/list'">소통해협</div>
+            <div class="help" style="cursor: pointer;" onclick="location.href='/help/main'">해협신청</div>
+            <div class="together" style="cursor: pointer;" onclick="location.href='/purchase/main'">공구해협</div>
+            <div class="manage" style="cursor: pointer;" onclick="location.href='/management/myIcebox'">관리해협</div>
+           <div class="talk" style="cursor: pointer;" onclick="location.href='/community/list'">소통해협</div>
          </div>
       </div>
    </nav>

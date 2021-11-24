@@ -140,7 +140,7 @@ html, body{
 
 /* 오늘 날씨 */
 .today_weather_btn {
-	width: 190px;
+	width: 230px;
 	height: 230px;
 	font-size: 19px;
 	background-color: white;
@@ -149,6 +149,7 @@ html, body{
 	margin: 0px 0 12px 12px;
 	padding: 10px;
 	justify-content: center;
+	cursor: pointer;
 }
 
 .date_wrap{
@@ -191,50 +192,54 @@ html, body{
 }
 
 .hover_weather{
-	border: thin;
-	border-color: white;
-	border-style: solid;
-	border-radius: 30px;
-	width: 150px;
-	height: 25px;
-	padding-top: 5px;
-	font-size: 13px;
-	text-align: center;
-	margin: 30px 0 0 20px;
-	color: rgb(131, 131, 131);
-	background-color: rgb(230, 230, 230);
+    border: thin;
+    border-color: white;
+    border-style: solid;
+    border-radius: 30px;
+    width: 200px;
+    height: 30px;
+    padding-top: 5px;
+    font-size: 17px;
+    text-align: center;
+    margin: 30px 0 0 20px;
+    color: rgb(131, 131, 131);
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
 }
 
 
-#detail_weather{
-	position: absolute;
-	right: 1px;
-	width: 350px;
-	height: 320px;
-	background-color: white;
-	border-color: silver;
-	border-style: solid;
-	box-shadow: 20px;
-	border-radius: 30px;
-	flex-direction: column;
-	align-items: center;
+#detail_weather {
+    position: absolute;
+    right: 1px;
+    width: 350px;
+    height: 320px;
+    background-color: white;
+    border-color: silver;
+    border-style: solid;
+    box-shadow: 20px;
+    border-radius: 30px;
+    flex-direction: column;
+    align-items: center;
+    top: -1px;
 }
 
 #detail_head{
 	display: flex;
+	flex-direction:column;
 	justify-content: space-around;
 }
 
-#detail_head>p{
-	font-size: 11px;
-	margin-left: 5px; 
-	text-decoration: underline; 
-	text-underline-position:under;
+#detail_head>p {
+    margin-right: 110px;
+    font-size: 13px;
+    margin-left: 5px;
+    text-decoration: underline;
+    text-underline-position: under;
 }
 
-#detail_loc{
-	margin: 20px 0 0 40px;
-	color: rgb(131, 131, 131);
+#detail_loc {
+    margin: 2px 0 0 100px;
+    color: rgb(131, 131, 131);
 }
 
 .detail_title{
@@ -243,12 +248,12 @@ html, body{
 	color: rgb(94, 94, 94);
 }
 
-#detail_body{
-	display: flex;
-	justify-content: space-around;
-	margin-right: 20px;
+#detail_body {
+    display: flex;
+    justify-content: space-around;
+    margin-right: 20px;
+    margin-top: 10px;
 }
-
 #detail_icon{
 	margin-right: 10px;
 }
@@ -264,17 +269,17 @@ html, body{
 	justify-content: flex-start;
 }
 
-#detail_footer>img{
-	width: 80px;
-	height: 80px;
-	margin: 44px 20px 0 20px;
+#detail_footer>img {
+    width: 80px;
+    height: 80px;
+    margin: 7px 20px 0 20px;
 }
 
-#footer_msg{
-	width: 200px;
-	margin: 44px 20px 0 0;
-	font-size: 20px;
-	color: rgb(94, 94, 94);
+#footer_msg {
+    width: 200px;
+    margin: 20px 20px 0 0;
+    font-size: 20px;
+    color: rgb(94, 94, 94);
 }
 
 .separate{
@@ -301,7 +306,7 @@ html, body{
 #weak_weather{
 	position: relative;
 	right: 930px;
-	bottom: 230px;
+	bottom: 235px;
 	width: 1130px;
 	height: 380px;
 	background-color: white;
