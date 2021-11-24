@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -21,7 +22,7 @@ public interface CompanyRepository {
 	@Select("select field from company_field where id = #{id}")
 	List<CompanyField> selectCompanyFieldListById(String id);
 	
-	List<HelpRequest> selectRequestList(@Param("addressList")List<String> addressList
+	List<HelpRequest> selectRequestList(@Param("paging")Paging paging,@Param("addressList")List<String> addressList
 										, @Param("companyFieldList") List<CompanyField> companyFieldList);
 
 
@@ -33,5 +34,8 @@ public interface CompanyRepository {
 
 	@Select("select * from v_request_detail where req_idx = #{reqIdx}")
 	RequestDetail selectRequestDetailByReqIdx(@Param("reqIdx") String reqIdx);
+
+	int countRequest(@Param("addressList")List<String> addressList
+					, @Param("companyFieldList")List<CompanyField> companyFieldList);
 
 }

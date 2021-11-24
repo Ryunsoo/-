@@ -9,6 +9,7 @@ import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -24,25 +25,15 @@ public class CompanyServiceImpl implements CompanyService{
 	private final CompanyRepository companyRepository;
 
 	@Override
-	public List<HelpRequest> selectRequestList(String id) {
-		
-		List<String> addressList = new ArrayList<String>();
-		
-		MyAddress myAddress = companyRepository.selectMyAreaList(id);
-		List<CompanyField> companyFieldList = companyRepository.selectCompanyFieldListById(id);
-		
-		System.out.println("dsfsdfsdfsf : " + companyFieldList);
-		
-		addressList.add(myAddress.getAddress1());
-		if(myAddress.getAddress2() != null) addressList.add(myAddress.getAddress2());
-		if(myAddress.getAddress3() != null) addressList.add(myAddress.getAddress3());
-		
-		List<HelpRequest> requestList = companyRepository.selectRequestList(addressList,companyFieldList);
+	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList) {
+			
+		List<HelpRequest> requestList = companyRepository.selectRequestList(paging,addressList,companyFieldList);
 		
 		AddressUtil util = new AddressUtil();
 		for (HelpRequest helpRequest : requestList) {
 			helpRequest.setField(Field.getField(helpRequest.getField()).fullName);
 			helpRequest.setOldAddress(util.getDoSiAddress(helpRequest.getOldAddress()));
+			helpRequest.setReqTime(helpRequest.getReqTime().substring(0, helpRequest.getReqTime().indexOf("T")));
 		}
 
 		return requestList;
@@ -68,6 +59,16 @@ public class CompanyServiceImpl implements CompanyService{
 		String[] tempArr = oldAddress.split(" ");
 		String address = tempArr[0] + " " + tempArr[1] + " " + tempArr[2];
 		return address;
+	}
+
+	@Override
+	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList) {
+		return companyRepository.countRequest(addressList, companyFieldList);
+	}
+
+	@Override
+	public List<CompanyField> selectCompanyFieldListById(String id) {
+		return companyRepository.selectCompanyFieldListById(id);
 	}
 
 }

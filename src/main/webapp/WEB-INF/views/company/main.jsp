@@ -65,11 +65,28 @@
 							</tbody>
 						</table>
 					</div>
-					<div class='page'>
-						<i class="fas fa-caret-left"></i>
-						<div><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-						<i class="fas fa-caret-right"></i>
-					</div>
+					<div class="page">
+					<div class="pg_wrap" style="display: block; text-align: center;">		
+					<c:if test="${paging.startPage != 1 }">
+						<a class="pg_start" href="/company/main?nowPage=1&cntPerPage=${paging.cntPerPage}">&lt;&lt;</a>
+						<a class="pg_prev" href="/company/main?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == paging.nowPage }">
+								<a class="pg_current">${p }</a>
+							</c:when>
+							<c:when test="${p != paging.nowPage }">
+								<a class="pg_page" href="/company/main?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${paging.endPage != paging.lastPage}">
+						<a class="pg_next" href="/company/main?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+						<a class="pg_end" href="/company/main?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}">&gt;&gt;</a>
+					</c:if>
+				</div>
+				</div>
 				</div>
 			</div>
 		</div>

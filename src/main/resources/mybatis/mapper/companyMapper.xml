@@ -5,7 +5,31 @@
   
 <mapper namespace="com.kh.hehyeop.company.model.repository.CompanyRepository"> 
 	<select id="selectRequestList" resultType="HelpRequest">
-		select * from help_request where ongoing = 0 and old_address in
+		select *
+		from (select rownum rnum, v.*
+        		from help_request v
+        		where old_address in
+		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
+						#{addressList}
+		</foreach>
+		and field in
+		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
+						#{companyFieldList.field}
+		</foreach>
+		order by v.reg_date desc)
+		where rnum between #{paging.start} and #{paging.end}
+	</select>
+
+	<select id="selectRequestListById" resultType="HelpRequest">
+		select * from help_request 
+		where req_idx in 
+		(select req_idx from help_response where id = #{id} and ongoing = #{state})          
+	</select>
+	
+	
+	<select id="countRequest" resultType="_int">
+		select count(*) from help_request
+		where ongoing = 0 and old_address in
 		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
 						#{addressList}
 		</foreach>
@@ -14,10 +38,5 @@
 						#{companyFieldList.field}
 		</foreach>
 	</select>
-
-	<select id="selectRequestListById" resultType="HelpRequest">
-		select * from help_request 
-		where req_idx in 
-		(select req_idx from help_response where id = #{id} and ongoing = #{state})          
-	</select>
+	
 </mapper>
