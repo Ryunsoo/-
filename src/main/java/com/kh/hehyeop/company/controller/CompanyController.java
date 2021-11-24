@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.hehyeop.common.code.Config;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
+import com.kh.hehyeop.company.model.dto.MyRequest;
 import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.company.model.service.CompanyService;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -96,7 +97,7 @@ public class CompanyController {
 		CMember cmember = (CMember) session.getAttribute("authentication");
 		String status = "";
 		if(state == null) state = "0";
-		List<HelpRequest> requestList = companyService.selectRequestListById(cmember.getId(), state);	
+		List<MyRequest> requestList = companyService.selectRequestListById(cmember.getId(), state);	
 		switch (state) {
 		case "0":
 			status = "대기중";

@@ -2,6 +2,7 @@ package com.kh.hehyeop.company.model.service;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
+import com.kh.hehyeop.company.model.dto.MyRequest;
 import com.kh.hehyeop.company.model.dto.RequestDetail;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface CompanyService {
 
 	RequestDetail selectRequestDetailByReqIdx(String reqIdx);
 
-	List<HelpRequest> selectRequestListById(String id, String state);
+	List<MyRequest> selectRequestListById(String id, String state);
 
 	int countRequest(List<String> addressList, List<CompanyField> companyFieldList);
 

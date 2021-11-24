@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
+import com.kh.hehyeop.company.model.dto.MyRequest;
 import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.HelpResponse;
@@ -29,7 +30,7 @@ public interface CompanyRepository {
 	@Select("select * from help_response where c_id = #{id}")
 	List<HelpResponse> selectResponseList(@Param("id") String id);
 
-	List<HelpRequest> selectRequestListById(@Param("id") String id, @Param("state") String state);
+	List<MyRequest> selectRequestListById(@Param("id") String id, @Param("state") String state);
 
 
 	@Select("select * from v_request_detail where req_idx = #{reqIdx}")

@@ -72,7 +72,6 @@
 	display: flex;
 	height: 48px;
 	margin-top: 85px;
-	justify-content: space-around;
 }
 
 .sub_menu{
@@ -81,6 +80,7 @@
 	justify-content: space-between;
 	height: 33px;
 	width: 338px;
+	margin-left: 26px;
 }
 
 .sub_menu>div{

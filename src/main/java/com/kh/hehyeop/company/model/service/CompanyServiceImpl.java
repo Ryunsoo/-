@@ -11,6 +11,7 @@ import com.kh.hehyeop.common.code.Field;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
+import com.kh.hehyeop.company.model.dto.MyRequest;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.help.model.dto.HelpResponse;
@@ -44,12 +45,14 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyRepository.selectRequestDetailByReqIdx(reqIdx);
 	}
 	
-	public List<HelpRequest> selectRequestListById(String id, String state) {
-		List<HelpRequest> requestList = companyRepository.selectRequestListById(id,state);
-		
-		for (HelpRequest helpRequest: requestList) {
+	public List<MyRequest> selectRequestListById(String id, String state) {
+		//ongoing 상황에 맞는 신청해협 리스트
+		List<MyRequest> requestList = companyRepository.selectRequestListById(id,state);
+		for (MyRequest helpRequest: requestList) {
 			helpRequest.setField(Field.getField(helpRequest.getField()).fullName);
 			helpRequest.setOldAddress(convertAddress(helpRequest.getOldAddress()));
+			helpRequest.setReqTime(convertTime(helpRequest.getReqTime()));
+			helpRequest.setStatus(setStatus(state,helpRequest));
 		}
 		return requestList;
 	}
@@ -60,7 +63,6 @@ public class CompanyServiceImpl implements CompanyService{
 		String address = tempArr[0] + " " + tempArr[1] + " " + tempArr[2];
 		return address;
 	}
-
 	@Override
 	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList) {
 		return companyRepository.countRequest(addressList, companyFieldList);
@@ -69,6 +71,23 @@ public class CompanyServiceImpl implements CompanyService{
 	@Override
 	public List<CompanyField> selectCompanyFieldListById(String id) {
 		return companyRepository.selectCompanyFieldListById(id);
+	}
+
+	//reqTime에 T없애주기
+	private String convertTime(String reqTime) {
+		String[] tempArr = reqTime.split("T");
+		String time = tempArr[0] + " " + tempArr[1];
+		return time;
+	}
+	//status 설정해주기
+	private int setStatus(String state, MyRequest helpRequest) {
+		//대기중에서 사용자가 업체를 선택한 경우
+		//if(state.equals("1"))
+		
+		
+		
+		
+		return 0;
 	}
 
 }

@@ -23,18 +23,32 @@
 				<div class='select_wrapper'>
 					<div class='sub_menu'>
 						<!-- 현재 선택된 메뉴에 selected class를 추가해주면 자동으로 css 바뀝니다!! -->
-						<div><button class='selected'>대기내역</button></div>
-						<div><button>진행내역</button></div>
-						<div><button>취소내역</button></div>
-						<div><button>완료내역</button></div>
-					</div>
-					<div class='search_date'>
-						<div class='date'>
-							<input type="date"><span> - </span><input type="date">
-						</div>
-						<div class='search'>
-							<button>조회</button>
-						</div>
+						
+						<c:if test="${empty param.state || param.state eq 0}">
+							<div><button id="await" class="selected" onclick="moveTab(0)">대기내역</button></div>
+							<div><button id="going" onclick="moveTab(1)">진행내역</button></div>
+							<div><button id="cancel" onclick="moveTab(3)">취소내역</button></div>
+							<div><button id="complete" onclick="moveTab(2)">완료내역</button></div>
+						</c:if>
+						<c:if test="${param.state eq 1}">
+							<div><button id="await" onclick="moveTab(0)">대기내역</button></div>
+							<div><button id="going" class="selected" onclick="moveTab(1)">진행내역</button></div>
+							<div><button id="cancel" onclick="moveTab(3)">취소내역</button></div>
+							<div><button id="complete" onclick="moveTab(2)">완료내역</button></div>
+						</c:if>
+						<c:if test="${param.state eq 2}">
+							<div><button id="await" onclick="moveTab(0)">대기내역</button></div>
+							<div><button id="going" onclick="moveTab(1)">진행내역</button></div>
+							<div><button id="cancel" onclick="moveTab(3)">취소내역</button></div>
+							<div><button id="complete" class="selected" onclick="moveTab(2)">완료내역</button></div>
+						</c:if>
+						<c:if test="${param.state eq 3}">
+							<div><button id="await" onclick="moveTab(0)">대기내역</button></div>
+							<div><button id="going" onclick="moveTab(1)">진행내역</button></div>
+							<div><button id="cancel" class="selected" onclick="moveTab(3)">취소내역</button></div>
+							<div><button id="complete" onclick="moveTab(2)">완료내역</button></div>
+						</c:if>
+						
 					</div>
 				</div>
 				
@@ -96,5 +110,6 @@ Choi Min Seok   |   dktlfem3333@gmail.com</pre>
 	</div>
 	<!-- </footer> -->
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
+	<script type="text/javascript" src="../../../resources/js/company/my.js"></script>
 </body>
 </html>

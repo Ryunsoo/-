@@ -31,7 +31,7 @@ public interface HelpRepository {
 	String selectReqIdx(HelpRequest helpRequest);
 
 	@Insert("insert into file_info(file_idx, file_category, origin_name, re_name, save_path, type_idx) "
-			+ "values(sc_c_idx.nextval, 'HELP_REQUEST', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
+			+ "values(sc_file_idx.nextval, 'HELP_REQUEST', #{originName}, #{reName}, #{savePath}, #{typeIdx})")
 	int uploadFile(FileDTO fileDTO);
 
 	@Select("select * from pro_field")
