@@ -176,7 +176,8 @@
 	
 	<update id="updateJoinPoint" statementType="CALLABLE">
 		{call SP_UPDATE_JOIN_POINT(#{joinIdList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdListTypeHandler}, 
-								   #{joinIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler)
+								   #{joinIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler},
+								   #{regIdx, mode=IN})}
 	</update>
   
 </mapper>  

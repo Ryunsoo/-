@@ -87,7 +87,7 @@ public interface PurchaseRepository {
 	@Select("select join_idx from purchase_join join purchase_match using (join_idx) where reg_idx = #{regIdx}")
 	List<String> selectJoinList(String regIdx);
 
-	void updateJoinPoint(@Param("joinIdList") List<String> joinIdList, @Param("joinIdxList") List<String> joinIdxList);
+	void updateJoinPoint(@Param("joinIdList") List<String> joinIdList, @Param("joinIdxList") List<String> joinIdxList, @Param("regIdx") String regIdx);
 
 	
 }

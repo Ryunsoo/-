@@ -1,6 +1,9 @@
 package com.kh.hehyeop.purchase.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -66,22 +69,31 @@ public class PurchaseController {
 		detailInfo.setDealTime(dealDate);
 		detailInfo.setEndTime(endDate);
 		
-		model.addAttribute("detailInfo", detailInfo);
+		session.setAttribute("detailInfo", detailInfo);
 		model.addAttribute("buyNum", buyNum);
 	}
 	
 	@GetMapping("purchase-commit")
 	public String purchaseCommit(@RequestParam(value = "id") String id,
-			 					 @RequestParam(value = "regIdx") String regIdx) {
+			 					 @RequestParam(value = "regIdx") String regIdx,
+			 					 HttpSession session) throws ParseException {
+		
+		DetailInfo detailInfo = (DetailInfo) session.getAttribute("detailInfo");
+		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date test = fDate.parse(detailInfo.getDealTime());
+		Date today = new Date();
+		
+		if (today.compareTo(test) == -1) {
+			throw new HandlableException(ErrorCode.MATCH_DATE_ERROR);
+		}
 		
 		List<String> joinIdList = purchaseService.selectJoinId(regIdx);
 		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
 		
 		if(joinIdList != null && joinIdxList != null) {
-			purchaseService.updateJoinPoint(joinIdList, joinIdxList);
+			purchaseService.updateJoinPoint(joinIdList, joinIdxList, regIdx);
 			purchaseService.updatePoint(id);
 		}
-		
 		
 		return "redirect:/purchase/main";
 	}
