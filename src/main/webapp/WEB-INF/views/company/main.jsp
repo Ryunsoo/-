@@ -94,13 +94,11 @@
 			
 			<div class='footer_content'>
 			<pre>Gwon Gu Hyun   |   kwon41147406@gmail.com
-Kim Hyun Soo   |   oooklyt@naver.com
-Hwang Ryun Soo   |   babyfox225@gmail.com
-Lee Kyung Min   |   alssgo70051@naver.com</pre>
+Kim Hyeon Soo   |   oooklyt@naver.com
+Hwang Ryun Soo   |   babyfox225@gmail.com</pre>
 			<pre>Lee Joo Hyun   |   carinae4717@gmail.com
 Lee Ho Jun   |   lhj132824@naver.com
-Ko Hyuck Joon   |   akhj123akhj@naver.com
-Choi Min Seok   |   dktlfem3333@gmail.com</pre>
+Lee Kyung Min   |   alssgo70051@naver.com</pre>
 			</div>
 		</div>
 	</div>
