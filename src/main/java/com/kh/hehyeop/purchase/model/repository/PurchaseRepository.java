@@ -115,5 +115,8 @@ public interface PurchaseRepository {
 	@Update("update member set point = point+3 where id = #{sellerId}")
 	void SellerUpdatePoint(String sellerId);
 
+	@Select("select distinct reg_idx from v_select_batch where ongoing = 1 or ongoing = 2")
+	List<String> selectRegIdxList();
 
+	void updateOngoing(@Param("regIdxList") List<String> regIdxList);
 }

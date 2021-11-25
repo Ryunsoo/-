@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
-   <configuration>
+  <configuration>
   	<settings>
   		<setting name="mapUnderscoreToCamelCase" value="true"/>
   	</settings>
@@ -13,11 +13,19 @@
   		<typeAlias alias="Token" type="com.kh.hehyeop.mypage.model.dto.Token"/>
   		<typeAlias alias="Review" type="com.kh.hehyeop.help.model.dto.Review"/>
   		<typeAlias alias="Paging" type="com.kh.hehyeop.common.util.paging.Paging"/>
+  		<typeAlias alias="PurchaseMain" type="com.kh.hehyeop.purchase.model.dto.PurchaseMain"/>
+  		<typeAlias alias="MyPurchaseInfo" type="com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo"/>
+  		<typeAlias alias="HelpRequest" type="com.kh.hehyeop.help.model.dto.HelpRequest"/>
+  		<typeAlias alias="MyRequest" type="com.kh.hehyeop.company.model.dto.MyRequest"/>
   	</typeAliases>
   	
   	<mappers>
   		<mapper resource="mybatis/mapper/mybatisMapper.xml"/>
   		<mapper resource="mybatis/mapper/mypageMapper.xml"/>
   		<mapper resource="mybatis/mapper/helpMapper.xml"/>
+  		<mapper resource="mybatis/mapper/chatMapper.xml"/>
+  		<mapper resource="mybatis/mapper/purchaseMapper.xml"/>
+  		<mapper resource="mybatis/mapper/companyMapper.xml"/>
   	</mappers>
+
   </configuration>

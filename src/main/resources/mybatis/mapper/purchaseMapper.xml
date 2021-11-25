@@ -178,5 +178,9 @@
 	<update id="updateJoinStatus" statementType="CALLABLE">
 		{call SP_UPDATE_JOIN_STATUS(#{joinIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler})}
 	</update>
+	
+	<update id="updateOngoing" statementType="CALLABLE">
+		{call SP_UPDATE_ONGOING(#{regIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler})}
+	</update>
   
 </mapper>  
