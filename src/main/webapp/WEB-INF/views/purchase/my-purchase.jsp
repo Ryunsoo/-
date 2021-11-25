@@ -85,6 +85,9 @@
 									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 2}">
 										거래완료
 									</c:when>
+									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 3}">
+										거래취소
+									</c:when>
 									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'N'}">
 										모집중
 									</c:when>
@@ -107,15 +110,17 @@
 		<!-- 처리상태 select -->
 		<div class="status-select">
 			<select id="status-dropdown" name="ongoing" onchange="statusFiltering()" onFocus = "focus()">
-					<option value="3" <c:if test="${field.ongoing eq '3'}">selected</c:if>>전체보기</option>
+					<option value="4" <c:if test="${field.ongoing eq '4'}">selected</c:if>>전체보기</option>
 					<option value="0" <c:if test="${field.ongoing eq '0'}">selected</c:if>>구매대기</option>
 					<option value="1" <c:if test="${field.ongoing eq '1'}">selected</c:if>>구매확정</option>
 					<option value="2" <c:if test="${field.ongoing eq '2'}">selected</c:if>>거래완료</option>
+					<option value="3" <c:if test="${field.ongoing eq '3'}">selected</c:if>>거래취소(참여)</option>
 					<option value="N" <c:if test="${field.done eq 'N'}">selected</c:if>>모집중</option>
 					<option value="Y" <c:if test="${field.done eq 'Y'}">selected</c:if>>모집완료</option>
 					<option value="C" <c:if test="${field.done eq 'C'}">selected</c:if>>거래취소</option>
 			</select>
 		</div>
+		
 		
 		<br>
 		
@@ -230,7 +235,7 @@ function statusFiltering() {
 	temp = $('#status-dropdown').val();
 	let ongoing;
 	let done;
-	if(temp == '0' || temp == '1' || temp == '2') {
+	if(temp == '0' || temp == '1' || temp == '2' || temp == '3') {
 		ongoing = temp;
 		location.href='/purchase/my-purchase?ongoing=' + ongoing;
 	} else if(temp == 'Y' || temp == 'N' || temp == 'C'){

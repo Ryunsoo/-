@@ -100,7 +100,7 @@
 		using(reg_idx) left join purchase_join J using(join_idx) 
 		
 		<choose>
-			<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2">
+			<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 or ongoing == 3">
 			where (P.id= #{id} or J.id = #{id}) and ongoing = #{ongoing} and P.id != #{id} order by reg_idx desc
 			</when>
 			<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
@@ -118,7 +118,7 @@
 		select reg_idx, P.id, item_name, deal_loc, deal_time, join_idx, done, ongoing, join_buy_num, J.id AS buyer_id 
 		from purchase_register P left join purchase_match using(reg_idx) left join purchase_join J using(join_idx) 
 			  <choose>
-			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 ">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
+			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 or ongoing == 3">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
 			  		where (P.id= #{id} or J.id = #{id}) and ongoing = #{ongoing} and P.id != #{id} order by reg_idx desc
 			  	</when>
 			  	<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>

@@ -187,22 +187,19 @@ public class PurchaseController {
 			ongoing = null;
 		}
 		
-		System.out.println("done : " + done);
-		System.out.println("ongoing : " + ongoing);
 		
 		Member authMember = (Member) session.getAttribute("authentication");
 		String id = authMember.getId();
 		int total = purchaseService.countMyPurchase(ongoing, done, id);
 		
-		System.out.println("total : " + total);
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		
-		
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
-		
+		for (MyPurchaseInfo info : myPurchaseInfo) {
+			info.setDealTime(info.getDealTime().replace("T", " "));
+		}
 		
 		if(ongoing == null && done==null) {
-			ongoing = "3";
+			ongoing = "4";
 			field.setOngoing(Integer.parseInt(ongoing));
 		}
 		field.setDone(done);
