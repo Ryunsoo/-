@@ -197,7 +197,7 @@ function alertMessage(msg){
 								<div id="orange">견적</div>
 								<div id="basic">전달</div>
 							</div>
-							<div id="infobox1-3">2건</div>
+							<div id="infobox1-3">${responseCntList[0]}건</div>
 						</div>
 						<div id="infobox2">
 							<div id="infobox2-1">해협</div>
@@ -205,7 +205,7 @@ function alertMessage(msg){
 								<div id="sky">완료</div>
 								<div id="basic">성공</div>
 							</div>
-							<div id="infobox2-3">5건</div>
+							<div id="infobox2-3">${responseCntList[1]}건</div>
 						</div>
 					</div>
 				</div>

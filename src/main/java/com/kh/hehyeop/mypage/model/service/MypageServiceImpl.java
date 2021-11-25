@@ -217,4 +217,14 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 
+	@Override
+	public List<Integer> selectResponseCnt(String id) {
+		List<Integer> responseCntList = new ArrayList<Integer>();
+		
+		responseCntList.add(mypageRepository.selectAllResponse(id));
+		responseCntList.add(mypageRepository.selectCompleteResponse(id));
+		
+		return responseCntList;
+	}
+
 }

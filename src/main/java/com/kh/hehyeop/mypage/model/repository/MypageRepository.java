@@ -116,6 +116,12 @@ public interface MypageRepository {
 
 	@Update("update wallet set cash = cash + #{cash}, cash_lock = cash_lock - #{cash} where id = #{id}")
 	void substractCashLock(@Param("id") String id, @Param("cash") int cash);
+
+	@Select("select count(*) from help_response where id = #{id}")
+	Integer selectAllResponse(@Param("id")String id);
+
+	@Select("select count(*) from help_match where ongoing = 2 and res_idx in(select res_idx from help_response where id = #{id})")
+	Integer selectCompleteResponse(@Param("id")String id);
 	
 	
 }
