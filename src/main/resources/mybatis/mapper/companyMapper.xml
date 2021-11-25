@@ -7,7 +7,8 @@
 	<select id="selectRequestList" resultType="HelpRequest">
 		select *
 		from (select rownum rnum, v.*
-        		from help_request v
+		from (select *
+        		from help_request
         		where ongoing = 0 and field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
@@ -21,17 +22,18 @@
 		<if test="area != null">
 		and old_address like '%'||#{area}||'%'  
 		</if>
-		order by v.reg_date desc)
+		order by reg_date desc) v)
 		where rnum between #{paging.start} and #{paging.end}
 	</select>
 
 	<select id="selectRequestListById" resultType="MyRequest">
 		select *
-		from (select rownum rnum ,v.* 
-				from help_request v
+		from (select rownum rnum, v.*
+		from (select * 
+				from help_request
 				where req_idx in 
 				(select req_idx from help_response where id = #{id} and ongoing = #{state})   
-				order by v.reg_date desc)   
+				order by reg_date desc) v)   
 		where rnum between #{paging.start} and #{paging.end}		    
 	</select>
 	
