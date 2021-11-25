@@ -130,4 +130,6 @@ public interface PurchaseRepository {
 	@Update("update purchase_register set rest_num = rest_num + #{buyNum} where reg_idx=#{regIdx}")
 	void plusRestNum(@Param("regIdx") String regIdx, @Param("buyNum") int buyNum);
 
+	void updateOngoing(@Param("regIdxList") List<String> regIdxList);
+
 }
