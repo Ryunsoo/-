@@ -305,9 +305,9 @@ public class PurchaseController {
 		purchaseService.sendCashtoSeller(sellerId, LockedCash); //seller 에게 lock cash 보내기
 		purchaseService.updateMatchLockedCashAndOngoing(joinIdx,regIdx); // match 테이블 해당 regIdx lock cash reset / ongoing 2
 		purchaseService.updateWalletLockedCash(id, totalLockedcash); // wallet에서 총 lock cash에서 구매 lock cash 차감
-		purchaseService.dealDone(regIdx); // register 테이블에 done Y
+		// purchaseService.dealDone(regIdx); // register 테이블에 done Y <- 참가자 한사람이 거래완료
 		purchaseService.purchaseUpdatePoint(id); //구매자 1 포인트 업
-		purchaseService.SellerUpdatePoint(sellerId); //판매자 3 포인트 업
+		// purchaseService.SellerUpdatePoint(sellerId); //판매자 3 포인트 업
 		
 		return "redirect:/purchase/main";
 		
