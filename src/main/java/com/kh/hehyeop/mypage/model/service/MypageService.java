@@ -41,6 +41,7 @@ public interface MypageService {
 	LinkMember selectLink(String id);
 	void updateCompanyField(String id, List<String> fieldList);
 	void uploadFile(List<MultipartFile> files, String cIdx);
+	List<Integer> selectResponseCnt(String id);
 	
 	
 }

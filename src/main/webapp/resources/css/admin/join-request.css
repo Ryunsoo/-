@@ -136,18 +136,17 @@ tr>td{
 	line-height: 3.3;
 }
 
-tr>td>.check{
-	height: 30px;
-	width: 60px;
-	position: relative;
-	transform: translateY(8%);
-	border-radius: 8px;
-	border: none;
-	/* Lumen 템플릿 주황색 : rgb(255, 133, 27) / #ff851b */
-	background-color: #ffad66;
-	color: black;
-	font-weight: bold;
-	box-shadow: 0 0 5px 1px #808080;
+tr>td>.check {
+    height: 30px;
+    width: 60px;
+    position: relative;
+    transform: translateY(8%);
+    border-radius: 8px;
+    border: none;
+    background-color: #384d61;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 5px 1px #808080;
 }
 
 tr>td>.check:hover{

@@ -203,5 +203,30 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchaseRepository.SellerUpdatePoint(sellerId);
 	}
 
+	@Override
+	public String findBuyer(String regIdx) {
+		return purchaseRepository.findBuyer(regIdx);
+		
+	}
+	
+	@Override
+	public void buyerCancel(String joinIdx, String regIdx) {
+		purchaseRepository.buyerCancel(joinIdx, regIdx);
+		
+	}
+
+	@Override
+	public void returnLockedCash(String id, int cash) {
+		purchaseRepository.returnLockedCash(id, cash);
+		
+	}
+
+	@Override
+	public void plusRestNum(String regIdx, int buyNum) {
+		purchaseRepository.plusRestNum(regIdx, buyNum);
+		
+	}
+
+
 
 }

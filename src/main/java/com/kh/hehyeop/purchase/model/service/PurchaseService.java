@@ -76,5 +76,15 @@ public interface PurchaseService {
 
 	void SellerUpdatePoint(String sellerId);
 
+	String findBuyer(String regIdx);
+
+	void buyerCancel(String joinIdx, String regIdx);
+
+	void returnLockedCash(String id, int cash);
+
+	void plusRestNum(String regIdx, int buyNum);
+
+
+
 
 }

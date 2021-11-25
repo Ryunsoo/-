@@ -76,7 +76,10 @@ public class PurchaseController {
 		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		
+		String match = purchaseService.findBuyer(regIdx);
+		
 		session.setAttribute("detailInfo", detailInfo);
+		session.setAttribute("match", match);
 		model.addAttribute("buyNum", buyNum);
 	}
 	
@@ -184,22 +187,19 @@ public class PurchaseController {
 			ongoing = null;
 		}
 		
-		System.out.println("done : " + done);
-		System.out.println("ongoing : " + ongoing);
 		
 		Member authMember = (Member) session.getAttribute("authentication");
 		String id = authMember.getId();
 		int total = purchaseService.countMyPurchase(ongoing, done, id);
 		
-		System.out.println("total : " + total);
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		
-		
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
-		
+		for (MyPurchaseInfo info : myPurchaseInfo) {
+			info.setDealTime(info.getDealTime().replace("T", " "));
+		}
 		
 		if(ongoing == null && done==null) {
-			ongoing = "3";
+			ongoing = "4";
 			field.setOngoing(Integer.parseInt(ongoing));
 		}
 		field.setDone(done);
@@ -301,13 +301,32 @@ public class PurchaseController {
 		String sellerId = purchaseInfo.getSellerId();
 		int LockedCash = purchaseService.selectLockedCash(id ,regIdx); //match
 		int totalLockedcash = purchaseService.getTotalLockedCash(id)-LockedCash; //wallet lock cash update
-		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx);
+		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx); //joinIdx
 		purchaseService.sendCashtoSeller(sellerId, LockedCash); //seller 에게 lock cash 보내기
 		purchaseService.updateMatchLockedCashAndOngoing(joinIdx,regIdx); // match 테이블 해당 regIdx lock cash reset / ongoing 2
 		purchaseService.updateWalletLockedCash(id, totalLockedcash); // wallet에서 총 lock cash에서 구매 lock cash 차감
 		// purchaseService.dealDone(regIdx); // register 테이블에 done Y <- 참가자 한사람이 거래완료
 		purchaseService.purchaseUpdatePoint(id); //구매자 1 포인트 업
 		// purchaseService.SellerUpdatePoint(sellerId); //판매자 3 포인트 업
+		
+		return "redirect:/purchase/main";
+		
+	}
+	
+	@GetMapping("buyer-cancel")
+	public String buyerCancel(String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		
+		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx);
+		int cash = purchaseService.selectLockedCash(id ,regIdx); //match lock cash
+		int buyNum = purchaseService.selectBuyNum(joinIdx);
+		purchaseService.returnLockedCash(id, cash); // wallet에 match에 묶여있던 lock cash 반환
+		purchaseService.buyerCancel(joinIdx, regIdx); //match 테이블에 ongoing 3으로 변경 / lock cash 0
+		purchaseService.plusRestNum(regIdx, buyNum); //register 테이블에 restNum update
+		
+		
 		
 		return "redirect:/purchase/main";
 		

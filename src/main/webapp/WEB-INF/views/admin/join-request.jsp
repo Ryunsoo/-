@@ -12,9 +12,9 @@
 		<!-- 사이트 메뉴(조회해협 & MY 해협) -->
 		<!-- <aside> -->
 		<div class='aside'>
-			<button class="join_list">가입 요청</button>
-			<button class="revision_list">수정 요청</button>
-			<button class="finished_list">완료 목록</button>
+			<button class="join_list" onclick="location.href='/admin/join-reqest'">가입 요청</button>
+			<button class="revision_list" onclick="location.href='/admin/join-reqest'">수정 요청</button>
+			<button class="finished_list" onclick="location.href='/admin/join-reqest'">완료 목록</button>
 		</div>
 		<!-- </aside> -->
 		<div class='section'>
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 	
-	<div class='back'></div>
+	<!-- <div class='back'></div> -->
 		
 </body>
 </html>

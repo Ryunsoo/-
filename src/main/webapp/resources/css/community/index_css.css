@@ -166,7 +166,6 @@
 .page>div>span:hover{
 	color: #bfbfbf;
 	cursor: pointer;
-	border: solid transparent;
 }
 
 .page>footer_logo {
