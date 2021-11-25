@@ -207,17 +207,26 @@ public class HelpServiceImpl implements HelpService{
 	}
 	
 	@Override	
-	public void cancelRequest(String reqIdx) {
+	public int cancelRequest(String reqIdx) {
+		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
+		int ongoing = (int)map.get("ongoing");
 		//상태 바꿔주기
 		helpRepository.cancelRequest(reqIdx);
-		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		
 		//업체한테 푸시보내기
 		CMember cmember = new CMember();
 		cmember.setId((String)map.get("resId"));
-		pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
 		
-		if((int)map.get("ongoing") == 3 && (int)map.get("payStatus") == 0) {
+		if(ongoing == 1) {
+			pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 취소 요청을 보냈습니다.");
+			return 0; //"취소 요청이 완료되었습니다."
+		}
+		
+		if(ongoing == 3) {
+			pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님과의 해협이 취소 처리되었습니다.");
+		}
+		
+		if(ongoing == 3 && (int)map.get("payStatus") == 0) {
 			//캐시 lock 풀어주기
 			mypageRepository.substractCashLock((String)map.get("reqId"), (int)map.get("resPay"));
 			
@@ -226,26 +235,41 @@ public class HelpServiceImpl implements HelpService{
 			pushSender.send(member, "자취해협", "해협 진행 취소로 해당 금액의 lock이 해제되었습니다.");
 		}
 		
+		if(ongoing == 3) {
+			return 1; //해협이 취소 처리되었습니다.
+		}
+		
+		if(ongoing == 2) {
+			pushSender.send(cmember, "자취해협", "완료 요청 건에 대해 " + (String) map.get("reqName") + "님이 취소 요청했습니다. 다시 확인해주세요.");
+			return 2; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
+		}
+		return 0;
 	}
 
 	@Override
-	public void completeRequest(String reqIdx) {
+	public int completeRequest(String reqIdx) {
+		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
+		int ongoing = (int)map.get("ongoing");
 		//상태 바꿔주기
 		helpRepository.completeRequest(reqIdx);
-		Map<String, Object> map = helpRepository.selectCMemberIdByReqIdx(reqIdx);
 		
 		//업체한테 푸시보내기
 		CMember cmember = new CMember();
 		cmember.setId((String) map.get("resId"));
-		pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
 		
-		//결제여부 상관없이 매치테이블의 진행여부가 2(완료)일때, 업체에게 점수를 3점 부여한다.
-		if((int)map.get("ongoing") == 2) {
+		if(ongoing == 1) {
+			pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님이 해협 완료 요청을 보냈습니다.");
+			return 0; //"완료 요청이 완료되었습니다."
+		}
+		
+		//결제여부 상관없이 상대의 진행여부가 2(완료)일때, 업체에게 점수를 3점 부여한다.
+		if(ongoing == 2) {
 			helpRepository.updateMemberCPoint((String)map.get("resId"));
+			pushSender.send(cmember, "자취해협", (String) map.get("reqName") + "님과의 해협이 완료 처리되었습니다.");
 		}
 		
 		//매치 ongoing에 따라 완전 완료처리
-		if((int)map.get("ongoing") == 2 && (int)map.get("payStatus") == 0) {
+		if(ongoing == 2 && (int)map.get("payStatus") == 0) {
 			mypageRepository.addCashToWallet((String)map.get("resId"), (int)map.get("resPay"));
 			mypageRepository.substractCashAndCashLock((String)map.get("reqId"), (int)map.get("resPay"));
 			helpRepository.updateHelpMatchPayStatus(reqIdx);
@@ -255,6 +279,13 @@ public class HelpServiceImpl implements HelpService{
 			pushSender.send(List.of(member, cmember), "자취해협", "완료된 해협의 캐시 결제가 완료되었습니다.");
 		}
 		
+		if(ongoing == 2) return 1; //해협이 완료 처리되었습니다.
+		
+		if(ongoing == 3) {
+			pushSender.send(cmember, "자취해협", "취소 요청 건에 대해 " + (String) map.get("reqName") + "님이 완료 요청했습니다. 다시 확인해주세요.");
+			return 2; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
+		}
+		return 0;
 	}
 
 	@Override

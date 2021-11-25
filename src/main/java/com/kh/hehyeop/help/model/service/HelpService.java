@@ -36,9 +36,9 @@ public interface HelpService {
 
 	int refreshRequest(String reqIdx);
 
-	void cancelRequest(String reqIdx);
+	int cancelRequest(String reqIdx);
 
-	void completeRequest(String reqIdx);
+	int completeRequest(String reqIdx);
 
 	void registReview(String helpIdx, double score, String[] commentArr);
 

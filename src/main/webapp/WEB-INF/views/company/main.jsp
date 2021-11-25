@@ -14,7 +14,6 @@
 }
 </style>
 <script type="text/javascript">
-
 function alertMessage(msg){
 	let modal = initModal('modal', 3);
 	appendTitle(modal, '');
@@ -31,7 +30,6 @@ function alertMessage(msg){
 		modalNone();
 	})
 }
-
 </script>
 </head>
 <body>

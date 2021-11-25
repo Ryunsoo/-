@@ -7,6 +7,31 @@
 <link href="../../../resources/css/help/my.css" type="text/css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
+<style>
+.alertMessage {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript">
+function alertMessage(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	modalBlock();
+	
+	let modalBody = $('<div class="alertMessage">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+</script>
 </head>
 <body>
 	<div id='modal'></div>
@@ -136,8 +161,9 @@
          <%@ include file="/WEB-INF/views/help/my-hehyeop-estimate.jsp" %>
          </div>
       </div>
-
-	
+	<c:if test="${not empty message}">
+		<script>alertMessage('${message}')</script>
+	</c:if>
    </div>
 
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>

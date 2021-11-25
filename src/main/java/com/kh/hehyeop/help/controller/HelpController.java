@@ -242,34 +242,42 @@ public class HelpController {
 	@GetMapping("deleteHelp")
 	public String deleteHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.deleteRequest(reqIdx);
-		redirectAttr.addFlashAttribute("msg","해협 삭제가 완료 되었습니다.");
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
-		return "redirect:/error/result";
+		redirectAttr.addFlashAttribute("message","해협 삭제가 완료 되었습니다.");
+		return "redirect:/help/my-hehyeop";
 	}
 
 	//해협 끌올
 	@GetMapping("refreshHelp")
 	public String refreshHelp(String reqIdx, RedirectAttributes redirectAttr) {
 		int res = helpService.refreshRequest(reqIdx);
-		redirectAttr.addFlashAttribute("msg","해협 순서 끝어올리기가 완료되었습니다.");
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
-		return "redirect:/error/result";
+		redirectAttr.addFlashAttribute("message","해협 순서 끝어올리기가 완료되었습니다.");
+		return "redirect:/help/my-hehyeop";
 	}
 	//해협 취소
 	@GetMapping("cancelHelp")
 	public String cancelHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		helpService.cancelRequest(reqIdx);
-		redirectAttr.addFlashAttribute("msg","해협 취소 요청이 완료되었습니다.");
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
-		return "redirect:/error/result";
+		int res = helpService.cancelRequest(reqIdx);
+		if(res == 0) {
+			redirectAttr.addFlashAttribute("message","해협 취소 요청이 완료되었습니다.");
+		}else if(res == 1) {
+			redirectAttr.addFlashAttribute("message","해협이 취소 처리되었습니다.");
+		}else {
+			redirectAttr.addFlashAttribute("message","매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
+		}
+		return "redirect:/help/my-hehyeop";
 	}
 	//해협 완료
 	@GetMapping("completeHelp")
 	public String completeHelp(String reqIdx, RedirectAttributes redirectAttr) {
-		helpService.completeRequest(reqIdx);
-		redirectAttr.addFlashAttribute("msg","해협 완료 요청이 완료되었습니다.");
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
-		return "redirect:/error/result";
+		int res = helpService.completeRequest(reqIdx);
+		if(res == 0) {
+			redirectAttr.addFlashAttribute("message","해협 완료 요청이 완료되었습니다.");
+		}else if(res == 1) {
+			redirectAttr.addFlashAttribute("message","해협이 완료 처리되었습니다.");
+		}else {
+			redirectAttr.addFlashAttribute("message","매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
+		}
+		return "redirect:/help/my-hehyeop";
 	}
 	//리뷰 등록
 	@GetMapping("registReview")
@@ -278,9 +286,8 @@ public class HelpController {
 		String[] tempArr = comment.split(",");
 		System.out.println("score : " + Arrays.toString(tempArr));
 		helpService.registReview(reqIdx, score, tempArr); 
-		redirectAttr.addFlashAttribute("msg","리뷰등록이 완료되었습니다."); 
-		redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
-		return "redirect:/error/result";
+		redirectAttr.addFlashAttribute("message","리뷰등록이 완료되었습니다."); 
+		return "redirect:/help/my-hehyeop";
 	}
 	
 	@GetMapping("my-hehyeop-detail")
@@ -326,15 +333,14 @@ public class HelpController {
 		String res = helpService.choiceCompany(Map.of("id",id,"cid",cid,"resIdx",resIdx,"resPay",resPay,"reqIdx",reqIdx,"payWay",payWay));
 		
 		if(res.equals("success")) {
-			redirectAttr.addFlashAttribute("msg","업체 선택이 완료되었습니다.");
+			redirectAttr.addFlashAttribute("message","업체 선택이 완료되었습니다.");
 			String reqName = helpService.selectReqNameByReqIdx(reqIdx);
 			pushSender.send(cmember, "자취해협", reqName + "님과 매칭되었습니다. 거래를 진행해주세요.");
-			redirectAttr.addFlashAttribute("url","/help/my-hehyeop");
+			return "redirect:/help/my-hehyeop";
 		}else {
-			redirectAttr.addFlashAttribute("msg","현재 보유 캐시가 부족해 마이페이지로 이동합니다.");
-			redirectAttr.addFlashAttribute("url","/mypage/mypage-common");
+			redirectAttr.addFlashAttribute("message","현재 보유 캐시가 부족해 마이페이지로 이동합니다.");
+			return "redirect:/mypage/mypage-common";
 		}
-		return "redirect:/error/result";
 	}
 	
 	
