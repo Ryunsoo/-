@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.Config;
@@ -192,16 +193,49 @@ public class CompanyController {
 	}
 	
 	@GetMapping("completeService")
-	public String completeService(HttpSession session, String reqIdx) {
+	public String completeService(HttpSession session, String reqIdx, RedirectAttributes redirectAttrs) {
 		CMember cmember = (CMember) session.getAttribute("authentication");
 		int res = companyService.completeCashByReqIdx(cmember.getId(),reqIdx);
-		return null;
+		if(res == 0) {
+			//서비스가 완료되었습니다.
+			redirectAttrs.addFlashAttribute("message", "서비스가 완료되었습니다.");
+		}else if(res == 1) {
+			//매칭상태가 올바르지 않습니다. 다시 선택해주세요.
+			redirectAttrs.addFlashAttribute("message", "매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
+		}else {
+			//완료 대기 중입니다.
+			redirectAttrs.addFlashAttribute("message", "완료 대기 중입니다.");
+		}
+		return "redirect:/company/my";
 	}
 	
 	@GetMapping("cancelService")
-	public String cancelService(HttpSession session, String reqIdx) {
+	public String cancelService(HttpSession session, String reqIdx, RedirectAttributes redirectAttrs) {
 		CMember cmember = (CMember) session.getAttribute("authentication");
 		int res = companyService.cancelCashByReqIdx(cmember.getId(),reqIdx);
-		return null;
+		if(res == 0) {
+			//서비스가 취소되었습니다.
+			redirectAttrs.addFlashAttribute("message", "서비스가 취소되었습니다.");
+		}else if(res == 1) {
+			//매칭상태가 올바르지 않습니다. 다시 선택해주세요.
+			redirectAttrs.addFlashAttribute("message", "매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
+		}else {
+			//취소 대기 중입니다.
+			redirectAttrs.addFlashAttribute("message", "취소 대기 중입니다.");
+		}
+		return "redirect:/company/my";
 	}
+	
+	@GetMapping("viewDetail")
+	@ResponseBody
+	public RequestDetail viewDetail(String reqIdx) {
+		RequestDetail detail = companyService.selectRequestDetailByReqIdx(reqIdx);
+		//연락처에 - 넣기
+		detail.setReqTell(getFormattedTell(detail.getReqTell()));
+		//금액에 ,넣기
+		NumberFormat format = NumberFormat.getInstance();
+		detail.setPrice(format.format(detail.getReqPay()));
+		return detail;
+	}
+	
 }

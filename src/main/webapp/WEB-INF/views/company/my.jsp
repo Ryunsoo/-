@@ -7,7 +7,27 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/company/all-help.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
+<script type="text/javascript">
+function showResult(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	//addPiggyBackround(sendModal);
+	modalBlock();
+	
+	let modalBody = $('<div class="loginFail">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}	
+</script>
 <body>
+<div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
 	<div class='main'>
 	
@@ -66,10 +86,10 @@
 							</thead>
 							<tbody>
 								<c:forEach var="requestList" items="${requestList}">
-									<tr onclick="viewDetail()">
-										<td>${requestList.field}</td>
-										<td>${requestList.oldAddress}</td>
-										<td>${requestList.reqTime}</td>
+									<tr>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.field}</td>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.oldAddress}</td>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.reqTime}</td>
 										<td>
 										<c:choose>
 											<c:when test="${requestList.status == 0}">
@@ -93,7 +113,7 @@
 											</c:otherwise>
 										</c:choose>
 										</td>
-										<td>${requestList.reqName}</td>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.reqName}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -125,29 +145,13 @@
 			</div>
 		</div>
 	</div>
-	
+	<c:if test="${not empty message}">
+		<script>showResult('${message}')</script>
+	</c:if>
 	<div class='back'></div>
 	<!-- 자취해협 정보 footer -->
-	<!-- <footer> -->
-	<div class='footer'>
-		<div class='footer_logo'><img src="../../../resources/image/logo-icon.png" class='logo-icon'></div>
-		
-		<div class='footer_text'>
-			<div class='footer_title'><pre>project  자취해협  |  team  help!</pre></div>
-			
-			<div class='footer_content'>
-			<pre>Gwon Gu Hyun   |   kwon41147406@gmail.com
-Kim Hyun Soo   |   oooklyt@naver.com
-Hwang Ryun Soo   |   babyfox225@gmail.com
-Lee Kyung Min   |   alssgo70051@naver.com</pre>
-			<pre>Lee Joo Hyun   |   carinae4717@gmail.com
-Lee Ho Jun   |   lhj132824@naver.com
-Ko Hyuck Joon   |   akhj123akhj@naver.com
-Choi Min Seok   |   dktlfem3333@gmail.com</pre>
-			</div>
-		</div>
-	</div>
-	<!-- </footer> -->
+	<%@ include file="/WEB-INF/views/include/footer/footer.jsp" %>
+	
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 	<script type="text/javascript" src="../../../resources/js/company/my.js"></script>
 </body>

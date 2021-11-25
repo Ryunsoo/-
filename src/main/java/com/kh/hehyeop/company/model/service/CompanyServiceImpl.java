@@ -49,29 +49,15 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	public List<MyRequest> selectRequestListById(Paging paging, String id, String state) {
 		//state(ongoing)로 받아온 리스트
-		List<MyRequest> requestList1 = companyRepository.selectRequestListById(paging, id,state);
+		List<MyRequest> requestList = companyRepository.selectRequestListById(paging, id,state);
 		
-		//위 리스트를 돌면서 (23, 32) 조건에 걸리면 update진행 
-		for (MyRequest myRequest: requestList1) {
-			if(state.equals("2") && myRequest.getOngoing() == 3) {
-				companyRepository.updateRequestOngoing(id);
-				companyRepository.updateResponseOngoing(id);
-			}else if(state.equals("3") && myRequest.getOngoing() == 2) {
-				companyRepository.updateRequestOngoing(id);
-				companyRepository.updateResponseOngoing(id);
-			}
+		for (MyRequest myRequest: requestList) {
+			myRequest.setField(Field.getField(myRequest.getField()).fullName);
+			myRequest.setOldAddress(myRequest.getOldAddress());
+			myRequest.setReqTime(convertTime(myRequest.getReqTime()));
+			myRequest.setStatus(setStatus(state,myRequest));
 		}
-		
-		//update 이후에 한번 더 받아오기
-		List<MyRequest> requestList2 = companyRepository.selectRequestListById(paging, id,state);
-		
-		for (MyRequest myRequest2: requestList2) {
-			myRequest2.setField(Field.getField(myRequest2.getField()).fullName);
-			myRequest2.setOldAddress(convertAddress(myRequest2.getOldAddress()));
-			myRequest2.setReqTime(convertTime(myRequest2.getReqTime()));
-			myRequest2.setStatus(setStatus(state,myRequest2));
-		}
-		return requestList2;
+		return requestList;
 	}
 	
 	//ex) 서울시 강남구 역삼동 까지만 반환
@@ -132,14 +118,23 @@ public class CompanyServiceImpl implements CompanyService{
 		//ongoing 2로 바꿔주기
 		int state = 2;
 		companyRepository.updateOngoing(id,reqIdx,state);
-		//신청자기 이미 완료한 상태라면 최종완료 절차(업체상태 완료로 바꾸고 업체한테 돈 넣어주기)
+		//신청자가 이미 완료한 상태라면 최종완료 절차(업체한테 돈 넣어주기)
 		int ongoing = companyRepository.selectOngoingByReqIdx(reqIdx);
 		if(ongoing == 2) {
 			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+			//업체 cash + res_pay
 			companyRepository.completeCashByReqIdx(id,resPay);
-			return 0;
+			return 0; //서비스가 완료되었습니다.
+		//신청자가 취소 상태라면 양쪽을 대기중 상태로 바꿔주기	
+		}else if(ongoing == 3) {
+			List<MyRequest> requestList = companyRepository.selectDisMatchRequestListById(id,state);
+			for (MyRequest myRequest: requestList) {
+				companyRepository.updateRequestOngoing(id);
+				companyRepository.updateResponseOngoing(id);
+			}
+			return 1; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
 		}else {
-			return 1;
+			return 2; //완료 대기 중입니다.
 		}
 	}
 
@@ -148,14 +143,24 @@ public class CompanyServiceImpl implements CompanyService{
 		//ongoing 3로 바꿔주기
 		int state = 3;
 		companyRepository.updateOngoing(id,reqIdx,state);
-		//신청자가 이미 취소인 상태이면 최종취소 절차(업체상태 취소로 바꾸고 신청자의 cash_lock을 빼고 cash로 이동시키기)
-		int ongoing = companyRepository.selectOngoingByReqIdx(reqIdx);
+		//신청자가 이미 취소인 상태이면 최종취소 절차(신청자의 cash_lock - res_pay, cash + res_pay로 이동시키기)
+		HelpRequest res = companyRepository.selectIdAndOngoingByReqIdx(reqIdx);
+		String reqId = res.getId();
+		int ongoing = res.getOngoing();
 		if(ongoing == 3) {
 			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
-			//
-			return 0;
+			companyRepository.cancelCashByReqIdx(reqId,resPay);
+			return 0; //서비스가 취소되었습니다.
+		//신청자가 완료 상태라면 양쪽을 대기중 상태로 바꿔주기		
+		}else if(ongoing == 2) {
+			List<MyRequest> requestList = companyRepository.selectDisMatchRequestListById(id,state);
+			for (MyRequest myRequest: requestList) {
+				companyRepository.updateRequestOngoing(id);
+				companyRepository.updateResponseOngoing(id);
+			}
+			return 1; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
 		}else {
-			return 1;
+			return 2; //취소 대기 중입니다.
 		}
 	}
 

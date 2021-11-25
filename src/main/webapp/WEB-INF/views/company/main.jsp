@@ -85,24 +85,8 @@
 	<div class='back'></div>
 		
 	<!-- 자취해협 정보 footer -->
-	<!-- <footer> -->
-	<div class='footer'>
-		<div class='footer_logo'><img src="../../../resources/image/logo-icon.png" class='logo-icon'></div>
-		
-		<div class='footer_text'>
-			<div class='footer_title'><pre>project  자취해협  |  team  help!</pre></div>
-			
-			<div class='footer_content'>
-			<pre>Gwon Gu Hyun   |   kwon41147406@gmail.com
-Kim Hyeon Soo   |   oooklyt@naver.com
-Hwang Ryun Soo   |   babyfox225@gmail.com</pre>
-			<pre>Lee Joo Hyun   |   carinae4717@gmail.com
-Lee Ho Jun   |   lhj132824@naver.com
-Lee Kyung Min   |   alssgo70051@naver.com</pre>
-			</div>
-		</div>
-	</div>
-	<!-- </footer> -->
+	<%@ include file="/WEB-INF/views/include/footer/footer.jsp" %>
+	
 	<script type="text/javascript" src="../../../resources/js/include/chat/chat2.js"></script>
 </body>
 	<script type="text/javascript" src="../../../resources/js/company/main.js"></script>

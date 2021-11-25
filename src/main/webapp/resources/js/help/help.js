@@ -135,6 +135,7 @@ let estimate = () => {
    $('#resTell').attr('value',"");
    $('#resTime').attr('value',"");
    $('#resPay').attr('value',"");
+   $('#resContent').attr('value',"");
    $('.detail_photo').html('');	
    let reqIdx = $('.saveReqIdx').val();
    let helpState = $('.saveHelpState').val();
@@ -163,6 +164,7 @@ let estimate = () => {
 	         let resIdx = responseList[i].resIdx;
 	         let pay = responseList[i].resPay;
 	         let tell = responseList[i].tell;
+	         let resContent = responseList[i].resContent;
 	         let timeArr = responseList[i].resTime.split("T");
 	         let time = timeArr[0]+" "+timeArr[1];
 	       
@@ -183,11 +185,11 @@ let estimate = () => {
 				resName = $('<td><span style="color: silver"><i class="fas fa-gem"></i></span>'+responseList[i].company+'</td>');
 	         }
 	         
-	         resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+	         resName.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "', '" + resContent + "')");
 	         let resAddress = $('<td>'+address+'</td>');
-	         resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+	         resAddress.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "', '" + resContent + "')");
 	         let resRegDate = $('<td>'+regDate+'</td>');
-	         resRegDate.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "')");
+	         resRegDate.attr('onclick',"estimateDetail('" + resIdx + "', '" + tell + "', '"+ time + "', '" + pay + "', '" + resContent + "')");
 	         let btn = $('<td></td>');
 	         tr.append(resName);
 	         tr.append(resAddress);
@@ -231,14 +233,14 @@ let estimate = () => {
    })
 }
 //견적서 목록 클릭시
-let estimateDetail = (resIdx,tell,time,pay) => {
+let estimateDetail = (resIdx,tell,time,pay,resContent) => {
    fetch("/help/my-hehyeop-estimateFile?resIdx="+resIdx)
     .then(response => response.json())
     .then(fileDto => {
       $('#resTell').attr('value',tell);
       $('#resTime').attr('value',time);
       $('#resPay').attr('value',pay+'원');
-      
+      $('#resContent').html(resContent);
       $('.detail_photo').html('');
       let reName = fileDto[0].reName;
 	  let lastIdx = reName.lastIndexOf('.');
