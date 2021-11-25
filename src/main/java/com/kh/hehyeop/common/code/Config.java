@@ -4,9 +4,9 @@ public enum Config {
 
 	//DOMAIN("http://pclass.ga"),
 	DOMAIN("http://localhost:9090"),
-	COMPANY_EMAIL("alssgo70051@gmail.com"),
-	SMTP_AUTHENTICATION_ID("alssgo70051@gmail.com"),
-	SMTP_AUTHENTICATION_PASSWORD("wkdrhffk1!"),
+	COMPANY_EMAIL("medibook90@gmail.com"),
+	SMTP_AUTHENTICATION_ID("medibook90@gmail.com"),
+	SMTP_AUTHENTICATION_PASSWORD("Qwer1234qwer"),
 	UPLOAD_PATH("C:\\Final_Project\\upload\\");
 	
 	public final String DESC;

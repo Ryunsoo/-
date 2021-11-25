@@ -1,0 +1,41 @@
+.footer{
+	height: 250px;
+	width: 1130px;
+	display: flex;
+	background-image: url("../../../image/footer.png");
+	background-repeat: no-repeat;
+	background-size: 1130px 250px;
+	background-position: center;
+}
+
+.footer pre{
+	display: block;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	font-family: '맑은 고딕';
+	margin: 0 15px 0 15px;
+	line-height: 1.5
+}
+
+.footer_logo{
+	margin: 80px 5px 0 50px;
+}
+
+.footer_text{
+	margin: 80px 0 0 5px;
+}
+
+.footer_title{
+	margin: 10px 0 30px 0;
+}
+
+.footer_content{
+	display: flex;
+	margin-top: 20px;
+}
+
+.logo-icon{
+	height: 40px;
+	width: 40px;
+}
