@@ -94,7 +94,7 @@ public class CompanyController {
 		}
 		CMember member = (CMember) session.getAttribute("authentication");
 		companyService.insertHelpResponse(form, reqIdx, member.getId());
-		redirectAttr.addAttribute("message", "해협 참가 신청이 완료되었습니다.");
+		redirectAttr.addFlashAttribute("message", "해협 참가 신청이 완료되었습니다.");
 		return "redirect:/company/main";
 	}
 	

@@ -35,6 +35,7 @@ function alertMessage(msg){
 </script>
 </head>
 <body>
+	<div id="modal"></div>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
 	<div class='main'>
 	

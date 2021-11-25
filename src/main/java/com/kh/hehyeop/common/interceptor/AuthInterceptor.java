@@ -1,5 +1,7 @@
 package com.kh.hehyeop.common.interceptor;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,12 @@ public class AuthInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest httpRequest, HttpServletResponse httpResponse, Object handler) {
 		String[] uriArr = httpRequest.getRequestURI().split("/");
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(uriArr.length == 0 && user instanceof CMember) {
+			throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
+		}
 		
 		if(uriArr.length != 0) {
 			switch (uriArr[1]) {

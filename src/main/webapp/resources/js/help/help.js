@@ -135,7 +135,7 @@ let estimate = () => {
    $('#resTell').attr('value',"");
    $('#resTime').attr('value',"");
    $('#resPay').attr('value',"");
-   $('#resContent').attr('value',"");
+   $('#resContent').html("");
    $('.detail_photo').html('');	
    let reqIdx = $('.saveReqIdx').val();
    let helpState = $('.saveHelpState').val();
