@@ -7,6 +7,25 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/company/all-help.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
+<script type="text/javascript">
+function showResult(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	//addPiggyBackround(sendModal);
+	modalBlock();
+	
+	let modalBody = $('<div class="loginFail">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}	
+</script>
 <body>
 <div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
@@ -94,9 +113,6 @@
 											</c:otherwise>
 										</c:choose>
 										</td>
-										<c:if test="${not empty message}">
-											<script>showResult('${message}')</script>
-										</c:if>
 										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.reqName}</td>
 									</tr>
 								</c:forEach>
@@ -129,7 +145,9 @@
 			</div>
 		</div>
 	</div>
-	
+	<c:if test="${not empty message}">
+		<script>showResult('${message}')</script>
+	</c:if>
 	<div class='back'></div>
 	<!-- 자취해협 정보 footer -->
 	<!-- <footer> -->

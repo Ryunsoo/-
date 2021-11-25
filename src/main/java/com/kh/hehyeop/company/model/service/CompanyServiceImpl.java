@@ -53,7 +53,7 @@ public class CompanyServiceImpl implements CompanyService{
 		
 		for (MyRequest myRequest: requestList) {
 			myRequest.setField(Field.getField(myRequest.getField()).fullName);
-			myRequest.setOldAddress(convertAddress(myRequest.getOldAddress()));
+			myRequest.setOldAddress(myRequest.getOldAddress());
 			myRequest.setReqTime(convertTime(myRequest.getReqTime()));
 			myRequest.setStatus(setStatus(state,myRequest));
 		}

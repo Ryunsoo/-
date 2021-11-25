@@ -95,23 +95,7 @@ function viewDetail(reqIdx) {
 		})
 	})
 	
-function showResult(msg){
-	let modal = initModal('modal', 3);
-	appendTitle(modal, '');
-	setButton(modal, '닫기');
-	setContent(modal, true, true);
-	//addPiggyBackround(sendModal);
-	modalBlock();
-	
-	let modalBody = $('<div class="loginFail">'+msg+'</div><br>')
-	.addClass('send_modal_content');
-	
-	$('.modal_content').append(modalBody);
-	
-	$('.modal_left_btn').click(function() {
-		modalNone();
-	})
-}	
+
 	
 	
 	
