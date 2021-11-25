@@ -94,7 +94,7 @@ public class CompanyController {
 		}
 		CMember member = (CMember) session.getAttribute("authentication");
 		companyService.insertHelpResponse(form, reqIdx, member.getId());
-		
+		redirectAttr.addAttribute("message", "해협 참가 신청이 완료되었습니다.");
 		return "redirect:/company/main";
 	}
 	
@@ -148,11 +148,11 @@ public class CompanyController {
 			, @RequestParam(value = "state", required = false) String state) {
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "1";
+			cntPerPage = "10";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) {
-			cntPerPage = "1";
+			cntPerPage = "10";
 		}
 		if(state == null) state = "0";
 		CMember cmember = (CMember) session.getAttribute("authentication");
@@ -204,7 +204,7 @@ public class CompanyController {
 			redirectAttrs.addFlashAttribute("message", "매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
 		}else {
 			//완료 대기 중입니다.
-			redirectAttrs.addFlashAttribute("message", "완료 대기 중입니다.");
+			redirectAttrs.addFlashAttribute("message", "완료 대기 처리되었습니다.");
 		}
 		return "redirect:/company/my";
 	}
@@ -221,7 +221,7 @@ public class CompanyController {
 			redirectAttrs.addFlashAttribute("message", "매칭상태가 올바르지 않습니다. 다시 선택해주세요.");
 		}else {
 			//취소 대기 중입니다.
-			redirectAttrs.addFlashAttribute("message", "취소 대기 중입니다.");
+			redirectAttrs.addFlashAttribute("message", "취소 대기 처리되었습니다..");
 		}
 		return "redirect:/company/my";
 	}

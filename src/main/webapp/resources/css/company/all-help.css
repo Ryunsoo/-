@@ -250,27 +250,6 @@ tr>td>i{
 	font-size: 18px;
 }
 
-.page>i{
-	font-size: 25px;
-	color: #cccccc;
-}
-
-.page>i:hover{
-	color: #b3b3b3;
-	cursor: pointer;
-}
-
-.page>div{
-	display: flex;
-	width: 130px;
-	justify-content: space-around;
-}
-
-.page>div>span:hover{
-	color: #bfbfbf;
-	cursor: pointer;
-}
-
 .back{
 	position: absolute;
 	width: 100%;
