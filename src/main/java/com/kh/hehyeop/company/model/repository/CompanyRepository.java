@@ -75,4 +75,7 @@ public interface CompanyRepository {
 			+ "values(sc_file_idx.nextval, 'HELP_RESPONSE', #{originName}, #{reName}, #{savePath}, sc_c_idx.currval)")
 	void insertFileInfo(FileDTO fileUpload);
 
+	@Select("select id from help_request where req_idx = #{reqIdx}")
+	String selectReqIdByReqIdx(@Param("reqIdx") String reqIdx);
+
 }

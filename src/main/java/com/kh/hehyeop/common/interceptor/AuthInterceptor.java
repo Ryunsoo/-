@@ -134,6 +134,13 @@ public class AuthInterceptor implements HandlerInterceptor{
 				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
 			}
 			break;
+			
+		case "change":
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}else if(user instanceof Member) {
+				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
+			}
 		default:
 			break;
 		}
