@@ -86,6 +86,7 @@
 .detail_photo>#resPhoto{
 	width: 500px;
 	height: 360px;
+	margin-left: 40px;
 }
 
 .emptyResult {
@@ -95,4 +96,21 @@
 
 .emptyMessage {
 	text-align: center;
+}
+
+.res-content-title{
+	color: rgb(242, 150, 97);
+	font-weight: bolder;
+	font-size: 15px;
+	margin: 0 0 10px 50px;
+}
+
+.res-content-input textarea{
+	width: 795px;
+	height: 80px;
+	border-radius: 5px;
+	border-color: rgb(213,213,213);
+	overflow: auto;
+	resize: none;
+	padding: 10px;
 }

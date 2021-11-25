@@ -45,6 +45,12 @@
 				</div>
 			</div>
 		</div>
+		<div class="res-content-title">
+					*업체 한마디
+					<div class="res-content-input">
+						<textarea id="resContent" readonly disabled="disabled" rows="10" cols="50"></textarea>
+					</div>
+		</div>
 		<div class="photo_title">견적서</div>
 		<div class="detail_photo">
 			<!-- <img id="resPhoto"> -->
