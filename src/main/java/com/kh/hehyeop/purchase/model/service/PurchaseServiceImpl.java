@@ -154,4 +154,54 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseRepository.ongoing(regIdx, id);
 	}
 
+	@Override
+	public int selectLockedCash(String id, String regIdx) {
+		return purchaseRepository.selectLockedCash(id, regIdx);
+	}
+
+	@Override
+	public void sendCashtoSeller(String sellerId, int lockedCash) {
+		purchaseRepository.sendCashtoSeller(sellerId, lockedCash);
+		
+	}
+	
+	@Override
+	public int getTotalLockedCash(String id) {
+		return purchaseRepository.getTotalLockedCash(id);
+		
+	}
+	
+	@Override
+	public void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx) {
+		purchaseRepository.updateMatchLockedCashAndOngoing(joinIdx, regIdx);
+		
+	}
+	
+	@Override
+	public void updateWalletLockedCash(String id,int totalLockedcash) {
+		purchaseRepository.updateWalletLockedCash(id, totalLockedcash);
+		
+	}
+
+	@Override
+	public String selectMyJoinIdx(String id, String regIdx) {
+		return purchaseRepository.selectMyJoinIdx(id, regIdx);
+	}
+
+	@Override
+	public void dealDone(String regIdx) {
+		purchaseRepository.dealDone(regIdx);
+	}
+
+	@Override
+	public void purchaseUpdatePoint(String id) {
+		purchaseRepository.purchaseUpdatePoint(id);
+	}
+
+	@Override
+	public void SellerUpdatePoint(String sellerId) {
+		purchaseRepository.SellerUpdatePoint(sellerId);
+	}
+
+
 }

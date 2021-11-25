@@ -92,4 +92,32 @@ public interface PurchaseRepository {
 	@Select("select distinct ongoing from v_select_join_and_match where reg_idx = #{regIdx} and id = #{id}")
 	Integer ongoing(@Param("regIdx") String regIdx, @Param("id") String id);
 
+	@Select("select cash_lock from v_select_join_and_match where reg_idx = #{regIdx} and id = #{id}")
+	int selectLockedCash(@Param("id") String id, @Param("regIdx") String regIdx);
+
+	@Update("update wallet set cash = cash+#{lockedCash} where id = #{sellerId}")
+	void sendCashtoSeller(@Param("sellerId") String sellerId, @Param("lockedCash") int lockedCash);
+
+	@Select("select cash_lock from wallet where id = #{id}")
+	int getTotalLockedCash(@Param("id") String id);
+
+	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where reg_idx = #{regIdx} and reg_idx = #{regIdx}")
+	void updateMatchLockedCashAndOngoing(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
+
+	@Update("update wallet set cash_lock = #{totalLockedcash} where id = #{id}")
+	void updateWalletLockedCash(@Param("id") String id, @Param("totalLockedcash") int totalLockedcash);
+
+	@Select("select join_idx from v_select_join_and_match where id= #{id} and reg_idx = #{regIdx}")
+	String selectMyJoinIdx(@Param("id") String id, @Param("regIdx") String regIdx);
+
+	@Update("update purchase_register set done = 'Y' where reg_idx = #{regIdx}")
+	void dealDone(String regIdx);
+
+	@Update("update member set point = point+1 where id = #{id}")
+	void purchaseUpdatePoint(String id);
+	
+	@Update("update member set point = point+3 where id = #{sellerId}")
+	void SellerUpdatePoint(String sellerId);
+
+
 }
