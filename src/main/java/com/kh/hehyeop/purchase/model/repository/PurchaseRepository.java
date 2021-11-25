@@ -97,7 +97,7 @@ public interface PurchaseRepository {
 	@Select("select cash_lock from wallet where id = #{id}")
 	int getTotalLockedCash(@Param("id") String id);
 
-	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where reg_idx = #{regIdx} and reg_idx = #{regIdx}")
+	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where joinIdx = #{joinIdx} and reg_idx = #{regIdx}")
 	void updateMatchLockedCashAndOngoing(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
 
 	@Update("update wallet set cash_lock = #{totalLockedcash} where id = #{id}")
@@ -117,6 +117,18 @@ public interface PurchaseRepository {
 
 	@Select("select distinct reg_idx from v_select_batch where ongoing = 1 or ongoing = 2")
 	List<String> selectRegIdxList();
+	
+	@Select("select * from purchase_match where reg_idx = #{regIdx}")
+	String findBuyer(@Param("regIdx") String regIdx);
+
+	@Update("update purchase_match set cash_lock = 0, ongoing = 3 where join_Idx = #{joinIdx} and reg_idx = #{regIdx}")
+	void buyerCancel(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
+
+	@Update("update wallet set cash_lock = cash_lock-#{cash}, cash = cash+#{cash} where id = #{id}")
+	void returnLockedCash(@Param("id") String id, @Param("cash") int cash);
+
+	@Update("update purchase_register set rest_num = rest_num + #{buyNum} where reg_idx=#{regIdx}")
+	void plusRestNum(@Param("regIdx") String regIdx, @Param("buyNum") int buyNum);
 
 	void updateOngoing(@Param("regIdxList") List<String> regIdxList);
 }

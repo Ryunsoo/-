@@ -127,7 +127,7 @@
 			<div class="submit-ask-wrapper">
 			<c:choose>
 				<c:when test="${purchaseInfo.ongoing eq 0}">
-					<div class="submit-ask">
+					<div class="submit-ask" onclick="location.href = '/purchase/buyer-cancel?regIdx=${purchaseInfo.regIdx}'">
 						취소해협
 					</div>
 				</c:when>

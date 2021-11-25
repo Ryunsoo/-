@@ -133,13 +133,11 @@
 				<progress style="height:50px; width:300px;" value="${buyNum}" max="${detailInfo.totalNum}"></progress>
 			</div>
 			
-
-			<div class="submit-ask" onclick="location.href = '/purchase/purchase-commit?id=${detailInfo.id}&regIdx=${detailInfo.regIdx}'">
-				<div>
-					<p>구매확정</p>
+			<c:if test="${not empty match}">
+				<div class="submit-ask" onclick="location.href = '/purchase/purchase-commit?id=${detailInfo.id}&regIdx=${detailInfo.regIdx}'">
+					구매확정
 				</div>
-			</div>
-			
+			</c:if>
 			
 		</div>
 		
