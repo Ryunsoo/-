@@ -7,6 +7,13 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/company/all-help.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
+<style>
+.alertMessage {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+</style>
 <script type="text/javascript">
 function showResult(msg){
 	let modal = initModal('modal', 3);
@@ -16,7 +23,7 @@ function showResult(msg){
 	//addPiggyBackround(sendModal);
 	modalBlock();
 	
-	let modalBody = $('<div class="loginFail">'+msg+'</div><br>')
+	let modalBody = $('<div class="alertMessage">'+msg+'</div><br>')
 	.addClass('send_modal_content');
 	
 	$('.modal_content').append(modalBody);
