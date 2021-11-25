@@ -8,6 +8,7 @@
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 </head>
 <body>
+<div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
 	<div class='main'>
 	
@@ -66,10 +67,10 @@
 							</thead>
 							<tbody>
 								<c:forEach var="requestList" items="${requestList}">
-									<tr onclick="viewDetail()">
-										<td>${requestList.field}</td>
-										<td>${requestList.oldAddress}</td>
-										<td>${requestList.reqTime}</td>
+									<tr>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.field}</td>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.oldAddress}</td>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.reqTime}</td>
 										<td>
 										<c:choose>
 											<c:when test="${requestList.status == 0}">
@@ -93,7 +94,10 @@
 											</c:otherwise>
 										</c:choose>
 										</td>
-										<td>${requestList.reqName}</td>
+										<c:if test="${not empty message}">
+											<script>showResult('${message}')</script>
+										</c:if>
+										<td onclick="viewDetail(${requestList.reqIdx})">${requestList.reqName}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

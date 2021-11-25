@@ -45,21 +45,24 @@ public interface CompanyRepository {
 					, @Param("companyFieldList")List<CompanyField> companyFieldList, @Param("area") String area);
 
 	@Update("update help_request set ongoing = 1 where req_idx in (select req_idx from help_response where id = #{id})")
-	void updateRequestOngoing(String id);
+	void updateRequestOngoing(@Param("id") String id);
 	
 	@Update("update help_response set ongoing = 1 where id = #{id}")
-	void updateResponseOngoing(String id);
+	void updateResponseOngoing(@Param("id") String id);
 
 	int selectRequestListCntById(@Param("id") String id, @Param("state") String state);
 
 	@Update("update help_response set ongoing = #{state} where id = #{id} and req_idx = #{reqIdx}")
-	void updateOngoing(String id, String reqIdx, int state);
+	void updateOngoing(@Param("id") String id, @Param("reqIdx") String reqIdx, @Param("state") int state);
 	
 	@Select("select ongoing from help_request where req_idx = #{reqIdx}")
-	int selectOngoingByReqIdx(String reqIdx);
+	int selectOngoingByReqIdx(@Param("reqIdx") String reqIdx);
+	
+	@Select("select id, ongoing from help_request where req_idx = #{reqIdx}")
+	HelpRequest selectIdAndOngoingByReqIdx(@Param("reqIdx") String reqIdx);
 	
 	@Select("select res_pay from help_response where req_idx = #{reqIdx}")
-	int selectResPayByReqIdx(String reqIdx);
+	int selectResPayByReqIdx(@Param("reqIdx") String reqIdx);
 	
 	@Update("update wallet set cash= cash + #{resPay} where id = #{id}")
 	void completeCashByReqIdx(@Param("id") String id, @Param("resPay") int resPay);
@@ -77,5 +80,11 @@ public interface CompanyRepository {
 
 	@Select("select id from help_request where req_idx = #{reqIdx}")
 	String selectReqIdByReqIdx(@Param("reqIdx") String reqIdx);
+
+	@Update("update wallet set cash= cash + #{resPay}, cash_lock = cash_lock - #{resPay} where id = #{reqId}")
+	void cancelCashByReqIdx(@Param("reqId") String reqId, @Param("resPay") int resPay);
+	
+	@Select("select * from help_request where req_idx in (select req_idx from help_response where id = #{id} and ongoing = #{state})")
+	List<MyRequest> selectDisMatchRequestListById(@Param("id") String id, @Param("state") int state);
 
 }
