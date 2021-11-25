@@ -6,6 +6,33 @@
 <%@ include file="/WEB-INF/views/include/head/company-head.jsp" %>
 <link rel="stylesheet" href="${contextPath}/resources/css/company/main.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+<style>
+.alertMessage {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+</style>
+<script type="text/javascript">
+
+function alertMessage(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	modalBlock();
+	
+	let modalBody = $('<div class="alertMessage">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+
+</script>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat2.jsp" %>
@@ -81,7 +108,9 @@
 			</div>
 		</div>
 	</div>
-	
+	<c:if test="${not empty message}">
+		<script>alertMessage('${message}')</script>
+	</c:if>
 	<div class='back'></div>
 		
 	<!-- 자취해협 정보 footer -->

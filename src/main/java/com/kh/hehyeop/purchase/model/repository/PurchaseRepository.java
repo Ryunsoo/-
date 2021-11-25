@@ -19,10 +19,6 @@ import com.kh.hehyeop.purchase.validator.RegisterForm;
 @Mapper
 public interface PurchaseRepository {
 	
-//	@Select("select join_idx, reg_idx, match_idx, PR.id, item_name, deal_loc, deal_time, done, ongoing, join_buy_num, PJ.id AS buyer_id, nickname, name, tell from purchase_register PR left join purchase_match PM"
-//			+ " using(reg_idx) left join purchase_join PJ using(join_idx) left join Member M on(M.id = PJ.id) where PR.id = #{id} OR PJ.id = #{id}")
-//	List<MyPurchaseInfo> selectMyPurchaseInfo(String id);
-
 	@Insert("insert into purchase_register(reg_idx, id, item_name, item_link, deal_loc, end_time, deal_time, price, total_num, buy_num, content, rest_num) "
 			+ "values (sc_reg_idx.nextval, #{id}, #{itemName}, #{itemLink}, #{dealLoc}, #{endTime}, #{dealTime}, #{price}, #{totalNum}, #{buyNum}, #{content}, #{restNum})")
 	int registerInfo(RegisterForm form);
@@ -91,5 +87,33 @@ public interface PurchaseRepository {
 
 	@Select("select distinct ongoing from v_select_join_and_match where reg_idx = #{regIdx} and id = #{id}")
 	Integer ongoing(@Param("regIdx") String regIdx, @Param("id") String id);
+
+	@Select("select cash_lock from v_select_join_and_match where reg_idx = #{regIdx} and id = #{id}")
+	int selectLockedCash(@Param("id") String id, @Param("regIdx") String regIdx);
+
+	@Update("update wallet set cash = cash+#{lockedCash} where id = #{sellerId}")
+	void sendCashtoSeller(@Param("sellerId") String sellerId, @Param("lockedCash") int lockedCash);
+
+	@Select("select cash_lock from wallet where id = #{id}")
+	int getTotalLockedCash(@Param("id") String id);
+
+	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where reg_idx = #{regIdx} and reg_idx = #{regIdx}")
+	void updateMatchLockedCashAndOngoing(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
+
+	@Update("update wallet set cash_lock = #{totalLockedcash} where id = #{id}")
+	void updateWalletLockedCash(@Param("id") String id, @Param("totalLockedcash") int totalLockedcash);
+
+	@Select("select join_idx from v_select_join_and_match where id= #{id} and reg_idx = #{regIdx}")
+	String selectMyJoinIdx(@Param("id") String id, @Param("regIdx") String regIdx);
+
+	@Update("update purchase_register set done = 'Y' where reg_idx = #{regIdx}")
+	void dealDone(String regIdx);
+
+	@Update("update member set point = point+1 where id = #{id}")
+	void purchaseUpdatePoint(String id);
+	
+	@Update("update member set point = point+3 where id = #{sellerId}")
+	void SellerUpdatePoint(String sellerId);
+
 
 }

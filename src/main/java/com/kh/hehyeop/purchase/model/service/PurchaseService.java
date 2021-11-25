@@ -58,4 +58,23 @@ public interface PurchaseService {
 
 	Integer ongoing(String regIdx, String id);
 
+	int selectLockedCash(String id, String regIdx);
+
+	void sendCashtoSeller(String sellerId, int lockedCash);
+
+	int getTotalLockedCash(String id);
+
+	void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx);
+
+	void updateWalletLockedCash(String id, int totalLockedcash);
+
+	String selectMyJoinIdx(String id, String regIdx);
+
+	void dealDone(String regIdx);
+
+	void purchaseUpdatePoint(String id);
+
+	void SellerUpdatePoint(String sellerId);
+
+
 }

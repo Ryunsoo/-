@@ -291,24 +291,23 @@ public class PurchaseController {
 	
 	
 	@GetMapping("deal-done")
-	public String dealDone(String regIdx, int buyNum, HttpSession session, RedirectAttributes redirectAttr) {
+	public String dealDone(String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		
-		purchaseService.purchaseRequest(buyNum, id); //purchase join 테이블
-		
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo"); // V_SELECT_PURCHASE_REQUEST를 통해 조회한 값이 들어있는 MypurchaseInfo
 		
-		int restNum = purchaseInfo.getRestNum()-buyNum; // 판매자의 물건 남은 수량 (register 테이블)
-		String join_idx = purchaseService.selectJoinIdx(); // joinIdx 찾기
-		int matchLockedCash = purchaseInfo.getPrice()*buyNum; // 내가 산 물건 가격 => match 테이블 cash_lock
-		int cash = purchaseInfo.getCash()- matchLockedCash; // wallet에 있는 총 cash - 내가 산 물건 가격
-		int WalletLockedCash = matchLockedCash + purchaseInfo.getCashLock(); // 내가 산 물건 가격 + wallet에 있는 lock_cash => 총 lock_cash
-		
-		
-		purchaseService.updateWallet(id, cash, WalletLockedCash); // wallet의 cash 차감, cash_lock 업데이트
-		purchaseService.purchaseMatch(regIdx, restNum, join_idx, matchLockedCash); // match 테이블 insert
+		String sellerId = purchaseInfo.getSellerId();
+		int LockedCash = purchaseService.selectLockedCash(id ,regIdx); //match
+		int totalLockedcash = purchaseService.getTotalLockedCash(id)-LockedCash; //wallet lock cash update
+		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx);
+		purchaseService.sendCashtoSeller(sellerId, LockedCash); //seller 에게 lock cash 보내기
+		purchaseService.updateMatchLockedCashAndOngoing(joinIdx,regIdx); // match 테이블 해당 regIdx lock cash reset / ongoing 2
+		purchaseService.updateWalletLockedCash(id, totalLockedcash); // wallet에서 총 lock cash에서 구매 lock cash 차감
+		purchaseService.dealDone(regIdx); // register 테이블에 done Y
+		purchaseService.purchaseUpdatePoint(id); //구매자 1 포인트 업
+		purchaseService.SellerUpdatePoint(sellerId); //판매자 3 포인트 업
 		
 		return "redirect:/purchase/main";
 		
