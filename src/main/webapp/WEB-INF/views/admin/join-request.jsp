@@ -30,12 +30,14 @@
 									<th>자세히</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>syaanc</td><td>싱크싱크</td><td>2021/10/16</td><td><button class='check'>조회</button></td>
-								<tr><td>sync</td><td>싱크싱크</td><td>2021/10/16</td><td><button class='check'>조회</button></td>
-								<tr><td>sync</td><td>싱크싱크</td><td>2021/10/16</td><td><button class='check'>조회</button></td>
-								<tr><td>sync</td><td>싱크싱크</td><td>2021/10/16</td><td><button class='check'>조회</button></td>
-							</tbody>
+							 <c:if test="${not empty joinRequestList}">
+							 	<c:forEach items="${joinRequestList}" var="jl">
+									<tbody>
+										<tr><td>syaanc</td><td>싱크싱크</td><td>2021/10/16</td><td><button class='check'>조회</button></td>
+										<tr><td>${jl.id}</td><td>${jl.company}</td><td>${jl.permitDate}</td><td><button class='check'>조회</button></td>
+									</tbody>
+								</c:forEach>
+							</c:if>
 						</table>
 					</div>
 					<div class='page'>
