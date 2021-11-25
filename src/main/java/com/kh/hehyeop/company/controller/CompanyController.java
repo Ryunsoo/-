@@ -91,6 +91,8 @@ public class CompanyController {
 			vr.addErrors(errors);
 			return "company/help-join";
 		}
+		CMember member = (CMember) session.getAttribute("authentication");
+		companyService.insertHelpResponse(form, reqIdx, member.getId());
 		
 		return "redirect:/company/main";
 	}

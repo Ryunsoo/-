@@ -1,21 +1,22 @@
 package com.kh.hehyeop.company.model.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.kh.hehyeop.company.model.dto.RequestDetail;
-import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.common.code.Field;
+import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.address.AddressUtil;
+import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.company.model.dto.MyRequest;
+import com.kh.hehyeop.company.model.dto.RequestDetail;
+import com.kh.hehyeop.company.model.repository.CompanyRepository;
+import com.kh.hehyeop.company.validator.ResponseForm;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
-import com.kh.hehyeop.mypage.model.dto.MyAddress;
-import com.kh.hehyeop.help.model.dto.HelpResponse;
-import com.kh.hehyeop.help.model.repositroy.HelpRepository;
+import com.kh.hehyeop.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class CompanyServiceImpl implements CompanyService{
 	
 	private final CompanyRepository companyRepository;
+	private final PushSender pushSender;
 
 	@Override
 	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList, String area) {
@@ -156,5 +158,21 @@ public class CompanyServiceImpl implements CompanyService{
 			return 1;
 		}
 	}
+
+	@Override
+	public void insertHelpResponse(ResponseForm form, String reqIdx, String id) {
+		companyRepository.insertHelpResponse(form, reqIdx, id);
+		//currval 작동 이상하면 주석 해제하기
+		//String resIdx = companyRepository.selectResIdxByReqIdxAndId(reqIdx, id);
+		
+		FileUtil util = new FileUtil();
+		companyRepository.insertFileInfo(util.fileUpload(form.getFiles().get(0), null));
+		
+		String reqId = companyRepository.selectReqIdByReqIdx(reqIdx);
+		Member member = new Member();
+		member.setId(reqId);
+		pushSender.send(member, "자취해협", "견적 도착! 업체가 보낸 견적을 확인해보세요.");
+	}
+
 
 }

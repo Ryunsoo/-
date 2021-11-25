@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 public class ResponseForm {
 
-	private String resName;
 	private String resTell;
 	private String resTime;
 	private int resPrice;

@@ -82,6 +82,7 @@
 	border-bottom-color: #b3b3b3;
 	border-bottom-width: 1px;
 	display: flex;
+	margin-top: 65px;
 	align-items: flex-end;
 }
 
@@ -162,6 +163,7 @@ i[class="fas fa-search"] {
 	border-width: 2.5px;
 	border-style: solid;
 	border-radius: 30px;
+	margin-top: 102px;
 	background-color: white;
 }
 

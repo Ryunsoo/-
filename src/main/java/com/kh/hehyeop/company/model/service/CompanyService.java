@@ -4,6 +4,7 @@ import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.company.model.dto.CompanyField;
 import com.kh.hehyeop.company.model.dto.MyRequest;
 import com.kh.hehyeop.company.model.dto.RequestDetail;
+import com.kh.hehyeop.company.validator.ResponseForm;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface CompanyService {
 	int completeCashByReqIdx(String id, String reqIdx);
 
 	int cancelCashByReqIdx(String id, String reqIdx);
+
+	void insertHelpResponse(ResponseForm form, String reqIdx, String id);
+
 }

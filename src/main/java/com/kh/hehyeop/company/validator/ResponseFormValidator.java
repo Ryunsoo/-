@@ -20,11 +20,6 @@ public class ResponseFormValidator implements Validator{
 		
 		boolean valid = true;
 		
-		valid = Pattern.matches("^[가-힣]{2,4}$", form.getResName());
-		if(!valid) {
-			errors.rejectValue("resName", "error-resName", "이름은 2~4글자의 한글만 가능합니다.");
-		}
-		
 		valid = Pattern.matches("^\\d{9,11}$", form.getResTell());
 		if(!valid) {
 			errors.rejectValue("resTell", "error-resTell", "전화번호는 9~11 자리의 숫자만 가능합니다.");
