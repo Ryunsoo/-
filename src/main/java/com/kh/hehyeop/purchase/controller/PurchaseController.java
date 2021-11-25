@@ -296,19 +296,12 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		
-		purchaseService.purchaseRequest(buyNum, id); //purchase join 테이블
-		
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo"); // V_SELECT_PURCHASE_REQUEST를 통해 조회한 값이 들어있는 MypurchaseInfo
 		
-		int restNum = purchaseInfo.getRestNum()-buyNum; // 판매자의 물건 남은 수량 (register 테이블)
-		String join_idx = purchaseService.selectJoinIdx(); // joinIdx 찾기
-		int matchLockedCash = purchaseInfo.getPrice()*buyNum; // 내가 산 물건 가격 => match 테이블 cash_lock
-		int cash = purchaseInfo.getCash()- matchLockedCash; // wallet에 있는 총 cash - 내가 산 물건 가격
-		int WalletLockedCash = matchLockedCash + purchaseInfo.getCashLock(); // 내가 산 물건 가격 + wallet에 있는 lock_cash => 총 lock_cash
+		String sellerId = purchaseInfo.getSellerId();
+		//int LockedCash = purchaseService.selectLockedCash(id);
 		
-		
-		purchaseService.updateWallet(id, cash, WalletLockedCash); // wallet의 cash 차감, cash_lock 업데이트
-		purchaseService.purchaseMatch(regIdx, restNum, join_idx, matchLockedCash); // match 테이블 insert
+		//purchaseService.sendCashtoSeller(sellerId, cash); // wallet의 cash 차감, cash_lock 업데이트
 		
 		return "redirect:/purchase/main";
 		
