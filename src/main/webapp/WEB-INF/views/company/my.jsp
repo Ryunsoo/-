@@ -41,8 +41,8 @@ function showResult(msg){
 		<!-- 사이트 메뉴(조회해협 & MY 해협) -->
 		<!-- <aside> -->
 		<div class='aside'>
-			<button class="help_list">조회 해협</button>
-			<button class="my_help">MY 해협</button>
+			<button class="help_list" onclick="location.href='/company/main'">조회 해협</button>
+			<button class="my_help" onclick="location.href='/company/my'">MY 해협</button>
 		</div>
 		<!-- </aside> -->
 		<div class='section'>

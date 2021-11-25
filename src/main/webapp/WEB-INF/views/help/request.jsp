@@ -81,7 +81,7 @@
 			<div class="text-area">
 				<div class="text-title">*희망금액</div>
 				<div class="text-input">
-					<input type="number" name="reqPay" required placeholder="희망금액을 입력해주세요.">
+					<input type="number" name="reqPay" min="0" required placeholder="희망금액을 입력해주세요.">
 				</div>
 				<form:errors path="reqPay" cssClass="valid-msg"/>
 			</div>
