@@ -226,5 +226,14 @@ public class MypageServiceImpl implements MypageService {
 		
 		return responseCntList;
 	}
+	
+	public List<Integer> getScore(String id) {
+		return mypageRepository.getScore(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getReview(String id) {
+		return mypageRepository.getReview(id);
+	}
 
 }

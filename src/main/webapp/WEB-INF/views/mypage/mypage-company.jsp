@@ -364,7 +364,7 @@ function alertMessage(msg){
 									<div class="temp_btn" type="button" id="basic">my평점</div>
 								</div>
 								<div id="score_star">
-									<div id="score_num">0.5</div>
+									<div id="score_num">${avgScore}</div>
 									<div class="wrap-star">
 										<div class='star-rating'>
 											<span id="contorl_star" style="width: 10%"></span>
@@ -445,7 +445,10 @@ function alertMessage(msg){
 			<script>alertMessage('${message}')</script>
 		</c:if>
 	</div>
-
+	<c:forEach items="${reviewCountMap}" var="rmap" varStatus="status">
+			<input class="rmap" type="hidden" id="rev" value="${rmap.RE_CONTENT}">
+			<input type="hidden" id="cnt" value="${rmap.COUNT}">
+	</c:forEach>
 	<script type="text/javascript"
 		src="../../../resources/js/include/head/menu_head.js"></script>
 </body>

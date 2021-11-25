@@ -7,25 +7,23 @@ document.querySelector(".temp_btn").addEventListener('click', e => {
 		document.querySelector("#contorl_star").style.width = (widthValue + 10) + "%";
 	}
 });
+        
+  
+                                       
+$(function(){
+    var chartData=[];
 
-
-var chart = c3.generate({
-    data: {
-        columns: [
-            ['신속', 30],
-            ['친절', 80],
-            ['비용', 60],
-        ],
-        type : 'pie',
-        colors: {
-        	'신속' : 'rgb(255, 167, 167)',
-
-        	'친절' : '#FFCE67',
-
-        	'비용' : '#6cc3d5',
-    	},
-        onclick: function (d, i) { console.log("onclick", d, i); },
+    for(var i=0; i<$('.rmap').length; i++){
+        chartData.push([$('#rev').eq(i).val(),$('#cnt').eq(i).val()]);
     }
+    console.dir(chartData);    
+    var chart = c3.generate({
+    	bindto:'.score_chart',
+    	data: {
+    	columns: chartData,
+    	type : 'pie',
+		}
+	});
 });
 
 /* 송금하기-인증 전 모달 */

@@ -1,8 +1,10 @@
 package com.kh.hehyeop.mypage.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,19 +98,44 @@ public class MypageController {
 	}
 	
 	@GetMapping("mypage-company")
-	public void mypageCompany(HttpSession session) { 
-		
+	public void mypageCompany(HttpSession session, Model model) { 
 		CMember authCMember = (CMember) session.getAttribute("authentication");
 		Wallet userWallet = mypageService.selectWallet(authCMember.getId());
 		List<String> myField = mypageService.selectField(authCMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
 		List<Integer> responseCntList = mypageService.selectResponseCnt(authCMember.getId());
+		List<Integer> scoreList = mypageService.getScore(authCMember.getId());
+		int avgScore = avgScore(scoreList);
+		List<Map<String, Object>> reviewCountMap = mypageService.getReview(authCMember.getId());
+	    System.out.println(reviewCountMap);
+	    System.out.println(avgScore);
+		model.addAttribute("avgScore",avgScore);
+		model.addAttribute("reviewCountMap",reviewCountMap);
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
 		session.setAttribute("myAddress", myAddress);
 		session.setAttribute("responseCntList", responseCntList);
 	}
 	
+	private int avgScore(List<Integer> scoreList) {
+		int sum = 0;
+		for (int score : scoreList) {
+			sum += score;
+		}
+		int avg = sum / scoreList.size();
+		return avg;
+	}
+
+	/*
+	 * private List<String> divideList(List<ReviewCount> reviewCountList) {
+	 * List<String> reContent = new ArrayList<String>(); for (ReviewCount
+	 * reviewCount : reviewCountList) { reContent.add(reviewCount.getReContent()); }
+	 * return reContent; }
+	 * 
+	 * private List<Integer> divideList2(List<ReviewCount> reviewCountList) {
+	 * List<Integer> count = new ArrayList<Integer>(); for (ReviewCount reviewCount
+	 * : reviewCountList) { count.add(reviewCount.getCount()); } return count; }
+	 */
 	@GetMapping("getAuth")
 	public String getAuth(HttpSession session, @RequestParam("code") String code) throws JsonMappingException, JsonProcessingException, RestClientException { 
 		

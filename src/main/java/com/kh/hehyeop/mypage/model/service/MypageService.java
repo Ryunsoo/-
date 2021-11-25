@@ -1,6 +1,7 @@
 package com.kh.hehyeop.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,6 +43,7 @@ public interface MypageService {
 	void updateCompanyField(String id, List<String> fieldList);
 	void uploadFile(List<MultipartFile> files, String cIdx);
 	List<Integer> selectResponseCnt(String id);
-	
+	List<Integer> getScore(String id);
+	List<Map<String, Object>> getReview(String id);
 	
 }
