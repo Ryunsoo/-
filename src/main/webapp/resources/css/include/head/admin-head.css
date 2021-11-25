@@ -51,11 +51,10 @@ button{
 	margin: 0 5px 0 0;
 }
 
-.admin_mode{
-	margin: 0 5px 0 5px;
-	color: #d35400;
-	font-weight: bold;
-	cursor: pointer;
+.admin_mode {
+    margin: 1.19px 5px 0 5px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .logout{
@@ -81,7 +80,7 @@ button{
 
 .main_menu>div>a{
 	color: #262626;
-	text-shadow: 2px 2px 4px #a6a6a6;
+	text-shadow: 1px 1px 2px #a6a6a6;
 }
 
 .main_menu>.current_page>a{

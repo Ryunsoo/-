@@ -13,11 +13,11 @@
 		<div class='header_right'>
 			<div class='user_menu'>
 				<div class='admin_mode'>관리자모드</div>
-				<div class='logout'><a href='#'>LOGOUT</a></div>
+				<div class='logout'><a href='/member/logout'>LOGOUT</a></div>
 			</div>
 			<div class='main_menu'>
 				<!-- current_page class 지정하면 css 바로 적용!! -->
-				<div class='member_approval current_page'><a href='#'>회원승인</a></div>
+				<div class='member_approval current_page'><a href='/admin/join-request'>회원승인</a></div>
 				<div class='community'><a href='#'>커뮤니티</a></div>
 			</div>
 		</div>
