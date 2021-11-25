@@ -16,7 +16,9 @@ import com.kh.hehyeop.company.model.dto.RequestDetail;
 import com.kh.hehyeop.company.model.repository.CompanyRepository;
 import com.kh.hehyeop.company.validator.ResponseForm;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
+import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,12 +27,14 @@ import lombok.RequiredArgsConstructor;
 public class CompanyServiceImpl implements CompanyService{
 	
 	private final CompanyRepository companyRepository;
+	private final HelpRepository helpRepository;
 	private final PushSender pushSender;
+	private final MypageRepository mypageRepository;
 
 	@Override
-	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList, String area) {
+	public List<HelpRequest> selectRequestList(Paging paging, List<String> addressList, List<CompanyField> companyFieldList, String area, String id) {
 			
-		List<HelpRequest> requestList = companyRepository.selectRequestList(paging,addressList,companyFieldList,area);
+		List<HelpRequest> requestList = companyRepository.selectRequestList(paging,addressList,companyFieldList,area, id);
 		
 		AddressUtil util = new AddressUtil();
 		for (HelpRequest helpRequest : requestList) {
@@ -67,8 +71,8 @@ public class CompanyServiceImpl implements CompanyService{
 		return address;
 	}
 	@Override
-	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList, String area) {
-		return companyRepository.countRequest(addressList, companyFieldList, area);
+	public int countRequest(List<String> addressList, List<CompanyField> companyFieldList, String area, String id) {
+		return companyRepository.countRequest(addressList, companyFieldList, area, id);
 	}
 
 	@Override
@@ -114,52 +118,73 @@ public class CompanyServiceImpl implements CompanyService{
 	}
 
 	@Override
-	public int completeCashByReqIdx(String id, String reqIdx) {
+	public int completeCashByReqIdx(String id, String reqIdx, String company) {
 		//ongoing 2로 바꿔주기
 		int state = 2;
 		companyRepository.updateOngoing(id,reqIdx,state);
 		//신청자가 이미 완료한 상태라면 최종완료 절차(업체한테 돈 넣어주기)
-		int ongoing = companyRepository.selectOngoingByReqIdx(reqIdx);
-		if(ongoing == 2) {
-			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
-			//업체 cash + res_pay
-			companyRepository.completeCashByReqIdx(id,resPay);
+		HelpRequest helpRequest = companyRepository.selectOngoingByReqIdx(reqIdx);
+		int payStatus = companyRepository.selectPayStatus(reqIdx);
+		Member member = new Member();
+		member.setId(helpRequest.getId());
+		
+		if(helpRequest.getOngoing() == 2) {
+			if(payStatus == 0) {
+				int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+				//업체 cash + res_pay
+				companyRepository.completeCashByReqIdx(id,resPay);
+				mypageRepository.substractCashAndCashLock(helpRequest.getId(), resPay);
+				//payStatus 업데이트 해주기
+				helpRepository.updateHelpMatchPayStatus(reqIdx);
+			}
+			
+			//push 보내기					 
+			pushSender.send(member, "자취해협", company + " 업체와 진행중인 건이 최종 완료되었습니다.");
+			
 			return 0; //서비스가 완료되었습니다.
 		//신청자가 취소 상태라면 양쪽을 대기중 상태로 바꿔주기	
-		}else if(ongoing == 3) {
-			List<MyRequest> requestList = companyRepository.selectDisMatchRequestListById(id,state);
-			for (MyRequest myRequest: requestList) {
-				companyRepository.updateRequestOngoing(id);
-				companyRepository.updateResponseOngoing(id);
-			}
+		}else if(helpRequest.getOngoing() == 3) {
+			companyRepository.updateRequestOngoing(reqIdx);
+			companyRepository.updateResponseOngoing(reqIdx, id);
+			
+			pushSender.send(member, "자취해협", "취소 요청 건에 대해 " + company + " 업체가 완료 요청을 하였습니다. 다시 확인해주세요.");	
+				
 			return 1; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
 		}else {
+			pushSender.send(member, "자취해협", company + " 업체가 완료 요청을 하였습니다.");
 			return 2; //완료 대기 중입니다.
 		}
 	}
 
 	@Override
-	public int cancelCashByReqIdx(String id, String reqIdx) {
+	public int cancelCashByReqIdx(String id, String reqIdx, String company) {
 		//ongoing 3로 바꿔주기
 		int state = 3;
 		companyRepository.updateOngoing(id,reqIdx,state);
 		//신청자가 이미 취소인 상태이면 최종취소 절차(신청자의 cash_lock - res_pay, cash + res_pay로 이동시키기)
-		HelpRequest res = companyRepository.selectIdAndOngoingByReqIdx(reqIdx);
-		String reqId = res.getId();
-		int ongoing = res.getOngoing();
-		if(ongoing == 3) {
-			int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
-			companyRepository.cancelCashByReqIdx(reqId,resPay);
-			return 0; //서비스가 취소되었습니다.
-		//신청자가 완료 상태라면 양쪽을 대기중 상태로 바꿔주기		
-		}else if(ongoing == 2) {
-			List<MyRequest> requestList = companyRepository.selectDisMatchRequestListById(id,state);
-			for (MyRequest myRequest: requestList) {
-				companyRepository.updateRequestOngoing(id);
-				companyRepository.updateResponseOngoing(id);
+		HelpRequest helpRequest = companyRepository.selectIdAndOngoingByReqIdx(reqIdx);
+		int payStatus = companyRepository.selectPayStatus(reqIdx);
+		
+		Member member = new Member();
+		member.setId(helpRequest.getId());
+		
+		if(helpRequest.getOngoing() == 3) {
+			if(payStatus == 0) {
+				int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+				companyRepository.cancelCashByReqIdx(helpRequest.getId(),resPay);
 			}
-			return 1; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
-		}else {
+			pushSender.send(member, "자취해협", company + " 업체와 진행중인 건이 최종 취소되었습니다.");
+			return 0; //서비스가 취소되었습니다.
+			
+		//신청자가 완료 상태라면 양쪽을 대기중 상태로 바꿔주기		
+		}else if(helpRequest.getOngoing() == 2) {
+				companyRepository.updateRequestOngoing(reqIdx);
+				companyRepository.updateResponseOngoing(reqIdx,id);
+				pushSender.send(member, "자취해협", "완료 요청 건에 대해 " + company + " 업체가 취소 요청을 하였습니다. 다시 확인해주세요.");
+				return 1; //매칭상태가 올바르지 않습니다. 다시 선택해주세요.
+			}		
+		else {
+			pushSender.send(member, "자취해협", company + " 업체가 취소 요청을 하였습니다.");
 			return 2; //취소 대기 중입니다.
 		}
 	}

@@ -29,7 +29,7 @@ public interface CompanyRepository {
 	
 	List<HelpRequest> selectRequestList(@Param("paging")Paging paging,@Param("addressList")List<String> addressList
 										, @Param("companyFieldList") List<CompanyField> companyFieldList
-										, @Param("area")String area);
+										, @Param("area")String area, @Param("id") String id);
 
 
 	@Select("select * from help_response where c_id = #{id}")
@@ -42,21 +42,21 @@ public interface CompanyRepository {
 	RequestDetail selectRequestDetailByReqIdx(@Param("reqIdx") String reqIdx);
 
 	int countRequest(@Param("addressList")List<String> addressList
-					, @Param("companyFieldList")List<CompanyField> companyFieldList, @Param("area") String area);
+					, @Param("companyFieldList")List<CompanyField> companyFieldList, @Param("area") String area, @Param("id") String id);
 
-	@Update("update help_request set ongoing = 1 where req_idx in (select req_idx from help_response where id = #{id})")
-	void updateRequestOngoing(@Param("id") String id);
+	@Update("update help_request set ongoing = 1 where req_idx = #{reqIdx}")
+	void updateRequestOngoing(@Param("reqIdx") String reqIdx);
 	
-	@Update("update help_response set ongoing = 1 where id = #{id}")
-	void updateResponseOngoing(@Param("id") String id);
+	@Update("update help_response set ongoing = 1 where req_idx = #{reqIdx} and id = #{id}")
+	void updateResponseOngoing(@Param("reqIdx") String reqIdx, @Param("id")String id);
 
 	int selectRequestListCntById(@Param("id") String id, @Param("state") String state);
 
 	@Update("update help_response set ongoing = #{state} where id = #{id} and req_idx = #{reqIdx}")
 	void updateOngoing(@Param("id") String id, @Param("reqIdx") String reqIdx, @Param("state") int state);
 	
-	@Select("select ongoing from help_request where req_idx = #{reqIdx}")
-	int selectOngoingByReqIdx(@Param("reqIdx") String reqIdx);
+	@Select("select id, ongoing from help_request where req_idx = #{reqIdx}")
+	HelpRequest selectOngoingByReqIdx(@Param("reqIdx") String reqIdx);
 	
 	@Select("select id, ongoing from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectIdAndOngoingByReqIdx(@Param("reqIdx") String reqIdx);
@@ -86,5 +86,8 @@ public interface CompanyRepository {
 	
 	@Select("select * from help_request where req_idx in (select req_idx from help_response where id = #{id} and ongoing = #{state})")
 	List<MyRequest> selectDisMatchRequestListById(@Param("id") String id, @Param("state") int state);
+
+	@Select("select pay_status from help_match where req_idx = #{reqIdx}")
+	int selectPayStatus(@Param("reqIdx")String reqIdx);
 
 }

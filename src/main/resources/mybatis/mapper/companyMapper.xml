@@ -9,7 +9,8 @@
 		from (select rownum rnum, v.*
 		from (select *
         		from help_request
-        		where ongoing = 0 and field in
+        		where ongoing = 0 and req_idx not in(select req_idx from help_response where id = #{id})
+        		and field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
 		</foreach>
@@ -45,7 +46,8 @@
 	
 	<select id="countRequest" resultType="_int">
 		select count(*) from help_request
-		where ongoing = 0 and field in
+		where ongoing = 0 and req_idx not in(select req_idx from help_response where id = #{id})
+		and field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
 		</foreach>

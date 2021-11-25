@@ -126,10 +126,10 @@ public class CompanyController {
 		
 		List<CompanyField> companyFieldList = companyService.selectCompanyFieldListById(cmember.getId());
 		
-		int total = companyService.countRequest(addressList,companyFieldList,area);
+		int total = companyService.countRequest(addressList,companyFieldList,area, cmember.getId());
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
-		requestList = companyService.selectRequestList(paging, addressList, companyFieldList, area);
+		requestList = companyService.selectRequestList(paging, addressList, companyFieldList, area, cmember.getId());
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("requestList", requestList);
@@ -195,7 +195,7 @@ public class CompanyController {
 	@GetMapping("completeService")
 	public String completeService(HttpSession session, String reqIdx, RedirectAttributes redirectAttrs) {
 		CMember cmember = (CMember) session.getAttribute("authentication");
-		int res = companyService.completeCashByReqIdx(cmember.getId(),reqIdx);
+		int res = companyService.completeCashByReqIdx(cmember.getId(),reqIdx, cmember.getCompany());
 		if(res == 0) {
 			//서비스가 완료되었습니다.
 			redirectAttrs.addFlashAttribute("message", "서비스가 완료되었습니다.");
@@ -212,7 +212,7 @@ public class CompanyController {
 	@GetMapping("cancelService")
 	public String cancelService(HttpSession session, String reqIdx, RedirectAttributes redirectAttrs) {
 		CMember cmember = (CMember) session.getAttribute("authentication");
-		int res = companyService.cancelCashByReqIdx(cmember.getId(),reqIdx);
+		int res = companyService.cancelCashByReqIdx(cmember.getId(),reqIdx, cmember.getCompany());
 		if(res == 0) {
 			//서비스가 취소되었습니다.
 			redirectAttrs.addFlashAttribute("message", "서비스가 취소되었습니다.");
