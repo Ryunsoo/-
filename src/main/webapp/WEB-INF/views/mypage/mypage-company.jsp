@@ -367,7 +367,7 @@ function alertMessage(msg){
 									<div id="score_num">${avgScore}</div>
 									<div class="wrap-star">
 										<div class='star-rating'>
-											<span id="contorl_star" style="width: 10%"></span>
+											<span class="control_star" id="contorl_star"></span>
 										</div>
 									</div>
 								</div>

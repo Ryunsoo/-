@@ -227,7 +227,7 @@ public class MypageServiceImpl implements MypageService {
 		return responseCntList;
 	}
 	
-	public List<Integer> getScore(String id) {
+	public List<Double> getScore(String id) {
 		return mypageRepository.getScore(id);
 	}
 

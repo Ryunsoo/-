@@ -1,14 +1,32 @@
-/* 재미로 만든 별점 올리기 */
-document.querySelector(".temp_btn").addEventListener('click', e => {
-	let scoreNum = parseFloat(document.querySelector("#score_num").innerHTML);
-	if(scoreNum < 5) {
-		document.querySelector("#score_num").innerHTML = scoreNum + 0.5;
-		let widthValue = parseInt(document.querySelector("#contorl_star").style.width.substring(0,2));
-		document.querySelector("#contorl_star").style.width = (widthValue + 10) + "%";
+     
+$(function(){
+    let sc = Number(document.querySelector('#score_num').innerHTML*10);
+    console.dir(sc);
+    if(sc <= 0) {
+		document.querySelector('.control_star').style.width = '0';	
+	}else if (sc <= 5){
+		document.querySelector('.control_star').style.width = '10%'
+	}else if (sc <= 10){
+		document.querySelector('.control_star').style.width = '20%'
+	}else if (sc <= 15){
+		document.querySelector('.control_star').style.width = '30%'
+	}else if (sc <= 20){
+		document.querySelector('.control_star').style.width = '40%'
+	}else if (sc <= 25){
+		document.querySelector('.control_star').style.width = '50%'
+	}else if (sc <= 30){
+		document.querySelector('.control_star').style.width = '60%'
+	}else if (sc <= 35){
+		document.querySelector('.control_star').style.width = '70%'
+	}else if (sc <= 40){
+		document.querySelector('.control_star').style.width = '80%'
+	}else if (sc <= 45){
+		document.querySelector('.control_star').style.width = '90%'
+	}else {
+		document.querySelector('.control_star').style.width = '100%'
 	}
-});
-        
-  
+	console.dir(document.querySelector('.control_star').style.width);
+});  
                                        
 $(function(){
     var chartData=[];

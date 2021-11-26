@@ -97,41 +97,46 @@
 	
 	<select id="countMyPurchase" resultType = "_int">
 		SELECT count(*) FROM
-		(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id}
-		UNION
-		SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE FROM PURCHASE_REGISTER A 
-		JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
-		JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID= #{id})
 		<choose>
 			<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 or ongoing == 3">
-			where ongoing = #{ongoing}
+			(SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE , C.ID buyer_id FROM PURCHASE_REGISTER A 
+			JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
+			JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID = #{id} and ongoing = #{ongoing} order by reg_idx desc)
 			</when>
 			<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
-			where done = #{done}
+			(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = #{done})
 			</when>
 			<otherwise>
+			(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id}
+			UNION
+			SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE FROM PURCHASE_REGISTER A 
+			JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
+			JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID= #{id})
 			</otherwise>
 		</choose>
 	</select>
 	
 	
 	
+	
 	<select id="selectMyPurchaseInfo" resultType="myPurchaseInfo">
-		select * from (select rownum rnum, v.* from (
-		SELECT * FROM
-		(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id}
-		UNION
-		SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE FROM PURCHASE_REGISTER A 
-		JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
-		JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID= #{id})
+		select distinct * from (select rownum rnum, v.* from (
 			  <choose>
 			  	<when test = "ongoing == 0 or ongoing == 1 or ongoing == 2 or ongoing == 3">   <!-- 스프링에선 String이어도 마이바티스로 오면 int 로 처리되는듯 -->
-			  		where ongoing = #{ongoing} order by reg_idx desc
+			  		SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE , C.ID buyer_id FROM PURCHASE_REGISTER A 
+					JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
+					JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID = #{id} and ongoing = #{ongoing} order by reg_idx desc
 			  	</when>
 			  	<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
-				  	where done = #{done} order by reg_idx desc
+					SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = #{done}
 			  	</when>
 			  	<otherwise>
+				  	SELECT * FROM
+					(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id}
+					UNION
+					SELECT A.REG_IDX, A.ID, A.ITEM_NAME, A.DEAL_LOC, A.DEAL_TIME, B.ONGOING, A.DONE FROM PURCHASE_REGISTER A 
+					JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
+					JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID= #{id}) order by reg_idx desc
 			  	</otherwise>
 			  </choose>
 		) v) where rnum between #{paging.start} and #{paging.end}

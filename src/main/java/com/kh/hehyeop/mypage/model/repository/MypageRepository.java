@@ -124,7 +124,7 @@ public interface MypageRepository {
 	Integer selectCompleteResponse(@Param("id")String id);
 
 	@Select("select score from help_match where score is not null and res_idx in (select res_idx from help_response where id = #{id})")
-	List<Integer> getScore(@Param("id") String id);
+	List<Double> getScore(@Param("id") String id);
 
 	@Select("select re_content, count(*) as count from help_review where help_idx in (select help_idx from help_match where res_idx in (select res_idx from help_response where id = #{id})) group by re_content")
 	List<Map<String, Object>> getReview(@Param("id") String id);

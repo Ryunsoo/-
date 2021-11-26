@@ -104,8 +104,11 @@ public class MypageController {
 		List<String> myField = mypageService.selectField(authCMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
 		List<Integer> responseCntList = mypageService.selectResponseCnt(authCMember.getId());
-		List<Integer> scoreList = mypageService.getScore(authCMember.getId());
-		int avgScore = avgScore(scoreList);
+		List<Double> scoreList = mypageService.getScore(authCMember.getId());
+		Double avgScore = (double) 0;
+		if(scoreList.size() > 0) {
+			avgScore = avgScore(scoreList);
+		}
 		List<Map<String, Object>> reviewCountMap = mypageService.getReview(authCMember.getId());
 	    System.out.println(reviewCountMap);
 	    System.out.println(avgScore);
@@ -117,25 +120,15 @@ public class MypageController {
 		session.setAttribute("responseCntList", responseCntList);
 	}
 	
-	private int avgScore(List<Integer> scoreList) {
-		int sum = 0;
-		for (int score : scoreList) {
+	private Double avgScore(List<Double> scoreList) {
+		Double sum = (double) 0;
+		for (Double score : scoreList) {
 			sum += score;
-		}
-		int avg = sum / scoreList.size();
+		} 
+		Double avg = Math.round((sum / scoreList.size())*100)/100.0;
 		return avg;
 	}
 
-	/*
-	 * private List<String> divideList(List<ReviewCount> reviewCountList) {
-	 * List<String> reContent = new ArrayList<String>(); for (ReviewCount
-	 * reviewCount : reviewCountList) { reContent.add(reviewCount.getReContent()); }
-	 * return reContent; }
-	 * 
-	 * private List<Integer> divideList2(List<ReviewCount> reviewCountList) {
-	 * List<Integer> count = new ArrayList<Integer>(); for (ReviewCount reviewCount
-	 * : reviewCountList) { count.add(reviewCount.getCount()); } return count; }
-	 */
 	@GetMapping("getAuth")
 	public String getAuth(HttpSession session, @RequestParam("code") String code) throws JsonMappingException, JsonProcessingException, RestClientException { 
 		
