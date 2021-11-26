@@ -3,7 +3,6 @@ package com.kh.hehyeop.admin.controller;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.admin.model.dto.CMember;
 import com.kh.hehyeop.admin.model.service.AdminService;
@@ -30,15 +28,30 @@ public class AdminController {
 	private final AdminService adminService;
 	
 	@GetMapping("join-request")
-	public void joinRequestForm(Model model) {
+	public void joinRequestForm(Model model, Paging paging, 
+			  @RequestParam(value="nowPage", required = false) String nowPage,
+			  @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
 		
-		List<CMember> joinRequestList = adminService.selectJoinRequest();
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "11";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "11";
+		}
+		
+		int total = adminService.selectJoinCount();
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		List<CMember> joinRequestList = adminService.selectJoinRequest(paging);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 	
 		for (CMember cMember : joinRequestList) {
 			cMember.setParseDate(format.format(cMember.getRegDate()));
 		}
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("joinRequestList", joinRequestList);
 		
 	}

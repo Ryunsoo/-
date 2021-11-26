@@ -7,10 +7,12 @@ import com.kh.hehyeop.common.util.paging.Paging;
 
 public interface AdminService {
 
-	List<CMember> selectJoinRequest();
+	List<CMember> selectJoinRequest(Paging paging);
 
 	List<CMember> selectModifyRequest(Paging paging);
 
 	int selectModifyCount();
+
+	int selectJoinCount();
 
 }

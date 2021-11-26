@@ -20,8 +20,8 @@ public class AdminServiceImpl implements AdminService{
 	private final AdminRepository adminRepository;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public List<CMember> selectJoinRequest() {
-		return adminRepository.selectJoinRequest();
+	public List<CMember> selectJoinRequest(Paging paging) {
+		return adminRepository.selectJoinRequest(paging);
 	}
 
 	@Override
@@ -33,5 +33,11 @@ public class AdminServiceImpl implements AdminService{
 	public int selectModifyCount() {
 		return adminRepository.selectModifyCount();
 	}
+
+	@Override
+	public int selectJoinCount() {
+		return adminRepository.selectJoinCount();
+	}
+
 
 }

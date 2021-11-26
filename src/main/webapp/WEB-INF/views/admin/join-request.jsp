@@ -39,30 +39,24 @@
 							</c:if>
 						</table>
 					</div>
-					<div class="pg_wrap" style="display: block; text-align: center;">
-						<c:if test="${paging.startPage != 1 }">
-							<a class="pg_start"
-								href="/purchase/my-purchase?nowPage=1&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&lt;&lt;</a>
-							<a class="pg_prev"
-								href="/purchase/my-purchase?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&lt;</a>
+					<div class='page'>
+						<c:if test="${paging.startPage != 1}">
+							<i class="fas fa-caret-left" onclick="location.href = '/admin/join-request?nowPage=1&cntPerPage=${paging.cntPerPage}'"></i>
 						</c:if>
-						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
-							var="p">
+						<div>
+						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 							<c:choose>
-								<c:when test="${p == paging.nowPage }">
-									<a class="pg_current">${p }</a>
+								<c:when test="${p == paging.nowPage}">
+									<span>${p}</span>
 								</c:when>
-								<c:when test="${p != paging.nowPage }">
-									<a class="pg_page"
-										href="/purchase/my-purchase?nowPage=${p }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">${p }</a>
-								</c:when>
+								<c:otherwise>
+									<span>${p}</span>
+								</c:otherwise>
 							</c:choose>
 						</c:forEach>
+						</div>
 						<c:if test="${paging.endPage != paging.lastPage}">
-							<a class="pg_next"
-								href="/purchase/my-purchase?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;</a>
-							<a class="pg_end"
-								href="/purchase/my-purchase?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;&gt;</a>
+							<i class="fas fa-caret-right" onclick="location.href = '/admin/join-request?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'"></i>
 						</c:if>
 					</div>
 				</div>
