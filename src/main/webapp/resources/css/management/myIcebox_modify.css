@@ -169,7 +169,19 @@ html, body {
 	z-index: 1;
 }
 
-.paper{
+.paper1{
+	width: 600px;
+	height: 350px;
+	background-color: white;
+	margin-left: 50px;
+	margin-top: 15px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+}
+
+.paper2{
 	width: 600px;
 	height: 250px;
 	background-color: white;

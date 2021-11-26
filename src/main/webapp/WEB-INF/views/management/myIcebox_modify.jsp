@@ -41,8 +41,8 @@
 			<div class="main2">
 				<div class="line_btn">
 					<div class="nAndi_btn">
-						<button class="nomal_btn">냉장</button>
-						<button class="ice_btn">냉동</button>
+						<button class="nomal_btn" onclick="IceBoxCategory(0)">냉장</button>
+						<button class="ice_btn" onclick="IceBoxCategory(1)">냉동</button>
 					</div>
 					<div class="line"></div>
 				</div>
@@ -55,7 +55,7 @@
 					<div class ="hurry_eat">빨리 먹어!!</div>
 					<i class="fas fa-exclamation-triangle"></i>
 				</div>
-				<div class="paper">
+				<div class="paper1">
 					<div class="txt_wrap">
 						<del class="reg_date">2021/11/02</del>
 						<del class="txt">삼겹살</del>
@@ -100,15 +100,10 @@
 						<div class="cancel"><i class="fas fa-times-circle"></i></div>
 					</div>
 				</div>
-				<div class="input_wrap">
-					<input type="text" class="input" id="item" placeholder="&nbsp&nbsp내용을 입력해주세요." required>
-					<input type="text" class="date" id="date1" placeholder="&nbsp&nbsp유통기한  ▼" autocomplete="off">
-					<i class="fas fa-plus-square"></i>
-				</div>
 				<div class="fast_title">
 					<div class ="hurry_eat">꺼내 먹어!!</div>
 				</div>
-				<div class="paper">
+				<div class="paper2">
 					<div class="txt_wrap">
 						<div class="reg_date">2021/11/02</div>
 						<div class="txt">삼겹살</div>
@@ -149,7 +144,7 @@
 				<div class="input_wrap">
 					<input type="text" class="input" id="item" placeholder="&nbsp&nbsp내용을 입력해주세요." required>
 					<input type="text" class="date" id="date2" placeholder="&nbsp&nbsp유통기한  ▼" autocomplete="off">
-					<i class="fas fa-plus-square"></i>
+					<i class="fas fa-plus-square" onclick="plusItem()"></i>
 				</div>
 				
 				<div class="back" onclick="javascript:location.href='myIcebox_note'">
