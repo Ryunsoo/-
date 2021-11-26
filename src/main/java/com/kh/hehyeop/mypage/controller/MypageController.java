@@ -105,11 +105,14 @@ public class MypageController {
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
 		List<Integer> responseCntList = mypageService.selectResponseCnt(authCMember.getId());
 		List<Double> scoreList = mypageService.getScore(authCMember.getId());
-		//int avgScore = avgScore(scoreList);
+		Double avgScore = (double) 0;
+		if(scoreList.size() > 0) {
+			avgScore = avgScore(scoreList);
+		}
 		List<Map<String, Object>> reviewCountMap = mypageService.getReview(authCMember.getId());
 	    System.out.println(reviewCountMap);
-	    //System.out.println(avgScore);
-		//model.addAttribute("avgScore",avgScore);
+	    System.out.println(avgScore);
+		model.addAttribute("avgScore",avgScore);
 		model.addAttribute("reviewCountMap",reviewCountMap);
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
@@ -117,26 +120,15 @@ public class MypageController {
 		session.setAttribute("responseCntList", responseCntList);
 	}
 	
-	//private int avgScore(List<Double> scoreList) {
-	//	Double sum = (double) 0;
-	//	for (Double score : scoreList) {
-	//		sum += score;
-	//	}
-	//	Double avg = sum / scoreList.size();
-		
-		//return avg;
-	//}
+	private Double avgScore(List<Double> scoreList) {
+		Double sum = (double) 0;
+		for (Double score : scoreList) {
+			sum += score;
+		} 
+		Double avg = Math.round((sum / scoreList.size())*100)/100.0;
+		return avg;
+	}
 
-	/*
-	 * private List<String> divideList(List<ReviewCount> reviewCountList) {
-	 * List<String> reContent = new ArrayList<String>(); for (ReviewCount
-	 * reviewCount : reviewCountList) { reContent.add(reviewCount.getReContent()); }
-	 * return reContent; }
-	 * 
-	 * private List<Integer> divideList2(List<ReviewCount> reviewCountList) {
-	 * List<Integer> count = new ArrayList<Integer>(); for (ReviewCount reviewCount
-	 * : reviewCountList) { count.add(reviewCount.getCount()); } return count; }
-	 */
 	@GetMapping("getAuth")
 	public String getAuth(HttpSession session, @RequestParam("code") String code) throws JsonMappingException, JsonProcessingException, RestClientException { 
 		
