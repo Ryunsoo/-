@@ -19,7 +19,7 @@ public class Batch {
 	private PurchaseRepository purchaseRepository;
 	
 
-	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 0 12 * * *")
 	public void autoUpdate() {
 		
 		List<String> regIdxList = purchaseRepository.selectRegIdxList();

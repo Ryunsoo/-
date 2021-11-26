@@ -15,7 +15,7 @@
 <body>
 <div id='modal'></div>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
-<div id="map"></div>
+<div id="map" onclick="noneDisplay()"></div>
 	<!-- 페이지 제목 -->
 		<div class="title">
 			<div id="this-page-name"></div>
@@ -260,6 +260,11 @@ function viewMap(loc){
 	}
 	
 }
+
+function noneDisplay(){
+	document.getElementById('map').style.display = 'none';
+}
+
 </script>
 </body>
 </html>
