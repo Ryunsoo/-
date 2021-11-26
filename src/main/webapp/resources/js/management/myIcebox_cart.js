@@ -1,57 +1,99 @@
-		$(function() {
-			$("#date1").datepicker(
-					{
-						dateFormat : "yy-mm-dd",
-						dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],
-						monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
-								"7월", "8월", "9월", "10월", "11월", "12월" ],
-						monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월",
-								"7월", "8월", "9월", "10월", "11월", "12월" ],
-						defaultDate : "+1w",
-						numberOfMonths : 1,
-						changeMonth : true,
-						showMonthAfterYear : true,
-						changeYear : true,
-						minDate : +1, //캘린더 범위에서 시작 날짜
-						maxDate : "+2M +5D"
+const go = document.querySelector("#go");
+const bg = document.querySelector("#bg");
+const popup = document.querySelector("#popup");
+const exit = document.querySelector("#exit");
 
-					});
-		});
-		$(function() {
-			$("#date2").datepicker(
-					{
-						dateFormat : "yy-mm-dd",
-						dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],
-						monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월",
-								"7월", "8월", "9월", "10월", "11월", "12월" ],
-						monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월",
-								"7월", "8월", "9월", "10월", "11월", "12월" ],
-						defaultDate : "+1w",
-						numberOfMonths : 1,
-						changeMonth : true,
-						showMonthAfterYear : true,
-						changeYear : true,
-						minDate : +1, //캘린더 범위에서 시작 날짜
-						maxDate : "+2M +5D"
+go.addEventListener("click",function(){
+    bg.classList.remove("hidden");
+    popup.classList.remove("hidden");
+});
+exit.addEventListener("click",function(){
+    bg.classList.add("hidden");
+    popup.classList.add("hidden");
+});
 
-					});
-		});
-	
-        const go = document.querySelector("#go");
-        const bg = document.querySelector("#bg");
-        const popup = document.querySelector("#popup");
-        const exit = document.querySelector("#exit");
+let deleteItem = (shoppingIdx) => {
+   modalNone();
+   let modal = initModal('modal', 3);
+   appendTitle(modal,'항목 삭제');
+   setButton(modal,'그만두기','확 인');
+   setContent(modal,true,true);
+   let modalBody = $('<div class="alertMessage">정말 삭제하시겠습니까?</div><br>')
+   .addClass('send_modal_content');
+   $('.modal_content').append(modalBody);
+   modalBlock();
+   $('.modal_left_btn').click(function() {
+      modalNone();
+   })
+   $('.modal_right_btn').click(function() {
+       location.href = "/management/deleteItem?shoppingIdx="+shoppingIdx;
+       modalNone();
+   })
+}
 
-        go.addEventListener("click",function(){
-            bg.classList.remove("hidden");
-            popup.classList.remove("hidden");
-        });
-        exit.addEventListener("click",function(){
-            bg.classList.add("hidden");
-            popup.classList.add("hidden");
-        });
+let insertInputItem = () => {
+   let item = $('.input').val();
+   modalNone();
+   let modal = initModal('modal', 3);
+   appendTitle(modal,'항목 추가');
+   setButton(modal,'그만두기','확 인');
+   setContent(modal,true,true);
+   let modalBody = $('<div class="alertMessage">해당 항목을 추가하시겠습니까?</div><br>')
+   .addClass('send_modal_content');
+   $('.modal_content').append(modalBody);
+   modalBlock();
+   $('.modal_left_btn').click(function() {
+      modalNone();
+   })
+   $('.modal_right_btn').click(function() {
+	   if(!item) {
+		   modalNone();
+		   let modal = initModal('modal', 3);
+		   appendTitle(modal,'');
+		   setButton(modal,'확 인');
+		   setContent(modal,true,true);
+		   let modalBody = $('<div class="alertMessage">추가할 항목을 입력해 주세요.</div><br>')
+		   .addClass('send_modal_content');
+		   $('.modal_content').append(modalBody);
+		   modalBlock();
+		   $('.modal_left_btn').click(function() {
+		      modalNone();
+		   })
+	   }else {
+		  location.href = "/management/insertInputItem?item="+item;
+       	  modalNone();
+          $('.input').val() = "";
+	   }
+   })
+}
+
+let checkedItem = () => {
+    var frm = document.frm;
+    var idx_chk = $('.checkbox');
+    if(idx_chk.is(':checked')==false){
+        modalNone();
+	    let modal = initModal('modal', 3);
+	    appendTitle(modal,'');
+	    setButton(modal,'확 인');
+	    setContent(modal,true,true);
+	    let modalBody = $('<div class="alertMessage">체크된 값이 없습니다.</div><br>')
+	    .addClass('send_modal_content');
+	    $('.modal_content').append(modalBody);
+	    modalBlock();
+	    $('.modal_left_btn').click(function() {
+	       modalNone();
+	    })
+        return false;
+    }
+}
         
-        
+let submitSend = (e) => {
+	if($('.tell').val() == null || $('.date').val() == null) {
+		$('.sfrm').preventDefault();
+	}else {
+		document.sfrm.submit();
+	}	
+}   
        
 		
 	        
