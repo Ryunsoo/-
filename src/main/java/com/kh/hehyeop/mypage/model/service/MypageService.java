@@ -43,7 +43,7 @@ public interface MypageService {
 	void updateCompanyField(String id, List<String> fieldList);
 	void uploadFile(List<MultipartFile> files, String cIdx);
 	List<Integer> selectResponseCnt(String id);
-	List<Integer> getScore(String id);
+	List<Double> getScore(String id);
 	List<Map<String, Object>> getReview(String id);
 	
 }

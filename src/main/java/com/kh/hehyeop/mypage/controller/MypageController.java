@@ -104,12 +104,12 @@ public class MypageController {
 		List<String> myField = mypageService.selectField(authCMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authCMember.getId());
 		List<Integer> responseCntList = mypageService.selectResponseCnt(authCMember.getId());
-		List<Integer> scoreList = mypageService.getScore(authCMember.getId());
-		int avgScore = avgScore(scoreList);
+		List<Double> scoreList = mypageService.getScore(authCMember.getId());
+		//int avgScore = avgScore(scoreList);
 		List<Map<String, Object>> reviewCountMap = mypageService.getReview(authCMember.getId());
 	    System.out.println(reviewCountMap);
-	    System.out.println(avgScore);
-		model.addAttribute("avgScore",avgScore);
+	    //System.out.println(avgScore);
+		//model.addAttribute("avgScore",avgScore);
 		model.addAttribute("reviewCountMap",reviewCountMap);
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myField", myField);
@@ -117,14 +117,15 @@ public class MypageController {
 		session.setAttribute("responseCntList", responseCntList);
 	}
 	
-	private int avgScore(List<Integer> scoreList) {
-		int sum = 0;
-		for (int score : scoreList) {
-			sum += score;
-		}
-		int avg = sum / scoreList.size();
-		return avg;
-	}
+	//private int avgScore(List<Double> scoreList) {
+	//	Double sum = (double) 0;
+	//	for (Double score : scoreList) {
+	//		sum += score;
+	//	}
+	//	Double avg = sum / scoreList.size();
+		
+		//return avg;
+	//}
 
 	/*
 	 * private List<String> divideList(List<ReviewCount> reviewCountList) {
