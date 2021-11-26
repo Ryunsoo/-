@@ -1,5 +1,7 @@
 package com.kh.hehyeop.admin.model.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class AdminServiceImpl implements AdminService{
 	private final AdminRepository adminRepository;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public CMember selectJoinRequest() {
+	public List<CMember> selectJoinRequest() {
 		return adminRepository.selectJoinRequest();
 	}
 
