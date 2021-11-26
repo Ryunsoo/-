@@ -115,6 +115,7 @@
 	</select>
 	
 	
+	
 	<select id="selectMyPurchaseInfo" resultType="myPurchaseInfo">
 		select * from (select rownum rnum, v.* from (
 		SELECT * FROM
