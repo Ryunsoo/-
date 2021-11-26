@@ -44,11 +44,13 @@
 								<c:forEach items="${finishList}" var="fl">
 									<tbody>
 										<tr>
-											<td>가입</td>
-											<td>${jl.id}</td>
-											<td>${jl.company}</td>
-											<td>${jl.parseDate}</td>
-											<td></td>
+											<td>
+													가입
+											</td>
+											<td>${fl.id}</td>
+											<td>${fl.company}</td>
+											<td>${fl.modifyParseDate}</td>
+											<td>${fl.parseDate}</td>
 											<td><button class='cancel'>취소</button></td>
 										<tr>
 									</tbody>

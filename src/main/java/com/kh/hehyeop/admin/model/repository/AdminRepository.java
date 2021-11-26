@@ -29,8 +29,8 @@ public interface AdminRepository {
 	@Select("select * from member_c where id = #{id}")
 	CMember selectInfoById(String id);
 	
-	@Select("select count(*) from member_c where is_permit = 1")
-	List<CMember> selectFinishList(Paging paging);
+	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1) where rnum between #{paging.start} and #{paging.end}")
+	List<CMember> selectFinishList(@Param("paging") Paging paging);
 
 	@Select("select count(*) from member_c where is_permit = 1")
 	int selectFinishListCount();
