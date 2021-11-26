@@ -2,6 +2,7 @@ package com.kh.hehyeop.purchase.model.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -131,5 +132,14 @@ public interface PurchaseRepository {
 	void plusRestNum(@Param("regIdx") String regIdx, @Param("buyNum") int buyNum);
 
 	void updateOngoing(@Param("regIdxList") List<String> regIdxList);
+	
+	@Select("select reg_idx, id, item_name, done, match_idx, join_idx, ongoing from purchase_register left join purchase_match using (reg_idx) where reg_idx = #{regIdx} and id = #{id}")
+	MyPurchaseInfo detailRemoveCheck(@Param("regIdx") String regIdx, @Param("id") String id);
+	
+	@Delete("delete from purchase_register where reg_idx = #{regIdx} and id = #{id}")
+	void detailRemove(@Param("regIdx") String regIdx, @Param("id") String id);
+	
+	@Update("update file_info set is_del = 1 where type_idx = #{regIdx} and file_category = 'purchase'")
+	void detailRemoveFile(@Param("regIdx") String regIdx);
 
 }

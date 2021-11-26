@@ -1,5 +1,7 @@
 package com.kh.hehyeop.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.hehyeop.admin.controller.model.dto.CMember;
-import com.kh.hehyeop.admin.controller.model.service.AdminService;
+import com.kh.hehyeop.admin.model.dto.CMember;
+import com.kh.hehyeop.admin.model.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,14 +23,14 @@ public class AdminController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private AdminService adminService;
+	private final AdminService adminService;
 	
 	@GetMapping("join-request")
 	public String joinRequestForm(HttpSession session, RedirectAttributes redirectAttr) {
 		
-		CMember member = adminService.selectJoinRequest();
-		session.setAttribute("joinRequestList", member);
-		logger.debug(member.toString());
+		List<CMember> testList = adminService.selectJoinRequest();
+		session.setAttribute("joinRequestList", testList);
+		logger.debug(testList.toString());
 		
 		return "admin/join-request";
 	}

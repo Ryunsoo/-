@@ -4,9 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.hehyeop.management.model.service.ManagementService;
+
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("management")
 public class managementController {
+	
+	private final ManagementService managementService;
 	
 	@GetMapping("myIcebox")
 	public void test() {}

@@ -22,7 +22,9 @@
 			<div class="page-title-wrapper">
 				<div id="this-page-name">&nbsp&nbsp조회해협</div>
 				<div id="update-delete-icon">
-					<i class="fas fa-trash"></i>
+				<c:if test="${empty removeButtonFlg}">
+					<i class="fas fa-trash" id="delete-button" onclick='deleteButton("${detailInfo.regIdx}")'></i>
+				</c:if>
 				</div>
 			</div>
 			
@@ -199,6 +201,14 @@ function viewMap(loc){
 	}
 	
 }
+
+
+
+let deleteButton = (regIdx) => {
+	location.href = "http://localhost:9090/purchase/detail-remove?regIdx=" + regIdx;
+}
+
+
 
 </script>
 </html>
