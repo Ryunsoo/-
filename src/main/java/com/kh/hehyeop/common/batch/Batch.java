@@ -17,7 +17,7 @@ public class Batch {
 	
 	@Autowired
 	private PurchaseRepository purchaseRepository;
-	
+	 
 
 	@Scheduled(cron = "0 0 12 * * *")
 	public void autoUpdate() {
