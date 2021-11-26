@@ -1,5 +1,7 @@
 package com.kh.hehyeop.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,14 +23,14 @@ public class AdminController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private AdminService adminService;
+	private final AdminService adminService;
 	
 	@GetMapping("join-request")
 	public String joinRequestForm(HttpSession session, RedirectAttributes redirectAttr) {
 		
-		CMember member = adminService.selectJoinRequest();
-		session.setAttribute("joinRequestList", member);
-		logger.debug(member.toString());
+		List<CMember> testList = adminService.selectJoinRequest();
+		session.setAttribute("joinRequestList", testList);
+		logger.debug(testList.toString());
 		
 		return "admin/join-request";
 	}
