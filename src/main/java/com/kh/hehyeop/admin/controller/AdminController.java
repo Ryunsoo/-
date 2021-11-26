@@ -95,7 +95,34 @@ public class AdminController {
 	}
 	
 	@GetMapping("finish-list")
-	public void finishListForm() {}
+	public void finishListForm(Model model, Paging paging, 
+			  @RequestParam(value="nowPage", required = false) String nowPage,
+			  @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
+		
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "11";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "11";
+		}
+		
+		int total = adminService.selectFinishListCount();
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		List<CMember> finishList = adminService.selectFinishList(paging);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+	
+		for (CMember cMember : finishList) {
+			cMember.setParseDate(format.format(cMember.getRegDate()));
+		}
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("finishList", finishList);
+		
+		
+	}
 	
 	@GetMapping("approval-first")
 	public void approvalFirstForm(@RequestParam(value="id") String id, HttpSession session) {

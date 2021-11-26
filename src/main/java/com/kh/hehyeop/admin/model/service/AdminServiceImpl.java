@@ -57,5 +57,16 @@ public class AdminServiceImpl implements AdminService {
 	public void updatePermit(String id) {
 		adminRepository.updatePermit(id);
 	}
+	
+	@Override
+	public List<CMember> selectFinishList(Paging paging) {
+		return adminRepository.selectFinishList(paging);
+	}
+
+	@Override
+	public int selectFinishListCount() {
+		return adminRepository.selectFinishListCount();
+	}
+
 
 }

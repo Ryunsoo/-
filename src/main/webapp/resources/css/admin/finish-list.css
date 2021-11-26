@@ -120,10 +120,12 @@
    box-shadow: 4px -1px 5px 1px #999999;
 }
 
-.sub_menu>div>.selected{
-   color: #1b2631;
-   background-color: #e6e6e6;
-   text-shadow: 2px 2px 3px #999999;
+.sub_menu>div>.selected {
+    color: #1b2631;
+    background-color: rgb(130 143 156 / 30%);
+    text-shadow: 2px px 1px #999999;
+    font-weight: bold;
+	box-shadow: 4px -1px 5px 1px #999999;
 }
 
 .sub_menu>div>button:hover{

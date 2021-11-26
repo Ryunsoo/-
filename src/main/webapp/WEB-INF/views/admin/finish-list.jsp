@@ -27,34 +27,60 @@
                </div>
                <div class='desc'>* 최근 3일 이내에 승인된 업체 목록입니다.</div>
             </div>
-            <div class='wrap_list'>
-               <div class='list'>
-                  <table>
-                     <thead>
-                        <tr>
-                           <th>구분</th>
-                           <th>아이디</th>
-                           <th>업체명</th>
-                           <th>요청일</th>
-                           <th>승인일</th>
-                           <th>승인취소</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr><td>가입</td><td>syaanc</td><td>싱크싱크</td><td>2021/10/16</td><td>2021/10/17</td><td><button class='cancel'>취소</button></td>
-                        <tr><td>가입</td><td>Wqqw</td><td>뚫어뚫어</td><td>2021/10/16</td><td>2021/10/17</td><td><button class='cancel'>취소</button></td>
-                        <tr><td>수정</td><td>sync</td><td>싱크싱크</td><td>2021/10/16</td><td>2021/10/17</td><td><button class='cancel'>취소</button></td>
-                        <tr><td>가입</td><td>sync</td><td>싱크싱크</td><td>2021/10/16</td><td>2021/10/17</td><td><button class='cancel'>취소</button></td>
-                     </tbody>
-                  </table>
-               </div>
-               <div class='page'>
-                  <i class="fas fa-caret-left"></i>
-                  <div><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-                  <i class="fas fa-caret-right"></i>
-               </div>
-            </div>
-         </div>
+				<div class='wrap_list'>
+					<div class='list'>
+						<table>
+							<thead>
+								<tr>
+									<th>구분</th>
+									<th>아이디</th>
+									<th>업체명</th>
+									<th>요청일</th>
+									<th>승인일</th>
+									<th>승인취소</th>
+								</tr>
+							</thead>
+							 <c:if test="${not empty finishList}">
+								<c:forEach items="${finishList}" var="fl">
+									<tbody>
+										<tr>
+											<td>가입</td>
+											<td>${jl.id}</td>
+											<td>${jl.company}</td>
+											<td>${jl.parseDate}</td>
+											<td></td>
+											<td><button class='cancel'>취소</button></td>
+										<tr>
+									</tbody>
+								</c:forEach>
+							</c:if>
+						</table>
+					</div>
+					<div class='page'>
+						<c:if test="${paging.startPage != 1}">
+							<i class="fas fa-caret-left"
+								onclick="location.href = '/admin/finish-list?nowPage=1&cntPerPage=${paging.cntPerPage}'"></i>
+						</c:if>
+						<div>
+							<c:forEach begin="${paging.startPage}" end="${paging.endPage}"
+								var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage}">
+										<span>${p}</span>
+									</c:when>
+									<c:otherwise>
+										<span>${p}</span>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<i class="fas fa-caret-right"
+								onclick="location.href = '/admin/finish-list?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'"></i>
+						</c:if>
+					</div>
+				</div>
+			</div>
       </div>
    </div>
    

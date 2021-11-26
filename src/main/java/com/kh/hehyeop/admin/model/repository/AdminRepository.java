@@ -28,6 +28,12 @@ public interface AdminRepository {
 
 	@Select("select * from member_c where id = #{id}")
 	CMember selectInfoById(String id);
+	
+	@Select("select count(*) from member_c where is_permit = 1")
+	List<CMember> selectFinishList(Paging paging);
+
+	@Select("select count(*) from member_c where is_permit = 1")
+	int selectFinishListCount();
 
 	@Select("select a.* from file_info a join member_c b on (a.type_idx = b.c_idx) where id = #{id} and file_category = 'MEMBER_C'")
 	List<FileDTO> selectFileInfoById(String id);

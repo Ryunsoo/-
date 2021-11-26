@@ -26,6 +26,7 @@ public class CMember extends User {
 	private Date permitDate;
 	private String cIdx;
 	private String parseDate;
+	private int isModify;
 
 	public CMember() {
 		super();

@@ -21,5 +21,9 @@ public interface AdminService {
 	List<String> selectFieldListById(String id);
 
 	void updatePermit(String id);
+	
+	List<CMember> selectFinishList(Paging paging);
+	
+	int selectFinishListCount();
 
 }
