@@ -12,7 +12,7 @@ import com.kh.hehyeop.common.util.paging.Paging;
 @Mapper
 public interface AdminRepository {
 
-	@Select("select * from member_c where is_permit = 2")
+	@Select("select * from member_c where is_permit = 0")
 	List<CMember> selectJoinRequest();
 
 	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 2) where rnum between #{paging.start} and #{paging.end}")

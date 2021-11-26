@@ -125,7 +125,7 @@
 		<br>
 		
 		<!-- 물품 list 페이징 -->
-		<div class="pg_wrap" style="display: block; text-align: center;">		
+	<div class="pg_wrap" style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
 			<a class="pg_start" href="/purchase/my-purchase?nowPage=1&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&lt;&lt;</a>
 			<a class="pg_prev" href="/purchase/my-purchase?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&lt;</a>

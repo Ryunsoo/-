@@ -30,13 +30,17 @@ public class AdminController {
 	private final AdminService adminService;
 	
 	@GetMapping("join-request")
-	public String joinRequestForm(HttpSession session, RedirectAttributes redirectAttr) {
+	public void joinRequestForm(Model model) {
 		
-		List<CMember> testList = adminService.selectJoinRequest();
-		session.setAttribute("joinRequestList", testList);
-		logger.debug(testList.toString());
+		List<CMember> joinRequestList = adminService.selectJoinRequest();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+	
+		for (CMember cMember : joinRequestList) {
+			cMember.setParseDate(format.format(cMember.getRegDate()));
+		}
 		
-		return "admin/join-request";
+		model.addAttribute("joinRequestList", joinRequestList);
+		
 	}
 	
 	@GetMapping("modify-request")
