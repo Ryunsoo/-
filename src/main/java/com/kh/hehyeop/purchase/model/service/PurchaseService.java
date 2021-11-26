@@ -88,6 +88,8 @@ public interface PurchaseService {
 
 	void detailRemove(String regIdx, String id);
 
+	int selectCancelBuyNum(String joinIdx);
+
 
 
 

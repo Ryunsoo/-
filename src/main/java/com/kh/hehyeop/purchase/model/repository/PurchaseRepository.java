@@ -63,7 +63,7 @@ public interface PurchaseRepository {
 	@Select("select join_idx from (select join_idx, rownum rnum from purchase_join order by join_idx desc) where rownum = 1")
 	String selectJoinIdx();
 
-	@Update("update wallet set cash = #{cash}, cash_lock =  #{WalletLockedCash}  where id = #{id}")
+	@Update("update wallet set cash = #{cash}, cash_lock =  cash_lock+#{WalletLockedCash}  where id = #{id}")
 	void updateWallet(@Param("id") String id, @Param("cash") int cash, @Param("WalletLockedCash") int WalletLockedCash);
 
 	@Select("select cash from wallet where id = #{id}")
@@ -141,5 +141,8 @@ public interface PurchaseRepository {
 	
 	@Update("update file_info set is_del = 1 where type_idx = #{regIdx} and file_category = 'purchase'")
 	void detailRemoveFile(@Param("regIdx") String regIdx);
+
+	@Select("select rest_num from purchase_match where join_idx = #{joinIdx}")
+	int selectCancelBuyNum(@Param("joinIdx") String joinIdx);
 
 }

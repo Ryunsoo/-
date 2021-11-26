@@ -287,7 +287,7 @@ public class PurchaseController {
 		String join_idx = purchaseService.selectJoinIdx(); // joinIdx 찾기
 		int matchLockedCash = purchaseInfo.getPrice()*buyNum; // 내가 산 물건 가격 => match 테이블 cash_lock
 		int cash = purchaseInfo.getCash()- matchLockedCash; // wallet에 있는 총 cash - 내가 산 물건 가격
-		int WalletLockedCash = matchLockedCash + purchaseInfo.getCashLock(); // 내가 산 물건 가격 + wallet에 있는 lock_cash => 총 lock_cash
+		int WalletLockedCash = matchLockedCash; // 내가 산 물건 가격 + wallet에 있는 lock_cash => 총 lock_cash
 		
 		
 		purchaseService.updateWallet(id, cash, WalletLockedCash); // wallet의 cash 차감, cash_lock 업데이트
@@ -329,7 +329,7 @@ public class PurchaseController {
 		
 		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx);
 		int cash = purchaseService.selectLockedCash(id ,regIdx); //match lock cash
-		int buyNum = purchaseService.selectBuyNum(joinIdx);
+		int buyNum = purchaseService.selectCancelBuyNum(joinIdx);
 		purchaseService.returnLockedCash(id, cash); // wallet에 match에 묶여있던 lock cash 반환
 		purchaseService.buyerCancel(joinIdx, regIdx); //match 테이블에 ongoing 3으로 변경 / lock cash 0
 		purchaseService.plusRestNum(regIdx, buyNum); //register 테이블에 restNum update

@@ -239,6 +239,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		purchaseRepository.detailRemoveFile(regIdx);
 	}
 
+	@Override
+	public int selectCancelBuyNum(String joinIdx) {
+		return purchaseRepository.selectCancelBuyNum(joinIdx);
+	}
+
 
 
 }
