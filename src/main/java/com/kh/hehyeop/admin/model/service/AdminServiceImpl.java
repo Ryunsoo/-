@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.admin.model.dto.CMember;
 import com.kh.hehyeop.admin.model.repository.AdminRepository;
+import com.kh.hehyeop.common.util.paging.Paging;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +25,13 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<CMember> selectModifyRequest() {
-		return adminRepository.selectModifyRequest();
+	public List<CMember> selectModifyRequest(Paging paging) {
+		return adminRepository.selectModifyRequest(paging);
+	}
+
+	@Override
+	public int selectModifyCount() {
+		return adminRepository.selectModifyCount();
 	}
 
 }

@@ -40,9 +40,24 @@
 						</table>
 					</div>
 					<div class='page'>
-						<i class="fas fa-caret-left"></i>
-						<div><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-						<i class="fas fa-caret-right"></i>
+						<c:if test="${paging.startPage != 1}">
+							<i class="fas fa-caret-left" onclick="location.href = '/admin/modify-request?nowPage=1&cntPerPage=${paging.cntPerPage}'"></i>
+						</c:if>
+						<div>
+						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage}">
+									<span>${p}</span>
+								</c:when>
+								<c:otherwise>
+									<span>${p}</span>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						</div>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<i class="fas fa-caret-right" onclick="location.href = '/admin/modify-request?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'"></i>
+						</c:if>
 					</div>
 				</div>
 			</div>
