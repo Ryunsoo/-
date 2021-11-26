@@ -248,8 +248,8 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		form.setId(member.getId());
 		form.setRestNum(form.getTotalNum() - form.getBuyNum());
-		String dealDate = form.getDealTime().replace("T","  ");
-		String endDate = form.getEndTime().replace("T","  ");
+		String dealDate = form.getDealTime().replace("T"," ");
+		String endDate = form.getEndTime().replace("T"," ");
 		form.setDealTime(dealDate);
 		form.setEndTime(endDate);
 		

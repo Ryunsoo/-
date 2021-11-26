@@ -13,6 +13,9 @@ public interface AdminRepository {
 	@Select("select * from member_c where is_permit = 2")
 	List<CMember> selectJoinRequest();
 
+	@Select("select * from member_c where is_permit = 2")
+	List<CMember> selectModifyRequest();
+
 	
 
 

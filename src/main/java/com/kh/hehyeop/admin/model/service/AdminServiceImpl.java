@@ -23,4 +23,9 @@ public class AdminServiceImpl implements AdminService{
 		return adminRepository.selectJoinRequest();
 	}
 
+	@Override
+	public List<CMember> selectModifyRequest() {
+		return adminRepository.selectModifyRequest();
+	}
+
 }
