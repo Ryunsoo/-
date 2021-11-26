@@ -21,7 +21,7 @@ public class AdminController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private AdminService adminService;
+	private final AdminService adminService;
 	
 	@GetMapping("join-request")
 	public String joinRequestForm(HttpSession session, RedirectAttributes redirectAttr) {
