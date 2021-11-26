@@ -447,7 +447,7 @@ function alertMessage(msg){
 	</div>
 	<c:forEach items="${reviewCountMap}" var="rmap" varStatus="status">
 			<input class="rmap" type="hidden" id="rev" value="${rmap.RE_CONTENT}">
-			<input type="hidden" id="cnt" value="${rmap.COUNT}">
+			<input type="hidden" class="rcnt" id="cnt" value="${rmap.COUNT}">
 	</c:forEach>
 	<script type="text/javascript"
 		src="../../../resources/js/include/head/menu_head.js"></script>

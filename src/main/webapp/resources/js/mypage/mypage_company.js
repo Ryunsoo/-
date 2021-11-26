@@ -14,8 +14,10 @@ $(function(){
     var chartData=[];
 
     for(var i=0; i<$('.rmap').length; i++){
-        chartData.push([$('#rev').eq(i).val(),$('#cnt').eq(i).val()]);
+        chartData.push([$('.rmap').eq(i).val(),$('.rcnt').eq(i).val()]);
     }
+	
+	    
     console.dir(chartData);    
     var chart = c3.generate({
     	bindto:'.score_chart',
