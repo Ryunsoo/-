@@ -115,7 +115,8 @@ public class AdminController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 	
 		for (CMember cMember : finishList) {
-			cMember.setParseDate(format.format(cMember.getRegDate()));
+			cMember.setParseDate(format.format(cMember.getPermitDate()));
+			cMember.setModifyParseDate(format.format(cMember.getModifyDate()));
 		}
 		
 		model.addAttribute("paging", paging);
