@@ -81,8 +81,12 @@ body {
 	height: 430;
 }
 
+.product-detail-image> #uploaded-image> img{
+	object-fit: contain;
+}
+
 .product-detail-image> #uploaded-image> #product-image {
-	height: 100%;
+	height: 400px;
 	width: 100%;
 }
 

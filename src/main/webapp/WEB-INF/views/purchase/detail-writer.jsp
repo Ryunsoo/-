@@ -132,7 +132,7 @@
 					<li>남은 개수 : ${detailInfo.restNum}개</li>
 				</ul>
 				
-				<progress style="height:50px; width:300px;" value="${buyNum}" max="${detailInfo.totalNum}"></progress>
+				<progress style="height:50px; width:300px;" value="${buyNum}" max="${detailInfo.totalNum - detailInfo.buyNum}"></progress>
 			</div>
 			
 			<c:if test="${not empty match}">

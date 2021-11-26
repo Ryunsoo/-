@@ -15,6 +15,7 @@ public class DetailInfo {
 	private int price;
 	private String content;
 	private int totalNum;
+	private int buyNum;
 	private int restNum;
 	private String link;
 }

@@ -51,7 +51,7 @@ public class PurchaseController {
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
 		purchaseInfo.setOngoing(ongoing);
-		
+		System.out.println(buyNum);
 		SimpleDateFormat fDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date test = fDate.parse(purchaseInfo.getDealTime());
 		Date today = new Date();
@@ -98,7 +98,7 @@ public class PurchaseController {
 		DetailInfo detailInfo = (DetailInfo) session.getAttribute("detailInfo");
 		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
 		
-		if (joinIdxList == null) {
+		if (joinIdxList.isEmpty()) {
 			throw new HandlableException(ErrorCode.EMPTY_JOIN_ERROR);
 		}
 		
