@@ -84,6 +84,10 @@ public interface PurchaseService {
 
 	void plusRestNum(String regIdx, int buyNum);
 
+	MyPurchaseInfo detailRemoveCheck(String regIdx, String id);
+
+	void detailRemove(String regIdx, String id);
+
 
 
 

@@ -73,6 +73,8 @@ public class PurchaseController {
 		if (!detailInfo.getId().equals(member.getId())) {
 			throw new HandlableException(ErrorCode.MATCH_BOARD_ERROR);
 		}
+		MyPurchaseInfo myPurchaseInfo = purchaseService.detailRemoveCheck(regIdx, member.getId());
+		
 		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		
@@ -81,6 +83,12 @@ public class PurchaseController {
 		session.setAttribute("detailInfo", detailInfo);
 		session.setAttribute("match", match);
 		model.addAttribute("buyNum", buyNum);
+		
+		String removeButtonFlg = null;
+		if(myPurchaseInfo.getMatchIdx() != null) {
+			removeButtonFlg = "on";
+			model.addAttribute("removeButtonFlg", removeButtonFlg);
+		}
 	}
 	
 	@GetMapping("purchase-commit")
@@ -330,6 +338,23 @@ public class PurchaseController {
 		
 		return "redirect:/purchase/main";
 		
+	}
+	
+	@GetMapping("detail-remove")
+	public String detailRemoveCheck(String regIdx, HttpSession session) {
+		
+		Member member = (Member) session.getAttribute("authentication");
+		String id = member.getId();
+		
+		MyPurchaseInfo myPurchaseInfo = purchaseService.detailRemoveCheck(regIdx, id);
+		System.out.println(myPurchaseInfo.getMatchIdx());
+		if(myPurchaseInfo.getMatchIdx() != null) {
+			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);
+		}
+		
+		purchaseService.detailRemove(regIdx, id);
+		
+		return "redirect:/purchase/main";
 	}
 	
 	

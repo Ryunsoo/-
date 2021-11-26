@@ -227,6 +227,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 	}
 
+	@Override
+	public MyPurchaseInfo detailRemoveCheck(String regIdx, String id) {
+		MyPurchaseInfo myPurchaseInfo = purchaseRepository.detailRemoveCheck(regIdx, id);
+		return myPurchaseInfo;
+	}
+
+	@Override
+	public void detailRemove(String regIdx, String id) {
+		purchaseRepository.detailRemove(regIdx, id);
+		purchaseRepository.detailRemoveFile(regIdx);
+	}
+
 
 
 }
