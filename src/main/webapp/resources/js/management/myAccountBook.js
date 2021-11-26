@@ -2,6 +2,8 @@
         const bg = document.querySelector("#bg");
         const popup = document.querySelector("#popup");
         const exit = document.querySelector("#exit");
+        let prevDate;
+     	let nowDate;
 
         go.addEventListener("mouseover",function(){
             bg.classList.remove("hidden");
@@ -13,23 +15,25 @@
         });
         
         
-        function choice() {
-        	  
-        	  const choiceList = document.getElementsByName('choice');
-        	  const personal = document.querySelector("#personal").checked;
-        	  const fixed = document.querySelector("#fixed").checked;
-        	  
-        	    console.dir(personal);
-        	    	if(personal == true){
-        	    		document.getElementById("personal_hidden").style.display ="flex";
-        	    		document.getElementById("fixed_hidden").style.display ="none";
-        	    	}else{
-        	    		document.getElementById("fixed_hidden").style.display ="flex";
-        	    		document.getElementById("personal_hidden").style.display ="none";
-        	    	}
-        	    	
-        	    }
-        	  
+function choice() {
+
+	const choiceList = document.getElementsByName('choice');
+	const personal = document.querySelector("#personal").checked;
+	const fixed = document.querySelector("#fixed").checked;
+	
+	if(!personal && !fixed) return;
+	        	  
+	console.dir(personal);
+	if(personal == true){
+		document.getElementById("personal_hidden").style.display ="flex";
+		document.getElementById("fixed_hidden").style.display ="none";
+	}else{
+		document.getElementById("fixed_hidden").style.display ="flex";
+		document.getElementById("personal_hidden").style.display ="none";
+	}
+
+}
+     
      var calendarEl = document.getElementById('calendar');
    	 var calendar = new FullCalendar.Calendar(calendarEl, {
    			
@@ -50,7 +54,18 @@
    	      },
    	     /*  locale:'ko', */
    	      dayMaxEvents: true, // allow "more" link when too many events
-   		  
+   	      
+   	      dateClick: function(info) {
+			nowDate = info.dayEl;
+			if(prevDate) {
+				prevDate.style.backgroundColor = '';
+			}
+			
+			nowDate.style.backgroundColor = '#ffcc99';
+			prevDate = nowDate;
+		  },
+		  
+		  
    	    });
    	    calendar.render();	
 

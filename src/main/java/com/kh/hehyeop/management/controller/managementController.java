@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.hehyeop.management.model.service.ManagementService;
+import com.kh.hehyeop.management.validator.PersonalForm;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,21 @@ public class managementController {
 	public void test4() {}
 	
 	@GetMapping("myAccountBook")
-	public void test5() {}
+	public void myAccountBookForm() {
+		
+	}
+	
+	@GetMapping("personal_spend")
+	public String savePersonalSpend(PersonalForm form) {
+		System.out.println(form);
+		
+		return "redirect:/management/myAccountBook";
+	}
+	
+	@GetMapping("fixed_spend")
+	public void saveFixedSpend() {
+		
+	}
 	
 	@GetMapping("myAccountList")
 	public void test6() {}
