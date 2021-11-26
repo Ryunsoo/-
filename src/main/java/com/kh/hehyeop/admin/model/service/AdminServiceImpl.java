@@ -1,11 +1,11 @@
-package com.kh.hehyeop.admin.controller.model.service;
+package com.kh.hehyeop.admin.model.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.kh.hehyeop.admin.controller.model.dto.CMember;
-import com.kh.hehyeop.admin.controller.model.repository.AdminRepository;
+import com.kh.hehyeop.admin.model.dto.CMember;
+import com.kh.hehyeop.admin.model.repository.AdminRepository;
 
 import lombok.RequiredArgsConstructor;
 

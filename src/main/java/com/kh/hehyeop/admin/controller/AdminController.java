@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.hehyeop.admin.controller.model.dto.CMember;
-import com.kh.hehyeop.admin.controller.model.service.AdminService;
+import com.kh.hehyeop.admin.model.dto.CMember;
+import com.kh.hehyeop.admin.model.service.AdminService;
 
 import lombok.RequiredArgsConstructor;
 

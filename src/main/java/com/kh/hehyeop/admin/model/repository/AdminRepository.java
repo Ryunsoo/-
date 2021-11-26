@@ -1,9 +1,9 @@
-package com.kh.hehyeop.admin.controller.model.repository;
+package com.kh.hehyeop.admin.model.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.kh.hehyeop.admin.controller.model.dto.CMember;
+import com.kh.hehyeop.admin.model.dto.CMember;
 
 @Mapper
 public interface AdminRepository {
