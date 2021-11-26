@@ -1,20 +1,27 @@
 package com.kh.hehyeop.admin.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.hehyeop.admin.model.dto.CMember;
 import com.kh.hehyeop.admin.model.service.AdminService;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.service.MemberService;
+import com.kh.hehyeop.member.validator.FieldForm;
+import com.kh.hehyeop.mypage.model.service.MypageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +33,8 @@ public class AdminController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private final AdminService adminService;
+	private final MemberService memberService;
+	private final MypageService mypageService;
 	
 	@GetMapping("join-request")
 	public void joinRequestForm(Model model, Paging paging, 
@@ -89,8 +98,35 @@ public class AdminController {
 	public void finishListForm() {}
 	
 	@GetMapping("approval-first")
-	public void approvalFirstForm() {}
+	public void approvalFirstForm(@RequestParam(value="id") String id, HttpSession session) {
+		
+		Map<String, Object> memberInfo = adminService.selectMemberById(id);
+		session.setAttribute("memberInfo", memberInfo);
+		
+	}
 	
 	@GetMapping("approval-second")
-	public void approvalSecondForm() {}
+	public void approvalSecondForm(@RequestParam(value="id") String id, Model model) {
+		
+		List<String> myField = adminService.selectFieldListById(id);
+		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<String> categoryList = memberService.selectCategory();
+		
+		model.addAttribute("myField", myField);
+		model.addAttribute("fieldList", fieldList);
+		model.addAttribute("categoryList", categoryList);
+		
+	}
+	
+	@PostMapping("permit")
+	public String permitInfo(@RequestParam(value="field") List<String> fields, HttpSession session) {
+		
+		Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
+		String id = ((CMember) infoMap.get("member")).getId();
+		mypageService.updateCompanyField(id, fields);
+		adminService.updatePermit(id);
+		
+		
+		return "redirect:/admin/modify-request";
+	}
 }

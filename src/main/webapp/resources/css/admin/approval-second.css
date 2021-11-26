@@ -141,9 +141,9 @@ label{
 
 .field{
 	height: 35px;
-	padding-left: 10px;
 	display: flex;
 	align-items: center;
+	margin-bottom: 10px;
 }
 
 .field>label{

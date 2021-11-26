@@ -1,5 +1,5 @@
-let fileName = '../../../resources/image/pdf-exam-height.pdf';
-//let fileName = '../../../resources/image/join-file-exam.jpeg';
+let fileName = document.querySelector('.fileList').innerText;
+console.dir(fileName);
 let format = fileName.substring(fileName.lastIndexOf('.') + 1);
 let viewer;
 
