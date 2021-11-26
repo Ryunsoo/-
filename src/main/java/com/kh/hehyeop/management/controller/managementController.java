@@ -9,15 +9,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,7 +40,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.hehyeop.common.sms.Coolsms;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
 import com.kh.hehyeop.management.model.service.ManagementService;
+import com.kh.hehyeop.management.validator.FixedForm;
 import com.kh.hehyeop.management.validator.PersonalForm;
+import com.kh.hehyeop.management.validator.ScheduleFormValidator;
 import com.kh.hehyeop.member.model.dto.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -47,7 +55,8 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class managementController {
 
 	private final ManagementService managementService;
-
+	private final ScheduleFormValidator scheduleFormValidator;
+	
 	@GetMapping("myIcebox")
 	public void test() {
 	}
@@ -136,22 +145,56 @@ public class managementController {
 		redirectAttr.addFlashAttribute("message", "문자가 발송되었습니다.");
 		return "redirect:/management/myIcebox_cart";
 	}
+	
+	public void test4() {}
+	
+	@InitBinder(value = { "personalForm", "fixedForm" })
+	public void intiBinder(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(scheduleFormValidator);
+	}
 
 	@GetMapping("myAccountBook")
 	public void myAccountBookForm() {
 		
 	}
 	
-	@GetMapping("personal_spend")
-	public String savePersonalSpend(PersonalForm form) {
-		System.out.println(form);
+	@GetMapping("personal-spend")
+	public String savePersonalSpend(@Validated PersonalForm form,
+						Errors errors,
+						Model model,
+						HttpSession session,
+						RedirectAttributes redirect) {
+		System.out.println(form.getContent());
+		
+		ValidateResult vr = new ValidateResult();
+		redirect.addFlashAttribute("personalError", vr.getError());
+		//model.addAttribute("error", vr.getError());
+		
+		if(errors.hasErrors()) {
+			vr.addErrors(errors);
+			System.out.println(vr.getError());
+			return "management/myAccountBook";
+		}
 		
 		return "redirect:/management/myAccountBook";
 	}
 	
-	@GetMapping("fixed_spend")
-	public void saveFixedSpend() {
+	@GetMapping("fixed-spend")
+	public String saveFixedSpend(@Validated FixedForm form,
+						Errors errors,
+						Model model,
+						HttpSession session) {
+		System.out.println(form.getEndDate());
 		
+		ValidateResult vr = new ValidateResult();
+		model.addAttribute("error", vr.getError());
+		
+		if(errors.hasErrors()) {
+			vr.addErrors(errors);
+			return "management/myAccountBook";
+		}
+		
+		return "redirect:/management/myAccountBook";
 	}
 
 	@GetMapping("myAccountList")

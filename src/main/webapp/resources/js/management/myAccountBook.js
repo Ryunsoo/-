@@ -22,12 +22,19 @@ function choice() {
 	const fixed = document.querySelector("#fixed").checked;
 	
 	if(!personal && !fixed) return;
-	        	  
+	
+	let date = '';
+	if(nowDate) {
+		date = nowDate.dataset.date;
+	}
+	
 	console.dir(personal);
 	if(personal == true){
+		$('#date1').val(date);
 		document.getElementById("personal_hidden").style.display ="flex";
 		document.getElementById("fixed_hidden").style.display ="none";
 	}else{
+		$('#date2').val(date);
 		document.getElementById("fixed_hidden").style.display ="flex";
 		document.getElementById("personal_hidden").style.display ="none";
 	}
@@ -56,6 +63,9 @@ function choice() {
    	      dayMaxEvents: true, // allow "more" link when too many events
    	      
    	      dateClick: function(info) {
+			console.dir(info.date);
+			console.dir(info.dateStr);
+			console.dir(info.dayEl);
 			nowDate = info.dayEl;
 			if(prevDate) {
 				prevDate.style.backgroundColor = '';
@@ -69,7 +79,9 @@ function choice() {
    	    });
    	    calendar.render();	
 
-
+		$('.date').keydown(function(e) {
+			if(e.originalEvent.code != 'Tab') e.preventDefault();
+		})
 
 
 		$(function() {

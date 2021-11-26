@@ -6,7 +6,7 @@ import lombok.Data;
 public class PersonalForm {
 
 	private String category;
-	private String title;
-	private String date;
+	private String content;
+	private String expDate;
 	private int price;
 }
