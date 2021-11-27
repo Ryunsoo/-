@@ -126,9 +126,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("approval-first")
-	public void approvalFirstForm(@RequestParam(value="id") String id, HttpSession session) {
+	public void approvalFirstForm(@RequestParam(value="id") String id, 
+								  @RequestParam(value="cate") String category,
+								  HttpSession session) {
 		
-		Map<String, Object> memberInfo = adminService.selectMemberById(id);
+		Map<String, Object> memberInfo = adminService.selectMemberById(id, category);
 		session.setAttribute("memberInfo", memberInfo);
 		
 	}
@@ -147,14 +149,25 @@ public class AdminController {
 	}
 	
 	@PostMapping("permit")
-	public String permitInfo(@RequestParam(value="field") List<String> fields, HttpSession session) {
+	public String permitInfo(@RequestParam(value="field") List<String> fields, 
+							 @RequestParam(value="cate") String category,
+							 HttpSession session) {
 		
-		Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
-		String id = ((CMember) infoMap.get("member")).getId();
-		mypageService.updateCompanyField(id, fields);
-		adminService.updatePermit(id);
+		if (category.equals("modify")) {
+			Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
+			String id = ((CMember) infoMap.get("member")).getId();
+			mypageService.updateCompanyField(id, fields);
+			adminService.updatePermit(id);
+			
+			return "redirect:/admin/modify-request";
+		}
 		
+		return null;
+	}
+	
+	@GetMapping("reject")
+	public void rejectInfo(@RequestParam(value = "id") String id) {
 		
-		return "redirect:/admin/modify-request";
+//		adminService.rejectPermit(id);
 	}
 }

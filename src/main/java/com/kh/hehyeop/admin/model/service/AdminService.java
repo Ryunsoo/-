@@ -16,7 +16,7 @@ public interface AdminService {
 
 	int selectJoinCount();
 
-	Map<String, Object> selectMemberById(String id);
+	Map<String, Object> selectMemberById(String id, String category);
 
 	List<String> selectFieldListById(String id);
 

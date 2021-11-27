@@ -34,7 +34,7 @@
 							 	<c:forEach items="${modifyList}" var="ml">
 									<tbody>
 										<tr><td>${ml.id}</td><td>${ml.company}</td><td>${ml.parseDate}</td>
-										<td><button onclick="location.href = '/admin/approval-first?id=${ml.id}'" class='check'>조회</button></td>
+										<td><button onclick="location.href = '/admin/approval-first?id=${ml.id}&cate=modify'" class='check'>조회</button></td>
 									</tbody>
 								</c:forEach>
 							</c:if>

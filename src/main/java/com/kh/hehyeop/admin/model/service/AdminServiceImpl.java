@@ -40,12 +40,12 @@ public class AdminServiceImpl implements AdminService {
 		return adminRepository.selectJoinCount();
 	}
 
-	public Map<String, Object> selectMemberById(String id) {
+	public Map<String, Object> selectMemberById(String id, String category) {
 
 		CMember member = adminRepository.selectInfoById(id);
 		List<FileDTO> files = adminRepository.selectFileInfoById(id);
-
-		return Map.of("member", member, "files", files);
+		
+		return Map.of("member", member, "files", files, "cate", category);
 	}
 
 	@Override

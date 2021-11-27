@@ -37,11 +37,12 @@
 								</c:forEach>
 							</div>
 						</c:forEach>
+						<input style="display: none;" name="cate" value="${memberInfo.cate}">
 						</div>
 				</div>
 			</div>
 			<div class='prev_btn'><button type="button" onclick="history.back()">&lt 이전</button></div>
-			<div class='decision_btn'><button type="button">거절</button><button type="submit">승인</button></div>
+			<div class='decision_btn'><button onclick="/admin/reject?id=${memberInfo.member.id}" type="button">거절</button><button type="submit">승인</button></div>
 		</div>
 	</form>
 </body>

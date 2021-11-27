@@ -41,7 +41,7 @@ public interface AdminRepository {
 	@Select("select field from company_field where id = #{id}")
 	List<String> selectFieldListById(String id);
 
-	@Update("update member_c set is_permit = 1, permit_date = current_date where id = #{id}")
+	@Update("update member_c set is_permit = 1, is_modify = 2, permit_date = current_date where id = #{id}")
 	void updatePermit(String id);
 
 }
