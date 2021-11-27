@@ -25,10 +25,11 @@ public class CMember extends User {
 	private int isPermit;
 	private Date permitDate;
 	private String cIdx;
-	private String parseDate;
+	private String parseDate;//permitDate
 	private int isModify;
 	private Date modifyDate;
 	private String modifyParseDate;
+	private String regParseDate;
 
 	public CMember() {
 		super();

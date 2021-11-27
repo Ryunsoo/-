@@ -50,4 +50,7 @@ public interface AdminRepository {
 	@Select("select count(*) from member_c where is_permit = 1 and permit_date > current_date-3 and is_modify=2")
 	int selectModifyFinishListCount();
 
+	@Update("update member_c set is_permit=0, is_modify=3 where id = #{id}")
+	void cancelApproval(String id);
+
 }

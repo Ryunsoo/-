@@ -45,11 +45,11 @@
 									<tbody id="join" >
 										<tr>
 											<td>가입</td>
-											<td>${jfl.id}</td>
+											<td >${jfl.id}</td>
 											<td>${jfl.company}</td>
-											<td>${jfl.modifyParseDate}</td>
+											<td>${jfl.regParseDate}</td>
 											<td>${jfl.parseDate}</td>
-											<td><button class='cancel'>취소</button></td>
+											<td><button class='cancel' onclick="location.href = '/admin/cancel-approval?id=${jfl.id}'">취소</button></td>
 										<tr>
 									</tbody>
 								</c:forEach>

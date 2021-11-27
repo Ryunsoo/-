@@ -30,4 +30,6 @@ public interface AdminService {
 
 	int selectModifyFinishListCount();
 
+	void cancelApproval(String id);
+
 }

@@ -116,7 +116,7 @@ public class AdminController {
 	
 		for (CMember cMember : joinFinishList) {
 			cMember.setParseDate(format.format(cMember.getPermitDate()));
-			cMember.setModifyParseDate(format.format(cMember.getModifyDate()));
+			cMember.setRegParseDate(format.format(cMember.getRegDate()));
 		}
 		
 		
@@ -205,10 +205,11 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("cancel-approval")
-	public String cancelApproval(HttpSession session) {
+	@GetMapping("cancel-approval")
+	public String cancelApproval(@RequestParam(value="id") String id, Model model,HttpSession session) {
 		
-		
+		adminService.cancelApproval(id);
+	
 		
 		return "redirect:/admin/join-finish-list";
 	}

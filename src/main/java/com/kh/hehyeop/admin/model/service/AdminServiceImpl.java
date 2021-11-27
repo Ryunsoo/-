@@ -77,4 +77,10 @@ public class AdminServiceImpl implements AdminService {
 	public int selectModifyFinishListCount() {
 		return adminRepository.selectModifyFinishListCount();
 	}
+
+	@Override
+	public void cancelApproval(String id) {
+		 adminRepository.cancelApproval(id);
+		
+	}
 }
