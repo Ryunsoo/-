@@ -15,6 +15,7 @@ public enum ErrorCode {
 	MATCH_BOARD_ERROR("글 작성자가 아닙니다.", "/purchase/main"),
 	MATCH_DATE_ERROR("거래 시간 이전에는 누를 수 없습니다.", "/purchase/main"),
 	EMPTY_JOIN_ERROR("이미 구매 확정이 완료된 게시글입니다.", "/purchase/main"),
+	ADMIN_LOGIN_ERROR("관리자만 이용 가능합니다.", "/member/login-form"),
 	REDIRECT("");
 	
 	public final String MESSAGE;

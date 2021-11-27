@@ -205,19 +205,11 @@ public class AdminController {
 		return null;
 	}
 	
-	@GetMapping("reject")
-	public void rejectInfo(@RequestParam(value = "id") String id) {
-		
-//		adminService.rejectPermit(id);
-	}
-	
 	
 	@GetMapping("cancel-approval")
 	public String cancelApproval(@RequestParam(value="id") String id, Model model,HttpSession session) {
 		
 		adminService.cancelApproval(id);
-	
-		
 		return "redirect:/admin/join-finish-list";
 	}
 	

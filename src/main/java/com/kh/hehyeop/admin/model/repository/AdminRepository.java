@@ -23,7 +23,7 @@ public interface AdminRepository {
 	@Select("select count(*) from member_c where is_permit = 2")
 	int selectModifyCount();
 
-	@Select("select count(*) from member_c where is_permit = 0")
+	@Select("select count(*) from member_c where is_permit = 0 and is_modify = 0")
 	int selectJoinCount();
 
 	@Select("select * from member_c where id = #{id}")

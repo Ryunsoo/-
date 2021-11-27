@@ -22,13 +22,13 @@ public class MemberServiceTest {
 	
 	@Test
 	public void passwordEncoderTest() {
-		String password = "123qwe!@#";
+		String password = "xptmxm123!";
 		String encodedPassword = passwordEncoder.encode(password);
-		logger.debug(encodedPassword);
+		System.out.println(encodedPassword);
 		encodedPassword = passwordEncoder.encode(password);
-		logger.debug(encodedPassword);
+		System.out.println(encodedPassword);
 		
-		logger.debug("matches 결과 : " + passwordEncoder.matches(password, encodedPassword));
+		System.out.println("matches 결과 : " + passwordEncoder.matches(password, encodedPassword));
 	}
 	
 	

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
+import com.kh.hehyeop.member.model.dto.Admin;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.validator.FieldForm;
@@ -90,5 +91,8 @@ public interface MemberRepository {
 
 	@Insert("insert into link_member(id, c_id, password) values(#{id}, #{cid}, #{password})")
 	void linkMember(@Param("id") String id, @Param("cid") String cid, @Param("password") String pw);
+
+	@Select("select password from admin where id = #{id}")
+	Admin selectAdmin(String id);
 
 }

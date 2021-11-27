@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.hehyeop.member.model.dto.Admin;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.validator.FieldForm;
@@ -57,5 +58,7 @@ public interface MemberService {
 	void linkMember(String id, String cid, String password);
 
 	Member selectMember(String id);
+
+	Admin authenticateAdmin(String id, String password);
 
 }

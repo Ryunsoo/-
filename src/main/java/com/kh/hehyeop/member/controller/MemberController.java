@@ -30,6 +30,7 @@ import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.member.model.dto.Admin;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.service.MemberService;
@@ -64,6 +65,8 @@ public class MemberController {
 		
 		Member certifiedUser = memberService.authenticateUser(member);
 		CMember certifiedCUser = memberService.authenticateCUser(cmember);
+		Admin admin = memberService.authenticateAdmin(member.getId(), member.getPassword());
+		
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
 			session.setAttribute("id", certifiedUser.getNickname());
@@ -76,7 +79,12 @@ public class MemberController {
 			}
 			session.setAttribute("id", certifiedCUser.getCompany());
 			return "redirect:/company/main"; 
-		} else {
+		} else if (admin != null) {
+			session.setAttribute("authentication", admin);
+			return "redirect:/admin/join-request";
+		}
+		
+		else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
 			return "redirect:/member/login-form";
 		}

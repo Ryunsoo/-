@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.code.Config;
 import com.kh.hehyeop.common.mail.MailSender;
 import com.kh.hehyeop.common.util.file.FileUtil;
+import com.kh.hehyeop.member.model.dto.Admin;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.repository.MemberRepository;
@@ -211,6 +212,18 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member selectMember(String id) {
 		return memberRepository.selectMember(id);
+	}
+
+	@Override
+	public Admin authenticateAdmin(String id, String password) {
+		
+		Admin adminUser = memberRepository.selectAdmin(id);
+		
+		if (passwordEncoder.matches(password, adminUser.getPassword())) {
+			return adminUser;
+		}
+		
+		return null;
 	}
 
 }

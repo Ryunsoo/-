@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.member.model.dto.Admin;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
@@ -35,7 +36,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 				//memberAuthorize(httpRequest, httpResponse, uriArr);
 				break;
 			case "admin":
-				//adminAuthorize(httpRequest, httpResponse, uriArr);
+				adminAuthorize(httpRequest, httpResponse, uriArr);
 				break;
 			case "board":
 				//boardAuthorize(httpRequest, httpResponse, uriArr);
@@ -60,6 +61,17 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		HttpSession session = httpRequest.getSession();
+		Admin admin = (Admin) session.getAttribute("authentication");
+		
+		if (admin == null) {
+			throw new HandlableException(ErrorCode.ADMIN_LOGIN_ERROR);
+		}
+		
+	}
+
 
 	private void companyAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();

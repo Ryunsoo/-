@@ -91,7 +91,7 @@ public class AdminServiceImpl implements AdminService {
 	public void cancelApproval(String id) {
 		 adminRepository.cancelApproval(id);
 	}
-	
+
 	public void rejectJoin(String id) {
 		adminRepository.rejectJoin(id);
 	}
