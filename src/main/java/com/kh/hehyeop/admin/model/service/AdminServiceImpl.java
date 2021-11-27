@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
 
 		CMember member = adminRepository.selectInfoById(id);
 		List<FileDTO> files = adminRepository.selectFileInfoById(id);
-		
+
 		return Map.of("member", member, "files", files, "cate", category);
 	}
 
@@ -54,10 +54,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void updatePermit(String id) {
-		adminRepository.updatePermit(id);
+	public void updateModify(String id) {
+		adminRepository.updateModify(id);
 	}
-	
+
 	@Override
 	public List<CMember> selectJoinFinishList(Paging paging) {
 		return adminRepository.selectJoinFinishList(paging);
@@ -73,6 +73,15 @@ public class AdminServiceImpl implements AdminService {
 		return adminRepository.selectModifyFinishList(paging);
 	}
 
+	public void updateJoin(String id) {
+		adminRepository.updateJoin(id);
+	}
+
+	@Override
+	public void rejectModify(String id) {
+		adminRepository.rejectModify(id);
+	}
+
 	@Override
 	public int selectModifyFinishListCount() {
 		return adminRepository.selectModifyFinishListCount();
@@ -81,6 +90,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void cancelApproval(String id) {
 		 adminRepository.cancelApproval(id);
-		
+	}
+	
+	public void rejectJoin(String id) {
+		adminRepository.rejectJoin(id);
 	}
 }

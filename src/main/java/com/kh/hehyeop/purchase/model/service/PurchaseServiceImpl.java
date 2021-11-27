@@ -204,7 +204,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public String findBuyer(String regIdx) {
+	public List<String> findBuyer(String regIdx) {
 		return purchaseRepository.findBuyer(regIdx);
 		
 	}

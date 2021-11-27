@@ -120,7 +120,7 @@ public interface PurchaseRepository {
 	List<String> selectRegIdxList();
 	
 	@Select("select * from purchase_match where reg_idx = #{regIdx}")
-	String findBuyer(@Param("regIdx") String regIdx);
+	List<String> findBuyer(@Param("regIdx") String regIdx);
 
 	@Update("update purchase_match set cash_lock = 0, ongoing = 3 where join_Idx = #{joinIdx} and reg_idx = #{regIdx}")
 	void buyerCancel(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);

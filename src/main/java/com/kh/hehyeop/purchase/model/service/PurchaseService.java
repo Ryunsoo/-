@@ -76,7 +76,7 @@ public interface PurchaseService {
 
 	void SellerUpdatePoint(String sellerId);
 
-	String findBuyer(String regIdx);
+	List<String> findBuyer(String regIdx);
 
 	void buyerCancel(String joinIdx, String regIdx);
 
