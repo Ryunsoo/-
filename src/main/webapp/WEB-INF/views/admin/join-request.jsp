@@ -33,7 +33,8 @@
 							 <c:if test="${not empty joinRequestList}">
 							 	<c:forEach items="${joinRequestList}" var="jl">
 									<tbody>
-										<tr><td>${jl.id}</td><td>${jl.company}</td><td>${jl.parseDate}</td><td><button class='check'>조회</button></td>
+										<tr><td>${jl.id}</td><td>${jl.company}</td><td>${jl.parseDate}</td><td>
+										<button onclick="location.href = '/admin/approval-first?id=${jl.id}&cate=join'" class='check'>조회</button></td>
 									</tbody>
 								</c:forEach>
 							</c:if>

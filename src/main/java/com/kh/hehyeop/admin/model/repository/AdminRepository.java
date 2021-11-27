@@ -42,7 +42,13 @@ public interface AdminRepository {
 	List<String> selectFieldListById(String id);
 
 	@Update("update member_c set is_permit = 1, is_modify = 2, permit_date = current_date where id = #{id}")
-	void updatePermit(String id);
+	void updateModify(String id);
+
+	@Update("update member_c set is_permit = 1, permit_date = current_date where id = #{id}")
+	void updateJoin(String id);
+
+	@Update("update member_c set is_permit = 0, is_modify = 0, permit_date = current_date where id = #{id}")
+	void rejectPermit(String id);
 
 	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1 and permit_date > current_date-3 and is_modify=2) where rnum between #{paging.start} and #{paging.end}")
 	List<CMember> selectModifyFinishList(@Param("paging") Paging paging);

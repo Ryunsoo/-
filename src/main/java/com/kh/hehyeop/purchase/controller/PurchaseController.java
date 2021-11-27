@@ -78,7 +78,7 @@ public class PurchaseController {
 		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		
-		String match = purchaseService.findBuyer(regIdx);
+		List<String> match = purchaseService.findBuyer(regIdx);
 		
 		session.setAttribute("detailInfo", detailInfo);
 		session.setAttribute("match", match);

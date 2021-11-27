@@ -186,13 +186,16 @@ public class AdminController {
 							 @RequestParam(value="cate") String category,
 							 HttpSession session) {
 		
+		Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
+		String id = ((CMember) infoMap.get("member")).getId();
+		mypageService.updateCompanyField(id, fields);
+		
 		if (category.equals("modify")) {
-			Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
-			String id = ((CMember) infoMap.get("member")).getId();
-			mypageService.updateCompanyField(id, fields);
-			adminService.updatePermit(id);
-			
+			adminService.updateModify(id);
 			return "redirect:/admin/modify-request";
+		} else if (category.equals("join")) {
+			adminService.updateJoin(id);
+			return "redirect:/admin/join-request";
 		}
 		
 		return null;
@@ -207,9 +210,19 @@ public class AdminController {
 	
 	@PostMapping("cancel-approval")
 	public String cancelApproval(HttpSession session) {
-		
-		
-		
 		return "redirect:/admin/join-finish-list";
+	}
+	
+	@GetMapping("reject")
+	public String rejectInfo(@RequestParam(value = "id") String id, @RequestParam(value="cate") String category) {
+		
+		if (category.equals("modify")) {
+			adminService.rejectPermit(id);
+			return "redirect:/admin/modify-request";
+		} else if (category.equals("join")) {
+			return "redirect:/admin/join-request";
+		}
+		
+		return null;
 	}
 }
