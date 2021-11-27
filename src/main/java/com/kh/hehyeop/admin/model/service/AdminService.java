@@ -38,4 +38,6 @@ public interface AdminService {
 
 	void rejectJoin(String id);
 
+	void modifyCancelApproval(String id);
+
 }

@@ -214,42 +214,54 @@ public class AdminController {
 		return "redirect:/admin/join-finish-list";
 	}
 	
-	@GetMapping("reject")
-	public String rejectInfo(@RequestParam(value = "id") String id, @RequestParam(value="cate") String category, HttpSession session) {
+	@GetMapping("modifyCancel-approval")
+	public String modifyCancelApproval(@RequestParam(value="id") String id, Model model,HttpSession session) {
 		
-		String api_key = "NCSCLG5MVOMXL3QG"; String api_secret = "Z3FL84I3T3HPYEEXARZJC5CXHWKKJ2OJ"; 
+		adminService.modifyCancelApproval(id);
+		
+		return "redirect:/admin/modify-finish-list";
+	}
+	
+	
+	@GetMapping("reject")
+	public String rejectInfo(@RequestParam(value = "id") String id, @RequestParam(value = "cate") String category,
+			HttpSession session) {
+
+		String api_key = "NCSCLG5MVOMXL3QG";
+		String api_secret = "Z3FL84I3T3HPYEEXARZJC5CXHWKKJ2OJ";
 		Coolsms coolsms = new Coolsms(api_key, api_secret);
 		Map<String, Object> infoMap = (Map<String, Object>) session.getAttribute("memberInfo");
 		String tell = ((CMember) infoMap.get("member")).getTell();
 		String text = "";
-		
+
 		if (category.equals("modify")) {
 			adminService.rejectModify(id);
 			text = "[자취해협] 수정이 거절되었습니다. 다시 수정해주세요";
-			
-			HashMap<String, String> set = new HashMap<String, String>(); 
-			set.put("to",  "01028422007"); // 수신번호
+
+			HashMap<String, String> set = new HashMap<String, String>();
+			set.put("to", "01028422007"); // 수신번호
 			set.put("from", "01050211937"); // 발신번호 
 			set.put("text", text); // 문자내용
 			set.put("type", "sms"); // 문자 타입 
-			
+
 			JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 			logger.debug(result.toString());
 			return "redirect:/admin/modify-request";
 		} else if (category.equals("join")) {
 			adminService.rejectJoin(id);
 			text = "[자취해협] 가입이 거절되었습니다. 다시 가입해주세요";
-			
-			HashMap<String, String> set = new HashMap<String, String>(); 
-			set.put("to",  "01028422007"); // 수신번호
+
+			HashMap<String, String> set = new HashMap<String, String>();
+			set.put("to", "01028422007"); // 수신번호
 			set.put("from", "01050211937"); // 발신번호 
 			set.put("text", text); // 문자내용
 			set.put("type", "sms"); // 문자 타입 
-			
+
 			JSONObject result = coolsms.send(set); // 보내기&전송결과받기
 			return "redirect:/admin/join-request";
 		}
-		
+
 		return null;
 	}
+
 }

@@ -95,4 +95,11 @@ public class AdminServiceImpl implements AdminService {
 	public void rejectJoin(String id) {
 		adminRepository.rejectJoin(id);
 	}
+
+	@Override
+	public void modifyCancelApproval(String id) {
+		adminRepository.modifyCancelApproval(id);
+		
+	}
+
 }

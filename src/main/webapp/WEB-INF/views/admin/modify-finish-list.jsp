@@ -49,7 +49,16 @@
 											<td>${mfl.company}</td>
 											<td>${mfl.modifyParseDate}</td>
 											<td>${mfl.parseDate}</td>
-											<td><button class='cancel'>취소</button></td>
+											<td>
+											<c:if test="${mfl.isPermit eq 1}">
+												<button class='cancel' onclick="location.href = '/admin/modifyCancel-approval?id=${mfl.id}'">
+													취소
+												</button>
+											</c:if> 
+											<c:if test="${mfl.isPermit eq 0}">
+												취소 완료
+											</c:if>
+											</td>
 										<tr>
 									</tbody>
 								</c:forEach>

@@ -49,7 +49,16 @@
 											<td>${jfl.company}</td>
 											<td>${jfl.regParseDate}</td>
 											<td>${jfl.parseDate}</td>
-											<td><button class='cancel' onclick="location.href = '/admin/cancel-approval?id=${jfl.id}'">취소</button></td>
+											<td>
+											<c:if test="${jfl.isPermit eq 1}">
+												<button class='cancel' onclick="location.href = '/admin/cancel-approval?id=${jfl.id}'">
+												취소
+												</button>
+											</c:if>
+											<c:if test="${jfl.isPermit eq 3}">
+												취소 완료
+											</c:if>
+											</td>
 										<tr>
 									</tbody>
 								</c:forEach>
