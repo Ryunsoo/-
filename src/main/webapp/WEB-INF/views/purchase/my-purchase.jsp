@@ -14,9 +14,25 @@
 
 #tempbody> td{
 	border: 0.5px solid #cccccc;
-	height: 150px;
+	height: 100px;
 	text-align: center;
 	font-size: 19px;
+}
+
+#purchaseLink {
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#purchaseLink> td{
+	font-size: 22px;
+	display: flex;
+	justify-content: center;
+}
+#purchaseLink> td> div{
+	cursor: pointer;
 }
 
 </style>
@@ -91,8 +107,11 @@
 									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'N'}">
 										모집중
 									</c:when>
-									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'Y'}">
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'F'}">
 										모집완료
+									</c:when>
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'Y'}">
+										거래완료
 									</c:when>
 									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'C'}">
 										거래취소
@@ -116,7 +135,8 @@
 					<option value="2" <c:if test="${field.ongoing eq '2'}">selected</c:if>>거래완료</option>
 					<option value="3" <c:if test="${field.ongoing eq '3'}">selected</c:if>>거래취소(참여)</option>
 					<option value="N" <c:if test="${field.done eq 'N'}">selected</c:if>>모집중</option>
-					<option value="Y" <c:if test="${field.done eq 'Y'}">selected</c:if>>모집완료</option>
+					<option value="F" <c:if test="${field.done eq 'F'}">selected</c:if>>모집완료</option>
+					<option value="Y" <c:if test="${field.done eq 'Y'}">selected</c:if>>거래완료</option>
 					<option value="C" <c:if test="${field.done eq 'C'}">selected</c:if>>거래취소</option>
 			</select>
 		</div>
@@ -141,8 +161,16 @@
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a class="pg_next" href="/purchase/my-purchase?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;</a>
-			<a class="pg_end" href="/purchase/my-purchase?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;&gt;</a>
+			<c:choose>
+				<c:when test="${field.done eq null}">
+					<a class="pg_next" href="/purchase/my-purchase?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}">&gt;</a>
+					<a class="pg_end" href="/purchase/my-purchase?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}">&gt;&gt;</a>
+				</c:when>
+				<c:otherwise>
+					<a class="pg_next" href="/purchase/my-purchase?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;</a>
+					<a class="pg_end" href="/purchase/my-purchase?nowPage=${paging.lastPage}&cntPerPage=${paging.cntPerPage}&ongoing=${field.ongoing}&done=${field.done}">&gt;&gt;</a>
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 	</div>
 		
@@ -200,17 +228,16 @@
 
 <script type="text/javascript">
 
-
+let participants;
 let tbody = $('#participants-list');
 let participantsList = (regIdx) => {
-	let participants;
 	fetch("http://localhost:9090/purchase/participants-list?regIdx=" + regIdx)
 	.then((response) => response.json())
 	.then((response) => {
 		participants = response;
 		console.log(participants);
 		tbody.empty();
-		if(participants){
+		if(participants[0].name != null){
 			for(let i = 0; i<participants.length; i++) {
 				  tbody.append('<tr id="detail-table-body">'
 						   + '<td>' + participants[i].nickname + '</td>'
@@ -222,10 +249,19 @@ let participantsList = (regIdx) => {
 		} else {
 			tbody.append('<tr id="tempbody"><td colspan="4">참여자가 없습니다</td></tr>');
 		}
+		tbody.append('<tr id="purchaseLink"><td colspan = "4"><div onclick="purchaseLink(' + regIdx + ', ${authentication.id})">해당 공구 페이지로 이동</div></td></tr>');
 	   
 	});
 }
 
+let purchaseLink = (regIdx, authenticationId) => {
+	
+	if(participants[0].id != authenticationId) {
+		location.href = "http://localhost:9090/purchase/detail?regIdx=" + regIdx;
+	} else {
+		location.href = "http://localhost:9090/purchase/detail-writer?regIdx=" + regIdx;
+	}
+}
 
 
 
@@ -238,7 +274,7 @@ function statusFiltering() {
 	if(temp == '0' || temp == '1' || temp == '2' || temp == '3') {
 		ongoing = temp;
 		location.href='/purchase/my-purchase?ongoing=' + ongoing;
-	} else if(temp == 'Y' || temp == 'N' || temp == 'C'){
+	} else if(temp == 'Y' || temp == 'N' || temp == 'C' || temp == 'F'){
 		done = temp;
 		location.href='/purchase/my-purchase?done=' + done;
 	} else {

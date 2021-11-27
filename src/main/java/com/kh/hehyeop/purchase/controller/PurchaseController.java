@@ -101,7 +101,7 @@ public class PurchaseController {
 		if (joinIdxList.isEmpty()) {
 			throw new HandlableException(ErrorCode.EMPTY_JOIN_ERROR);
 		}
-		
+		purchaseService.updateDone(regIdx);
 		purchaseService.updateJoinStatus(joinIdxList);
 		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
 		
@@ -180,20 +180,16 @@ public class PurchaseController {
 			cntPerPage = "5";
 		}
 		
-		if(ongoing != null && ongoing.equals("N")) {
+		
+		if(done!=null && !done.isEmpty()) {
 			ongoing = null;
-			done = "N";
-		}else if(ongoing != null && ongoing.equals("Y")) {
-			ongoing = null;
-			done = "Y";
-		}else if(ongoing != null && ongoing.equals("C")) {
-			ongoing = null;
-			done = "C";
 		}
 		
-		if(done != null) {
-			ongoing = null;
+		if(ongoing != null && !ongoing.isEmpty()) {
+			done = null;
+			field.setOngoing(Integer.parseInt(ongoing));
 		}
+		
 		
 		
 		Member authMember = (Member) session.getAttribute("authentication");
@@ -202,9 +198,6 @@ public class PurchaseController {
 		
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		List<MyPurchaseInfo> myPurchaseInfo = purchaseService.selectMyPurchaseInfo(paging, ongoing, done, id);
-		for (MyPurchaseInfo info : myPurchaseInfo) {
-			info.setDealTime(info.getDealTime().replace("T", " "));
-		}
 		
 		if(ongoing == null && done==null) {
 			ongoing = "4";

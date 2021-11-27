@@ -103,7 +103,7 @@
 			JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
 			JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID = #{id} and ongoing = #{ongoing} order by reg_idx desc)
 			</when>
-			<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
+			<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done) or "F".equals(done)'>
 			(SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = #{done})
 			</when>
 			<otherwise>
@@ -127,7 +127,7 @@
 					JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) 
 					JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID = #{id} and ongoing = #{ongoing} order by reg_idx desc
 			  	</when>
-			  	<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done)'>
+			  	<when test = '"N".equals(done) or "Y".equals(done) or "C".equals(done) or "F".equals(done)'>
 					SELECT DISTINCT REG_IDX, ID, ITEM_NAME, DEAL_LOC, DEAL_TIME, ONGOING, DONE FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = #{done}
 			  	</when>
 			  	<otherwise>

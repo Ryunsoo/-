@@ -244,6 +244,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseRepository.selectCancelBuyNum(joinIdx);
 	}
 
+	@Override
+	public void updateDone(String regIdx) {
+		purchaseRepository.updateDone(regIdx);
+	}	
+
 
 
 }

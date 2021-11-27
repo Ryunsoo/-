@@ -98,7 +98,7 @@ public interface PurchaseRepository {
 	@Select("select cash_lock from wallet where id = #{id}")
 	int getTotalLockedCash(@Param("id") String id);
 
-	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where joinIdx = #{joinIdx} and reg_idx = #{regIdx}")
+	@Update("update purchase_match set cash_lock = 0, ongoing = 2  where join_idx = #{joinIdx} and reg_idx = #{regIdx}")
 	void updateMatchLockedCashAndOngoing(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
 
 	@Update("update wallet set cash_lock = #{totalLockedcash} where id = #{id}")
@@ -144,5 +144,8 @@ public interface PurchaseRepository {
 
 	@Select("select rest_num from purchase_match where join_idx = #{joinIdx}")
 	int selectCancelBuyNum(@Param("joinIdx") String joinIdx);
+	
+	@Update("update purchase_register set done = 'F' where reg_Idx = #{regIdx}")
+	void updateDone(String regIdx);
 
 }

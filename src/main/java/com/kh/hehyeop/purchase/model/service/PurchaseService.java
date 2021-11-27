@@ -90,7 +90,7 @@ public interface PurchaseService {
 
 	int selectCancelBuyNum(String joinIdx);
 
-
+	void updateDone(String regIdx);
 
 
 }
