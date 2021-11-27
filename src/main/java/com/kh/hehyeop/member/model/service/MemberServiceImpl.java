@@ -215,11 +215,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Admin authenticateAdmin(String id, String password) {
+	public Admin authenticateAdmin(Admin admin) {
 		
-		Admin adminUser = memberRepository.selectAdmin(id);
+		Admin adminUser = memberRepository.selectAdmin(admin.getId());
 		
-		if (passwordEncoder.matches(password, adminUser.getPassword())) {
+		if (adminUser != null && passwordEncoder.matches(admin.getPassword(), adminUser.getPassword())) {
 			return adminUser;
 		}
 		

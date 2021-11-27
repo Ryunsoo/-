@@ -228,11 +228,12 @@ public class AdminController {
 			
 			HashMap<String, String> set = new HashMap<String, String>(); 
 			set.put("to",  "01028422007"); // 수신번호
-			set.put("from", "01041147406"); // 발신번호 
+			set.put("from", "01050211937"); // 발신번호 
 			set.put("text", text); // 문자내용
 			set.put("type", "sms"); // 문자 타입 
 			
 			JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+			logger.debug(result.toString());
 			return "redirect:/admin/modify-request";
 		} else if (category.equals("join")) {
 			adminService.rejectJoin(id);
@@ -240,7 +241,7 @@ public class AdminController {
 			
 			HashMap<String, String> set = new HashMap<String, String>(); 
 			set.put("to",  "01028422007"); // 수신번호
-			set.put("from", "01041147406"); // 발신번호 
+			set.put("from", "01050211937"); // 발신번호 
 			set.put("text", text); // 문자내용
 			set.put("type", "sms"); // 문자 타입 
 			

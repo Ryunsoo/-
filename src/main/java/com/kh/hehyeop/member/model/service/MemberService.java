@@ -59,6 +59,6 @@ public interface MemberService {
 
 	Member selectMember(String id);
 
-	Admin authenticateAdmin(String id, String password);
+	Admin authenticateAdmin(Admin admin);
 
 }

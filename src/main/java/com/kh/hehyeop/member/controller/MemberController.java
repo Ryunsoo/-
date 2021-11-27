@@ -61,11 +61,11 @@ public class MemberController {
 	public void loginForm() {}
 	
 	@PostMapping("login")
-	public String loginImpl(Member member, CMember cmember, HttpSession session, RedirectAttributes redirectAttr) {
+	public String loginImpl(Member member, CMember cmember, Admin admin, HttpSession session, RedirectAttributes redirectAttr) {
 		
 		Member certifiedUser = memberService.authenticateUser(member);
 		CMember certifiedCUser = memberService.authenticateCUser(cmember);
-		Admin admin = memberService.authenticateAdmin(member.getId(), member.getPassword());
+		Admin certifiedAdmin = memberService.authenticateAdmin(admin);
 		
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
@@ -79,12 +79,10 @@ public class MemberController {
 			}
 			session.setAttribute("id", certifiedCUser.getCompany());
 			return "redirect:/company/main"; 
-		} else if (admin != null) {
+		} else if (certifiedAdmin != null) {
 			session.setAttribute("authentication", admin);
 			return "redirect:/admin/join-request";
-		}
-		
-		else {
+		} else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");
 			return "redirect:/member/login-form";
 		}
