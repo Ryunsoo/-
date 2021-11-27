@@ -45,5 +45,6 @@ public interface MypageService {
 	List<Integer> selectResponseCnt(String id);
 	List<Double> getScore(String id);
 	List<Map<String, Object>> getReview(String id);
+	Map<String, String> getPurchaseCount(String id);
 	
 }

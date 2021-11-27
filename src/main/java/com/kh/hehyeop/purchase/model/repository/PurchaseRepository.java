@@ -34,7 +34,7 @@ public interface PurchaseRepository {
 	@Select("select * from V_SELECT_PURCHASE_REQUEST where reg_idx = #{regIdx}")
 	MyPurchaseInfo selectPurchaseInfoByIdx(@Param("regIdx") String regIdx);
 	
-	@Select("select join_buy_num, nickname, name, tell from purchase_register PR left join purchase_match PM "
+	@Select("select join_buy_num, nickname, name, tell, PR.id from purchase_register PR left join purchase_match PM "
 			+ "using(reg_idx) left join purchase_join PJ using(join_idx) left join Member M on(M.id = PJ.id) where reg_idx = #{regIdx}")
 	List<MyPurchaseInfo> purchaseParticipantsList(@Param("regIdx") String regIdx);
 

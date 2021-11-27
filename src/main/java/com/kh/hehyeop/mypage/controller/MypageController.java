@@ -79,6 +79,7 @@ public class MypageController {
 		Member authMember = (Member) session.getAttribute("authentication");
 		Wallet userWallet = mypageService.selectWallet(authMember.getId());
 		MyAddress myAddress = mypageService.getMypageAddressList(authMember.getId());
+		Map<String, String> purchaseCount = mypageService.getPurchaseCount(authMember.getId());
 		
 		String[] splitAddress = authMember.getOldAddress().split(" ");
 		authMember.setOldAddress(splitAddress[0] + " " + splitAddress[1] + " " + splitAddress[2]);
@@ -87,6 +88,7 @@ public class MypageController {
 		session.setAttribute("authentication", authMember);
 		session.setAttribute("walletInfo", userWallet);
 		session.setAttribute("myAddress", myAddress);
+		session.setAttribute("purchaseCount", purchaseCount);
 		
 		List<Friend> friendList = mypageService.selectFriend(authMember.getId());
 		

@@ -1,9 +1,11 @@
 package com.kh.hehyeop.mypage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -236,4 +238,11 @@ public class MypageServiceImpl implements MypageService {
 		return mypageRepository.getReview(id);
 	}
 
+	@Override
+	public Map<String, String> getPurchaseCount(String id) {
+		Map<String, String> purchaseCount = new HashMap<>();
+		purchaseCount.put("participationCount", mypageRepository.getParticipationCount(id));
+		purchaseCount.put("recruitmentCount", mypageRepository.getRecruitmentCount(id));
+		return purchaseCount;
+	}
 }

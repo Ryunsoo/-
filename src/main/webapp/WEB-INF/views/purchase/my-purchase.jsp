@@ -235,7 +235,6 @@ let participantsList = (regIdx) => {
 	.then((response) => response.json())
 	.then((response) => {
 		participants = response;
-		console.log(participants);
 		tbody.empty();
 		if(participants[0].name != null){
 			for(let i = 0; i<participants.length; i++) {

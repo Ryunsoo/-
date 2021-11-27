@@ -128,4 +128,13 @@ public interface MypageRepository {
 
 	@Select("select re_content, count(*) as count from help_review where help_idx in (select help_idx from help_match where res_idx in (select res_idx from help_response where id = #{id})) group by re_content")
 	List<Map<String, Object>> getReview(@Param("id") String id);
+	
+	@Select("SELECT count(*) FROM PURCHASE_REGISTER A JOIN PURCHASE_MATCH B ON (A.REG_IDX = B.REG_IDX) JOIN PURCHASE_JOIN C USING(JOIN_IDX) WHERE C.ID= #{id} and ongoing = 2")
+	String getParticipationCount(@Param("id") String id);
+	
+	@Select("select count(*) from (SELECT DISTINCT REG_IDX, done FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = 'Y')")
+	String getRecruitmentCount(@Param("id") String id);
+	
+	
+	
 }

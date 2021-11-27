@@ -351,7 +351,7 @@ function alertMessage(msg){
 							<div id="orange">모집</div>
 							<div id="basic">성공</div>
 						</div>
-						<div id="infobox1-3">2건</div>
+						<div id="infobox1-3">${purchaseCount.recruitmentCount}건</div>
 					</div>
 					<div id="infobox2">
 						<div id="infobox2-1">공구</div>
@@ -359,7 +359,7 @@ function alertMessage(msg){
 							<div id="sky">참여</div>
 							<div id="basic">성공</div>
 						</div>
-						<div id="infobox2-3">5건</div>
+						<div id="infobox2-3">${purchaseCount.participationCount}건</div>
 					</div>
 				</div>
 			</div>
