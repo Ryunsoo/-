@@ -32,6 +32,8 @@ public interface AdminService {
 
 	void updateJoin(String id);
 
-	void rejectPermit(String id);
+	void rejectModify(String id);
+
+	void rejectJoin(String id);
 
 }

@@ -47,13 +47,16 @@ public interface AdminRepository {
 	@Update("update member_c set is_permit = 1, permit_date = current_date where id = #{id}")
 	void updateJoin(String id);
 
-	@Update("update member_c set is_permit = 0, is_modify = 0, permit_date = current_date where id = #{id}")
-	void rejectPermit(String id);
+	@Update("update member_c set is_permit = 0, is_modify = 3, permit_date = current_date where id = #{id}")
+	void rejectModify(String id);
 
 	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1 and permit_date > current_date-3 and is_modify=2) where rnum between #{paging.start} and #{paging.end}")
 	List<CMember> selectModifyFinishList(@Param("paging") Paging paging);
 
 	@Select("select count(*) from member_c where is_permit = 1 and permit_date > current_date-3 and is_modify=2")
 	int selectModifyFinishListCount();
+
+	@Update("update member_c set is_permit = 3, permit_date = current_date where id = #{id}")
+	void rejectJoin(String id);
 
 }

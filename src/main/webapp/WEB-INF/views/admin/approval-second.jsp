@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class='prev_btn'><button type="button" onclick="history.back()">&lt 이전</button></div>
-			<div class='decision_btn'><button onclick="/admin/reject?id=${memberInfo.member.id}" type="button">거절</button><button type="submit">승인</button></div>
+			<div class='decision_btn'><button onclick="location.href = '/admin/reject?id=${memberInfo.member.id}&cate=${memberInfo.cate}'" type="button">거절</button><button type="submit">승인</button></div>
 		</div>
 	</form>
 </body>

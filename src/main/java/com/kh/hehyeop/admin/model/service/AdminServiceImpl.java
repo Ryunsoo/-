@@ -78,12 +78,17 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void rejectPermit(String id) {
-		adminRepository.rejectPermit(id);
+	public void rejectModify(String id) {
+		adminRepository.rejectModify(id);
 	}
 
 	@Override
 	public int selectModifyFinishListCount() {
 		return adminRepository.selectModifyFinishListCount();
+	}
+
+	@Override
+	public void rejectJoin(String id) {
+		adminRepository.rejectJoin(id);
 	}
 }
