@@ -59,14 +59,22 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<CMember> selectFinishList(Paging paging) {
-		return adminRepository.selectFinishList(paging);
+	public List<CMember> selectJoinFinishList(Paging paging) {
+		return adminRepository.selectJoinFinishList(paging);
 	}
 
 	@Override
-	public int selectFinishListCount() {
-		return adminRepository.selectFinishListCount();
+	public int selectJoinFinishListCount() {
+		return adminRepository.selectJoinFinishListCount();
 	}
 
+	@Override
+	public List<CMember> selectModifyFinishList(Paging paging) {
+		return adminRepository.selectModifyFinishList(paging);
+	}
 
+	@Override
+	public int selectModifyFinishListCount() {
+		return adminRepository.selectModifyFinishListCount();
+	}
 }

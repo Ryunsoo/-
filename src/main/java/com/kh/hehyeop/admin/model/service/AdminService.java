@@ -22,8 +22,12 @@ public interface AdminService {
 
 	void updatePermit(String id);
 	
-	List<CMember> selectFinishList(Paging paging);
+	List<CMember> selectJoinFinishList(Paging paging);
 	
-	int selectFinishListCount();
+	int selectJoinFinishListCount();
+
+	List<CMember> selectModifyFinishList(Paging paging);
+
+	int selectModifyFinishListCount();
 
 }

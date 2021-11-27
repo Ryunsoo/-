@@ -29,11 +29,11 @@ public interface AdminRepository {
 	@Select("select * from member_c where id = #{id}")
 	CMember selectInfoById(String id);
 	
-	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1) where rnum between #{paging.start} and #{paging.end}")
-	List<CMember> selectFinishList(@Param("paging") Paging paging);
+	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1 and permit_date > current_date-3 and is_modify=0) where rnum between #{paging.start} and #{paging.end}")
+	List<CMember> selectJoinFinishList(@Param("paging") Paging paging);
 
-	@Select("select count(*) from member_c where is_permit = 1")
-	int selectFinishListCount();
+	@Select("select count(*) from member_c where is_permit = 1 and permit_date > current_date-3 and is_modify=0")
+	int selectJoinFinishListCount();
 
 	@Select("select a.* from file_info a join member_c b on (a.type_idx = b.c_idx) where id = #{id} and file_category = 'MEMBER_C'")
 	List<FileDTO> selectFileInfoById(String id);
@@ -43,5 +43,11 @@ public interface AdminRepository {
 
 	@Update("update member_c set is_permit = 1, is_modify = 2, permit_date = current_date where id = #{id}")
 	void updatePermit(String id);
+
+	@Select("select * from (select v.*, rownum rnum from member_c v where is_permit = 1 and permit_date > current_date-3 and is_modify=2) where rnum between #{paging.start} and #{paging.end}")
+	List<CMember> selectModifyFinishList(@Param("paging") Paging paging);
+
+	@Select("select count(*) from member_c where is_permit = 1 and permit_date > current_date-3 and is_modify=2")
+	int selectModifyFinishListCount();
 
 }

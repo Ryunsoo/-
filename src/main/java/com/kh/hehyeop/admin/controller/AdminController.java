@@ -94,8 +94,8 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("finish-list")
-	public void finishListForm(Model model, Paging paging, 
+	@GetMapping("join-finish-list")
+	public void finishListForm(Model model, Paging paging,
 			  @RequestParam(value="nowPage", required = false) String nowPage,
 			  @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
 		
@@ -108,19 +108,52 @@ public class AdminController {
 			cntPerPage = "11";
 		}
 		
-		int total = adminService.selectFinishListCount();
+		int total = adminService.selectJoinFinishListCount();
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
-		List<CMember> finishList = adminService.selectFinishList(paging);
+		List<CMember> joinFinishList = adminService.selectJoinFinishList(paging);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 	
-		for (CMember cMember : finishList) {
+		for (CMember cMember : joinFinishList) {
 			cMember.setParseDate(format.format(cMember.getPermitDate()));
 			cMember.setModifyParseDate(format.format(cMember.getModifyDate()));
 		}
 		
+		
 		model.addAttribute("paging", paging);
-		model.addAttribute("finishList", finishList);
+		model.addAttribute("joinFinishList", joinFinishList);
+		
+		
+	}
+	
+	@GetMapping("modify-finish-list")
+	public void modifyFinishListForm(Model model, Paging paging,
+			@RequestParam(value="nowPage", required = false) String nowPage,
+			@RequestParam(value="cntPerPage", required = false) String cntPerPage) {
+		
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "11";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "11";
+		}
+		
+		int modifyTotal = adminService.selectModifyFinishListCount();
+		paging = new Paging(modifyTotal, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		List<CMember> modifyFinishList = adminService.selectModifyFinishList(paging);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+		
+		for (CMember cMember : modifyFinishList) {
+			cMember.setParseDate(format.format(cMember.getPermitDate()));
+			cMember.setModifyParseDate(format.format(cMember.getModifyDate()));
+		}
+		
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("modifyFinishList", modifyFinishList);
 		
 		
 	}
@@ -169,5 +202,14 @@ public class AdminController {
 	public void rejectInfo(@RequestParam(value = "id") String id) {
 		
 //		adminService.rejectPermit(id);
+	}
+	
+	
+	@PostMapping("cancel-approval")
+	public String cancelApproval(HttpSession session) {
+		
+		
+		
+		return "redirect:/admin/join-finish-list";
 	}
 }

@@ -110,7 +110,7 @@
 .sub_menu>div>button{
    border: none;
    height: 100%;
-   width: 100%;
+   width: 80px;
    font-weight: bold;
    font-size: 15px;
    border-top-left-radius: 15px;
@@ -245,4 +245,7 @@ tr>td>.cancel:hover{
    background-color: #f2f2f2;
    bottom: 0;
    z-index: -1
+}
+.hidden{
+	display: none;
 }
