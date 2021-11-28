@@ -149,7 +149,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String htmlTxt = http.exchange(request, String.class).getBody();
 		
-		mailSender.send(email, "자취해협 비빌번호 재설정", htmlTxt);
+		mailSender.send(email, "자취해협 비밀번호 재설정", htmlTxt);
 		
 	}
 
