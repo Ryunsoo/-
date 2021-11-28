@@ -16,7 +16,7 @@
 					<a href='/mypage/change'><span class='text'>개인회원으로 전환</span> <span class='icon'><i class="fas fa-sync-alt"></i></span></a>
 				</div>
 			</c:if>
-			<div class='user_name'>${authentication.id}</div><div class='nim'>님</div>
+			<div class='user_name'>${authentication.company}</div><div class='nim'>님</div>
 			<c:choose>
 				<c:when test="${authentication.grade eq 'BRONZE'}">
 					<div class='medal' style="color: #cc9900"><i class="fas fa-medal"></i></div>
