@@ -133,7 +133,7 @@ public class PurchaseController {
 		if (grade == null) grade = "all";
 		
 		if(myArea) {
-			MyAddress address = purchaseService.selectAddress("1992554869");
+			MyAddress address = purchaseService.selectAddress(member.getId());
 			addressList.add(address.getAddress1());
 			if(address.getAddress2() != null) addressList.add(address.getAddress2());
 			if(address.getAddress3() != null) addressList.add(address.getAddress3());

@@ -193,7 +193,8 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5cd0153e48da9da48f6b22ac3f45bfd&libraries=services"></script>
 <script type="text/javascript">
 document.querySelector("#chat").addEventListener("click", () => {
-	
+	 let sellerId = document.querySelector('#sellerId').innerHTML;
+	 
 	 fetch('/chat/create-chatRoom?friendId=' + sellerId)
 	  .then(res=> res.text())
 		.then(text=> {
