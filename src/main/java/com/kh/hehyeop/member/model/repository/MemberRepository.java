@@ -31,7 +31,7 @@ public interface MemberRepository {
 	Member selectMember(String id);
 
 //	find id
-	@Select("select id from (select is_leave, id, name, tell, email from member union select id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email} and is_leave = 0")
+	@Select("select id from (select is_leave, id, name, tell, email from member union select is_leave, id, name, tell, email from member_c) where name = #{name} and tell = #{tell} and email = #{email} and is_leave = 0")
 	String selectIdByEmail(@Param("name") String name, @Param("tell") String tell, @Param("email") String email);
 
 //	member find password

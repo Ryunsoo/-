@@ -4,7 +4,7 @@ let memo = document.querySelectorAll('#input_memo_wrap');
 		let delete_btn = document.querySelectorAll("#delete");
 		let neighborname = document.querySelectorAll("#neighborname");
 		let chat_btn = document.querySelectorAll("#chat");
-		
+		let id = document.querySelectorAll("#friendId");
 
 		
 		/* memo */
@@ -12,7 +12,7 @@ let memo = document.querySelectorAll('#input_memo_wrap');
 		console.dir(memo_btn);
 		
 		for(let i = 0; i <memo.length; i++){
-			let friendId = neighborname[i].innerText;
+			let friendId = id[i].innerText;
 			
 			memo_btn[i].addEventListener("click", () => {
 				memo[i].classList.remove("hidden");

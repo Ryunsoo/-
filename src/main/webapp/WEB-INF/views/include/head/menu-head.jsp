@@ -69,7 +69,7 @@
       <div class="nav_group">
          <c:if test="${not empty authentication}">
 					<div class="nav_info">
-				    	<div class="userName">${authentication.id}</div>
+				    	<div class="userName">${authentication.nickname}</div>
 				        <div class="nim">님</div>
 				        <div class="medal">
 				        	<i class="fas fa-medal"></i>

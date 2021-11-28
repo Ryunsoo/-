@@ -503,7 +503,7 @@ function alertMessage(msg){
 									<form action="/mypage/memo" method="post">
 										<div id="input_memo_wrap" class="hidden">
                               				<textarea id="input_memo" name="memo" cols="30" rows="3">${fl.memo}</textarea>                 
-                              				<textarea class="hidden" id="freindId" name="friendId" cols="30" rows="3">${fl.friendId}</textarea>                 
+                              				<textarea class="hidden" id="friendId" name="friendId" cols="30" rows="3">${fl.friendId}</textarea>                 
 											<button class="btn btn-info" id="confirm" type="submit">저장</button>
 										</div>
 									</form>
