@@ -311,6 +311,13 @@ html, body {
   border-color: rgb(87, 153, 167);
 }
 
+.text{
+	display: flex;
+	align-items: center;
+	padding-top: 12px;
+	color: gray;
+}
+
 .fixed_input_wrap{
 	display: flex;
 	flex-direction: column;
@@ -387,6 +394,8 @@ html, body {
 
 .category{
 	display: flex;
+	justify-content: space-around;
+	width: 200px;
 }
 
 #date1,#date2,#date3{

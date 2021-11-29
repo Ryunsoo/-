@@ -75,6 +75,11 @@ function choice() {
 			prevDate = nowDate;
 		  },
 		  
+		  validRange: {
+			start: '2021-01-01',
+			end: '2031-12-31'
+		  }
+		  
 		  
    	    });
    	    calendar.render();	
@@ -143,3 +148,17 @@ function choice() {
 		
 							});
 				});
+				
+		$(function() {
+					$("#date4").datepicker(
+							{
+								dateFormat : "dd",
+								defaultDate : "+1m",
+								changeMonth : false,
+								showMonthAfterYear : false,
+								changeYear : false,
+								minDate : 1, //캘린더 범위에서 시작 날짜
+								maxDate : 29
+					});
+					
+		});

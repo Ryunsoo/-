@@ -198,6 +198,7 @@ public class managementController {
 		}
 		
 		User user = (User) session.getAttribute("authentication");
+		if(form.getEndDate().equals("")) form.setEndDate(null);
 		managementService.insertFixedSpend(user.getId(), form);
 		
 		return "redirect:/management/myAccountBook";

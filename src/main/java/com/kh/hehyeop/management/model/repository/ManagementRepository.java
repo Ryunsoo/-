@@ -37,7 +37,6 @@ public interface ManagementRepository {
 	@Insert("insert into expense values(sc_expense_idx.nextval, #{form.category}, #{id}, #{form.content}, #{form.price}, #{form.expDate})")
 	void insertPersonalSpend(@Param("id")String id, @Param("form") PersonalForm form);
 
-	@Insert("insert into f_expense values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}, #{form.endDate})")
 	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
 
 	@Insert("insert into icebox values(sc_ice_idx.nextval, #{id}, #{item}, #{category}, #{date}, current_date)")
