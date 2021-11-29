@@ -31,12 +31,12 @@ exit.addEventListener("click",function(){
 	popup.classList.add("hidden");
 });
              
-$('.cancel').click(function() {
+let deleteItem = (iceIdx, item, category) => {
+	console.dir(item);
 	let sendModal = initModal('modal', 3);
 	appendTitle(sendModal, '');
 	setButton(sendModal, '삭제', '추가');
 	setContent(sendModal, true, true);
-	//addPiggyBackground(sendModal);
 	modalBlock();
         	
 	let modalBody = $('<div class="add">최근 소진 목록에 추가하시겠습니까?<div><br>')
@@ -44,17 +44,83 @@ $('.cancel').click(function() {
 	$('.modal_content').append(modalBody);
         	
 	$('.modal_left_btn').click(function() {
-		modalNone();
+		let status = 0;
+		fetch("/management/delete-icebox?iceIdx=" + iceIdx + "&status=" + status)
+		.then(response => response.text())
+    	.then(res => {
+			if(res == "delete"){
+				modalNone();
+				let sendModal = initModal('modal', 3);
+				appendTitle(sendModal, '');
+				setButton(sendModal, '확인');
+				setContent(sendModal, true, true);
+				
+				let modalBody = $('<div>품목이 삭제되었습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
+		   		modalBody.css("padding-top",'5px');
+		   		$('.modal_content').append(modalBody);
+				modalBlock();
+				
+				$('.modal_left_btn').click(function() {
+				modalNone();
+				location.href='myIcebox_modify?category=' + category;
+				})
+									
+			}
+		})	
 	})
-})
+	
+	$('.modal_right_btn').click(function() {
+		let status = 1;
+		fetch("/management/delete-icebox?iceIdx=" + iceIdx + "&status=" + status + "&item=" + item)
+		.then(response => response.text())
+    	.then(res => {
+			if(res == "insert"){
+				modalNone();
+				let sendModal = initModal('modal', 3);
+				appendTitle(sendModal, '');
+				setButton(sendModal, '확인');
+				setContent(sendModal, true, true);
+				
+				let modalBody = $('<div>최근 소진목록에 추가되었습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
+	   			modalBody.css("padding-top",'5px');
+	   			$('.modal_content').append(modalBody);
+				modalBlock();
+				
+				$('.modal_left_btn').click(function() {
+				modalNone();
+				location.href='myIcebox_modify?category=' + category;
+				})				
+			}
+		})
+	})
+}
         
-function plusItem(){
+function plusItem(category){
 	let item = $('#item').val();
 	let date = $('#date2').val();
 	
-	fetch("/management/plusItem?item="+item + "&date=" + date);
+	fetch("/management/plusItem?item="+item + "&date=" + date + "&category=" + category)
+	.then(response => response.text())
+    .then(res => {
+		if(res == 1){
+			let sendModal = initModal('modal', 3);
+			appendTitle(sendModal, '');
+			setButton(sendModal, '확인');
+			setContent(sendModal, true, true);
+			
+			let modalBody = $('<div>냉장고에 품목이 추가되었습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
+   			modalBody.css("padding-top",'5px');
+   			$('.modal_content').append(modalBody);
+			modalBlock();
+			
+			$('.modal_left_btn').click(function() {
+				modalNone();
+				location.href='/management/myIcebox_modify?category=' + category;
+			})
+		}
+	})
 }
 
 function IceBoxCategory(category){
-	location.href='/management/my?state=' + state;
+	location.href='/management/myIcebox_modify?category=' + category;
 }

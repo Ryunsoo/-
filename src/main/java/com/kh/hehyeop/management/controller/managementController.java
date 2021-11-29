@@ -1,8 +1,5 @@
 package com.kh.hehyeop.management.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,30 +43,49 @@ public class managementController {
 	private final ScheduleFormValidator scheduleFormValidator;
 	
 	@GetMapping("myIcebox")
-	public void test() {
+	public void main(HttpSession session, Model model) {
+		
+		selectIceboxBellList(session, model);
+		selectBellCnt(session, model);
 	}
 
 	@GetMapping("myIcebox_note")
-	public void test2(HttpSession session, Model model, 
-						@RequestParam(value = "category", required = false) String category) {
+	public void myIcebox(HttpSession session, Model model, 
+						@RequestParam(value = "category" ,required = false) Integer category) {	
 		
-		if(category == null) category = "0";
-		Member member = (Member) session.getAttribute("authentication");
-		
-		List<Icebox> iceboxUpList = managementService.selectIceboxUpList(member.getId(), category);
-		List<Icebox> iceboxDownList = managementService.selectIceboxDownList(member.getId(), category);
-		
-		System.out.println("sdfsdfsdfsdfsd : " + iceboxUpList);
-		System.out.println("sdfsdfsdfsdfsd : " + iceboxDownList);
-		
-		session.setAttribute("category",category);
-		model.addAttribute("iceboxUpList", iceboxUpList);
-		model.addAttribute("iceboxDownList", iceboxDownList);
-		
+		selectIceboxList(session,model, category);
+		selectIceboxBellList(session, model);
+		selectBellCnt(session, model);
 	}
 
 	@GetMapping("myIcebox_modify")
-	public void test3() {
+	public void modify(HttpSession session, Model model, 
+			@RequestParam(value = "category", required = false) Integer category) {
+		
+		selectIceboxList(session,model, category);
+		selectIceboxBellList(session, model);
+		selectBellCnt(session, model);
+	}
+	
+	private void selectIceboxList(HttpSession session,Model model,Integer category){
+		if(category == null) category = 0;
+		Member member = (Member) session.getAttribute("authentication");
+		
+		List<Icebox> iceboxList = managementService.selectIceboxList(member.getId(), category);
+		model.addAttribute("iceboxList", iceboxList);
+		session.setAttribute("category",category);
+	}
+	
+	private void selectIceboxBellList(HttpSession session, Model model){
+		Member member = (Member) session.getAttribute("authentication");
+		List<Icebox> iceboxBellList = managementService.selectIceboxBellList(member.getId());
+		model.addAttribute("iceboxBellList", iceboxBellList);
+	}
+	
+	private void selectBellCnt(HttpSession session, Model model) {
+		Member member = (Member) session.getAttribute("authentication");
+		int bellCnt = managementService.selectBellCnt(member.getId());
+		model.addAttribute("bellCnt", bellCnt);
 	}
 
 	@GetMapping("myIcebox_cart")
@@ -192,12 +208,23 @@ public class managementController {
 	
 	@GetMapping("plusItem")
 	@ResponseBody
-	public void plusItem(HttpSession session, String item, String date) throws ParseException {
-		
+	public int plusItem(HttpSession session, String item, String date, Integer category) {
+		if(category == null) category = 0;
 		Member member = (Member) session.getAttribute("authentication");
+		int res = managementService.insertIceboxItem(member.getId(),item, date, category);
 		
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.parse(date);
-	}	
+		return res;
+	}
+	
+	@GetMapping("delete-icebox")
+	@ResponseBody
+	public String deleteIceboxItem(HttpSession session, @RequestParam(value = "iceIdx")String iceIdx
+								,@RequestParam(value = "status")int status
+								,@RequestParam(value = "item", required = false)String item) {
+		Member member = (Member) session.getAttribute("authentication");
+		String result = managementService.deleteIceboxItem(iceIdx, status, member.getId(), item);
+		return result;
+	}
+	
+	
 }

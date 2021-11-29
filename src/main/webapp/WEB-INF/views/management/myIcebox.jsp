@@ -30,63 +30,15 @@
 			</div>
 			<div class="tape"></div>
 			<div class="bell" id="go">
-				<div class="bell_cnt">3</div>
+				<div class="bell_cnt">${bellCnt}</div>
 				<i class="fas fa-bell"></i>
 			</div>
 			
 			<div class="cart" onclick="javascript:location.href='myIcebox_cart'">
-				<div class="cart_cnt">3</div>
 			<i class="fas fa-shopping-cart"></i>
 			</div>
 			
-			<div class="hidden" id="popup">
-				<div class="bell_title_wrap">
-					<div class="bell_title">
-						<div>알림</div>
-						<div class="no_read">(읽지않음</div>
-						<div class="cnt">9</div>
-						<div class="total_cnt">/15)</div>
-					</div>
-					<div class="bell_cancel" id="exit"><i class="fas fa-times-circle"></i></div>
-				</div>
-				
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-			</div>
+			<%@ include file="/WEB-INF/views/management/bell.jsp" %>
 		</div>
 	</div>
 

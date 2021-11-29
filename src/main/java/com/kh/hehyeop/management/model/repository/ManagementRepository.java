@@ -16,11 +16,8 @@ import com.kh.hehyeop.management.validator.PersonalForm;
 @Mapper
 public interface ManagementRepository {
 
-	@Select("select v.*, floor(EX_DATE - sysdate) res_day from icebox v where id = #{id} and category=#{category} and floor(EX_DATE - sysdate) > 3 order by ex_date")
-	List<Icebox> selectIceboxUpList(@Param("id")String id, @Param("category") String category);
-
-	@Select("select v.*, floor(EX_DATE - sysdate) res_day from icebox v where id = #{id} and category=#{category} and floor(EX_DATE - sysdate) <= 3 order by ex_date")
-	List<Icebox> selectIceboxDownList(@Param("id")String id, @Param("category") String category);
+	@Select("select v.*, floor(EX_DATE - sysdate) res_day from icebox v where id = #{id} and category=#{category} order by ex_date")
+	List<Icebox> selectIceboxList(@Param("id")String id, @Param("category") int category);
 
 	@Select("select * from shopping_list where id = #{id} and status = 1")
 	List<ShoppingList> selectPurchaseListById(@Param("id") String id);
@@ -42,5 +39,20 @@ public interface ManagementRepository {
 
 	@Insert("insert into f_expense values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}, #{form.endDate})")
 	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
+
+	@Insert("insert into icebox values(sc_ice_idx.nextval, #{id}, #{item}, #{category}, #{date}, current_date)")
+	int insertIceboxItem(@Param("id")String id, @Param("item")String item, @Param("date")String date, @Param("category")int category);
+
+	@Insert("insert into shopping_list values(SC_SHOPPING_IDX.nextval, #{id}, #{item}, 0)")
+	void insertShoppingItem(@Param("id")String id, @Param("item")String item);
+
+	@Delete("delete from icebox where ice_idx = #{iceIdx}")
+	void deletedeleteIceboxItem(@Param("iceIdx")String iceIdx);
+
+	@Select("select v.*, floor(EX_DATE - sysdate) res_day from icebox v where id = #{id} and floor(EX_DATE - sysdate) <= 3 order by ex_date")
+	List<Icebox> selectIceboxBellList(@Param("id")String id);
+
+	@Select("select count(*) from icebox v where id = #{id} and floor(EX_DATE - sysdate) <= 3")
+	int selectBellCnt(@Param("id")String id);
 
 }

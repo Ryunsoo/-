@@ -26,19 +26,18 @@
 			</div>
 			<div class="tape"></div>
 			<div class="bell" id="go">
-				<div class="bell_cnt">3</div>
+				<div class="bell_cnt">${bellCnt}</div>
 				<i class="fas fa-bell"></i>
 			</div>
 				
 			<div class="cart" onclick="javascript:location.href='myIcebox_cart'">
-				<div class="cart_cnt">3</div>
 			<i class="fas fa-shopping-cart"></i>
 			</div>
 			<div class="main2">
 				<div class="line_btn">
 					<div class="nAndi_btn">
-						<button class="nomal_btn">냉장</button>
-						<button class="ice_btn">냉동</button>
+						<button class="nomal_btn" onclick="IceBoxCategory(0)">냉장</button>
+						<button class="ice_btn" onclick="IceBoxCategory(1)">냉동</button>
 					</div>
 					<div class="line"></div>
 				</div>
@@ -52,74 +51,35 @@
 					<i class="fas fa-exclamation-triangle"></i>
 				</div>
 				<div class="paper">
-					<div class="txt_wrap">
-						<del class="reg_date">2021/11/02</del>
-						<del class="txt">삼겹살</del>
-						<del class="day">(3일)</del>
-						<div class="day_end"><i class="fas fa-exclamation-triangle"></i>유통기한이 지났습니다.</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					
-					
+					<c:forEach items="${iceboxList}" var="ice">
+						<c:if test="${ice.resDay <= 3}">
+						<div class="txt_wrap">
+							<div class="reg_date">${ice.exDate}</div>
+							<div class="txt">${ice.item}</div>
+							<div class="day">(${ice.resDay}일)</div>
+							<c:if test="${ice.resDay < 0}"><div class="day_end"><i class="fas fa-exclamation-triangle"></i>유통기한이 지났습니다.</div></c:if>
+						</div>
+						</c:if>	
+					</c:forEach>
+		
 				</div>
 				
 				<div class="fast_title">
 					<div class ="hurry_eat">꺼내 먹어!!</div>
 				</div>
 				<div class="paper">
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					<div class="txt_wrap">
-						<div class="reg_date">2021/11/02</div>
-						<div class="txt">삼겹살</div>
-						<div class="day">(3일)</div>
-					</div>
-					
+					<c:forEach items="${iceboxList}" var="ice">
+						<c:if test="${ice.resDay > 3}">
+						<div class="txt_wrap">
+							<div class="reg_date">${ice.exDate}</div>
+							<div class="txt">${ice.item}</div>
+							<div class="day">(${ice.resDay}일)</div>
+						</div>
+						</c:if>	
+					</c:forEach>	
 				</div>
 				
-				<div class="pen"  onclick="javascript:location.href='myIcebox_modify'">
+				<div class="pen"  onclick="location.href='myIcebox_modify?category=' + ${category}">
 					<i class="fas fa-pencil-alt"></i>
 					<div class="modify">수정</div>
 				</div>
@@ -128,58 +88,7 @@
 			</div>
 			<div class="tape2"></div>
 			
-			
-			<div class="hidden" id="popup">
-				<div class="bell_title_wrap">
-					<div class="bell_title">
-						<div>알림</div>
-						<div class="no_read">(읽지않음</div>
-						<div class="cnt">9</div>
-						<div class="total_cnt">/15)</div>
-					</div>
-					<div class="bell_cancel" id="exit"><i class="fas fa-times-circle"></i></div>
-				</div>
-				
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-			
-				
-			
-			</div>
+			<%@ include file="/WEB-INF/views/management/bell.jsp" %>
 			
 		</div>
 		
@@ -189,6 +98,6 @@
 	</div>
 	<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 </body>
-<script type="text/javascript" src="${contextPath}/resources/js/management/myIcebox.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/management/myIcebox_note.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/include/chat/chat.js"></script>
 </html>
