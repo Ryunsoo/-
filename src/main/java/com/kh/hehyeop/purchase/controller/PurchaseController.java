@@ -361,9 +361,10 @@ public class PurchaseController {
 	}
 	
 	@GetMapping("create-chat")
-	public String createChat(String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
+	public String createChat(String id, String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
 		
 		List<String> idList = purchaseService.findChatList(regIdx);
+		idList.add(id);
 		
 		chatRepository.insertChatRoom(idList);
 		
