@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
 import com.kh.hehyeop.management.model.repository.ManagementRepository;
+import com.kh.hehyeop.management.validator.FixedForm;
+import com.kh.hehyeop.management.validator.PersonalForm;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,5 +55,15 @@ public class ManagementServiceImpl implements ManagementService{
 			return 1;
 		}
 		return 0;
+	}
+
+	@Override
+	public void insertPersonalSpend(String id, PersonalForm form) {
+		managementRepository.insertPersonalSpend(id, form);
+	}
+
+	@Override
+	public void insertFixedSpend(String id, FixedForm form) {
+		managementRepository.insertFixedSpend(id, form);
 	}
 }

@@ -123,7 +123,24 @@
 	
 	
 
-	console.dir(confirmPasswordCheck);
+	let allInput = document.querySelectorAll('input');
+	
+	allInput.forEach( item => {
+		
+		let dom = document.querySelector('.modal_left_btn');
+		
+		item.addEventListener('blur', event => {
+			if(confirmPasswordCheck) {
+				dom.style.setProperty('background-color', '#384c60');
+				dom.style.setProperty("pointer-events", "auto");
+			} else {
+				dom.style.backgroundColor = 'lightgray';
+				dom.style.setProperty("pointer-events", "none");
+			}
+		})
+	});
+	
+	
 	
 
 	

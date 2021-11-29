@@ -30,8 +30,6 @@ public class ScheduleFormValidator implements Validator{
 	}
 
 	private void validatePersonalForm(PersonalForm form, Errors errors) {
-		System.out.println("personalForm: " + form);
-		System.out.println("validator 제목 : " + form.getContent());
 		if(form.getContent().equals("")) {
 			errors.rejectValue("content", "error-content", "error");
 		}
@@ -51,29 +49,31 @@ public class ScheduleFormValidator implements Validator{
 	}
 	
 	private void validateFixedForm(FixedForm form, Errors errors) {
-		System.out.println("FixedForm: " + form);
-		if(form.getContent() == null) {
-			errors.rejectValue("content", "error-content");
+		System.out.println("endDate : " + form.getEndDate());
+		if(form.getContent().equals("")) {
+			errors.rejectValue("content", "error-content", "error");
 		}
 		
 		if(form.getDays() < 0 || form.getDays() % 1 != 0) {
-			errors.rejectValue("days", "error-days");
+			errors.rejectValue("days", "error-days", "error");
 		}
 		
-		if(!form.getCycle().equals("day") && !form.getCycle().equals("month") && !form.getCycle().equals("year")) {
-			errors.rejectValue("cycle", "error-cycle");
+		if(form.getCycle() == null) {
+			errors.rejectValue("cycle", "error-cycle", "error");
+		}else if(!form.getCycle().equals("일") && !form.getCycle().equals("월") && !form.getCycle().equals("년")) {
+			errors.rejectValue("cycle", "error-cycle", "error");
 		}
 		
 		if(!Pattern.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$", form.getStartDate())) {
-			errors.rejectValue("startDate", "error-startDate");
+			errors.rejectValue("startDate", "error-startDate", "error");
 		}
 		
-		if(!Pattern.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$", form.getEndDate()) && form.getEndDate() != null) {
-			errors.rejectValue("endDate", "error-endDate");
+		if(!form.getEndDate().equals("") && !Pattern.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$", form.getEndDate())) {
+			errors.rejectValue("endDate", "error-endDate", "error");
 		}
 		
 		if(form.getPrice() < 0) {
-			errors.rejectValue("price", "error-price");
+			errors.rejectValue("price", "error-price", "error");
 		}
 		
 	}

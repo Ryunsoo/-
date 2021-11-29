@@ -54,11 +54,11 @@
 							<div class="personal_title">
 								개인 지출 입력
 							</div>
-								<select name='category' class="personal_category" required style="width: 240px; height: 45px; cursor: pointer;"
+								<select name='category' class="personal_category" required style="width: 240px; height: 45px; cursor: pointer;
 									<c:if test="${not empty personalError.category}">
-										style="border: 1px solid red;"
+										border: 1px solid red;
 									</c:if>
-								>
+								">
 									<option selected disabled>항목을 선택하세요.</option>
 									<option value='FOOD'>식비</option>
 									<option value='TRAFFIC'>교통비</option>
@@ -75,7 +75,9 @@
 									<c:when test="${not empty personalError.content}">
 										style="border: 1px solid red;"
 									</c:when>
-									<c:otherwise>value="안탔다"</c:otherwise>
+									<c:when test="${empty personalError.content}">
+										value="${personalForm.content}"
+									</c:when>
 								</c:choose>
 							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<input type="text" class="personal_category date" name='expDate' id="date1"
@@ -96,7 +98,6 @@
 								<c:when test="${empty personalError.price}">
 									value="${personalForm.price}"
 								</c:when>
-								<c:otherwise>value="1000"</c:otherwise>
 								</c:choose>
 							placeholder="금액을 입력하세요." autocomplete="off" min='0' required>
 							<div class="personal_btn">
@@ -106,25 +107,83 @@
 						</div>
 					</form:form>
 					<form:form modelAttribute="fixedForm" method="get" action="/management/fixed-spend">
-						<div class="fixed_input_wrap" id="fixed_hidden" style="display: none;">
+						<div class="fixed_input_wrap" id="fixed_hidden"
+							<c:choose>
+								<c:when test="${not empty fixedError}">
+									style="display: flex;"
+								</c:when>
+								<c:otherwise>
+									style="display: none;"
+								</c:otherwise>
+							</c:choose>
+						>
 							<div class="fixed_title">
 								고정 지출 입력
 							</div>
-							<input type="text" class="fixed_category" name='content' placeholder="제목을 입력하세요." autocomplete="off" required>
+							<input type="text" class="fixed_category" name='content'
+								<c:choose>
+									<c:when test="${not empty fixedError.content}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:when test="${empty fixedError.content}">
+										value="${fixedForm.content}"
+									</c:when>
+								</c:choose>
+							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<div class="category">
-								<input type="number" class="input_date" name='days' placeholder="기간 입력" autocomplete="off"  required>
-								<select class="input_date" name='cycle' style="width: 108px; height: 38px; cursor: pointer;" required>
+								<input type="number" class="input_date" name='days'
+									<c:choose>
+										<c:when test="${not empty fixedError.days}">
+											style="border: 1px solid red;"
+										</c:when>
+										<c:when test="${empty fixedError.days}">
+											value="${fixedForm.days}"
+										</c:when>
+									</c:choose>
+								placeholder="기간 입력" autocomplete="off" min="0" required>
+								<select class="input_date" name='cycle' style="width: 108px; height: 38px; cursor: pointer;
+									<c:if test="${not empty fixedError.cycle}">
+										border: 1px solid red;
+									</c:if>
+								" required>
 									<option selected disabled>기간 단위</option>
-									<option value='day'>일</option>
-									<option value='month'>월</option>
-									<option value='year'>년</option>
+									<option value='일'>일</option>
+									<option value='월'>월</option>
+									<option value='년'>년</option>
 								</select>
 							</div>
 								
 							
-							<input type="text" class="fixed_category date" id="date2" name='startDate' placeholder="시작날짜를 입력하세요." autocomplete="off" required>
-							<input type="text" class="fixed_category date" id="date3" name='endDate' placeholder="마감날짜를 입력하세요." autocomplete="off">
-							<input type="number" class="fixed_category" name='price' placeholder="금액 입력하세요." min='0' required>
+							<input type="text" class="fixed_category date" id="date2" name='startDate'
+								<c:choose>
+									<c:when test="${not empty fixedError.startDate}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:when test="${empty fixedError.startDate}">
+										value="${fixedForm.startDate}"
+									</c:when>
+								</c:choose>
+							placeholder="시작날짜를 입력하세요." autocomplete="off" required>
+							<input type="text" class="fixed_category date" id="date3" name='endDate'
+								<c:choose>
+									<c:when test="${not empty fixedError.endDate}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:when test="${empty fixedError.endDate}">
+										value="${fixedForm.endDate}"
+									</c:when>
+								</c:choose>
+							placeholder="마감날짜를 입력하세요." autocomplete="off">
+							<input type="number" class="fixed_category" name='price'
+								<c:choose>
+									<c:when test="${not empty fixedError.price}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:when test="${empty fixedError.price}">
+										value="${fixedForm.price}"
+									</c:when>
+								</c:choose>
+							placeholder="금액 입력하세요." min='0' required>
 							<div class="fixed_btn">
 								<button class="fixed_delete">삭제</button>
 								<button class="fixed_save">저장</button>
