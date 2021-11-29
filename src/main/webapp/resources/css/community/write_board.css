@@ -1,70 +1,53 @@
 #write_body_container{
-    width:1000px;
-    height:1000px;
-    /* background-color:rgba(20,20,20,0.1); */
-    margin:0 auto;
-    display:block;
+    display: flex;
+    flex-direction: column;
 }
 
 .write_body{
+	display: flex;
+	justify-content: center;
+	height: 900px;
     background-color: rgba(127, 127, 127, 0.06);
 }
 
 #exp_of_write{
+	display: flex;
     width:1000px;
     height:40px;
-    /* margin:0 auto; */
-    position: relative;
-    top: 20px;
-    right: 5px;
     text-align:center;
 }
 
 #exp_of_write p {
-    font-size:30px;
-    margin:0 auto;
-    text-align:center;
-    font-family: '나눔스퀘어_ac';
 	font-weight: bold;
-	color: black;
+	font-size: 20px;
+	width: 200px;
+	line-height: 16px;	
 }
 
 #write_form{
-    width:1000px;
-    height:800px;
-    margin:0 auto;
-    
+    display: flex;
+    flex-direction: column;
+}
+
+#form_inner_select select{
+	width: 110px;
+    height: 35px;
+    font-size: 13px;
+    border-radius: 4px;
+    margin: 0 40px 0 0;	
+}
+
+#form_write_title input{
+	width: 600px;
+	height: 30px;
+	font-size: 13px;
+	border-radius: 4px;
 }
 
 #form_inner_top{
     width:1000px;
     height:50px;
-    margin-top:40px;
-    background-color:white;
-}
-
-#form_inner_select{
-    width:150px;
-    margin-right:40px;
-    font-family: '나눔스퀘어_ac';
-	font-weight: bold;
-}
-#form_inner_select select{
-    width:150px;
-    font-size:20px;
-}
-
-#form_write_title{
-    width:350px;
-    height:50px;
-    background-color:white;
-    font-family: '나눔스퀘어_ac';
-	font-weight: bold;
-}
-
-#form_write_title input{
-    width:350px;
-    height:50px;
+    margin: 40px 0 20px 0;
 }
 
 form{
@@ -74,8 +57,39 @@ form{
 }
 
 #cover_form{
+	background-color: white;
     margin-top:5px;
     width:1000px;
-    height:600px;
-    background-color:white;
+    height:612px;
+}
+
+#title_line{
+	width: 100px;
+	height: 0px;
+	margin: 26px 0 0 0;
+	border: 1px solid silver;
+}
+
+#title_line_two{
+	width: 700px;
+	height: 0px;
+	margin: 26px 0 0 0;
+	border: 1px solid silver;
+}
+
+#write_btn{
+	width: 200px;
+	height: 45px;
+	margin-top: 40px;
+	border-radius: 10px;
+    background-color: rgb(52, 73, 94);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.13s;
+    cursor: pointer;
+    color: white;
 }
