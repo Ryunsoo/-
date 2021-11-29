@@ -158,7 +158,6 @@ function failLogin(msg){
 	
 	</form>
 	
-<script type="text/javascript" src="../../../resources/js/member/login-form.js"></script>	
 <script type="text/javascript">
 
 let createFindIdModal = () => {
@@ -391,9 +390,9 @@ if(link[1] != null) {
 	   changePwNameInput.append(changePwNameInputBox);
 	   
 	   let validator = $('<div>').addClass('pw_validator_bar');
-	   let low = $('<div class="hidden">').addClass('low');
-	   let middle = $('<div class="hidden">').addClass('middle');
-	   let high = $('<div class="hidden">').addClass('high');
+	   let low = $('<div>').addClass('low');
+	   let middle = $('<div>').addClass('middle');
+	   let high = $('<div>').addClass('high');
 	   
 	   changePwNametext.append(validator);
 	   validator.append(low);
@@ -401,12 +400,11 @@ if(link[1] != null) {
 	   validator.append(high);
 	   
 	   let level = $('<div>').addClass('level');
-	   let label = $('<label id="validator_bar_text" style="font-weight: 1000"></label>')
-	   let span = $('<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>')
+	   let label = $('<label id="validator_bar_text" style="font-weight: 1000, font-size:15px"></label>')
+	   let span = $('<span style="font-size: 13px; color: red; margin-left: 10px;" id="pwCheck"></span>')
 	   
-	   ModalBody.append(level);
+	   changePwNametext.append(level);
 	   level.append(label);
-	   level.append(span);
 	   
 	   
 	   
@@ -415,6 +413,7 @@ if(link[1] != null) {
 	   let changePwNameInput2 = $('<div>').height('30px');
 	   let changePwNameInputBox2 = $('<input class="form-control-pw-btm" type="password" id="newPwConfirm">').attr('placeholder','비밀번호를 한번 더 입력하세요');
 	   ModalBody.append(changePwName2);
+	   changePwNametext2.append(span);
 	   changePwName2.append(changePwNametext2);
 	   changePwName2.append(changePwNameInput2);
 	   changePwNameInput2.append(changePwNameInputBox2);
@@ -509,5 +508,6 @@ if (Kakao.Auth.getAccessToken()) {
 
 
 </script>
+<script type="text/javascript" src="../../../resources/js/member/login-form.js"></script>	
 </body>
 </html>
