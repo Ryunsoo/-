@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
@@ -153,7 +154,7 @@ public interface PurchaseRepository {
 	List<String> findChatList(@Param("regIdx") String regIdx);
 
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx}" )
-	Map<String, Object> selectJoinIdList(String regIdx);
+	List<User> selectJoinIdList(String regIdx);
 
 	
 	

@@ -151,13 +151,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void updateJoinStatus(List<String> joinIdxList, String regIdx) {
 		//구매자들에게 공구 확정 푸시
 		
-		Map<String, Object> map = purchaseRepository.selectJoinIdList(regIdx);
+		List<User> userList = purchaseRepository.selectJoinIdList(regIdx);
 		
-		Member member = new Member();
-		member.setId((String)map.get("id"));
-		
-		
-		pushSender.send(member, "공구해협",  "님이 공구를 확정 하셨습니다.");
+		System.out.println("~~~~~~userList : " + userList);
+		pushSender.send(userList, "공구해협", "님이 공구를 확정 하셨습니다.");
 		
 		//상태 바꿔주기
 		purchaseRepository.updateJoinStatus(joinIdxList);
