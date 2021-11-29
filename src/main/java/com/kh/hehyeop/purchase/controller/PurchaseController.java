@@ -25,9 +25,11 @@ import com.kh.hehyeop.common.chat.model.repository.ChatRepository;
 import com.kh.hehyeop.common.chat.model.service.ChatServiceImpl;
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
@@ -44,6 +46,8 @@ import lombok.RequiredArgsConstructor;
 public class PurchaseController {
 	private final PurchaseService purchaseService;
 	private final ChatRepository chatRepository;
+	private final PurchaseRepository purchaseRepository;
+	private final PushSender pushSender;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
@@ -101,13 +105,15 @@ public class PurchaseController {
 	public String purchaseCommit(@RequestParam(value = "regIdx") String regIdx,
 			 					 HttpSession session, RedirectAttributes redirectAttr) throws ParseException {
 		
+		Member member = (Member) session.getAttribute("authentication");
+		String sellerNickname = member.getNickname();
 		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
 		
 		if (joinIdxList.isEmpty()) {
 			throw new HandlableException(ErrorCode.EMPTY_JOIN_ERROR);
 		}
 		purchaseService.updateDone(regIdx);
-		purchaseService.updateJoinStatus(joinIdxList, regIdx);
+		purchaseService.updateJoinStatus(joinIdxList, regIdx, sellerNickname);
 		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
 		
 		return "redirect:/purchase/detail-writer?regIdx="+regIdx;
@@ -232,6 +238,8 @@ public class PurchaseController {
 	public void purchaseRequestTest(HttpSession session, String regIdx) {
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		Member member = (Member) session.getAttribute("authentication");
+		System.out.println("~~~~~~~~~~~~~~~"+purchaseInfo);
+		System.out.println("~~~~~~~~~~~~~~~"+member.getNickname());
 		String id = member.getId();
 		int cash = purchaseService.getCash(id);
 		purchaseInfo.setCash(cash);
@@ -278,11 +286,14 @@ public class PurchaseController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
+		String nickname = member.getNickname();
 		
 		purchaseService.purchaseRequest(buyNum, id); //purchase join 테이블
 		
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo"); // V_SELECT_PURCHASE_REQUEST를 통해 조회한 값이 들어있는 MypurchaseInfo
 		
+		String itemName = purchaseInfo.getItemName();
+		System.out.println(purchaseInfo);
 		int restNum = purchaseInfo.getRestNum()-buyNum; // 판매자의 물건 남은 수량 (register 테이블)
 		String join_idx = purchaseService.selectJoinIdx(); // joinIdx 찾기
 		int matchLockedCash = purchaseInfo.getPrice()*buyNum; // 내가 산 물건 가격 => match 테이블 cash_lock
@@ -291,7 +302,7 @@ public class PurchaseController {
 		
 		
 		purchaseService.updateWallet(id, cash, WalletLockedCash); // wallet의 cash 차감, cash_lock 업데이트
-		purchaseService.purchaseMatch(regIdx, restNum, join_idx, matchLockedCash); // match 테이블 insert
+		purchaseService.purchaseMatch(regIdx, restNum, join_idx, matchLockedCash, nickname, itemName); // match 테이블 insert
 		
 		return "redirect:/purchase/detail?regIdx="+regIdx;
 		
@@ -360,10 +371,18 @@ public class PurchaseController {
 	@GetMapping("create-chat")
 	public String createChat(String id, String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
 		
+		//구매자 리스트
 		List<String> idList = purchaseService.findChatList(regIdx);
+		List<User> userList = purchaseRepository.selectJoinIdList(regIdx);
 		idList.add(id);
 		
+		//채팅방 생성
 		chatRepository.insertChatRoom(idList);
+		
+		//구매자들에게 공구 확정 푸시
+		Member member = (Member) session.getAttribute("authentication");
+		String sellerNickname = member.getNickname();
+		pushSender.send(userList, "공구해협", sellerNickname+"님이 공구 단톡방을 생성 하셨습니다.");
 		
 		redirectAttr.addFlashAttribute("message", "단톡방 개설이 완료되었습니다.");
 		

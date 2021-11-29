@@ -156,6 +156,9 @@ public interface PurchaseRepository {
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx}" )
 	List<User> selectJoinIdList(String regIdx);
 
+	@Select("select id from purchase_register where reg_idx = #{regIdx}" )
+	User sellerId(String regIdx);
+
 	
 	
 }

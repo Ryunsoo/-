@@ -101,8 +101,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash) {
+	public void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash, String nickname, String itemName) {
+		//match테이블 인서트
 		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx,matchLockedCash);
+		
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		
+		//구매자들에게 공구 확정 푸시
+		pushSender.send(sellerId, "공구해협", nickname+"님이 " + itemName + " 공구 신청 하셨습니다.");
 		
 	}
 
@@ -148,13 +154,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void updateJoinStatus(List<String> joinIdxList, String regIdx) {
-		//구매자들에게 공구 확정 푸시
+	public void updateJoinStatus(List<String> joinIdxList, String regIdx, String sellerNickname) {
 		
+		//구매자들 리스트
 		List<User> userList = purchaseRepository.selectJoinIdList(regIdx);
-		
-		System.out.println("~~~~~~userList : " + userList);
-		pushSender.send(userList, "공구해협", "님이 공구를 확정 하셨습니다.");
+		//구매자들에게 공구 확정 푸시
+		pushSender.send(userList, "공구해협", sellerNickname+"님이 공구를 확정 하셨습니다.");
 		
 		//상태 바꿔주기
 		purchaseRepository.updateJoinStatus(joinIdxList);
