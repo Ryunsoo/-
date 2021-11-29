@@ -133,7 +133,7 @@ public interface PurchaseRepository {
 
 	void updateOngoing(@Param("regIdxList") List<String> regIdxList);
 	
-	@Select("select reg_idx, id, item_name, done, match_idx, join_idx, ongoing from purchase_register join purchase_match using (reg_idx) where reg_idx = #{regIdx} and id = #{id}")
+	@Select("select reg_idx, id, item_name, done, match_idx, join_idx, ongoing from (select rownum rnum, reg_idx, id, item_name, done, match_idx, join_idx, ongoing from purchase_register join purchase_match using (reg_idx) where reg_idx = #{regIdx} and id=#{id}) V where rnum<2")
 	MyPurchaseInfo detailRemoveCheck(@Param("regIdx") String regIdx, @Param("id") String id);
 	
 	@Delete("delete from purchase_register where reg_idx = #{regIdx} and id = #{id}")
@@ -151,5 +151,6 @@ public interface PurchaseRepository {
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx} and ongoing=1" )
 	List<String> findChatList(@Param("regIdx") String regIdx);
 
+	
 	
 }
