@@ -151,7 +151,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//구매자들에게 공구 확정 푸시
 		Member member = (Member) session.getAttribute("authentication");
 		String sellerId = member.getId();
-		pushSender.send((Member) joinIdList, "공구해협", sellerId + "님이 공구를 확정 하셨습니다.");
+		pushSender.send((User) joinIdList, "공구해협", sellerId + "님이 공구를 확정 하셨습니다.");
 		purchaseRepository.updateJoinStatus(joinIdxList);
 	}
 
