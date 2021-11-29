@@ -248,19 +248,20 @@ let participantsList = (regIdx) => {
 		} else {
 			tbody.append('<tr id="tempbody"><td colspan="4">참여자가 없습니다</td></tr>');
 		}
-		tbody.append('<tr id="purchaseLink"><td colspan = "4"><div onclick="purchaseLink(' + regIdx + ', ${authentication.id})">해당 공구 페이지로 이동</div></td></tr>');
-	   
+		tbody.append("<tr id='purchaseLink'><td colspan = '4'><div onclick='purchaseLink(" + regIdx + ")'>해당 공구 페이지로 이동</div></td></tr>");
+	   	
 	});
 }
 
-let purchaseLink = (regIdx, authenticationId) => {
-	
+let purchaseLink = (regIdx) => {
+	let authenticationId = "${authentication.id}";
 	if(participants[0].id != authenticationId) {
 		location.href = "http://localhost:9090/purchase/detail?regIdx=" + regIdx;
 	} else {
 		location.href = "http://localhost:9090/purchase/detail-writer?regIdx=" + regIdx;
 	}
 }
+
 
 
 
