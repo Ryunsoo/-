@@ -52,7 +52,7 @@ public interface PurchaseService {
 
 	List<String> selectJoinId(String regIdx);
 
-	void updateJoinStatus(List<String> joinIdxList);
+	void updateJoinStatus(List<String> joinIdxList, List<String> joinIdList);
 
 	List<String> selectJoinList(String regIdx);
 
@@ -93,6 +93,9 @@ public interface PurchaseService {
 	void updateDone(String regIdx);
 
 	List<String> findChatList(String regIdx);
+
+	List<String> selectJoinIdList(String regIdx);
+
 
 
 }
