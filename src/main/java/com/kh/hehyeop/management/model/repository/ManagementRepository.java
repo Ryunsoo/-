@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
@@ -43,4 +44,6 @@ public interface ManagementRepository {
 	@Insert("insert into f_expense values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}, #{form.endDate})")
 	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
 
+	@Select("select * from f_expense where id = #{id}")
+	List<FExpense> selectFExpenseList(@Param("id") String id);
 }

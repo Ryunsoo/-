@@ -1,6 +1,7 @@
 package com.kh.hehyeop.management.controller;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.sms.Coolsms;
 import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
 import com.kh.hehyeop.management.model.service.ManagementService;
@@ -188,7 +190,19 @@ public class managementController {
 	}
 
 	@GetMapping("myAccountList")
-	public void test6() {}
+	public void test6(HttpSession session, Model model) {
+		Member member = (Member) session.getAttribute("authentication");
+		List<FExpense> fExpenseList = managementService.selectFExpenseList(member.getId());
+		int sumPrice = 0;
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		for (FExpense fExpense : fExpenseList) {
+			fExpense.setComPrice(formatter.format(fExpense.getPrice()));
+			sumPrice += fExpense.getPrice();
+		}
+		String comSumPrice = formatter.format(sumPrice);
+		model.addAttribute("FExpenseList", fExpenseList);
+		model.addAttribute("sumPrice", comSumPrice);
+	}
 	
 	@GetMapping("plusItem")
 	@ResponseBody

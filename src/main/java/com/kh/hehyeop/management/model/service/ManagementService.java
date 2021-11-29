@@ -1,6 +1,8 @@
 package com.kh.hehyeop.management.model.service;
 
 import java.util.List;
+
+import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import java.util.Map;
 
@@ -25,5 +27,7 @@ public interface ManagementService {
 	void insertPersonalSpend(String id, PersonalForm form);
 
 	void insertFixedSpend(String id, FixedForm form);
+	
+	List<FExpense> selectFExpenseList(String id);
 
 }

@@ -3,6 +3,8 @@ package com.kh.hehyeop.management.model.service;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
+
+import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
 import com.kh.hehyeop.management.model.repository.ManagementRepository;
@@ -65,5 +67,10 @@ public class ManagementServiceImpl implements ManagementService{
 	@Override
 	public void insertFixedSpend(String id, FixedForm form) {
 		managementRepository.insertFixedSpend(id, form);
+	}
+	
+	@Override
+	public List<FExpense> selectFExpenseList(String id) {
+		return managementRepository.selectFExpenseList(id);
 	}
 }

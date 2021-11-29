@@ -30,10 +30,9 @@
 						<option>&nbsp&nbsp기타</option>
 					</select>
 					<div class="line"></div>
-					<label class="year"><input type="radio" class="year_radio"
-						name="choice" id="choice" value="1">연간 통계</label> <label
-						class="month"><input type="radio" class="month_radio"
-						name="choice" id="choice" value="1">월간 통계</label> <select
+					<label class="year"><input type="radio" class="year_radio" name="choice" id="choice" value="1">연간 통계</label> 
+					<label class="month"><input type="radio" class="month_radio" name="choice" id="choice" value="1">월간 통계</label> 
+					<select
 						class="personal_category">
 						<option selected disabled>&nbsp&nbsp기간 (년/월) 구분</option>
 						<option>&nbsp&nbsp일</option>
@@ -51,54 +50,16 @@
 						<label id='date'>날짜</label>
 						<label id='tatal_pay'>누적금액</label>
 					</div>
-					<div class='personal_content'>
-						<label id='idx'>1</label> 
-						<label id='cate'>식비</label> 
-						<label id='content'>치킨</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
-					<div class='personal_content'>
-						<label id='idx'>2</label> 
-						<label id='cate'>생활비</label> 
-						<label id='content'>쿠팡 (쌀 외 5종)</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
-					<div class='personal_content'>
-						<label id='idx'>3</label> 
-						<label id='cate'>생활비</label> 
-						<label id='content'>쿠팡 (쌀 외 5종)</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
-					<div class='personal_content'>
-						<label id='idx'>4</label> 
-						<label id='cate'>생활비</label> 
-						<label id='content'>쿠팡 (쌀 외 5종)</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
-					<div class='personal_content'>
-						<label id='idx'>4</label> 
-						<label id='cate'>생활비</label> 
-						<label id='content'>쿠팡 (쌀 외 5종)</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
-					<div class='personal_content'>
-						<label id='idx'>4</label> 
-						<label id='cate'>생활비</label> 
-						<label id='content'>쿠팡 (쌀 외 5종)</label> 
-						<label id='money'>18,000</label>
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>18,000</label>
-					</div>
+					<c:forEach items="${ExpenseList}" var="el" varStatus="status">
+						<div class='personal_content'>
+							<label id='idx'>${status.count}</label> 
+							<label id='cate'>${el.category}</label> 
+							<label id='content'>${el.content}</label> 
+							<label id='money'>${el.comPrice}</label>
+							<label id='date'>${el.expDate}</label>
+							<label id='tatal_pay'>18,000</label>
+						</div>
+					</c:forEach>
 					
 				</div>
 				<div class="personal_total">
@@ -117,45 +78,18 @@
 						<label id='date'>시작 일자</label>
 						<label id='tatal_pay'>마감일자</label>
 					</div>
-					<div class='fixed_content'>
-						<label id='idx'>1</label> 
-						<label id='cate'>월세</label> 
-						<label id='content'>400,000</label> 
-						<label id='content'>1달</label> 
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>2023/11/04</label>
-					</div>
-				
-					<div class='fixed_content'>
-						<label id='idx'>1</label> 
-						<label id='cate'>월세</label> 
-						<label id='content'>400,000</label> 
-						<label id='content'>1달</label> 
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>2023/11/04</label>
-					</div>
-				
-					<div class='fixed_content'>
-						<label id='idx'>1</label> 
-						<label id='cate'>월세</label> 
-						<label id='content'>400,000</label> 
-						<label id='content'>1달</label> 
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>2023/11/04</label>
-					</div>
-				
-					<div class='fixed_content'>
-						<label id='idx'>1</label> 
-						<label id='cate'>월세</label> 
-						<label id='content'>400,000</label> 
-						<label id='content'>1달</label> 
-						<label id='date'>2021/11/04</label>
-						<label id='tatal_pay'>2023/11/04</label>
-					</div>
-				
-				
+					<c:forEach items="${FExpenseList}" var="fl" varStatus="status">
+						<div class='fixed_content'>
+							<label id='idx'>${status.count}</label> 
+							<label id='cate'>${fl.content}</label> 
+							<label id='content'>${fl.comPrice}</label> 
+							<label id='content'>${fl.days}${fl.cycle}</label> 
+							<label id='date'>${fl.startDate}</label>
+							<label id='tatal_pay'>${fl.endDate}</label>
+						</div>
+					</c:forEach>
 					<div class="fixed_total">
-						고정지출의 합계는<div style="color: orange;">&nbsp400,000원&nbsp</div>입니다.
+						고정지출의 합계는<div style="color: orange;">&nbsp${sumPrice}원&nbsp</div>입니다.
 					</div>
 				
 				</div>
