@@ -151,4 +151,5 @@ public interface PurchaseRepository {
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx} and ongoing=1" )
 	List<String> findChatList(@Param("regIdx") String regIdx);
 
+	
 }
