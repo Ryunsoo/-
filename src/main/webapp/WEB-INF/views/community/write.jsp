@@ -47,17 +47,18 @@
          </div>
          
          <div id="write_form">
-            <form>
+            <form action="/community/write-board" method="post">
             <!--카테고리,제목-->
                <div id="form_inner_top">
                   
                   <!--select-->
                      <div id="form_inner_select">
-                        <SELECT NAME="cate" SIZE=1>
+                        <SELECT NAME="boardCategory" SIZE=1>
 	                        <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
-	                        <OPTION VALUE=1>음식</OPTION>
-	                        <OPTION VALUE=2>잡담</OPTION>
-	                        <OPTION VALUE=3>4번 보기</OPTION>
+	                        <OPTION VALUE="음식">음식</OPTION>
+	                        <OPTION VALUE="잡담">잡담</OPTION>
+	                        <OPTION VALUE="나눔">나눔</OPTION>
+	                        <OPTION VALUE="추천">추천</OPTION>
                         </SELECT>
                      </div>
 
@@ -71,7 +72,13 @@
                <div id="cover_form">
                   
                   <textarea style="background-color: white !important;" name="content" id="summernote"></textarea>
-                  <div align="right">
+                  <div class="footer">
+                  	 <div class="private_txt" id="public">공개</div>
+                  	 <div class="private_txt" style="display: none;" id="private">비공개</div>
+                  	 <label class="switch">
+				  		<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1">
+				  		<span class="slider round"></span>
+					 </label>
                      <input type="hidden" value="${param.section}">
                      <input type="hidden" name="id" value="${authentication.id}">
                      <button id="write_btn" type="submit">게시글 등록</button>
@@ -92,20 +99,23 @@
       $('#summernote').summernote({
     	lang: 'ko-KR',
         placeholder: '게시글 내용을 입력해주세요.',
-        tabsize: 2,
         height: 560,
         minHeight: 300,
         maxHeight: 560,
         disableResizeEditor: true,
         toolbar: [
           ['style', ['style']],
+          ['fontname', ['fontname']],
+          ['fontsize', ['fontsize']],
           ['font', ['bold', 'underline', 'clear']],
           ['color', ['color']],
           ['para', ['ul', 'ol', 'paragraph']],
           ['table', ['table']],
           ['insert', ['link', 'picture', 'video']],
           ['view', ['fullscreen', 'codeview', 'help']]
-        ]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
       });
       
       var markupStr = $('#summernote').summernote('code');
@@ -113,4 +123,20 @@
    <!--wrap == container 끝-->
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
+<script type="text/javascript">
+
+function viewTxt(){
+	
+	if (document.getElementById("private").style.display == "none"){
+		document.getElementById("private").style.display = "block";
+		document.getElementById("public").style.display = "none";
+	} else {
+		document.getElementById("private").style.display = "none";
+		document.getElementById("public").style.display = "block";
+	}
+	
+}
+
+
+</script>
 </html>

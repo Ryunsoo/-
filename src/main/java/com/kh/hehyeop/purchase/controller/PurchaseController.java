@@ -80,7 +80,6 @@ public class PurchaseController {
 		}
 		MyPurchaseInfo myPurchaseInfo = purchaseService.detailRemoveCheck(regIdx, member.getId());
 		
-		
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		
 		List<String> match = purchaseService.findBuyer(regIdx);
@@ -91,12 +90,11 @@ public class PurchaseController {
 		model.addAttribute("buyNum", buyNum);
 		
 		String removeButtonFlg = null;
-		if(myPurchaseInfo.getMatchIdx() != null) {
+		if(myPurchaseInfo != null) {
 			removeButtonFlg = "on";
 			model.addAttribute("removeButtonFlg", removeButtonFlg);
 		}
 		
-		System.out.println("~~~~~match : " + match + "myPurchaseInfo : " + myPurchaseInfo.getDone());
 	}
 	
 	@GetMapping("purchase-commit")

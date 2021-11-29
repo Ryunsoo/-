@@ -15,4 +15,5 @@ public class Community {
 	private int viewCnt;
 	private Date regDate;
 	private int isDel;
+	private int isPrivate;
 }
