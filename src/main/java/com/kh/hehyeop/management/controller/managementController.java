@@ -3,10 +3,14 @@ package com.kh.hehyeop.management.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,40 +18,24 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.kh.hehyeop.common.sms.Coolsms;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.management.model.dto.Icebox;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.json.simple.JSONObject;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.kh.hehyeop.common.sms.Coolsms;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
 import com.kh.hehyeop.management.model.service.ManagementService;
 import com.kh.hehyeop.management.validator.FixedForm;
 import com.kh.hehyeop.management.validator.PersonalForm;
 import com.kh.hehyeop.management.validator.ScheduleFormValidator;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 
 import lombok.RequiredArgsConstructor;
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequiredArgsConstructor
@@ -154,11 +142,7 @@ public class managementController {
 	}
 
 	@GetMapping("myAccountBook")
-	public void myAccountBookForm(Model model) {
-		//model.addAttribute(new PersonalForm()).addAttribute(new FixedForm())
-			//.addAttribute("personalError", new ValidateResult().getError());
-			//.addAttribute(null, model)
-	}
+	public void myAccountBookForm() {}
 	
 	@GetMapping("personal-spend")
 	public String savePersonalSpend(@Validated PersonalForm form,
@@ -170,13 +154,14 @@ public class managementController {
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("personalError", vr.getError());
-		//model.addAttribute("error", vr.getError());
 		
 		if(errors.hasErrors()) {
 			vr.addErrors(errors);
-			System.out.println(vr.getError());
 			return "management/myAccountBook";
 		}
+		
+		User user = (User) session.getAttribute("authentication");
+		managementService.insertPersonalSpend(user.getId(), form);
 		
 		return "redirect:/management/myAccountBook";
 	}
@@ -189,12 +174,15 @@ public class managementController {
 		System.out.println(form.getEndDate());
 		
 		ValidateResult vr = new ValidateResult();
-		model.addAttribute("error", vr.getError());
+		model.addAttribute("fixedError", vr.getError());
 		
 		if(errors.hasErrors()) {
 			vr.addErrors(errors);
 			return "management/myAccountBook";
 		}
+		
+		User user = (User) session.getAttribute("authentication");
+		managementService.insertFixedSpend(user.getId(), form);
 		
 		return "redirect:/management/myAccountBook";
 	}

@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Select;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
+import com.kh.hehyeop.management.validator.FixedForm;
+import com.kh.hehyeop.management.validator.PersonalForm;
 
 @Mapper
 public interface ManagementRepository {
@@ -34,5 +36,11 @@ public interface ManagementRepository {
 
 	@Update("update shopping_list set status = 1 where id = #{id} and shopping_idx = #{shoppingIdx}")
 	int updateItemStatus(@Param("id") String id, @Param("shoppingIdx") String shoppingIdx);
+
+	@Insert("insert into expense values(sc_expense_idx.nextval, #{form.category}, #{id}, #{form.content}, #{form.price}, #{form.expDate})")
+	void insertPersonalSpend(@Param("id")String id, @Param("form") PersonalForm form);
+
+	@Insert("insert into f_expense values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}, #{form.endDate})")
+	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
 
 }

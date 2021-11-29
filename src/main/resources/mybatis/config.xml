@@ -26,6 +26,7 @@
   		<mapper resource="mybatis/mapper/chatMapper.xml"/>
   		<mapper resource="mybatis/mapper/purchaseMapper.xml"/>
   		<mapper resource="mybatis/mapper/companyMapper.xml"/>
+  		<mapper resource="mybatis/mapper/managementMapper.xml"/>
   	</mappers>
 
   </configuration>
