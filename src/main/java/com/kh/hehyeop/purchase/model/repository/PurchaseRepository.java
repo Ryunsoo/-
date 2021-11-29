@@ -20,8 +20,8 @@ import com.kh.hehyeop.purchase.validator.RegisterForm;
 @Mapper
 public interface PurchaseRepository {
 	
-	@Insert("insert into purchase_register(reg_idx, id, item_name, item_link, deal_loc, end_time, deal_time, price, total_num, buy_num, content, rest_num) "
-			+ "values (sc_reg_idx.nextval, #{id}, #{itemName}, #{itemLink}, #{dealLoc}, #{endTime}, #{dealTime}, #{price}, #{totalNum}, #{buyNum}, #{content}, #{restNum})")
+	@Insert("insert into purchase_register(reg_idx, id, item_name, item_link, deal_loc, end_time, deal_time, old_addr, price, total_num, buy_num, content, rest_num) "
+			+ "values (sc_reg_idx.nextval, #{id}, #{itemName}, #{itemLink}, #{dealLoc}, #{endTime}, #{dealTime}, #{oldAddr}, #{price}, #{totalNum}, #{buyNum}, #{content}, #{restNum})")
 	int registerInfo(RegisterForm form);
 
 	@Select("select reg_idx from purchase_register p where rownum = 1 order by reg_idx desc")

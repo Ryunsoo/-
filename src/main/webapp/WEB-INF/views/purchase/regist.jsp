@@ -61,6 +61,7 @@
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*거래위치 <div id="addrBtn" onclick="searchAddr()">주소찾기</div></div>
 					<input class="text-input" id="addr" placeholder="버튼을 클릭하세요" name="dealLoc" readonly/>
+					<input style="display:none;" id="oldAddr" name="oldAddr"/>
 				</div>
 				<br>
 				
@@ -127,9 +128,27 @@ function searchAddr(){
 	new daum.Postcode({
         oncomplete: function(data) {
         	var roadAddr = data.roadAddress; // 도로명 주소 변수
-           
+            var jibunAddr = data.jibunAddress; // 참고 항목 변수
+			
+            if (jibunAddr == ""){
+            	alert("(구)주소를 다시 선택해주세요");
+            	return;
+            }
+            
+			let newJibunAddr;
+            
+            //시도가 세종특별자치시 이거나 제주특별자치도일 경우 '세종', '제주' 로 바꿔준다.
+            if(data.sido == '세종특별자치시') {
+            	newJibunAddr = jibunAddr.replace('세종특별자치시', '세종');
+            }else if(data.sido == '제주특별자치도') {
+            	newJibunAddr = jibunAddr.replace('제주특별자치도', '제주');
+            }else {
+            	newJibunAddr = jibunAddr;
+            }  
+
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById("addr").value = roadAddr;
+            document.getElementById("oldAddr").value = newJibunAddr;
 
         }
            

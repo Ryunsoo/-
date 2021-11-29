@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -239,12 +240,15 @@ public class PurchaseController {
 	public String register(RegisterForm form, Model model, @RequestParam List<MultipartFile> files, HttpSession session, RedirectAttributes redirectAttr) {
 		
 		Member member = (Member) session.getAttribute("authentication");
+		AddressUtil convertAddr = new AddressUtil();
+		
 		form.setId(member.getId());
 		form.setRestNum(form.getTotalNum() - form.getBuyNum());
 		String dealDate = form.getDealTime().replace("T"," ");
 		String endDate = form.getEndTime().replace("T"," ");
 		form.setDealTime(dealDate);
 		form.setEndTime(endDate);
+		form.setOldAddr(convertAddr.trimOldAddress(form.getOldAddr()));
 		
 		logger.debug(files.toString());
 			
