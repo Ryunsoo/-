@@ -245,4 +245,9 @@ public class MypageServiceImpl implements MypageService {
 		purchaseCount.put("recruitmentCount", mypageRepository.getRecruitmentCount(id));
 		return purchaseCount;
 	}
+
+	@Override
+	public int selectStatus(String id) {
+		return mypageRepository.selectStatus(id);
+	}
 }

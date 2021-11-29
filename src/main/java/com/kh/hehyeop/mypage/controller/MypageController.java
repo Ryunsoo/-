@@ -41,6 +41,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.hehyeop.common.code.ErrorCode;
+import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.validator.ValidateResult;
 import com.kh.hehyeop.member.model.dto.CMember;
@@ -496,6 +498,13 @@ public class MypageController {
 	
 	@GetMapping("company-modifyInfo")
 	public void modifyCompanyInfo(HttpSession session, Model model) { 
+		
+		CMember member = (CMember) session.getAttribute("authentication");
+		int status = mypageService.selectStatus(member.getId());
+		
+		if (status == 2) {
+			throw new HandlableException(ErrorCode.MYPAGE_ACCESS_ERROR);
+		}
 		
 		ArrayList<FieldForm> fieldList = memberService.selectField();
 		ArrayList<String> categoryList = memberService.selectCategory();

@@ -134,6 +134,9 @@ public interface MypageRepository {
 	
 	@Select("select count(*) from (SELECT DISTINCT REG_IDX, done FROM PURCHASE_REGISTER JOIN PURCHASE_MATCH USING (REG_IDX) WHERE ID = #{id} and done = 'Y')")
 	String getRecruitmentCount(@Param("id") String id);
+
+	@Select("select is_permit from member_c where id = #{id}")
+	int selectStatus(String id);
 	
 	
 	

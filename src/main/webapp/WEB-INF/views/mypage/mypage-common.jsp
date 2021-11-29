@@ -413,15 +413,7 @@ function alertMessage(msg){
 					</div>
 					<div id="accountbtn">
 						<div id="charge">
-							<div id="plusicon" type="button" 
-							<c:choose>
-								<c:when test="${not empty walletInfo.bank}">
-									onclick="createChargingModal()"
-								</c:when>
-								<c:otherwise>
-									onclick="beforeSendModal()"
-								</c:otherwise>
-							</c:choose>><i class="far fa-plus-square"></i></div>
+							<div id="plusicon" type="button" onclick="createChargingModal()"><i class="far fa-plus-square"></i></div>
 							<div class="accountbtntext" id="basic">충전하기</div>
 						</div>
 						<div id="send">
