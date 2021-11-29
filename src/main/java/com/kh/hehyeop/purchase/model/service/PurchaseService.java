@@ -92,5 +92,7 @@ public interface PurchaseService {
 
 	void updateDone(String regIdx);
 
+	List<String> findChatList(String regIdx);
+
 
 }

@@ -148,4 +148,7 @@ public interface PurchaseRepository {
 	@Update("update purchase_register set done = 'F' where reg_Idx = #{regIdx}")
 	void updateDone(String regIdx);
 
+	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx} and ongoing=1" )
+	List<String> findChatList(@Param("regIdx") String regIdx);
+
 }

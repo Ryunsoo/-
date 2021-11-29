@@ -247,6 +247,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public void updateDone(String regIdx) {
 		purchaseRepository.updateDone(regIdx);
+	}
+
+	@Override
+	public List<String> findChatList(String regIdx) {
+		return purchaseRepository.findChatList(regIdx);
 	}	
 
 

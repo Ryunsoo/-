@@ -117,10 +117,10 @@
 			<div class="stock-status">
 				<ul id="stock-list">
 					<li>현재 신청개수 : ${buyNum}개</li>
-					<li>남은 개수 : ${purchaseInfo.restNum}개</li>
+					<li>남은 개수 : ${detailInfo.restNum}개</li>
 				</ul>
 				
-				<progress style="height:50px;width:300px;" value="${buyNum}" max="${purchaseInfo.totalNum}"></progress>
+				<progress style="height:50px;width:300px;" value="${buyNum}" max="${detailInfo.totalNum - detailInfo.buyNum}"></progress>
 				
 			</div>
 			
