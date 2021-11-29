@@ -64,6 +64,10 @@ function viewDetail(reqIdx) {
 		contentLeft.append(reqPhoto);
 		contentLeft.append(inpTitle);
 		
+		//reqTime T빼주기
+		let reqTimeArr = Detail.reqTime.split("T");
+	 	let reqTime = reqTimeArr[0]+" "+reqTimeArr[1];
+		
 		let contentRight = $('<div class="content_right"></div>');
 		contentWrapper.append(contentRight);
 		let reqName = $('<div class="inp_title">* 성 함</div>');
@@ -73,7 +77,7 @@ function viewDetail(reqIdx) {
 		let reqAddress = $('<div class="inp_title">* 주 소</div>');
 		let inpAddress = $('<input type="text" value="'+Detail.reqAddress+'" readonly>');
 		let reqTime = $('<div class="inp_title">* 원하는 시간</div>');
-		let inpTime = $('<input type="text" value="'+Detail.reqTime+'" readonly>');
+		let inpTime = $('<input type="text" value="'+reqTime+'" readonly>');
 		let reqPay = $('<div class="inp_title">* 희망금액</div>');
 		let inpPay = $('<input type="text" value="'+Detail.reqPay+'" readonly>');
 		contentRight.append(reqName);
