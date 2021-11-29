@@ -154,8 +154,10 @@ public class managementController {
 	}
 
 	@GetMapping("myAccountBook")
-	public void myAccountBookForm() {
-		
+	public void myAccountBookForm(Model model) {
+		//model.addAttribute(new PersonalForm()).addAttribute(new FixedForm())
+			//.addAttribute("personalError", new ValidateResult().getError());
+			//.addAttribute(null, model)
 	}
 	
 	@GetMapping("personal-spend")
@@ -167,7 +169,7 @@ public class managementController {
 		System.out.println(form.getContent());
 		
 		ValidateResult vr = new ValidateResult();
-		redirect.addFlashAttribute("personalError", vr.getError());
+		model.addAttribute("personalError", vr.getError());
 		//model.addAttribute("error", vr.getError());
 		
 		if(errors.hasErrors()) {
