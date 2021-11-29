@@ -42,7 +42,7 @@ input:focus {
 									<div class='progress'></div>
 								</div>
 							</div>
-						<label style="float: right; margin-right: 40px; margin-top: 5px;">50%</label><br>
+						<label style="float: right; margin-right: 40px; margin-top: 5px;">100%</label><br>
 						<div class="hr-sect">함께 &nbsp해협</div>
 						<div class='input_wrapper'>
 							

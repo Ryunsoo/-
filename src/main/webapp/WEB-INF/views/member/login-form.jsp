@@ -64,6 +64,55 @@ function failLogin(msg){
 	height: 45px;
 }
 
+.pw_validator_bar {
+	width: 130px;
+	height: 13px;
+	display: flex;
+	margin: 0 15px 0 15px;
+	align-self: center;
+	background-color: transparent;
+}
+
+.pw_validator_bar>div {
+	width: 33.3%;
+}
+
+.low {
+	height: 100%;
+	background-color: red;
+	border-radius: 20px 0 0 20px;
+}
+
+.middle {
+	height: 100%;
+	background-color: #FBB117;
+}
+
+.high {
+	height: 100%;
+	background-color: #4CC417;
+	border-radius: 0 20px 20px 0;
+}
+
+.level {
+	display: flex;
+	float: left;
+}
+
+.pw_validator_wrap {
+	display: flex;
+}
+
+.valid-msg {
+	font-size: 15px;
+	margin-left: 8px;
+	color: red;
+}
+
+.hidden{
+	display: none;
+}
+
 </style>
 
 </head>
@@ -106,9 +155,10 @@ function failLogin(msg){
 				</div>
 			</div>
 		</div>
+	
 	</form>
 	
-	
+<script type="text/javascript" src="../../../resources/js/member/login-form.js"></script>	
 <script type="text/javascript">
 
 let createFindIdModal = () => {
@@ -333,28 +383,47 @@ if(link[1] != null) {
 	   let changePwName = $('<div>').addClass('change_modal_body');
 	   let changePwNametext = $('<div>변경할 비밀번호<div>').addClass('change_modal_Text');
 	   let changePwNameInput = $('<div>').height('30px');
-	   let changePwNameInputBox = $('<input type="password" id="newPw">').attr('placeholder','새로운 비밀번호를 입력하세요');
+	   
+	   let changePwNameInputBox = $('<input class="form-control-pw-top" type="password" id="newPw">').attr('placeholder','새로운 비밀번호를 입력하세요');
 	   ModalBody.append(changePwName);
 	   changePwName.append(changePwNametext);
 	   changePwName.append(changePwNameInput);
 	   changePwNameInput.append(changePwNameInputBox);
 	   
+	   let validator = $('<div>').addClass('pw_validator_bar');
+	   let low = $('<div class="hidden">').addClass('low');
+	   let middle = $('<div class="hidden">').addClass('middle');
+	   let high = $('<div class="hidden">').addClass('high');
+	   
+	   changePwNametext.append(validator);
+	   validator.append(low);
+	   validator.append(middle);
+	   validator.append(high);
+	   
+	   let level = $('<div>').addClass('level');
+	   let label = $('<label id="validator_bar_text" style="font-weight: 1000"></label>')
+	   let span = $('<span style="font-size: 13px; color: red; margin-top: 2px; margin-left: 10px;" id="pwCheck"></span>')
+	   
+	   ModalBody.append(level);
+	   level.append(label);
+	   level.append(span);
+	   
+	   
+	   
 	   let changePwName2 = $('<div>').addClass('change_modal_body');
 	   let changePwNametext2 = $('<div>비밀번호 확인<div>').addClass('change_modal_Text');
 	   let changePwNameInput2 = $('<div>').height('30px');
-	   let changePwNameInputBox2 = $('<input type="password" id="newPwConfirm">').attr('placeholder','비밀번호를 한번 더 입력하세요');
+	   let changePwNameInputBox2 = $('<input class="form-control-pw-btm" type="password" id="newPwConfirm">').attr('placeholder','비밀번호를 한번 더 입력하세요');
 	   ModalBody.append(changePwName2);
 	   changePwName2.append(changePwNametext2);
 	   changePwName2.append(changePwNameInput2);
 	   changePwNameInput2.append(changePwNameInputBox2);
 	   
 	   modalBlock();
-	   console.dir("오ㅐ");
 	   $('.modal_left_btn').click(function(){
 	    
 	      let newPw = document.querySelector("#newPw").value;
 	      let newPwConfirm = document.querySelector("#newPwConfirm").value;
-	      console.dir("오ㅐ");
 	      console.dir(newPw);
 	      console.dir(newPwConfirm);
 	      
