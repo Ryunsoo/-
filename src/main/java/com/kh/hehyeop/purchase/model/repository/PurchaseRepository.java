@@ -152,4 +152,5 @@ public interface PurchaseRepository {
 	List<String> findChatList(@Param("regIdx") String regIdx);
 
 	
+	
 }
