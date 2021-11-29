@@ -25,8 +25,8 @@
         <div id="search_case_inner_div_3">
            <SELECT NAME=sltSample SIZE=1>
               <option value="" disabled selected hidden>카테고리 선택</option>
-              <OPTION VALUE=1>[음식]</OPTION>
-              <OPTION VALUE=2>[잡담]</OPTION>
+              <OPTION VALUE=1>음식</OPTION>
+              <OPTION VALUE=2>잡담</OPTION>
               <OPTION VALUE=3>3번 보기</OPTION>
               <OPTION VALUE=4>4번 보기</OPTION>
            </SELECT>
@@ -55,8 +55,8 @@
                      <div id="form_inner_select">
                         <SELECT NAME="cate" SIZE=1>
 	                        <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
-	                        <OPTION VALUE=1>[음식]</OPTION>
-	                        <OPTION VALUE=2>[잡담]</OPTION>
+	                        <OPTION VALUE=1>음식</OPTION>
+	                        <OPTION VALUE=2>잡담</OPTION>
 	                        <OPTION VALUE=3>4번 보기</OPTION>
                         </SELECT>
                      </div>
@@ -74,7 +74,7 @@
                   <div align="right">
                      <input type="hidden" value="${param.section}">
                      <input type="hidden" name="id" value="${authentication.id}">
-                     <div id="write_btn" onclick="history.go(-1)">게시글 등록</div>
+                     <button id="write_btn" type="submit">게시글 등록</button>
                   </div>
                   
 
