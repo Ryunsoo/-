@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
@@ -147,11 +148,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void updateJoinStatus(List<String> joinIdxList, List<String> joinIdList) {
+	public void updateJoinStatus(List<String> joinIdxList, String regIdx) {
 		//구매자들에게 공구 확정 푸시
-		Member member = (Member) session.getAttribute("authentication");
-		String sellerId = member.getId();
-		pushSender.send((User) joinIdList, "공구해협", sellerId + "님이 공구를 확정 하셨습니다.");
+		
+		Map<String, Object> map = purchaseRepository.selectJoinIdList(regIdx);
+		
+		Member member = new Member();
+		member.setId((String)map.get("id"));
+		
+		
+		pushSender.send(member, "공구해협",  "님이 공구를 확정 하셨습니다.");
+		
+		//상태 바꿔주기
 		purchaseRepository.updateJoinStatus(joinIdxList);
 	}
 
@@ -264,11 +272,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public List<String> findChatList(String regIdx) {
 		return purchaseRepository.findChatList(regIdx);
 	}
-
-	@Override
-	public List<String> selectJoinIdList(String regIdx) {
-		return purchaseRepository.selectJoinIdList(regIdx);
-	}	
 
 
 }

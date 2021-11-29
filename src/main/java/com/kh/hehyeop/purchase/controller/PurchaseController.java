@@ -104,13 +104,12 @@ public class PurchaseController {
 			 					 HttpSession session, RedirectAttributes redirectAttr) throws ParseException {
 		
 		List<String> joinIdxList = purchaseService.selectJoinList(regIdx);
-		List<String> joinIdList = purchaseService.selectJoinIdList(regIdx);
 		
 		if (joinIdxList.isEmpty()) {
 			throw new HandlableException(ErrorCode.EMPTY_JOIN_ERROR);
 		}
 		purchaseService.updateDone(regIdx);
-		purchaseService.updateJoinStatus(joinIdxList,joinIdList);
+		purchaseService.updateJoinStatus(joinIdxList, regIdx);
 		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
 		
 		return "redirect:/purchase/detail-writer?regIdx="+regIdx;

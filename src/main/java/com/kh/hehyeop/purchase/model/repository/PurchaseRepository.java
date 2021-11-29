@@ -1,6 +1,7 @@
 package com.kh.hehyeop.purchase.model.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -152,7 +153,7 @@ public interface PurchaseRepository {
 	List<String> findChatList(@Param("regIdx") String regIdx);
 
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx}" )
-	List<String> selectJoinIdList(String regIdx);
+	Map<String, Object> selectJoinIdList(String regIdx);
 
 	
 	
