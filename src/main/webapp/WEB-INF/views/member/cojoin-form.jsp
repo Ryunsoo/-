@@ -10,6 +10,7 @@
 .valid-msg{
   font-size: 13px; 
   color: red;
+  margin: 2px 0px 0px 5px;
 }
 
 input:focus {outline:none;}

@@ -33,6 +33,14 @@ public class JoinFormValidator implements Validator{
 			if(memberRepository.selectMemberByUserId(form.getId()) != null) {
 				errors.rejectValue("id", "error-id", "이미 존재하는 아이디입니다.");
 			}
+			
+			valid = Pattern.matches("^[A-Za-z0-9]*$", form.getId());
+			
+			if (!valid) {
+				errors.rejectValue("id", "error-id", "공백을 포함할 수 없습니다.");
+			}
+			
+			
 		}
 		
 		if(form.getPassword() != null) {
@@ -45,7 +53,7 @@ public class JoinFormValidator implements Validator{
 		}
 		
 		if(form.getName() != null) {
-			// 2. 비밀번호가 8글자 이상, 숫자 영문자 특수문자 조합인지 확인
+			// 2. 이름이 2~4글자의 한글 조합인지 확인
 			valid = Pattern.matches("^[가-힣]{2,4}$", form.getName());
 			
 			if(!valid) {
