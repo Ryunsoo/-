@@ -134,13 +134,18 @@
 				
 				<progress style="height:50px; width:300px;" value="${buyNum}" max="${detailInfo.totalNum - detailInfo.buyNum}"></progress>
 			</div>
-			
 			<c:if test="${not empty match}">
+			<c:if test="${myPurchaseInfo.done eq 'N'}">
 				<div class="submit-ask" onclick="location.href = '/purchase/purchase-commit?id=${detailInfo.id}&regIdx=${detailInfo.regIdx}'">
 					구매확정
 				</div>
 			</c:if>
-			
+			<c:if test="${myPurchaseInfo.done eq 'F'}">
+				<div class="submit-ask" onclick="location.href = '/purchase/create-chat?id=${detailInfo.id}&regIdx=${detailInfo.regIdx}'">
+					채팅방 개설
+				</div>
+			</c:if>
+			</c:if>
 		</div>
 		
 	</div>
@@ -209,6 +214,6 @@ let deleteButton = (regIdx) => {
 }
 
 
-
+		
 </script>
 </html>

@@ -41,24 +41,24 @@
 					</div>
 					
 					<form:form modelAttribute="personalForm" method="get" action="/management/personal-spend">
-						<div class="personal_input_wrap"
+						<div class="personal_input_wrap" id="personal_hidden"
 							<c:choose>
 								<c:when test="${not empty personalError}">
 									style="display: flex;"
 								</c:when>
 								<c:otherwise>
-									id="personal_hidden" style="display: none;"
+									style="display: none;"
 								</c:otherwise>
 							</c:choose>
 						>
 							<div class="personal_title">
 								개인 지출 입력
 							</div>
-								<select name='category' class="personal_category" required style="width: 240px; height: 45px; cursor: pointer;
-									<c:if test="${not empty personalError.category">
-										border-style:1px solid red
+								<select name='category' class="personal_category" required style="width: 240px; height: 45px; cursor: pointer;"
+									<c:if test="${not empty personalError.category}">
+										style="border: 1px solid red;"
 									</c:if>
-								">
+								>
 									<option selected disabled>항목을 선택하세요.</option>
 									<option value='FOOD'>식비</option>
 									<option value='TRAFFIC'>교통비</option>
@@ -71,28 +71,33 @@
 									<option value='OTHERS'>기타</option>
 								</select>
 							<input type="text" class="personal_category" name='content'
-								<c:if test="${not empty personalError.content}">
-									style="border-style:1px solid red"
-								</c:if>
-								<c:if test="${empty error.content and not empty personalError}">
-									value="${personalForm.content}"
-								</c:if>
+								<c:choose>
+									<c:when test="${not empty personalError.content}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:otherwise>value="안탔다"</c:otherwise>
+								</c:choose>
 							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<input type="text" class="personal_category date" name='expDate' id="date1"
-								<c:if test="${not empty error.expDate and not empty personalError}">
-									style="border-style:1px solid red"
-								</c:if>
-								<c:if test="${empty error.expDate and not empty personalError}">
-									value="${personalForm.expDate}"
-								</c:if>
+								<c:choose>
+									<c:when test="${not empty personalError.expDate}">
+										style="border: 1px solid red;"
+									</c:when>
+									<c:when test="${empty personalError.expDate}">
+										value="${personalForm.expDate}"
+									</c:when>
+								</c:choose>
 							placeholder="날짜를 입력하세요." autocomplete="off" required>
 							<input type="number" class="personal_category" name='price'
-								<c:if test="${not empty error.price and not empty personalError}">
-									style="border-style:1px solid red"
-								</c:if>
-								<c:if test="${empty error.price and not empty personalError}">
+								<c:choose>
+								<c:when test="${not empty personalError.price}">
+									style="border: 1px solid red;"
+								</c:when>
+								<c:when test="${empty personalError.price}">
 									value="${personalForm.price}"
-								</c:if>
+								</c:when>
+								<c:otherwise>value="1000"</c:otherwise>
+								</c:choose>
 							placeholder="금액을 입력하세요." autocomplete="off" min='0' required>
 							<div class="personal_btn">
 								<button class="personal_delete">삭제</button>

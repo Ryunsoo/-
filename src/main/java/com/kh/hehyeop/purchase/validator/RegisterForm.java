@@ -13,20 +13,12 @@ public class RegisterForm {
 	private String dealLoc;
 	private String endTime;
 	private String dealTime;
+	private String content;
+	private String oldAddr;
 	private int price;
 	private int totalNum;
 	private int buyNum;
 	private int restNum;
-
-	public int getRestNum() {
-		return restNum;
-	}
-
-	public void setRestNum(int restNum) {
-		this.restNum = restNum;
-	}
-
-	private String content;
 
 	public String getId() {
 		return id;
@@ -76,6 +68,22 @@ public class RegisterForm {
 		this.dealTime = dealTime;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getOldAddr() {
+		return oldAddr;
+	}
+
+	public void setOldAddr(String oldAddr) {
+		this.oldAddr = oldAddr;
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -100,19 +108,19 @@ public class RegisterForm {
 		this.buyNum = buyNum;
 	}
 
-	public String getContent() {
-		return content;
+	public int getRestNum() {
+		return restNum;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setRestNum(int restNum) {
+		this.restNum = restNum;
 	}
 
 	@Override
 	public String toString() {
 		return "RegisterForm [id=" + id + ", itemName=" + itemName + ", itemLink=" + itemLink + ", dealLoc=" + dealLoc
-				+ ", endTime=" + endTime + ", dealTime=" + dealTime + ", price=" + price + ", totalNum=" + totalNum
-				+ ", buyNum=" + buyNum + ", content=" + content + "]";
+				+ ", endTime=" + endTime + ", dealTime=" + dealTime + ", content=" + content + ", oldAddr=" + oldAddr
+				+ ", price=" + price + ", totalNum=" + totalNum + ", buyNum=" + buyNum + ", restNum=" + restNum + "]";
 	}
 
 }

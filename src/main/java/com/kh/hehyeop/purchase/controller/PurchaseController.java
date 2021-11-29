@@ -21,14 +21,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.hehyeop.common.chat.model.repository.ChatRepository;
+import com.kh.hehyeop.common.chat.model.service.ChatServiceImpl;
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
+import com.kh.hehyeop.common.util.address.AddressUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
 import com.kh.hehyeop.purchase.model.dto.PurchaseMain;
+import com.kh.hehyeop.purchase.model.repository.PurchaseRepository;
 import com.kh.hehyeop.purchase.model.service.PurchaseService;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -39,11 +43,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PurchaseController {
 	private final PurchaseService purchaseService;
+	private final ChatRepository chatRepository;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@GetMapping("detail")
 	public void purchaseDetailTest(HttpSession session, String regIdx) throws ParseException  {
-		
+		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		
 		Member member = (Member) session.getAttribute("authentication");
@@ -59,7 +64,7 @@ public class PurchaseController {
 		if (today.compareTo(test) == 1) {
 			session.setAttribute("dealTime", "Y");
 		}
-		
+		session.setAttribute("detailInfo", detailInfo);
 		session.setAttribute("purchaseInfo", purchaseInfo);
 		session.setAttribute("buyNum", buyNum);
 		logger.debug("test : " + test + " today : " + today + " 비교 : " + today.compareTo(test) + "dealTime : " + today.compareTo(test));
@@ -81,6 +86,7 @@ public class PurchaseController {
 		List<String> match = purchaseService.findBuyer(regIdx);
 		
 		session.setAttribute("detailInfo", detailInfo);
+		session.setAttribute("myPurchaseInfo", myPurchaseInfo);
 		session.setAttribute("match", match);
 		model.addAttribute("buyNum", buyNum);
 		
@@ -89,6 +95,8 @@ public class PurchaseController {
 			removeButtonFlg = "on";
 			model.addAttribute("removeButtonFlg", removeButtonFlg);
 		}
+		
+		System.out.println("~~~~~match : " + match + "myPurchaseInfo : " + myPurchaseInfo.getDone());
 	}
 	
 	@GetMapping("purchase-commit")
@@ -104,7 +112,6 @@ public class PurchaseController {
 		purchaseService.updateDone(regIdx);
 		purchaseService.updateJoinStatus(joinIdxList);
 		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
-		
 		
 		return "redirect:/purchase/detail-writer?regIdx="+regIdx;
 	}
@@ -239,12 +246,15 @@ public class PurchaseController {
 	public String register(RegisterForm form, Model model, @RequestParam List<MultipartFile> files, HttpSession session, RedirectAttributes redirectAttr) {
 		
 		Member member = (Member) session.getAttribute("authentication");
+		AddressUtil convertAddr = new AddressUtil();
+		
 		form.setId(member.getId());
 		form.setRestNum(form.getTotalNum() - form.getBuyNum());
 		String dealDate = form.getDealTime().replace("T"," ");
 		String endDate = form.getEndTime().replace("T"," ");
 		form.setDealTime(dealDate);
 		form.setEndTime(endDate);
+		form.setOldAddr(convertAddr.trimOldAddress(form.getOldAddr()));
 		
 		logger.debug(files.toString());
 			
@@ -286,7 +296,7 @@ public class PurchaseController {
 		purchaseService.updateWallet(id, cash, WalletLockedCash); // wallet의 cash 차감, cash_lock 업데이트
 		purchaseService.purchaseMatch(regIdx, restNum, join_idx, matchLockedCash); // match 테이블 insert
 		
-		return "redirect:/purchase/main";
+		return "redirect:/purchase/detail?regIdx="+regIdx;
 		
 	}
 	
@@ -350,5 +360,16 @@ public class PurchaseController {
 		return "redirect:/purchase/main";
 	}
 	
+	@GetMapping("create-chat")
+	public String createChat(String regIdx, HttpSession session, RedirectAttributes redirectAttr) {
+		
+		List<String> idList = purchaseService.findChatList(regIdx);
+		
+		chatRepository.insertChatRoom(idList);
+		
+		redirectAttr.addFlashAttribute("message", "단톡방 개설이 완료되었습니다.");
+		
+		return "redirect:/purchase/detail-writer?regIdx="+regIdx;
+	}
 	
 }

@@ -31,20 +31,21 @@ public class ScheduleFormValidator implements Validator{
 
 	private void validatePersonalForm(PersonalForm form, Errors errors) {
 		System.out.println("personalForm: " + form);
-		if(form.getContent() == null) {
-			errors.rejectValue("content", "error-content");
+		System.out.println("validator 제목 : " + form.getContent());
+		if(form.getContent().equals("")) {
+			errors.rejectValue("content", "error-content", "error");
 		}
 		
 		if(!hasCategory(form.getCategory())) {
-			errors.rejectValue("category", "error-category");
+			errors.rejectValue("category", "error-category", "error");
 		}
 		
 		if(!Pattern.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$", form.getExpDate())) {
-			errors.rejectValue("expDate", "error-expDate");
+			errors.rejectValue("expDate", "error-expDate", "error");
 		}
 		
 		if(form.getPrice() < 0) {
-			errors.rejectValue("price", "error-price");
+			errors.rejectValue("price", "error-price", "error");
 		}
 		
 	}
@@ -80,6 +81,8 @@ public class ScheduleFormValidator implements Validator{
 	private boolean hasCategory(String category) {
 		boolean valid = false;
 		Set<String> cateNameSet = ExpenseCate.getCateName();
+		
+		if(category == null) return valid;
 		
 		for (String string : cateNameSet) {
 			if(category.equals(string)) {
