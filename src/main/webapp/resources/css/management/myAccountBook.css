@@ -2,9 +2,9 @@
 	display: none;
 }
 
-#personal_hidden {
+/* #personal_hidden {
 	display: none;
-}
+} */
 /* 
 #fixed_hidden {
 	display: none;
@@ -116,6 +116,9 @@ html, body {
 	margin-top: 28px;
 }
 
+#error{
+	border: 1px solid red;
+}
 
 .expenses{
 	display: flex;
