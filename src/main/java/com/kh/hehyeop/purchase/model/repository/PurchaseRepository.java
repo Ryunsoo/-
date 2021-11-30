@@ -147,7 +147,7 @@ public interface PurchaseRepository {
 	@Update("update file_info set is_del = 1 where type_idx = #{regIdx} and file_category = 'purchase'")
 	void detailRemoveFile(@Param("regIdx") String regIdx);
 
-	@Select("select rest_num from purchase_match where join_idx = #{joinIdx}")
+	@Select("select join_buy_num from purchase_join where join_idx = #{joinIdx}")
 	int selectCancelBuyNum(@Param("joinIdx") String joinIdx);
 	
 	@Update("update purchase_register set done = 'F' where reg_Idx = #{regIdx}")
