@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import com.kh.hehyeop.management.model.dto.Expense;
 import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import org.apache.ibatis.annotations.Update;
@@ -40,7 +41,7 @@ public interface ManagementRepository {
 
 	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
 
-	@Select("select * from f_expense where id = #{id}")
+	@Select("select * from f_expense where id = #{id} and to_date(end_date) > current_date")
 	List<FExpense> selectFExpenseList(@Param("id") String id);
 
 	@Insert("insert into icebox values(sc_ice_idx.nextval, #{id}, #{item}, #{category}, #{date}, current_date)")
@@ -57,5 +58,7 @@ public interface ManagementRepository {
 
 	@Select("select count(*) from icebox v where id = #{id} and floor(EX_DATE - sysdate) <= 3")
 	int selectBellCnt(@Param("id")String id);
+
+	List<Expense> selectExpenseList(@Param("id") String id, @Param("cate") String cate, @Param("period") String period);
 
 }

@@ -142,6 +142,28 @@ html, body {
 	border-radius: 10px;
 }
 
+.calendar {
+	width: 140px;
+	height: 40px; border-radius : 10px;
+	border: solid thin lightgray;
+	margin-left: 10px;
+	color: gray;
+	margin-top: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.calendar1 {
+	width: 134px;
+	height: 36px; border-radius : 10px;
+	border: solid thin lightgray;
+	margin-left: 10px;
+	color: gray;
+	margin-top: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .line {
 	background-color: lightgray;
 	width: 2px;

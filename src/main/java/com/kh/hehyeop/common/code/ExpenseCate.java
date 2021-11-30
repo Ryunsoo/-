@@ -11,7 +11,7 @@ public enum ExpenseCate {
 	MEDICAL("의료", "medical"),
 	FINANCE("금융", "finance"),
 	SHOPPING("쇼핑", "shopping"),
-	LESISURE("여가", "leisure"),
+	LEISURE("여가", "leisure"),
 	LIVING("생활", "living"),
 	EVENT("경조사비", "event"),
 	OTHERS("기타", "others");

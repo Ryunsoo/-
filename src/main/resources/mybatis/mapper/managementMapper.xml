@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.kh.hehyeop.management.model.repository.ManagementRepository"> 
-	
+
 	<insert id="insertFixedSpend">
 		insert into f_expense
 		<if test="form.endDate == null">
@@ -16,5 +16,14 @@
 		</if>
 		)
 	</insert>
-	
+
+	<select id="selectExpenseList" resultType="Expense">
+		select * from expense
+	  <choose>
+	  	<when test="cate == 'all'">where id = #{id} and exp_date like #{period}||'%'</when>
+	  	<when test="cate != 'all'">where id = #{id} and category = #{cate} and exp_date like #{period}||'%'</when>
+	  </choose>
+	  	order by to_date(exp_date) asc
+	</select>
+
 </mapper>

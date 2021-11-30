@@ -268,6 +268,17 @@
 		    <artifactId>javaSDK</artifactId>
 		    <version>2.2</version>
 		</dependency>
+		<!-- 월달력 -->
+		<dependency>
+		   <groupId>org.webjars</groupId>
+		   <artifactId>jquery</artifactId>
+		   <version>2.2.1</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.webjars</groupId>
+		   <artifactId>jquery-ui</artifactId>
+		   <version>1.11.4</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

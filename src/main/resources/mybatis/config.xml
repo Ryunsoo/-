@@ -18,6 +18,7 @@
   		<typeAlias alias="HelpRequest" type="com.kh.hehyeop.help.model.dto.HelpRequest"/>
   		<typeAlias alias="MyRequest" type="com.kh.hehyeop.company.model.dto.MyRequest"/>
   		<typeAlias alias="Community" type="com.kh.hehyeop.community.model.dto.Community"/>
+  		<typeAlias alias="Expense" type="com.kh.hehyeop.management.model.dto.Expense"/>
   	</typeAliases>
   	
   	<mappers>

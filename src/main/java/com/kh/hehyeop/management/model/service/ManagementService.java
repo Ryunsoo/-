@@ -2,6 +2,7 @@ package com.kh.hehyeop.management.model.service;
 
 import java.util.List;
 
+import com.kh.hehyeop.management.model.dto.Expense;
 import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import java.util.Map;
@@ -35,5 +36,7 @@ public interface ManagementService {
 	List<Icebox> selectIceboxBellList(String id);
 
 	int selectBellCnt(String id);
+
+	List<Expense> selectExpenseList(String id, String cate, String period);
 
 }

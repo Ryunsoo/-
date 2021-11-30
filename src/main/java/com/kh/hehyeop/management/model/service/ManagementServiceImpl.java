@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
+import com.kh.hehyeop.common.code.ExpenseCate;
+import com.kh.hehyeop.common.code.Field;
+import com.kh.hehyeop.management.model.dto.Expense;
 import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
@@ -94,5 +97,14 @@ public class ManagementServiceImpl implements ManagementService{
 	@Override
 	public int selectBellCnt(String id) {
 		return managementRepository.selectBellCnt(id);
+	}
+	
+	public List<Expense> selectExpenseList(String id, String cate, String period) {
+		System.out.println("imple cate: " + cate);
+		List<Expense> expenseList = managementRepository.selectExpenseList(id, cate, period);
+		for (Expense expense : expenseList) {
+			expense.setCategory(ExpenseCate.valueOf(expense.getCategory()).DESC);
+		}
+		return expenseList;
 	}
 }

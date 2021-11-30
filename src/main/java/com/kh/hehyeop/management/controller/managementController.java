@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +15,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.sms.Coolsms;
 import com.kh.hehyeop.common.validator.ValidateResult;
+import com.kh.hehyeop.management.model.dto.Expense;
 import com.kh.hehyeop.management.model.dto.FExpense;
 import com.kh.hehyeop.management.model.dto.Icebox;
 import com.kh.hehyeop.management.model.dto.ShoppingList;
@@ -210,18 +216,49 @@ public class managementController {
 	}
 
 	@GetMapping("myAccountList")
-	public void test6(HttpSession session, Model model) {
+	public void myAccountList(HttpSession session, Model model 
+			, @RequestParam(value = "cate", required = false) String cate
+			, @RequestParam(value = "period", required = false) String period) {
 		Member member = (Member) session.getAttribute("authentication");
-		List<FExpense> fExpenseList = managementService.selectFExpenseList(member.getId());
-		int sumPrice = 0;
+		
+		//상세지출
+		Date date = new Date();        
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM")
+				.withZone(ZoneId.systemDefault());
+		
+		if (cate == null) cate = "all";
+		if(period == null) period = format.format(date.toInstant());
+		System.out.println("period : "+period);
+		System.out.println("cate : "+cate);
+		List<Expense> expenseList = managementService.selectExpenseList(member.getId(), cate, period);
+		int eSumPrice = 0;
 		DecimalFormat formatter = new DecimalFormat("###,###");
+		for (Expense expense : expenseList) {
+			expense.setAccPrice(expense.getPrice()+eSumPrice);
+			expense.setComAccPrice(formatter.format(expense.getAccPrice()));
+			expense.setComPrice(formatter.format(expense.getPrice()));
+			eSumPrice += expense.getPrice();
+		}
+		
+		//합계금액 , 포함
+		String eComSumPrice = formatter.format(eSumPrice);
+		
+		//고정지출
+		List<FExpense> fExpenseList = managementService.selectFExpenseList(member.getId());
+		int fSumPrice = 0;
+		formatter = new DecimalFormat("###,###");
 		for (FExpense fExpense : fExpenseList) {
 			fExpense.setComPrice(formatter.format(fExpense.getPrice()));
-			sumPrice += fExpense.getPrice();
+			fSumPrice += fExpense.getPrice();
 		}
-		String comSumPrice = formatter.format(sumPrice);
+		
+		//합계금액 , 포함
+		String fComSumPrice = formatter.format(fSumPrice);
+		
+		model.addAttribute("ExpenseList", expenseList);
 		model.addAttribute("FExpenseList", fExpenseList);
-		model.addAttribute("sumPrice", comSumPrice);
+		model.addAttribute("EsumPrice", eComSumPrice);
+		model.addAttribute("FsumPrice", fComSumPrice);
 	}
 	
 	@GetMapping("plusItem")
