@@ -101,16 +101,16 @@
 									<c:when test="${authentication.id ne myPurchaseInfo.id && myPurchaseInfo.ongoing eq 2}">
 										거래완료
 									</c:when>
-									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'N'}">
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'N' && myPurchaseInfo.ongoing eq 7}">
 										모집중
 									</c:when>
-									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'F'}">
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'F' && myPurchaseInfo.ongoing eq 7}">
 										모집완료
 									</c:when>
-									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'Y'}">
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'Y' && myPurchaseInfo.ongoing eq 7}">
 										거래완료
 									</c:when>
-									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'C'}">
+									<c:when test="${authentication.id eq myPurchaseInfo.id && myPurchaseInfo.done eq 'C' && myPurchaseInfo.ongoing eq 7}">
 										거래취소
 									</c:when>
 								</c:choose>

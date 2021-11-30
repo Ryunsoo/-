@@ -200,7 +200,6 @@ public class PurchaseController {
 		}
 		
 		
-		
 		Member authMember = (Member) session.getAttribute("authentication");
 		String id = authMember.getId();
 		int total = purchaseService.countMyPurchase(ongoing, done, id);
