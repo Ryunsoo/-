@@ -54,7 +54,7 @@
 .tr_inner_up_div {
     display: flex;
     width: 840px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgray;
     margin: 0 auto;
     background-color: white;
     line-height: 2;
