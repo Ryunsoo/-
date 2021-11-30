@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
@@ -102,12 +103,39 @@ public class CommunityController {
 	}
 	
 	@PostMapping("write-reply")
-	public String writeReply(Reply reply) {
+	public String writeReply(Reply reply, RedirectAttributes redirctAttr) {
+		
+		if (reply.getContent().isEmpty()) {
+			redirctAttr.addFlashAttribute("message", "빈 칸을 입력할 수 없습니다.");
+			return "redirect:/community/view?boardIdx="+reply.getBoardIdx(); 
+		}
 		
 		reply.setNickname(communityService.selectNickname(reply.getId()));
 		communityService.insertReply(reply);
 
 		return "redirect:/community/view?boardIdx="+reply.getBoardIdx();
+	}
+	
+	@PostMapping("modify-reply")
+	public String modifyReply(Reply reply, RedirectAttributes redirctAttr) {
+		
+		if (reply.getContent().isEmpty()) {
+			redirctAttr.addFlashAttribute("message", "빈 칸을 입력할 수 없습니다.");
+			return "redirect:/community/view?boardIdx="+reply.getBoardIdx(); 
+		}
+		
+		communityService.modifyReply(reply);
+		return "redirect:/community/view?boardIdx="+reply.getBoardIdx();
+		
+	}
+	
+	@GetMapping("delete-reply")
+	public String deleteReply(@RequestParam(value = "replyIdx") String replyIdx,
+							@RequestParam(value = "boardIdx") String boardIdx) {
+		
+		communityService.deleteReply(replyIdx);
+		return "redirect:/community/view?boardIdx="+boardIdx;
+		
 	}
 
 	

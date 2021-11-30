@@ -24,4 +24,8 @@ public interface CommunityService {
 
 	List<Reply> selectReplyList(String boardIdx);
 
+	void modifyReply(Reply reply);
+
+	void deleteReply(String replyIdx);
+
 }
