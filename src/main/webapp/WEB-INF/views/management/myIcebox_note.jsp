@@ -36,14 +36,25 @@
 			<div class="main2">
 				<div class="line_btn">
 					<div class="nAndi_btn">
-						<button class="nomal_btn" onclick="IceBoxCategory(0)">냉장</button>
-						<button class="ice_btn" onclick="IceBoxCategory(1)">냉동</button>
+						<c:choose>
+							<c:when test="${category == 1}"> 
+								<button class="off_btn" id="nomal_btn" onclick="IceBoxCategory(0)">냉장</button>
+								<button class="on_btn" id="ice_btn" onclick="IceBoxCategory(1)">냉동</button>	
+							</c:when>
+							<c:otherwise>
+								<button class="on_btn" id="nomal_btn" onclick="IceBoxCategory(0)">냉장</button>
+								<button class="off_btn" id="ice_btn" onclick="IceBoxCategory(1)">냉동</button>
+							</c:otherwise>
+						</c:choose> 
 					</div>
 					<div class="line"></div>
 				</div>
 				<div class="bell3">
 					<i class="fas fa-bell"></i>
-					<div class="icebox_bell">냉장고 알림이</div>
+					<c:choose>
+						<c:when test="${category == 1}"><div class="icebox_bell">냉동고 알림이</div></c:when>
+						<c:otherwise><div class="icebox_bell">냉장고 알림이</div></c:otherwise>
+					</c:choose>
 				</div>
 				
 				<div class="fast_title">
