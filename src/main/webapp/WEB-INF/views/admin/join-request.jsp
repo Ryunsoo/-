@@ -41,7 +41,7 @@
 						</table>
 					</div>
 					<div class='page'>
-						<c:if test="${paging.startPage != 1}">
+						<c:if test="${paging.startPage ne 1}">
 							<i class="fas fa-caret-left" onclick="location.href = '/admin/join-request?nowPage=1&cntPerPage=${paging.cntPerPage}'"></i>
 						</c:if>
 						<div>

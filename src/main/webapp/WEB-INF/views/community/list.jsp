@@ -17,11 +17,11 @@
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
         <div id="search_case_inner_div_3">
            <SELECT NAME=sltSample SIZE=1>
-              <option value="" disabled selected hidden>카테고리 선택</option>
-              <OPTION VALUE=1>[음식]</OPTION>
-              <OPTION VALUE=2>[잡담]</OPTION>
-              <OPTION VALUE=3>3번 보기</OPTION>
-              <OPTION VALUE=4>4번 보기</OPTION>
+              <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
+              <OPTION VALUE="음식">음식</OPTION>
+              <OPTION VALUE="잡담">잡담</OPTION>
+              <OPTION VALUE="나눔">나눔</OPTION>
+              <OPTION VALUE="추천">추천</OPTION>
            </SELECT>
            <input type="text">
            <i id="search" class="far fa-search"></i>
@@ -35,280 +35,52 @@
         <table>
             <!--여기에 나중에 spring로 forEach문-->
             <!-- tr 샘플따기 시작 -->
+            <c:forEach items="${commuList}" var="cl">
             <tr>
                 <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
+                    <div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${cl.boardIdx}'" style="display:block; cursor: pointer;">
                         <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
+	                        <div class="board_kinds">${cl.boardCategory}</div>
+	                        <div class="board_title">${cl.title}</div>
+	                        <div class="board_writer">${cl.nickname}</div>
+	                        <div class="board_date">${cl.parseDate}</div>
+	                        <div class="board_view_cnt">${cl.viewCnt}</div>
                         </div>
 
                         <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
                             <div class="tr_inner_under_div_contents">
-                                미리보기
+                                ${cl.content}
                             </div>
                         </div>
                     </div>
                 </td>
             </tr>
-            <!-- tr 샘플따기 끝 -->
-
-
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                누구세요
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-<!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                누구세요
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-            
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[잡담]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-           
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[잡담]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                               미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                미리보기
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-
-            
-            <!-- tr 샘플따기 시작 -->
-            <tr>
-                <td>
-                    <div class="tr_inner_container" style="display:block;">
-                        
-                        <div class="tr_inner_up_div" style="display:flex;">
-                        <!--이안에 인제 위에꺼들 채우기-->
-                        <div class="board_kinds">[음식]</div>
-                        <div class="board_title">제목</div>
-                        <div class="board_writer">작성자</div>
-                        <div class="board_date">21-11-04</div>
-                        <div class="board_view_cnt">101</div>
-                        </div>
-
-                        <div class="tr_inner_under_div">
-                            <!--이안에 contents 미리보기-->
-                            <div class="tr_inner_under_div_contents">
-                                누구세요
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <!-- tr 샘플따기 끝 -->
-            
-            
-
+            </c:forEach>
         </table>
     </div>
    </div>
 
     <!--footer은 글쓰기 페이지엔 존재하지 않으니 index, view_board에만 사용-->
-    <footer>
-        <div id="footer">
-                <div class='page'>
-						<i class="fas fa-caret-left"></i>&nbsp;
-						<div><span>1</span>&nbsp;<span>2</span>&nbsp;<span>3</span>&nbsp;<span>4</span>&nbsp;<span>5</span>&nbsp;<span>6</span>&nbsp;<span>7</span></div>&nbsp;
-						<i class="fas fa-caret-right"></i>
-				</div>
-        </div>
-    </footer>
+    <div class='page'>
+		<c:if test="${paging.nowPage != 1}">
+			<i class="fas fa-caret-left" onclick="location.href = '/community/list?nowPage=${paging.nowPage-1}&cntPerPage=${paging.cntPerPage}'"></i>
+		</c:if>
+		<div>
+		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage}">
+					<span>${p}</span>
+				</c:when>
+				<c:otherwise>
+					<span onclick="location.href= '/community/list?nowPage=${p}&cntPerPage=${paging.cntPerPage}'">${p}</span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		</div>
+		<c:if test="${paging.nowPage != paging.lastPage}">
+			<i class="fas fa-caret-right" onclick="location.href= '/community/list?nowPage=${paging.nowPage + 1}&cntPerPage=${paging.cntPerPage}'"></i>
+		</c:if>
+	</div>
    </div>
    <!--wrap == container 끝-->
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>

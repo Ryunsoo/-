@@ -22,17 +22,6 @@
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
-        <div id="search_case_inner_div_3">
-           <SELECT NAME=sltSample SIZE=1>
-              <option value="" disabled selected hidden>카테고리 선택</option>
-              <OPTION VALUE=1>음식</OPTION>
-              <OPTION VALUE=2>잡담</OPTION>
-              <OPTION VALUE=3>3번 보기</OPTION>
-              <OPTION VALUE=4>4번 보기</OPTION>
-           </SELECT>
-           <input type="text">
-           <i id="search" class="far fa-search"></i>
-        </div>
     </div>
     
     <div class="write_body">
@@ -118,7 +107,8 @@
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
       });
       
-      var markupStr = $('#summernote').summernote('code');
+      var markupStr = $('#summernote').summernote('code').replace("/<\/?[^>]+(>|$)/g", "");
+      console.dir(markupStr);
     </script>
    <!--wrap == container 끝-->
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
