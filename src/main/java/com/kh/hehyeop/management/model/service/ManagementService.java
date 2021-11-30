@@ -39,4 +39,6 @@ public interface ManagementService {
 
 	List<Expense> selectExpenseList(String id, String cate, String period);
 
+	List<Map<String, Object>> selectEvents(String id, String date);
+
 }

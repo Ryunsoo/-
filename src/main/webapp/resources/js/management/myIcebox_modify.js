@@ -32,7 +32,7 @@ exit.addEventListener("click",function(){
 });
              
 let deleteItem = (iceIdx, item, category) => {
-	console.dir(item);
+	console.dir(category);
 	let sendModal = initModal('modal', 3);
 	appendTitle(sendModal, '');
 	setButton(sendModal, '삭제', '추가');

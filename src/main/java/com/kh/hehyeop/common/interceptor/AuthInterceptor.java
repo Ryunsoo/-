@@ -52,6 +52,9 @@ public class AuthInterceptor implements HandlerInterceptor{
 				break;
 			case "company":
 				companyAuthorize(httpRequest, httpResponse, uriArr);
+			case "management":
+				managementAuthorize(httpRequest, httpResponse, uriArr);
+				break;
 			default:
 				break;
 			}
@@ -61,6 +64,23 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void managementAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse,
+			String[] uriArr) {
+		
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+		}
+		
+		if(user instanceof CMember) {
+			throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
+		}
+		
+	}
+
 
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();

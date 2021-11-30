@@ -118,7 +118,7 @@
 }
 
 #comment_user{
-	width: 80px;
+	width: 110px;
 	margin-top: 25px;
 	margin-right: 10px;
 	margin-left: 20px;
@@ -132,8 +132,8 @@
 	margin-right: 15px;
 }
 
-#comment_content{
-	width: 600px;
+.comment_content{
+	width: 585px;
 	margin-top: 25px;
 	margin-right: 10px;
 }
@@ -255,6 +255,22 @@
 	font-size: 18px;
 	margin-bottom: 10px;
 	color: #333333;
+}
+
+#modify-reply-form{
+	width: 250px;
+	height: 30px;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
+#modify-reply_btn{
+	width: 100px;
+	height: 30px;
+	background-color: rgb(52, 73, 94);
+	border-radius: 10px;
+	color: white;
+    font-weight: bold;
 }
 
 

@@ -48,22 +48,23 @@
          </div>
          
          <div id="write_form">
-            <form>
+            <form action="/community/modify-board" method="post">
             <!--카테고리,제목-->
                <div id="form_inner_top">
                   
                   <!--select-->
                      <div id="form_inner_select">
-                        <SELECT NAME=sltSample SIZE=1>
-                        <OPTION VALUE=1 SELECTED>카테고리를 선택하세요</OPTION>
-                        <OPTION VALUE=2>[음식]</OPTION>
-                        <OPTION VALUE=3>[잡담]</OPTION>
-                        <OPTION VALUE=4>4번 보기</OPTION>
+                        <SELECT NAME="boardCategory" SIZE=1>
+	                        <OPTION VALUE="" disabled>카테고리 선택</OPTION>
+	                        <OPTION VALUE="음식" <c:if test="${board.boardCategory eq '음식'}">selected</c:if>>음식</OPTION>
+	                        <OPTION VALUE="잡담" <c:if test="${board.boardCategory eq '잡담'}">selected</c:if>>잡담</OPTION>
+	                        <OPTION VALUE="나눔" <c:if test="${board.boardCategory eq '나눔'}">selected</c:if>>나눔</OPTION>
+	                        <OPTION VALUE="추천" <c:if test="${board.boardCategory eq '추천'}">selected</c:if>>추천</OPTION>
                         </SELECT>
                      </div>
 
                      <div id="form_write_title">
-                        <input type="text" placeholder="제목을 입력하세요"/>
+                        <input type="text" name="title" placeholder="제목을 입력하세요." value="${board.title}"/>
                      </div>
                   <!--select 끝-->
                </div>
@@ -71,14 +72,22 @@
             <!--카테고리 밑 글쓰는공간 시작-->
                <div id="cover_form">
                   
-                  <div style="background-color:black; display:inline-flex important!;">
-                     <textarea name="board_content" id="content"></textarea>
+                 
+                 
+
+                  	  <textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
+                  	 <div class="private_txt" id="public">공개</div>
+                  	 <div class="private_txt" style="display: none;" id="private">비공개</div>
+                  	 <label class="switch">
+				  		<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1">
+				  		<span class="slider round"></span>
+					 </label>
+                     <input type="hidden" value="${param.section}">
+                     <input type="hidden" name="boardIdx" value="${board.boardIdx}">
+                     <input type="hidden" name="id" value="${authentication.id}">
+                     <button id="write_btn" type="submit">게시글 수정</button>
                   </div>
-                  <div align="right">
-                     <input type="hidden" name="section" value="${ param.section }">
-                     <input type="hidden" name="id" value="${ id }">
-                     <input type="button" id="bt" value="게시글 수정" onclick="history.go(-1)">
-                  </div>
+                     
                   
 
                </div>
@@ -92,6 +101,48 @@
     </div>
    </div>
    <!--wrap == container 끝-->
+   
+   <script>
+      $('#summernote').summernote({
+    	lang: 'ko-KR',
+        placeholder: '게시글 내용을 입력해주세요.',
+        height: 560,
+        minHeight: 300,
+        maxHeight: 560,
+        disableResizeEditor: true,
+        toolbar: [
+          ['style', ['style']],
+          ['fontname', ['fontname']],
+          ['fontsize', ['fontsize']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+      });
+      
+      var markupStr = $('#summernote').summernote('code').replace("/<\/?[^>]+(>|$)/g", "");
+      console.dir(markupStr);
+    </script>
+   
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+   
+   <script type="text/javascript">
+
+   function viewTxt(){
+   	
+   	if (document.getElementById("private").style.display == "none"){
+   		document.getElementById("private").style.display = "block";
+   		document.getElementById("public").style.display = "none";
+   	} else {
+   		document.getElementById("private").style.display = "none";
+   		document.getElementById("public").style.display = "block";
+   	}
+   	
+   </script>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.kh.hehyeop.management.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.common.code.ExpenseCate;
@@ -107,4 +110,50 @@ public class ManagementServiceImpl implements ManagementService{
 		}
 		return expenseList;
 	}
+
+	@Override
+	public List<Map<String, Object>> selectEvents(String id, String date) {
+		List<Map<String, Object>> eventList = new ArrayList<Map<String,Object>>();
+		
+		//개인지출 가져오기
+		List<Expense> personalList = managementRepository.selectPersonalExpense(id, date);
+		
+		if(!personalList.isEmpty()) {
+			eventList.addAll(getEventList(personalList));
+		}
+		
+		//고정지출 가져오기
+		List<Expense> fixedList = managementRepository.selectFixedExpense(id, date);
+		System.out.println("FixedList : " + fixedList);
+		
+		if(!fixedList.isEmpty()) {
+			eventList.addAll(getEventList(fixedList));
+		}
+		
+		System.out.println("eventList : " + eventList);
+		return eventList;
+	}
+	
+	private List<Map<String, Object>> getEventList(List<Expense> expenseList) {
+		List<Map<String, Object>> eventList = new ArrayList<Map<String,Object>>();
+		for (Expense expense : expenseList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("start", expense.getExpDate());
+			map.put("title", expense.getContent());
+			map.put("category", expense.getCategory());
+			map.put("price", expense.getPrice());
+			map.put("expIdx", expense.getExpIdx());
+			map.put("color", "white");
+			
+			if(expense.getCategory().equals("FIXED")) {
+				map.put("backgroundColor", "#ff5050");
+			}else {
+				map.put("backgroundColor", "#009999");
+			}
+			
+			eventList.add(map);
+		}
+		return eventList;
+	}
+
 }

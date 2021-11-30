@@ -57,4 +57,19 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Reply> selectReplyList(String boardIdx) {
 		return communityRepository.selectReplyList(boardIdx);
 	}
+
+	@Override
+	public void modifyReply(Reply reply) {
+		communityRepository.modifyReply(reply);
+	}
+
+	@Override
+	public void deleteReply(String replyIdx) {
+		communityRepository.deleteReply(replyIdx);
+	}
+
+	@Override
+	public void modifyBoard(Community community) {
+		communityRepository.modifyBoard(community);
+	}
 }

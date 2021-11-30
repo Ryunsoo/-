@@ -40,7 +40,7 @@
 			    <div id="view_cnt">${board.viewCnt}</div>
 			    <c:if test="${authentication.id eq board.id}">
 			    	<div id="dib">|</div>
-			    	<div id="modify">수정</div>
+			    	<div id="modify" onClick="location.href ='http://localhost:9090/community/modify?boardIdx=${board.boardIdx}'">수정</div>
 			   	 	<div id="delete" onclick="deleteModal()">삭제</div> 
 			    </c:if>
     		</div>
@@ -67,8 +67,27 @@
       	<div id="comment_item">
 	      	 <div id="comment_user">${rl.nickname}</div>
 	      	 <div id="item_line"></div>
-	      	 <div id="comment_content">${rl.content}</div>
-	      	 <div id="comment_date">${rl.parseDate}</div>
+	      	 <div id="origin-comment" class="comment_content">${rl.content}</div>
+	      	 <form id="new-comment" style="display: none;" class="comment_content" action="/community/modify-reply" method="post">
+	      	 	<input style="display: none;" type="text" name="boardIdx" value="${board.boardIdx}"/>
+	      	 	<input style="display: none;" type="text" name="replyIdx" value="${rl.replyIdx}">
+	      	 	<input id="modify-reply-form" type="text" name="content">
+	      	 	<button id="modify-reply_btn" type="submit">수정</button>
+   	 		 </form>
+	      	 <c:choose>
+	      	 	<c:when test="${authentication.id eq rl.id}">
+	      	 		<div id="comment_edit">
+			             <div id="edit_date">${rl.parseDate}</div>
+			             <div id="edit_item">
+			                <div id="comment_modify" onclick="modifyReply()">수정</div>
+			                <div id="comment_delete" onclick="location.href='/community/delete-reply?replyIdx=${rl.replyIdx}&boardIdx=${board.boardIdx}'">삭제</div>
+			             </div>
+		          	</div>
+	      	 	</c:when>
+	      	 	<c:otherwise>
+	      	 		<div id="comment_date">${rl.parseDate}</div>
+	      	 	</c:otherwise>
+	      	 </c:choose>
       	</div>
       </c:forEach>
    </div>
@@ -114,4 +133,16 @@
   </script>
   <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
+<script type="text/javascript">
+
+function modifyReply(){
+	
+	if (document.getElementById("new-comment").style.display == 'none'){
+		document.getElementById("origin-comment").style.display = 'none';
+		document.getElementById("new-comment").style.display = 'block';
+	}
+	
+}
+
+</script>
 </html>

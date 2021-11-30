@@ -214,6 +214,14 @@ public class managementController {
 		
 		return "redirect:/management/myAccountBook";
 	}
+	
+	@GetMapping("get-events")
+	@ResponseBody
+	public List<Map<String, Object>> getEvents(HttpSession session, String date) {
+		System.out.println("date : " + date);
+		User user = (User) session.getAttribute("authentication");
+		return managementService.selectEvents(user.getId(), date);
+	}
 
 	@GetMapping("myAccountList")
 	public void myAccountList(HttpSession session, Model model 

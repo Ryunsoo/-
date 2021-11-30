@@ -5,7 +5,7 @@ function searchfilter() {
 	let cate = $('.personal_category').val();
 	CateName = cate;
 	
-	let yChecked = $('input:radio[name=year]').is(":checked");
+	let yChecked = $('input:radio[class=year_radio]').is(":checked");
 	if(yChecked) {
 		date = $('.calendar').val();
 	}else {
@@ -59,6 +59,7 @@ $(document).ready(function(){
             of: $(this)
         });
     });
+
 });
 //현재 월 기본값으로 표시
 document.getElementById('thismonth').value= new Date().toISOString().slice(0, 7)

@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
 </head>
 <body>
+	<input type="hidden" id="hiddenDate" value="${param.period}">
 	<div id="bg" class="hidden"></div>
 	<div class="wrap">
 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp"%>
@@ -39,8 +40,8 @@
 						<option value="OTHERS" <c:if test="${param.cate == 'OTHERS'}">selected</c:if>>&nbsp&nbsp기타</option>
 					</select>
 					<div class="line"></div>
-					<label class="year" onclick="showYear()"><input type="radio" class="year_radio" name="year" id="choice" value="1">연간 통계</label> 
-					<label class="month" onclick="showMonth()"><input type="radio" checked class="month_radio" name="month" id="choice" value="1">월간 통계</label> 
+					<label class="year" onclick="showYear()"><input type="radio" class="year_radio" name="date" id="choice" autocomplete="off">연간 통계</label> 
+					<label class="month" onclick="showMonth()"><input type="radio" class="month_radio" checked name="date" id="choice" autocomplete="off">월간 통계</label> 
 					<input type="text" id ="thismonth" name='thismonth' class="calendar1"> 
 					<select id ="thisyear" name='thisyear' class="calendar" style="display:none">
 					    <option id="y1" selected></option>
@@ -72,7 +73,7 @@
 					
 				</div>
 				<div class="personal_total">
-						조회하신 내역의 합계는<div style="color: orange;">&nbsp${EsumPrice}원&nbsp</div>을 사용했습니다.
+						<c:if test="${not empty param}">[${param.period}]&nbsp</c:if>조회하신 내역의 합계는<div style="color: orange;">&nbsp${EsumPrice}원&nbsp입니다.</div>
 					</div>
 			</div>
 			<div class="list_line"></div>
@@ -92,7 +93,7 @@
 							<label id='idx'>${status.count}</label> 
 							<label id='cate'>${fl.content}</label> 
 							<label id='content'>${fl.comPrice}</label> 
-							<label id='content'>${fl.days}${fl.cycle}</label> 
+							<label id='content'>${fl.fixedDate}</label> 
 							<label id='date'>${fl.startDate}</label>
 							<label id='tatal_pay'>${fl.endDate}</label>
 						</div>
