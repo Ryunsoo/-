@@ -65,7 +65,7 @@ public interface PurchaseService {
 
 	int getTotalLockedCash(String id);
 
-	void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx);
+	void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx, String buyerNickname, int LockedCash);
 
 	void updateWalletLockedCash(String id, int totalLockedcash);
 
@@ -79,7 +79,7 @@ public interface PurchaseService {
 
 	List<String> findBuyer(String regIdx);
 
-	void buyerCancel(String joinIdx, String regIdx);
+	void buyerCancel(String joinIdx, String regIdx, String buyerNickname);
 
 	void returnLockedCash(String id, int cash);
 

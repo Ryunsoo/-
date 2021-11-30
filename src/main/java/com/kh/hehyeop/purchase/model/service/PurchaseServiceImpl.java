@@ -107,8 +107,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		User sellerId = purchaseRepository.sellerId(regIdx);
 		
-		//구매자들에게 공구 확정 푸시
-		pushSender.send(sellerId, "공구해협", nickname+"님이 " + itemName + " 공구 신청 하셨습니다.");
+		//판매자에게 공구 신청 푸시
+		pushSender.send(sellerId, "공구해협", nickname+"님이 " + itemName + " 공구를 신청 하셨습니다.");
 		
 	}
 
@@ -159,7 +159,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		//구매자들 리스트
 		List<User> userList = purchaseRepository.selectJoinIdList(regIdx);
 		//구매자들에게 공구 확정 푸시
-		pushSender.send(userList, "공구해협", sellerNickname+"님이 공구를 확정 하셨습니다.");
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(userList, "공구해협", sellerNickname + "님이 " + itemName + " 공구를 확정 하셨습니다.");
 		
 		//상태 바꿔주기
 		purchaseRepository.updateJoinStatus(joinIdxList);
@@ -193,8 +194,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
-	public void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx) {
+	public void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx, String buyerNickname, int LockedCash) {
+		
 		purchaseRepository.updateMatchLockedCashAndOngoing(joinIdx, regIdx);
+		
+		//판매자에게 공구 구매 완료 푸시
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(sellerId, "공구해협", buyerNickname + "님이 " + itemName + " 구매를 완료 하셨습니다. \n* " + LockedCash + "Cash가 입금되었습니다.");
 		
 	}
 	
@@ -231,9 +238,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
-	public void buyerCancel(String joinIdx, String regIdx) {
+	public void buyerCancel(String joinIdx, String regIdx, String buyerNickname) {
 		purchaseRepository.buyerCancelMatchTbl(joinIdx, regIdx);
 		purchaseRepository.buyerCancelJoinTbl(joinIdx);
+		
+		//판매자에게 공구 취소 푸시
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(sellerId, "공구해협", buyerNickname + "님이 " + itemName + " 공구를 취소 하셨습니다.");
 		
 	}
 

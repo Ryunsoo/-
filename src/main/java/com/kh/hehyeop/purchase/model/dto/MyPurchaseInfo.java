@@ -33,5 +33,5 @@ public class MyPurchaseInfo {
 	private String itemLink;
 	private String sellerId;
 	private int cashLock;
-	private User nickname;
+	private String nickname;
 }

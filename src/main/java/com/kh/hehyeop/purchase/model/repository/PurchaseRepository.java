@@ -162,6 +162,9 @@ public interface PurchaseRepository {
 	@Select("select id from purchase_register where reg_idx = #{regIdx}" )
 	User sellerId(String regIdx);
 
+	@Select("select item_name from purchase_register where reg_idx = #{regIdx}" )
+	String selectItemName(String regIdx);
+
 	
 	
 }

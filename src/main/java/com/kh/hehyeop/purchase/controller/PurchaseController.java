@@ -317,11 +317,12 @@ public class PurchaseController {
 		MyPurchaseInfo purchaseInfo = (MyPurchaseInfo) session.getAttribute("purchaseInfo"); // V_SELECT_PURCHASE_REQUEST를 통해 조회한 값이 들어있는 MypurchaseInfo
 		
 		String sellerId = purchaseInfo.getSellerId();
+		String buyerNickname = member.getNickname();
 		int LockedCash = purchaseService.selectLockedCash(id ,regIdx); //match
 		int totalLockedcash = purchaseService.getTotalLockedCash(id)-LockedCash; //wallet lock cash update
 		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx); //joinIdx
 		purchaseService.sendCashtoSeller(sellerId, LockedCash); //seller 에게 lock cash 보내기
-		purchaseService.updateMatchLockedCashAndOngoing(joinIdx,regIdx); // match 테이블 해당 regIdx lock cash reset / ongoing 2
+		purchaseService.updateMatchLockedCashAndOngoing(joinIdx,regIdx,buyerNickname,LockedCash); // match 테이블 해당 regIdx lock cash reset / ongoing 2
 		purchaseService.updateWalletLockedCash(id, totalLockedcash); // wallet에서 총 lock cash에서 구매 lock cash 차감
 		// purchaseService.dealDone(regIdx); // register 테이블에 done Y <- 참가자 한사람이 거래완료
 		purchaseService.purchaseUpdatePoint(id); //구매자 1 포인트 업
@@ -336,12 +337,12 @@ public class PurchaseController {
 		
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
-		
+		String buyerNickname = member.getNickname();
 		String joinIdx = purchaseService.selectMyJoinIdx(id, regIdx);
 		int cash = purchaseService.selectLockedCash(id ,regIdx); //match lock cash
 		int buyNum = purchaseService.selectCancelBuyNum(joinIdx);
 		purchaseService.returnLockedCash(id, cash); // wallet에 match에 묶여있던 lock cash 반환
-		purchaseService.buyerCancel(joinIdx, regIdx); //match 테이블에 ongoing 3으로 변경 / lock cash 0
+		purchaseService.buyerCancel(joinIdx, regIdx, buyerNickname); //match 테이블에 ongoing 3으로 변경 / lock cash 0
 		purchaseService.plusRestNum(regIdx, buyNum); //register 테이블에 restNum update
 		
 		
@@ -379,7 +380,8 @@ public class PurchaseController {
 		//구매자들에게 공구 확정 푸시
 		Member member = (Member) session.getAttribute("authentication");
 		String sellerNickname = member.getNickname();
-		pushSender.send(userList, "공구해협", sellerNickname+"님이 공구 단톡방을 생성 하셨습니다.");
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(userList, "공구해협", sellerNickname + "님이 " + itemName + " 공구 단톡방을 생성 하셨습니다.");
 		
 		redirectAttr.addFlashAttribute("message", "단톡방 개설이 완료되었습니다.");
 		
