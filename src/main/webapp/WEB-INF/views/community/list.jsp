@@ -14,7 +14,7 @@
      <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
-        <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
+        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
         <div id="search_case_inner_div_3">
            <SELECT NAME=sltSample SIZE=1>
               <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
@@ -40,11 +40,15 @@
                 <td>
                     <div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${cl.boardIdx}'">
                         <div class="tr_inner_up_div">
-	                        <div class="board_kinds">${cl.boardCategory}</div>
-	                        <div class="board_title">${cl.title}</div>
-	                        <div class="board_writer">${cl.nickname}</div>
-	                        <div class="board_date">${cl.parseDate}</div>
-	                        <div class="board_view_cnt">${cl.viewCnt}</div>
+                        	<div class="title_wrap">
+		                        <div class="board_kinds">${cl.boardCategory}</div>
+		                        <div class="board_title">${cl.title}</div>
+		                    </div>
+		                    <div class="id_wrap">
+		                        <div class="board_writer">${cl.nickname}</div>
+		                        <div class="board_date">${cl.parseDate}</div>
+		                        <div class="board_view_cnt">${cl.viewCnt}</div>
+		                    </div>
                         </div>
 
                         <div class="tr_inner_under_div">
