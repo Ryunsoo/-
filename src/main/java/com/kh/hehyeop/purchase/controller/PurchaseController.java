@@ -225,6 +225,7 @@ public class PurchaseController {
 	public List<MyPurchaseInfo> purchaseParticipantsList(Model model 
 										,@RequestParam("regIdx") String regIdx) {
 		List<MyPurchaseInfo> participantsList = purchaseService.purchaseParticipantsList(regIdx);
+		System.out.println(participantsList.toString());
 		return participantsList;
 	}
 	
