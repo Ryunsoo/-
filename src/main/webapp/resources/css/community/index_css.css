@@ -52,8 +52,9 @@
 	height: 70px;
 	margin: 0 auto;
 	display: block;
-	border-radius: 1rem;
-	border: solid transparent;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 7px;
 }
 
 .tr_inner_up_div {
@@ -63,7 +64,6 @@
 	margin: 0 auto;
 	height: 30px;
 	background-color: white;
-	border: solid transparent;
 }
 
 .tr_inner_under_div {
@@ -142,13 +142,13 @@
 	justify-content: space-around;
 	align-items: center;
 	font-weight: bold;
-	font-size: 30px;
-	border: solid transparent;
+	font-size: 18px;
+	margin: 40px 0 0 450px;
 }
 
 .page>i{
-	font-size: 30px;
-	color: black;
+	font-size: 25px;
+	color: #cccccc;
 }
 
 .page>i:hover{
@@ -158,16 +158,11 @@
 
 .page>div{
 	display: flex;
-	width: 150px;
+	width: 130px;
 	justify-content: space-around;
-	border: solid transparent;
 }
 
 .page>div>span:hover{
 	color: #bfbfbf;
 	cursor: pointer;
-}
-
-.page>footer_logo {
-	margin-right: 20px;
 }

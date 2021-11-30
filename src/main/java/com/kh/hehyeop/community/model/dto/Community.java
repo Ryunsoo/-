@@ -16,4 +16,7 @@ public class Community {
 	private Date regDate;
 	private int isDel;
 	private int isPrivate;
+	private String nickname;
+	private String parseDate;
+	
 }

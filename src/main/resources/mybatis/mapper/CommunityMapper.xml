@@ -5,5 +5,12 @@
   
 <mapper namespace="com.kh.hehyeop.community.model.repository.CommunityRepository">
 
+	<select id="selectBoardList" resultType="Community">
+	
+		select *
+		from (select rownum rnum, v.* from (select * from board order by reg_date desc) v)
+		where rnum between #{paging.start} and #{paging.end}
+	
+	</select>
 
 </mapper>
