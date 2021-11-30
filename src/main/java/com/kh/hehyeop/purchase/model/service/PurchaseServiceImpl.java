@@ -232,7 +232,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	
 	@Override
 	public void buyerCancel(String joinIdx, String regIdx) {
-		purchaseRepository.buyerCancel(joinIdx, regIdx);
+		purchaseRepository.buyerCancelMatchTbl(joinIdx, regIdx);
+		purchaseRepository.buyerCancelJoinTbl(joinIdx);
 		
 	}
 

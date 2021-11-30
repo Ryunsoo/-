@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.hehyeop.common.chat.model.repository.ChatRepository;
-import com.kh.hehyeop.common.chat.model.service.ChatServiceImpl;
 import com.kh.hehyeop.common.code.ErrorCode;
 import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.push.PushSender;
@@ -358,11 +357,9 @@ public class PurchaseController {
 		String id = member.getId();
 		
 		MyPurchaseInfo myPurchaseInfo = purchaseService.detailRemoveCheck(regIdx, id);
-		System.out.println(myPurchaseInfo.getMatchIdx());
-		if(myPurchaseInfo.getMatchIdx() != null) {
+		if(myPurchaseInfo != null) {
 			throw new HandlableException(ErrorCode.DATABASE_ACCESS_ERROR);
 		}
-		
 		purchaseService.detailRemove(regIdx, id);
 		
 		return "redirect:/purchase/main";
