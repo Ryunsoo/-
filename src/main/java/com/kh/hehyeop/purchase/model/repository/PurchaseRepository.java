@@ -1,6 +1,7 @@
 package com.kh.hehyeop.purchase.model.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
@@ -122,8 +124,11 @@ public interface PurchaseRepository {
 	@Select("select * from purchase_match where reg_idx = #{regIdx}")
 	List<String> findBuyer(@Param("regIdx") String regIdx);
 
-	@Update("update purchase_match set cash_lock = 0, ongoing = 3 where join_Idx = #{joinIdx} and reg_idx = #{regIdx}")
-	void buyerCancel(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
+	@Delete("Delete from purchase_match where join_Idx = #{joinIdx} and reg_idx = #{regIdx}")
+	void buyerCancelMatchTbl(@Param("joinIdx") String joinIdx, @Param("regIdx") String regIdx);
+	
+	@Delete("Delete from purchase_join where join_Idx = #{joinIdx}")
+	void buyerCancelJoinTbl(@Param("joinIdx") String joinIdx);
 
 	@Update("update wallet set cash_lock = cash_lock-#{cash}, cash = cash+#{cash} where id = #{id}")
 	void returnLockedCash(@Param("id") String id, @Param("cash") int cash);
@@ -142,7 +147,7 @@ public interface PurchaseRepository {
 	@Update("update file_info set is_del = 1 where type_idx = #{regIdx} and file_category = 'purchase'")
 	void detailRemoveFile(@Param("regIdx") String regIdx);
 
-	@Select("select rest_num from purchase_match where join_idx = #{joinIdx}")
+	@Select("select join_buy_num from purchase_join where join_idx = #{joinIdx}")
 	int selectCancelBuyNum(@Param("joinIdx") String joinIdx);
 	
 	@Update("update purchase_register set done = 'F' where reg_Idx = #{regIdx}")
@@ -150,6 +155,15 @@ public interface PurchaseRepository {
 
 	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx} and ongoing=1" )
 	List<String> findChatList(@Param("regIdx") String regIdx);
+
+	@Select("select id from v_select_join_and_match where reg_idx = #{regIdx}" )
+	List<User> selectJoinIdList(String regIdx);
+
+	@Select("select id from purchase_register where reg_idx = #{regIdx}" )
+	User sellerId(String regIdx);
+
+	@Select("select item_name from purchase_register where reg_idx = #{regIdx}" )
+	String selectItemName(String regIdx);
 
 	
 	

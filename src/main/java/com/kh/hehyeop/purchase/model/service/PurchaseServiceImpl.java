@@ -3,6 +3,8 @@ package com.kh.hehyeop.purchase.model.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
@@ -13,8 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.hehyeop.common.push.PushSender;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.CMember;
+import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.validator.RegisterForm;
 
@@ -25,7 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class PurchaseServiceImpl implements PurchaseService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final PushSender pushSender;
 	private final PurchaseRepository purchaseRepository;
+	HttpSession session;
 
 	@Override
 	public int registerInfo(RegisterForm form) {
@@ -93,8 +101,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash) {
+	public void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash, String nickname, String itemName) {
+		//match테이블 인서트
 		purchaseRepository.purchaseMatch(regIdx,restNum,join_idx,matchLockedCash);
+		
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		
+		//판매자에게 공구 신청 푸시
+		pushSender.send(sellerId, "공구해협", nickname+"님이 " + itemName + " 공구를 신청 하셨습니다.");
 		
 	}
 
@@ -140,7 +154,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public void updateJoinStatus(List<String> joinIdxList) {
+	public void updateJoinStatus(List<String> joinIdxList, String regIdx, String sellerNickname) {
+		
+		//구매자들 리스트
+		List<User> userList = purchaseRepository.selectJoinIdList(regIdx);
+		//구매자들에게 공구 확정 푸시
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(userList, "공구해협", sellerNickname + "님이 " + itemName + " 공구를 확정 하셨습니다.");
+		
+		//상태 바꿔주기
 		purchaseRepository.updateJoinStatus(joinIdxList);
 	}
 
@@ -172,8 +194,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
-	public void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx) {
+	public void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx, String buyerNickname, int LockedCash) {
+		
 		purchaseRepository.updateMatchLockedCashAndOngoing(joinIdx, regIdx);
+		
+		//판매자에게 공구 구매 완료 푸시
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(sellerId, "공구해협", buyerNickname + "님이 " + itemName + " 구매를 완료 하셨습니다. \n* " + LockedCash + "Cash가 입금되었습니다.");
 		
 	}
 	
@@ -210,8 +238,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 	
 	@Override
-	public void buyerCancel(String joinIdx, String regIdx) {
-		purchaseRepository.buyerCancel(joinIdx, regIdx);
+	public void buyerCancel(String joinIdx, String regIdx, String buyerNickname) {
+		purchaseRepository.buyerCancelMatchTbl(joinIdx, regIdx);
+		purchaseRepository.buyerCancelJoinTbl(joinIdx);
+		
+		//판매자에게 공구 취소 푸시
+		User sellerId = purchaseRepository.sellerId(regIdx);
+		String itemName = purchaseRepository.selectItemName(regIdx);
+		pushSender.send(sellerId, "공구해협", buyerNickname + "님이 " + itemName + " 공구를 취소 하셨습니다.");
 		
 	}
 
@@ -252,8 +286,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Override
 	public List<String> findChatList(String regIdx) {
 		return purchaseRepository.findChatList(regIdx);
-	}	
-
+	}
 
 
 }

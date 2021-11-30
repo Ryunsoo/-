@@ -56,7 +56,7 @@
 							</c:choose>
 						</c:forEach>
 						</div>
-						<c:if test="${paging.endPage != paging.lastPage}">
+						<c:if test="${paging.startPage != paging.lastPage}">
 							<i class="fas fa-caret-right" onclick="location.href = '/admin/modify-request?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}'"></i>
 						</c:if>
 					</div>

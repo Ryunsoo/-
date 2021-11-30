@@ -131,7 +131,10 @@
 								</c:choose>
 							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<div class="category">
-								<input type="number" class="input_date" name='days'
+								<span class='text'>매 월 </span>
+								<input type="text" class="fixed_category date" id="date4" autocomplete="off" style="width: 50px;">
+								<span class='text'> 일</span>
+								<%-- <input type="number" class="input_date" name='days'
 									<c:choose>
 										<c:when test="${not empty fixedError.days}">
 											style="border: 1px solid red;"
@@ -150,7 +153,7 @@
 									<option value='일'>일</option>
 									<option value='월'>월</option>
 									<option value='년'>년</option>
-								</select>
+								</select> --%>
 							</div>
 								
 							

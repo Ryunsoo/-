@@ -1,81 +1,165 @@
 #write_body_container{
-    width:1000px;
-    height:1000px;
-    /* background-color:rgba(20,20,20,0.1); */
-    margin:0 auto;
-    display:block;
+    display: flex;
+    flex-direction: column;
 }
 
 .write_body{
+	display: flex;
+	justify-content: center;
+	height: 900px;
     background-color: rgba(127, 127, 127, 0.06);
 }
 
 #exp_of_write{
+	display: flex;
     width:1000px;
     height:40px;
-    /* margin:0 auto; */
-    position: relative;
-    top: 20px;
-    right: 5px;
     text-align:center;
 }
 
 #exp_of_write p {
-    font-size:30px;
-    margin:0 auto;
-    text-align:center;
-    font-family: '나눔스퀘어_ac';
 	font-weight: bold;
-	color: black;
+	font-size: 20px;
+	width: 200px;
+	line-height: 16px;	
 }
 
 #write_form{
-    width:1000px;
-    height:800px;
-    margin:0 auto;
-    
+    display: flex;
+    flex-direction: column;
+}
+
+#form_inner_select select{
+	width: 110px;
+    height: 35px;
+    font-size: 13px;
+    border-radius: 4px;
+    margin: 0 40px 0 0;	
+}
+
+#form_write_title input{
+	width: 600px;
+	height: 30px;
+	font-size: 13px;
+	border-radius: 4px;
 }
 
 #form_inner_top{
     width:1000px;
     height:50px;
-    margin-top:40px;
-    background-color:white;
-}
-
-#form_inner_select{
-    width:150px;
-    margin-right:40px;
-    font-family: '나눔스퀘어_ac';
-	font-weight: bold;
-}
-#form_inner_select select{
-    width:150px;
-    font-size:20px;
-}
-
-#form_write_title{
-    width:350px;
-    height:50px;
-    background-color:white;
-    font-family: '나눔스퀘어_ac';
-	font-weight: bold;
-}
-
-#form_write_title input{
-    width:350px;
-    height:50px;
+    margin: 40px 0 20px 0;
 }
 
 form{
-    font-size:30px;
     width:1000px;
     height:400px;
 }
 
 #cover_form{
+	background-color: white;
     margin-top:5px;
     width:1000px;
-    height:600px;
-    background-color:white;
+    height:612px;
+}
+
+#title_line{
+	width: 100px;
+	height: 0px;
+	margin: 26px 0 0 0;
+	border: 1px solid silver;
+}
+
+#title_line_two{
+	width: 700px;
+	height: 0px;
+	margin: 26px 0 0 0;
+	border: 1px solid silver;
+}
+
+#write_btn{
+	width: 200px;
+	height: 45px;
+	border-radius: 10px;
+    background-color: rgb(52, 73, 94);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.13s;
+    cursor: pointer;
+    color: white;
+}
+
+.private_txt{
+	margin: 10px 20px 0 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3.7px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #34cb73;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  margin: 10px 40px 0 0;
+  width: 52px;
+  height: 26px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.footer{
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 40px;
 }

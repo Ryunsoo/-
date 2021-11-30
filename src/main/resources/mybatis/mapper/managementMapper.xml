@@ -5,5 +5,16 @@
   
 <mapper namespace="com.kh.hehyeop.management.model.repository.ManagementRepository"> 
 	
+	<insert id="insertFixedSpend">
+		insert into f_expense
+		<if test="form.endDate == null">
+			(f_exp_idx, id, content, price, days, cycle, start_date)
+		</if>
+		values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}
+		<if test="form.endDate != null">
+			, #{form.endDate}
+		</if>
+		)
+	</insert>
 	
 </mapper>

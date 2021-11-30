@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
 import com.kh.hehyeop.purchase.model.dto.MyPurchaseInfo;
@@ -34,7 +35,7 @@ public interface PurchaseService {
 	int countRegister(String grade, List<String> addressList, String keyword);
 	List<Object> selectjoinCount(String grade, List<String> addressList, String keyword, Paging paging);
 
-	void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash);
+	void purchaseMatch(String regIdx, int restNum, String join_idx, int matchLockedCash, String nickname, String itemName);
 	
 	void purchaseRequest(int buyNum, String id);
 	
@@ -52,7 +53,7 @@ public interface PurchaseService {
 
 	List<String> selectJoinId(String regIdx);
 
-	void updateJoinStatus(List<String> joinIdxList);
+	void updateJoinStatus(List<String> joinIdxList, String regIdx, String sellerNickname);
 
 	List<String> selectJoinList(String regIdx);
 
@@ -64,7 +65,7 @@ public interface PurchaseService {
 
 	int getTotalLockedCash(String id);
 
-	void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx);
+	void updateMatchLockedCashAndOngoing(String joinIdx, String regIdx, String buyerNickname, int LockedCash);
 
 	void updateWalletLockedCash(String id, int totalLockedcash);
 
@@ -78,7 +79,7 @@ public interface PurchaseService {
 
 	List<String> findBuyer(String regIdx);
 
-	void buyerCancel(String joinIdx, String regIdx);
+	void buyerCancel(String joinIdx, String regIdx, String buyerNickname);
 
 	void returnLockedCash(String id, int cash);
 
@@ -93,6 +94,8 @@ public interface PurchaseService {
 	void updateDone(String regIdx);
 
 	List<String> findChatList(String regIdx);
+
+
 
 
 }

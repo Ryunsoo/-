@@ -20,13 +20,8 @@ public class ManagementServiceImpl implements ManagementService{
 	private final ManagementRepository managementRepository;
 
 	@Override
-	public List<Icebox> selectIceboxUpList(String id, String category) {
-		return managementRepository.selectIceboxUpList(id, category);
-	}
-
-	@Override
-	public List<Icebox> selectIceboxDownList(String id, String category) {
-		return managementRepository.selectIceboxDownList(id, category);
+	public List<Icebox> selectIceboxList(String id, int category) {
+		return managementRepository.selectIceboxList(id, category);
 	}
 	
 	@Override
@@ -72,5 +67,32 @@ public class ManagementServiceImpl implements ManagementService{
 	@Override
 	public List<FExpense> selectFExpenseList(String id) {
 		return managementRepository.selectFExpenseList(id);
+	}
+
+	public int insertIceboxItem(String id,String item, String date, int category) {
+		return managementRepository.insertIceboxItem(id, item, date, category);
+	}
+
+	@Override
+	public String deleteIceboxItem(String iceIdx, int status, String id, String item) {
+		
+		if(status == 1) {
+			managementRepository.insertShoppingItem(id,item);
+			managementRepository.deletedeleteIceboxItem(iceIdx);
+			return "insert";
+		}else {
+			managementRepository.deletedeleteIceboxItem(iceIdx);
+			return "delete";
+		}	
+	}
+
+	@Override
+	public List<Icebox> selectIceboxBellList(String id) {
+		return managementRepository.selectIceboxBellList(id);
+	}
+
+	@Override
+	public int selectBellCnt(String id) {
+		return managementRepository.selectBellCnt(id);
 	}
 }

@@ -12,9 +12,7 @@ import com.kh.hehyeop.management.validator.PersonalForm;
 
 public interface ManagementService {
 
-	List<Icebox> selectIceboxUpList(String id, String category);
-
-	List<Icebox> selectIceboxDownList(String id, String category);
+	List<Icebox> selectIceboxList(String id, int category);
 
 	Map<String, List<ShoppingList>> selectShoppingListById(String id);
 
@@ -29,5 +27,13 @@ public interface ManagementService {
 	void insertFixedSpend(String id, FixedForm form);
 	
 	List<FExpense> selectFExpenseList(String id);
+
+	int insertIceboxItem(String id, String item, String date, int category);
+
+	String deleteIceboxItem(String iceIdx, int status, String id, String item);
+
+	List<Icebox> selectIceboxBellList(String id);
+
+	int selectBellCnt(String id);
 
 }

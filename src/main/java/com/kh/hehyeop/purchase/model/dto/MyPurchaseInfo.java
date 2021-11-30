@@ -1,6 +1,8 @@
 package com.kh.hehyeop.purchase.model.dto;
 
 
+import com.kh.hehyeop.member.model.dto.User;
+
 import lombok.Data;
 
 @Data
@@ -25,11 +27,11 @@ public class MyPurchaseInfo {
 	private String buyerId;
 	private String name;
 	private String tell;
-	private String nickname;
 	private int cash;
 	private String savePath;
 	private String reName;
 	private String itemLink;
 	private String sellerId;
 	private int cashLock;
+	private String nickname;
 }
