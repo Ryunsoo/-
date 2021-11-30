@@ -72,4 +72,5 @@ public class CommunityServiceImpl implements CommunityService {
 	public void modifyBoard(Community community) {
 		communityRepository.modifyBoard(community);
 	}
+	
 }
