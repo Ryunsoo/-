@@ -54,7 +54,11 @@ public class PurchaseController {
 		DetailInfo detailInfo = purchaseService.selectPurchaseDetail(regIdx);
 		MyPurchaseInfo purchaseInfo = purchaseService.selectPurchaseInfoByIdx(regIdx);
 		
+		
 		Member member = (Member) session.getAttribute("authentication");
+		if (detailInfo.getId().equals(member.getId())) {
+			throw new HandlableException(ErrorCode.MATCH_BOARD_ERROR_WRITER);
+		}
 		String id = member.getId();
 		int buyNum = purchaseService.selectBuyNum(regIdx);
 		Integer ongoing = purchaseService.ongoing(regIdx,id);
