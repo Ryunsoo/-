@@ -143,7 +143,7 @@
 	margin-right: 10px;
 }
 
-#comment_edit{
+.comment-func{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -172,6 +172,12 @@
 	border-radius: 5px;
 	box-shadow: 0 0 1px 0;
 	background-color: white;
+}
+
+.reply_content{
+	width: 540px;
+	margin-top: 25px;
+	margin-right: 10px;
 }
 
 #reply_item>div{

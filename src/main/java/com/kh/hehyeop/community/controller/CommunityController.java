@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
+import com.kh.hehyeop.community.model.dto.Rereply;
 import com.kh.hehyeop.community.model.service.CommunityService;
 
 import lombok.RequiredArgsConstructor;
@@ -68,6 +69,7 @@ public class CommunityController {
 		communityService.updateViewCnt(boardIdx);
 		Community board = communityService.selectBoardByIdx(boardIdx);
 		List<Reply> replyList = communityService.selectReplyList(boardIdx);
+		List<Rereply> reReplyList = communityService.selectReReplyList();
 		int replyCnt = replyList.size();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
@@ -77,9 +79,14 @@ public class CommunityController {
 			reply.setParseDate(format.format(reply.getRegDate()));
 		}
 		
+		for (Rereply rereply : reReplyList) {
+			rereply.setParseDate(format.format(rereply.getRegDate()));
+		}
+		
 		model.addAttribute("board", board);
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("replyCnt", replyCnt);
+		model.addAttribute("reReplyList", reReplyList);
 	}
 	
 	@GetMapping("search")
@@ -140,11 +147,34 @@ public class CommunityController {
 		
 	}
 	
+	
 	@GetMapping("delete-reply")
 	public String deleteReply(@RequestParam(value = "replyIdx") String replyIdx,
 							@RequestParam(value = "boardIdx") String boardIdx) {
 		
 		communityService.deleteReply(replyIdx);
+		return "redirect:/community/view?boardIdx="+boardIdx;
+		
+	}
+	
+	@PostMapping("re-reply")
+	public String writeReReply(Rereply reReply, @RequestParam(value="boardIdx") String boardIdx, RedirectAttributes redirctAttr) {
+		
+		if (reReply.getContent().isEmpty()) {
+			redirctAttr.addFlashAttribute("message", "빈 칸을 입력할 수 없습니다.");
+			return "redirect:/community/view?boardIdx="+boardIdx; 
+		}
+		
+		reReply.setNickname(communityService.selectNickname(reReply.getId()));
+		communityService.insertReReply(reReply);
+		return "redirect:/community/view?boardIdx="+boardIdx;
+	}
+	
+	@GetMapping("delete-reReply")
+	public String deleteReReply(@RequestParam(value = "reReplyIdx") String reReplyIdx,
+								@RequestParam(value = "boardIdx") String boardIdx) {
+		
+		communityService.deleteReReply(reReplyIdx);
 		return "redirect:/community/view?boardIdx="+boardIdx;
 		
 	}

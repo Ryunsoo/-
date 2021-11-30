@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
+import com.kh.hehyeop.community.model.dto.Rereply;
 
 @Mapper
 public interface CommunityRepository {
@@ -46,5 +47,14 @@ public interface CommunityRepository {
 	
 	@Update("Update board set board_category=#{boardCategory}, title=#{title}, content=#{content}, is_private=#{isPrivate} where board_idx = #{boardIdx}")
 	void modifyBoard(Community community);
+
+	@Insert("insert into re_reply(re_reply_idx, reply_idx, id, content, nickname) values(sc_re_reply_idx.nextval, #{replyIdx}, #{id}, #{content}, #{nickname})")
+	void insertReReply(Rereply reReply);
+
+	@Select("select * from re_reply where is_del = 0 order by re_reply_idx desc")
+	List<Rereply> selectReReplyList();
+
+	@Update("update re_reply set is_del = 1 where re_reply_idx = #{reReplyIdx}")
+	void deleteReReply(String reReplyIdx);
 
 }

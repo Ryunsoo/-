@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
+import com.kh.hehyeop.community.model.dto.Rereply;
 
 public interface CommunityService {
 
@@ -29,5 +30,11 @@ public interface CommunityService {
 	void deleteReply(String replyIdx);
 
 	void modifyBoard(Community community);
+
+	void insertReReply(Rereply reReply);
+
+	List<Rereply> selectReReplyList();
+
+	void deleteReReply(String reReplyIdx);
 
 }

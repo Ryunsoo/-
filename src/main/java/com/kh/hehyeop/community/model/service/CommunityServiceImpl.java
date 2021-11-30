@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
+import com.kh.hehyeop.community.model.dto.Rereply;
 import com.kh.hehyeop.community.model.repository.CommunityRepository;
 import com.kh.hehyeop.management.model.repository.ManagementRepository;
 
@@ -72,5 +73,19 @@ public class CommunityServiceImpl implements CommunityService {
 	public void modifyBoard(Community community) {
 		communityRepository.modifyBoard(community);
 	}
-	
+
+	public void insertReReply(Rereply reReply) {
+		communityRepository.insertReReply(reReply);
+	}
+
+	@Override
+	public List<Rereply> selectReReplyList() {
+		return communityRepository.selectReReplyList();
+	}
+
+	@Override
+	public void deleteReReply(String reReplyIdx) {
+		communityRepository.deleteReReply(reReplyIdx);
+	}
+
 }
