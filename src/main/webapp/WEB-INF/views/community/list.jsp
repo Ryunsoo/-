@@ -38,8 +38,8 @@
             <c:forEach items="${commuList}" var="cl">
             <tr>
                 <td>
-                    <div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${cl.boardIdx}'" style="display:block; cursor: pointer;">
-                        <div class="tr_inner_up_div" style="display:flex;">
+                    <div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${cl.boardIdx}'">
+                        <div class="tr_inner_up_div">
 	                        <div class="board_kinds">${cl.boardCategory}</div>
 	                        <div class="board_title">${cl.title}</div>
 	                        <div class="board_writer">${cl.nickname}</div>
@@ -63,13 +63,13 @@
     <!--footer은 글쓰기 페이지엔 존재하지 않으니 index, view_board에만 사용-->
     <div class='page'>
 		<c:if test="${paging.nowPage != 1}">
-			<i class="fas fa-caret-left" onclick="location.href = '/community/list?nowPage=${paging.nowPage-1}&cntPerPage=${paging.cntPerPage}'"></i>
+			<i style="margin-right:20px;"  class="fas fa-caret-left" onclick="location.href = '/community/list?nowPage=${paging.nowPage-1}&cntPerPage=${paging.cntPerPage}'"></i>
 		</c:if>
 		<div>
 		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 			<c:choose>
 				<c:when test="${p == paging.nowPage}">
-					<span>${p}</span>
+					<span style="color:lightgray">${p}</span>
 				</c:when>
 				<c:otherwise>
 					<span onclick="location.href= '/community/list?nowPage=${p}&cntPerPage=${paging.cntPerPage}'">${p}</span>

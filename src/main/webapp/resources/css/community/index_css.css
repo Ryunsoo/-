@@ -1,22 +1,14 @@
 #index_body_container {
-	width: 1130px;
-	height: 75%;
-	/*background-color:yellow;*/
-	border: solid transparent;
+    width: 1130px;
+    height:780px;
+    border-radius: 20px;
+    background-color: rgba(127, 127, 127, 0.06);
 }
 
 #index_body_container table {
 	margin: auto;
-	/*background-color:black;*/
 	width: 80%;
-	/* height: 75%; */
 	border-spacing: 0 20px;
-}
-
-#index_body_container table tr td {
-	background-color: white;
-	/* border-top-left-radius: 10px; */
-	border-radius: 1rem;
 }
 
 /*footer는 view_board.html도 공용으로 사용할것*/
@@ -48,58 +40,64 @@
 }
 */
 .tr_inner_container {
-	width: 900px;
-	height: 70px;
-	margin: 0 auto;
-	display: block;
-	border: 1px solid gray;
-	background-color: white;
-	border-radius: 7px;
+    width: 900px;
+    height: 90px;
+    margin: 0 auto;
+    display: flex;
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 7px;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .tr_inner_up_div {
-	display: block;
-	width: 840px;
-	border-bottom: 1px solid gray;
-	margin: 0 auto;
-	height: 30px;
-	background-color: white;
+    display: flex;
+    width: 840px;
+    border-bottom: 1px solid gray;
+    margin: 0 auto;
+    background-color: white;
+    line-height: 2;
 }
 
 .tr_inner_under_div {
-	display: block;
+	display: flex;
 	width: 840px;
-	height: 37px;
 	margin: 0 auto;
 	border: solid transparent;
+	line-height: 2;
 }
 
 .board_kinds {
 	margin-right: 30px;
 	width: 50px;
 	height: 30px;
+	color: #ffc760;
 }
 
 .board_title {
 	width: 250px;
 	height: 30px;
 	margin-right: 330px;
-	color: navy;
+	color: #232338;
 }
 
 .board_writer {
 	width: 60px;
 	height: 30px;
+	color: #454545;
 }
 
 .board_date {
 	width: 90px;
 	height: 30px;
+	color: #454545;
 }
 
 .board_view_cnt {
 	width: 30px;
 	height: 30px;
+	color: #454545;
 }
 
 .tr_inner_under_div_contents {
@@ -107,9 +105,9 @@
 	border: solid transparent;
 }
 
-.board_kinds, .board_title, .board_writer, .board_date, .board_view_cnt {
+/* .board_kinds, .board_title, .board_writer, .board_date, .board_view_cnt {
 	border: solid transparent;
-}
+} */
 
 .board_kinds, .board_title, .board_writer, .board_date, .board_view_cnt
 	{
@@ -127,25 +125,20 @@
 	border: solid transparent;
 }
 
-.write_body{
-    background-color: rgba(127, 127, 127, 0.06);
-}
-
 .span {
 	border: solid transparent;
 }
 
-.page{
-	width: 300px;
-	height: 50px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	font-weight: bold;
-	font-size: 18px;
-	margin: 40px 0 0 450px;
+.page {
+    justify-content: center;
+    /* width: 300px; */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: auto;
 }
-
 .page>i{
 	font-size: 25px;
 	color: #cccccc;
@@ -158,11 +151,30 @@
 
 .page>div{
 	display: flex;
-	width: 130px;
-	justify-content: space-around;
 }
 
 .page>div>span:hover{
 	color: #bfbfbf;
 	cursor: pointer;
+}
+
+.page>div>span{
+	margin-right: 20px;
+}
+
+#search_case_inner_div_3 input {
+    width: 250px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 7px;
+    border: solid 2px lightgray;
+}
+
+#search_case_inner_div_3 select {
+    width: 110px;
+    height: 35px;
+    font-size: 13px;
+    border-radius: 7px;
+    margin: 0 10px 0 100px;
+    border: solid 2px lightgray;
 }
