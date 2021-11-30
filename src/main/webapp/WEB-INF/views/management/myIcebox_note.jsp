@@ -26,7 +26,7 @@
 			</div>
 			<div class="tape"></div>
 			<div class="bell" id="go">
-				<div class="bell_cnt">${bellCnt}</div>
+				<c:if test="${bellCnt > 0}"><div class="bell_cnt">${bellCnt}</div></c:if>
 				<i class="fas fa-bell"></i>
 			</div>
 				

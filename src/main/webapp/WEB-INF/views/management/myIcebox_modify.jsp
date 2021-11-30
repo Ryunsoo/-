@@ -30,7 +30,7 @@
 			</div>
 			<div class="tape"></div>
 			<div class="bell" id="go">
-				<div class="bell_cnt">${bellCnt}</div>
+				<c:if test="${bellCnt > 0}"><div class="bell_cnt">${bellCnt}</div></c:if>
 				<i class="fas fa-bell"></i>
 			</div>
 				
@@ -62,7 +62,7 @@
 							<div class="txt">${ice.item}</div>
 							<div class="day">(${ice.resDay}일)</div>
 							<c:if test="${ice.resDay < 0}"><div class="day_end"><i class="fas fa-exclamation-triangle"></i>유통기한이 지났습니다.</div></c:if>
-							<div class="cancel"><i class="fas fa-times-circle" onclick="deleteItem(${ice.iceIdx},'${ice.item}')"></i></div>
+							<div class="cancel"><i class="fas fa-times-circle" onclick="deleteItem(${ice.iceIdx},'${ice.item}', ${category})"></i></div>
 						</div>
 						</c:if>	
 					</c:forEach>
@@ -78,7 +78,7 @@
 							<div class="reg_date">${ice.exDate}</div>
 							<div class="txt">${ice.item}</div>
 							<div class="day">(${ice.resDay}일)</div>
-							<div class="cancel"><i class="fas fa-times-circle" onclick="deleteItem(${ice.iceIdx},'${ice.item}',${category})"></i></div>
+							<div class="cancel"><i class="fas fa-times-circle" onclick="deleteItem(${ice.iceIdx},'${ice.item}', ${category})"></i></div>
 						</div>
 						</c:if>	
 					</c:forEach>
