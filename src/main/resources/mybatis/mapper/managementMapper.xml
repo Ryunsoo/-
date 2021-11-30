@@ -8,13 +8,13 @@
 	<insert id="insertFixedSpend">
 		insert into f_expense
 		<if test="form.endDate == null">
-			(f_exp_idx, id, content, price, days, cycle, start_date)
+			(f_exp_idx, id, content, fixed_date, start_date, price)
 		</if>
-		values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.price}, #{form.days}, #{form.cycle}, #{form.startDate}
+		values(sc_f_expense_idx.nextval, #{id}, #{form.content}, #{form.fixedDate}, #{form.startDate}
 		<if test="form.endDate != null">
 			, #{form.endDate}
 		</if>
-		)
+		, #{form.price})
 	</insert>
 
 	<select id="selectExpenseList" resultType="Expense">

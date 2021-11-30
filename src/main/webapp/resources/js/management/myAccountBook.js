@@ -14,7 +14,6 @@
             popup.classList.add("hidden");
         });
         
-        
 function choice() {
 
 	const choiceList = document.getElementsByName('choice');
@@ -75,14 +74,36 @@ function choice() {
 			prevDate = nowDate;
 		  },
 		  
-		  validRange: {
-			start: '2021-01-01',
-			end: '2031-12-31'
+		  eventClick: function(info) {
+			
 		  }
-		  
 		  
    	    });
    	    calendar.render();	
+
+let getHehyeopEvents = async (date) => {
+	console.dir(date);
+	let response = await fetch('/management/get-events?date=' + date);
+	let datas = await response.json();
+	
+	let event = calendar.getEvents();
+	event.forEach(function(e) {
+		e.remove();
+	});
+	
+	calendar.addEventSource({
+		events: datas
+	})
+}
+
+//new Date() 년/월 기준으로 fetch보내기
+(async function() {
+	
+	let today = new Date();
+	let month = today.getFullYear() + '-' + (today.getMonth()+1);
+	
+	await getHehyeopEvents(month);
+})();
 
 		$('.date').keydown(function(e) {
 			if(e.originalEvent.code != 'Tab') e.preventDefault();
@@ -98,14 +119,10 @@ function choice() {
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
 								monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월",
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
-								defaultDate : "+1w",
 								numberOfMonths : 1,
 								changeMonth : true,
 								showMonthAfterYear : true,
 								changeYear : true,
-								minDate : +1, //캘린더 범위에서 시작 날짜
-								maxDate : "+2M +5D"
-		
 							});
 				});
 
@@ -118,14 +135,10 @@ function choice() {
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
 								monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월",
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
-								defaultDate : "+1w",
 								numberOfMonths : 1,
 								changeMonth : true,
 								showMonthAfterYear : true,
 								changeYear : true,
-								minDate : +1, //캘린더 범위에서 시작 날짜
-								maxDate : "+2M +5D"
-		
 							});
 				});
 
@@ -138,14 +151,10 @@ function choice() {
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
 								monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월",
 										"7월", "8월", "9월", "10월", "11월", "12월" ],
-								defaultDate : "+1w",
 								numberOfMonths : 1,
 								changeMonth : true,
 								showMonthAfterYear : true,
 								changeYear : true,
-								minDate : +1, //캘린더 범위에서 시작 날짜
-								maxDate : "+2M +5D"
-		
 							});
 				});
 				
@@ -153,12 +162,13 @@ function choice() {
 					$("#date4").datepicker(
 							{
 								dateFormat : "dd",
-								defaultDate : "+1m",
 								changeMonth : false,
 								showMonthAfterYear : false,
 								changeYear : false,
 								minDate : 1, //캘린더 범위에서 시작 날짜
-								maxDate : 29
+								maxDate : 28
 					});
+					
+					$('#date4').datepicker($.datepicker.regional["ko"]);
 					
 		});

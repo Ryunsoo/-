@@ -54,14 +54,13 @@ public class ScheduleFormValidator implements Validator{
 			errors.rejectValue("content", "error-content", "error");
 		}
 		
-		if(form.getDays() < 0 || form.getDays() % 1 != 0) {
-			errors.rejectValue("days", "error-days", "error");
-		}
-		
-		if(form.getCycle() == null) {
-			errors.rejectValue("cycle", "error-cycle", "error");
-		}else if(!form.getCycle().equals("일") && !form.getCycle().equals("월") && !form.getCycle().equals("년")) {
-			errors.rejectValue("cycle", "error-cycle", "error");
+		if(form.getFixedDate().equals("")) {
+			errors.rejectValue("fixedDate", "error-fixedDate", "error");
+		}else {
+			int fixedDate = Integer.parseInt(form.getFixedDate());
+			if(fixedDate < 1 || fixedDate > 28) {
+				errors.rejectValue("fixedDate", "error-fixedDate", "error");
+			}
 		}
 		
 		if(!Pattern.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$", form.getStartDate())) {

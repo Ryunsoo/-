@@ -9,47 +9,37 @@ var FullCalendar = (function (exports) {
 	/* 륜수 : 함수 추가 */
 	var changeMonth = function(_this) {
 		let currentMonth = _this.el.children[0].children[1].innerText;
-		parseMonth(currentMonth);
-		rendScheduleTable();
-	}
-	
-	var parseMonth = function(currentMonth) {
 		let parseMonth = currentMonth.split(' ');
-		let engMonth = parseMonth[0];
-		let year = parseMonth[1];
-		let month = String(parseMonthEngToNum(engMonth));
-		if(month.length == 1) {
-			month = '0' + month;
-		}
-		document.querySelector('.schedule_table>thead>tr>th').innerText = year + '. ' + month + '월';
+		let month = parseMonthEngToNum(parseMonth[0]);
+		getHehyeopEvents(parseMonth[1] + '-' + month);
 	}
 	
 	var parseMonthEngToNum = function(engMonth) {
 		switch(engMonth) {
 			case 'January':
-				return 1;
+				return '01';
 			case 'February':
-				return 2;
+				return '02';
 			case 'March':
-				return 3;
+				return '03';
 			case 'April':
-				return 4;
+				return '04';
 			case 'May':
-				return 5;
+				return '05';
 			case 'June':
-				return 6;
+				return '06';
 			case 'July':
-				return 7;
+				return '07';
 			case 'August':
-				return 8;
+				return '08';
 			case 'September':
-				return 9;
+				return '09';
 			case 'October':
-				return 10;
+				return '10';
 			case 'November':
-				return 11;
+				return '11';
 			case 'December':
-				return 12;
+				return '12';
 		}
 	}
 		
@@ -3077,19 +3067,13 @@ var FullCalendar = (function (exports) {
             this.unselect();
             this.dispatch({ type: 'PREV' });
 			/* 륜수 */
-			if(document.querySelector('.schedule_table')) {
-				let _this = this;
-				changeMonth(_this);
-			}
+			changeMonth(this);
         };
         CalendarApi.prototype.next = function () {
             this.unselect();
             this.dispatch({ type: 'NEXT' });
 			/* 륜수 */
-			if(document.querySelector('.schedule_table')) {
-				let _this = this;
-				changeMonth(_this);
-			}
+			changeMonth(this);
         };
         CalendarApi.prototype.prevYear = function () {
             var state = this.getCurrentData();
@@ -3099,10 +3083,7 @@ var FullCalendar = (function (exports) {
                 dateMarker: state.dateEnv.addYears(state.currentDate, -1),
             });
 			/* 륜수 */
-			if(document.querySelector('.schedule_table')) {
-				let _this = this;
-				changeMonth(_this);
-			}
+			changeMonth(this);
         };
         CalendarApi.prototype.nextYear = function () {
             var state = this.getCurrentData();
@@ -3112,10 +3093,7 @@ var FullCalendar = (function (exports) {
                 dateMarker: state.dateEnv.addYears(state.currentDate, 1),
             });
 			/* 륜수 */
-			if(document.querySelector('.schedule_table')) {
-				let _this = this;
-				changeMonth(_this);
-			}
+			changeMonth(this);
         };
         CalendarApi.prototype.today = function () {
             var state = this.getCurrentData();

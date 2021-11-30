@@ -65,7 +65,7 @@
 									<option value='MEDICAL'>의료</option>
 									<option value='FINANCE'>금융</option>
 									<option value='SHOPPING'>쇼핑</option>
-									<option value='LESISURE'>여가</option>
+									<option value='LEISURE'>여가</option>
 									<option value='LIVING'>생활</option>
 									<option value='EVENT'>경조사비</option>
 									<option value='OTHERS'>기타</option>
@@ -131,31 +131,19 @@
 								</c:choose>
 							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<div class="category">
-								<span class='text'>매 월 </span>
-								<input type="text" class="fixed_category date" id="date4" autocomplete="off" style="width: 50px;">
-								<span class='text'> 일</span>
-								<%-- <input type="number" class="input_date" name='days'
+								<div class='text'>매 월 </div>
+								<input type="text" class="fixed_category date" name="fixedDate" id="date4"
 									<c:choose>
-										<c:when test="${not empty fixedError.days}">
+										<c:when test="${not empty fixedError.fixedDate}">
 											style="border: 1px solid red;"
 										</c:when>
-										<c:when test="${empty fixedError.days}">
-											value="${fixedForm.days}"
+										<c:when test="${empty fixedError.fixedDate}">
+											value="${fixedForm.fixedDate}"
 										</c:when>
 									</c:choose>
-								placeholder="기간 입력" autocomplete="off" min="0" required>
-								<select class="input_date" name='cycle' style="width: 108px; height: 38px; cursor: pointer;
-									<c:if test="${not empty fixedError.cycle}">
-										border: 1px solid red;
-									</c:if>
-								" required>
-									<option selected disabled>기간 단위</option>
-									<option value='일'>일</option>
-									<option value='월'>월</option>
-									<option value='년'>년</option>
-								</select> --%>
+								autocomplete="off" style="width: 50px;" required>
+								<div class='text'> 일</div>
 							</div>
-								
 							
 							<input type="text" class="fixed_category date" id="date2" name='startDate'
 								<c:choose>

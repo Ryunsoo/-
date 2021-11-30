@@ -61,4 +61,16 @@ public interface ManagementRepository {
 
 	List<Expense> selectExpenseList(@Param("id") String id, @Param("cate") String cate, @Param("period") String period);
 
+	@Select("select * from expense where id = #{id} and exp_date like #{date}||'%'")
+	List<Expense> selectPersonalExpense(@Param("id") String id, @Param("date") String date);
+	
+	@Select("select f_exp_idx as exp_idx, 'FIXED' as category, id, content, concat(concat(#{date}, '-'), fixed_date) as exp_date, price "
+			+ "from f_expense where id = #{id} and to_date(concat(#{date}, fixed_date)) >= to_date(start_date) "
+			+ "and to_date(concat(#{date}, fixed_date)) <= to_date(end_date)")
+	List<Expense> selectFixedExpense(@Param("id") String id, @Param("date") String date);
+	
+	
+	
+	
+	
 }
