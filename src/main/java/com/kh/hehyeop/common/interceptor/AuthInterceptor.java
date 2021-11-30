@@ -38,8 +38,8 @@ public class AuthInterceptor implements HandlerInterceptor{
 			case "admin":
 				adminAuthorize(httpRequest, httpResponse, uriArr);
 				break;
-			case "board":
-				//boardAuthorize(httpRequest, httpResponse, uriArr);
+			case "community":
+				communityAuthorize(httpRequest, httpResponse, uriArr);
 				break;
 			case "mypage":
 				mypageAuthorize(httpRequest, httpResponse, uriArr);
@@ -64,6 +64,22 @@ public class AuthInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
+
+	private void communityAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
+		
+		HttpSession session = httpRequest.getSession();
+		User user = (User) session.getAttribute("authentication");
+		
+		if(user == null) {
+			throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+		}
+		
+		if(user instanceof CMember) {
+			throw new HandlableException(ErrorCode.COMPANY_LOGIN_ERROR);
+		}
+		
+	}
+
 
 	private void managementAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse,
 			String[] uriArr) {
