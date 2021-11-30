@@ -41,7 +41,7 @@ public interface ManagementRepository {
 
 	void insertFixedSpend(@Param("id")String id, @Param("form")FixedForm form);
 
-	@Select("select * from f_expense where id = #{id} and to_date(end_date) > current_date")
+	@Select("select * from f_expense where id = #{id} and to_date(end_date) > current_date order by fixed_date asc")
 	List<FExpense> selectFExpenseList(@Param("id") String id);
 
 	@Insert("insert into icebox values(sc_ice_idx.nextval, #{id}, #{item}, #{category}, #{date}, current_date)")

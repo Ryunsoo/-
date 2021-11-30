@@ -8,10 +8,9 @@ public class FExpense {
 	private String fExpIdx;
 	private String id;
 	private String content;
-	private int price;
-	private int days;
-	private String cycle;
+	private String fixedDate;
 	private String startDate;
 	private String endDate;
+	private int price;
 	private String comPrice;
 }
