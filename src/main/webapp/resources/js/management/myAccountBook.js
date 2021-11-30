@@ -27,13 +27,33 @@ function choice() {
 		date = nowDate.dataset.date;
 	}
 	
-	console.dir(personal);
 	if(personal == true){
+		$('.personal_category').each(function() {
+			if(this.localName != 'select') {
+				$(this).val('');
+			}
+		})
+		
+		$('option').each(function(e) {
+			if(this.disabled != true) {
+				$(this).prop('selected', false);
+			}else{
+				$(this).prop('selected', true);
+			}
+		})
+		
 		$('#date1').val(date);
+		document.querySelector('.personal_btn').style.display = "flex";
+		document.querySelector('.personal_btn_modify').style.display = "none";
 		document.getElementById("personal_hidden").style.display ="flex";
 		document.getElementById("fixed_hidden").style.display ="none";
 	}else{
+		$('.fixed_category').each(function() {
+			$(this).val('');
+		})
 		$('#date2').val(date);
+		document.querySelector('.fixed_btn').style.display = "flex";
+		document.querySelector('.fixed_btn_modify').style.display = "none";
 		document.getElementById("fixed_hidden").style.display ="flex";
 		document.getElementById("personal_hidden").style.display ="none";
 	}
@@ -75,6 +95,40 @@ function choice() {
 		  },
 		  
 		  eventClick: function(info) {
+			let event = info.event;
+			let category = event.extendedProps.category;
+			console.dir(event.startStr);
+			if(category == 'FIXED') {
+				document.getElementById("fixed_hidden").style.display ="flex";
+				document.getElementById("personal_hidden").style.display ="none";
+				document.querySelector('.fixed_btn').style.display = "none";
+				document.querySelector('.fixed_btn_modify').style.display = "flex";
+				
+				$('.fixed_content').val(event.title);
+				$('.fixed_fixedDate').val(event.extendedProps.fixedDate);
+				$('.fixed_startDate').val(event.extendedProps.fixedStart);
+				$('.fixed_endDate').val(event.extendedProps.fixedEnd);
+				$('.fixed_price').val(event.extendedProps.price);
+				
+			}else {
+				document.getElementById("personal_hidden").style.display ="flex";
+				document.getElementById("fixed_hidden").style.display ="none";
+				document.querySelector('.personal_btn').style.display = "none";
+				document.querySelector('.personal_btn_modify').style.display = "flex";
+				
+				$('option').each(function(e) {
+					if(this.value == category) {
+						$(this).prop('selected', true);
+					}else if(this.disabled != true) {
+						$(this).prop('selected', false);
+					}
+				})
+				console.dir(category);
+				
+				$('.personal_content').val(event.title);
+				$('.personal_expDate').val(event.startStr);
+				$('.personal_price').val(event.extendedProps.price);
+			}
 			
 		  }
 		  

@@ -70,7 +70,7 @@
 									<option value='EVENT'>경조사비</option>
 									<option value='OTHERS'>기타</option>
 								</select>
-							<input type="text" class="personal_category" name='content'
+							<input type="text" class="personal_category personal_content" name='content'
 								<c:choose>
 									<c:when test="${not empty personalError.content}">
 										style="border: 1px solid red;"
@@ -80,7 +80,7 @@
 									</c:when>
 								</c:choose>
 							placeholder="제목을 입력하세요." autocomplete="off" required>
-							<input type="text" class="personal_category date" name='expDate' id="date1"
+							<input type="text" class="personal_category date personal_expDate" name='expDate' id="date1"
 								<c:choose>
 									<c:when test="${not empty personalError.expDate}">
 										style="border: 1px solid red;"
@@ -90,7 +90,7 @@
 									</c:when>
 								</c:choose>
 							placeholder="날짜를 입력하세요." autocomplete="off" required>
-							<input type="number" class="personal_category" name='price'
+							<input type="number" class="personal_category personal_price" name='price'
 								<c:choose>
 								<c:when test="${not empty personalError.price}">
 									style="border: 1px solid red;"
@@ -101,8 +101,11 @@
 								</c:choose>
 							placeholder="금액을 입력하세요." autocomplete="off" min='0' required>
 							<div class="personal_btn">
-								<button class="personal_delete">삭제</button>
 								<button class="personal_save">저장</button>
+							</div>
+							<div class="personal_btn_modify">
+								<button class="personal_delete">삭제</button>
+								<button class="personal_save">수정</button>
 							</div>
 						</div>
 					</form:form>
@@ -120,7 +123,7 @@
 							<div class="fixed_title">
 								고정 지출 입력
 							</div>
-							<input type="text" class="fixed_category" name='content'
+							<input type="text" class="fixed_category fixed_content" name='content'
 								<c:choose>
 									<c:when test="${not empty fixedError.content}">
 										style="border: 1px solid red;"
@@ -132,7 +135,7 @@
 							placeholder="제목을 입력하세요." autocomplete="off" required>
 							<div class="category">
 								<div class='text'>매 월 </div>
-								<input type="text" class="fixed_category date" name="fixedDate" id="date4"
+								<input type="text" class="fixed_category date fixed_fixedDate" name="fixedDate" id="date4"
 									<c:choose>
 										<c:when test="${not empty fixedError.fixedDate}">
 											style="border: 1px solid red;"
@@ -145,7 +148,7 @@
 								<div class='text'> 일</div>
 							</div>
 							
-							<input type="text" class="fixed_category date" id="date2" name='startDate'
+							<input type="text" class="fixed_category date fixed_startDate" id="date2" name='startDate'
 								<c:choose>
 									<c:when test="${not empty fixedError.startDate}">
 										style="border: 1px solid red;"
@@ -155,7 +158,7 @@
 									</c:when>
 								</c:choose>
 							placeholder="시작날짜를 입력하세요." autocomplete="off" required>
-							<input type="text" class="fixed_category date" id="date3" name='endDate'
+							<input type="text" class="fixed_category date fixed_endDate" id="date3" name='endDate'
 								<c:choose>
 									<c:when test="${not empty fixedError.endDate}">
 										style="border: 1px solid red;"
@@ -165,7 +168,7 @@
 									</c:when>
 								</c:choose>
 							placeholder="마감날짜를 입력하세요." autocomplete="off">
-							<input type="number" class="fixed_category" name='price'
+							<input type="number" class="fixed_category fixed_price" name='price'
 								<c:choose>
 									<c:when test="${not empty fixedError.price}">
 										style="border: 1px solid red;"
@@ -176,8 +179,11 @@
 								</c:choose>
 							placeholder="금액 입력하세요." min='0' required>
 							<div class="fixed_btn">
-								<button class="fixed_delete">삭제</button>
 								<button class="fixed_save">저장</button>
+							</div>
+							<div class="fixed_btn_modify">
+								<button class="fixed_delete">삭제</button>
+								<button class="fixed_save">수정</button>
 							</div>
 						</div>
 					</form:form>

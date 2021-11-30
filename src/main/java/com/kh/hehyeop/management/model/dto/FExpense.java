@@ -13,4 +13,6 @@ public class FExpense {
 	private String endDate;
 	private int price;
 	private String comPrice;
+	private String expDate;
+	private String category;
 }

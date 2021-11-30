@@ -119,22 +119,41 @@ public class ManagementServiceImpl implements ManagementService{
 		List<Expense> personalList = managementRepository.selectPersonalExpense(id, date);
 		
 		if(!personalList.isEmpty()) {
-			eventList.addAll(getEventList(personalList));
+			eventList.addAll(getPersonalList(personalList));
 		}
 		
 		//고정지출 가져오기
-		List<Expense> fixedList = managementRepository.selectFixedExpense(id, date);
+		List<FExpense> fixedList = managementRepository.selectFixedExpense(id, date);
 		System.out.println("FixedList : " + fixedList);
 		
 		if(!fixedList.isEmpty()) {
-			eventList.addAll(getEventList(fixedList));
+			eventList.addAll(getFixedList(fixedList));
 		}
 		
 		System.out.println("eventList : " + eventList);
 		return eventList;
 	}
 	
-	private List<Map<String, Object>> getEventList(List<Expense> expenseList) {
+	private List<Map<String, Object>> getFixedList(List<FExpense> expenseList) {
+		List<Map<String, Object>> eventList = new ArrayList<Map<String,Object>>();
+		for (FExpense expense : expenseList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("start", expense.getExpDate());
+			map.put("title", expense.getContent());
+			map.put("category", expense.getCategory());
+			map.put("price", expense.getPrice());
+			map.put("expIdx", expense.getFExpIdx());
+			map.put("fixedDate", expense.getFixedDate());
+			map.put("fixedStart", expense.getStartDate());
+			map.put("fixedEnd", expense.getEndDate());
+			map.put("color", "white");
+			map.put("backgroundColor", "#ff5050");
+			eventList.add(map);
+		}
+		return eventList;
+	}
+	
+	private List<Map<String, Object>> getPersonalList(List<Expense> expenseList) {
 		List<Map<String, Object>> eventList = new ArrayList<Map<String,Object>>();
 		for (Expense expense : expenseList) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -144,13 +163,7 @@ public class ManagementServiceImpl implements ManagementService{
 			map.put("price", expense.getPrice());
 			map.put("expIdx", expense.getExpIdx());
 			map.put("color", "white");
-			
-			if(expense.getCategory().equals("FIXED")) {
-				map.put("backgroundColor", "#ff5050");
-			}else {
-				map.put("backgroundColor", "#009999");
-			}
-			
+			map.put("backgroundColor", "#009999");
 			eventList.add(map);
 		}
 		return eventList;

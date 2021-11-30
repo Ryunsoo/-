@@ -241,11 +241,18 @@ html, body {
 .personal_btn{
 	width: 230px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	margin-left: 15px;
 	margin-top: 32px;
 }
 
+.personal_btn_modify{
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 15px;
+	margin-top: 32px;
+}
 
 .personal_delete{
 	border: none;
@@ -359,11 +366,18 @@ html, body {
 .fixed_btn{
 	width: 230px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	margin-left: 15px;
 	margin-top: 8px;
 }
 
+.fixed_btn_modify{
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	margin-left: 15px;
+	margin-top: 8px;
+}
 
 .fixed_delete{
 	border: none;
