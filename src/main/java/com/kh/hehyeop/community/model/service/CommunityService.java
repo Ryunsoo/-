@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
+import com.kh.hehyeop.community.model.dto.Reply;
 
 public interface CommunityService {
 
@@ -14,5 +15,13 @@ public interface CommunityService {
 	List<Community> selectBoardList(Paging paging);
 
 	int countBoard();
+
+	Community selectBoardByIdx(String boardIdx);
+
+	void updateViewCnt(String boardIdx);
+
+	void insertReply(Reply reply);
+
+	List<Reply> selectReplyList(String boardIdx);
 
 }

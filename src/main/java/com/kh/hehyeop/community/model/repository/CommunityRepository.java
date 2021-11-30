@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
+import com.kh.hehyeop.community.model.dto.Reply;
 
 @Mapper
 public interface CommunityRepository {
@@ -23,5 +25,17 @@ public interface CommunityRepository {
 
 	@Select("select count(*) from board")
 	int countBoard();
+
+	@Select("select * from board where board_idx = #{boardIdx}")
+	Community selectBoardByIdx(String boardIdx);
+
+	@Update("update board set view_cnt = view_cnt + 1 where board_idx = #{boardIdx}")
+	void updateViewCnt(String boardIdx);
+
+	@Insert("insert into reply(reply_idx, board_idx, id, content, nickname) values(sc_reply_idx.nextval, #{boardIdx}, #{id}, #{content}, #{nickname})")
+	void insertReply(Reply reply);
+
+	@Select("select * from reply where board_idx = #{boardIdx} order by reg_date desc")
+	List<Reply> selectReplyList(String boardIdx);
 
 }

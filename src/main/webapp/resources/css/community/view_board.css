@@ -59,6 +59,7 @@
 	display: block;
 	width: 850px;
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 #comment_wrap{
@@ -192,6 +193,7 @@
 
 #write_comment{
 	margin-top: 20px;
+	width: 900px;
 	height: 70px;
 	resize: none;
 	font-size: 18px;

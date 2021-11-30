@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
+import com.kh.hehyeop.community.model.dto.Reply;
 import com.kh.hehyeop.community.model.service.CommunityService;
 
 import lombok.RequiredArgsConstructor;
@@ -61,7 +62,24 @@ public class CommunityController {
 	}
 	
 	@GetMapping("view")
-	public void boardViewTest() {}
+	public void boardViewTest(@RequestParam(value="boardIdx") String boardIdx, Model model) {
+		
+		communityService.updateViewCnt(boardIdx);
+		Community board = communityService.selectBoardByIdx(boardIdx);
+		List<Reply> replyList = communityService.selectReplyList(boardIdx);
+		int replyCnt = replyList.size();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm");
+		board.setParseDate(format.format(board.getRegDate()));
+		
+		for (Reply reply : replyList) {
+			reply.setParseDate(format.format(reply.getRegDate()));
+		}
+		
+		model.addAttribute("board", board);
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("replyCnt", replyCnt);
+	}
 	
 	@GetMapping("search")
 	public void boardSearchTest() {}
@@ -81,6 +99,15 @@ public class CommunityController {
 		communityService.insertBoard(community);
 		
 		return "redirect:/community/list";
+	}
+	
+	@PostMapping("write-reply")
+	public String writeReply(Reply reply) {
+		
+		reply.setNickname(communityService.selectNickname(reply.getId()));
+		communityService.insertReply(reply);
+
+		return "redirect:/community/view?boardIdx="+reply.getBoardIdx();
 	}
 
 	
