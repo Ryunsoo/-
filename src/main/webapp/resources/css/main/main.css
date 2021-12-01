@@ -358,6 +358,8 @@ html, body{
 }
 
 .chart{
+	position: relative;
+    transform: translate(42px, 2px);
 }
 
 .c3-axis, .c3-legend-item, .c3-grid{

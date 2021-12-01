@@ -89,7 +89,7 @@ let getLocationTemp = async () => {
    
    var chart = c3.generate({
 	    size: {
-	    	width: 1100,
+	    	width: 1000,
 	    	height: 200
 	    },
 	    data: {
