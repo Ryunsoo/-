@@ -10,7 +10,7 @@ html, body{
 
 .wrap_head{
 	width: 1130px;
-	height: 230px;
+	height: 155px;
 }
 
 .main_bar{
@@ -61,17 +61,16 @@ html, body{
 }
 
 .cate_wrap{
-	width: 1130px;
-	height: 100px;
-	margin-top: 15px;
 	display: flex;
+	margin-left: 62px;
 	justify-content: flex-start;
 }
 
 .cate_wrap>div{
 	font-size: 25px;
 	font-weight: bold;
-	margin: 30px 50px 0 80px;
+	width: 220px;
+	margin-top: 51px;
 	cursor: pointer;
 }
 

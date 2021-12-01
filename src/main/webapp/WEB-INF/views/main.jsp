@@ -67,40 +67,34 @@
 			<div class="main_header">
 				<img id="main_logo" src="../../../resources/image/main-logo.png" onclick="location.href='/'">
 				<div class="info_wrap">
-				
-				<c:if test="${not empty authentication}">
 					<div class="nav_info">
-				    	<div class="userName">${authentication.nickname}</div>
-				        <div class="nim">님</div>
-				        <div class="medal">
-				        	<i class="fas fa-medal"></i>
-				        </div>
-				        <div class="mypage" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
-				        <div class="logout" onclick="logout()">LOGOUT</div>
-	        		</div>
-				</c:if>
-				<div class="search_div">
-					<div class="searchBox">
-						<input id="main_search" placeholder="세면대 뚫는 법을 검색해보세요." >
-						<i class="fas fa-search"></i>
+						<c:if test="${not empty authentication}">
+							
+						    	<div class="userName">${authentication.nickname}</div>
+						        <div class="nim">님</div>
+						        <div class="medal">
+						        	<i class="fas fa-medal"></i>
+						        </div>
+						        <div class="mypage" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+						        <div class="logout" onclick="logout()">LOGOUT</div>
+			        		
+						</c:if>
+						<c:if test="${empty authentication}">
+							<div class="join_btn" onclick="location.href='/member/join-form'">
+								회원가입
+							</div>
+							<div class="login_btn" onclick="location.href='/member/login-form'">
+								LOGIN
+							</div>
+						</c:if>
 					</div>
-					<span id="top_res">인기 검색어 | 1. 세면대 뚫는 법   2. 자취 필수템   3. 흰 옷에 얼룩 지우기</span>
+					<div class="cate_wrap">
+						<div onclick = "location.href = '/help/main'">신청해협</div>
+						<div onclick = "location.href='/purchase/main'">공구해협</div>
+						<div onclick="location.href='/management/myIcebox'">관리해협</div>
+						<div onclick="location.href='/community/list'">소통해협</div>
+					</div>
 				</div>
-				</div>
-				<c:if test="${empty authentication}">
-					<div class="join_btn" onclick="location.href='/member/join-form'">
-						회원가입
-					</div>
-					<div class="login_btn" onclick="location.href='/member/login-form'">
-						LOGIN
-					</div>
-				</c:if>
-			</div>
-			<div class="cate_wrap">
-				<div onclick = "location.href = '/help/main'">신청해협</div>
-				<div onclick = "location.href='/purchase/main'">공구해협</div>
-				<div onclick="location.href='/management/myIcebox'">관리해협</div>
-				<div onclick="location.href='/community/list'">소통해협</div>
 			</div>
 		</div>
 	</div>

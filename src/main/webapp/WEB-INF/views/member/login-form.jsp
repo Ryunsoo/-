@@ -121,7 +121,7 @@ function failLogin(msg){
 <form class="wrap" action="/member/login" method="post">
 		<div class="topBar">
 			<div class="leftBox">
-				<div class="MainLogoHelp"></div>
+				<div class="MainLogoHelp" style="cursor: pointer;" onclick="location.href='/'"></div>
 				<div class="login-page-left"></div>
 			</div>
 			<div class="rightBox">

@@ -52,6 +52,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 				break;
 			case "company":
 				companyAuthorize(httpRequest, httpResponse, uriArr);
+				break;
 			case "management":
 				managementAuthorize(httpRequest, httpResponse, uriArr);
 				break;

@@ -24,7 +24,7 @@ input:focus {outline:none;}
 <div class="wrap">
 	<div class="topBar">
 		<div class="leftBox">
-			<div class="MainLogoHelp"></div>
+			<div class="MainLogoHelp" style="cursor: pointer;" onclick="location.href='/'"></div>
 			<div class="login-page-left"></div>
 		</div>
 
