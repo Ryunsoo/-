@@ -152,34 +152,12 @@
 						<div id="weak_loc"></div>
 					</div>
 					<div class="iconList">
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
-						<div>
-							오늘
-							<div class="forecast_icon"></div>
-						</div>
+						<c:forEach items="${weekList}" var="wl">
+							<div>
+								${wl}
+								<div class="forecast_icon"></div>
+							</div>
+						</c:forEach>
 					</div>
 					<div class="chart">
 						<div id='chart'></div>
