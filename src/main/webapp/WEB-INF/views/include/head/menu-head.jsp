@@ -71,9 +71,20 @@
 					<div class="nav_info">
 				    	<div class="userName">${authentication.nickname}</div>
 				        <div class="nim">님</div>
-				        <div class="medal">
-				        	<i class="fas fa-medal"></i>
-				        </div>
+				        <c:choose>
+							<c:when test="${authentication.grade eq 'BRONZE'}">
+								<div class='medal' style="color: #cc9900"><i class="fas fa-medal"></i></div>
+							</c:when>
+							<c:when test="${authentication.grade eq 'SILVER'}">
+								<div class='medal' style="color: silver"><i class="fas fa-medal"></i></div>
+							</c:when>
+							<c:when test="${authentication.grade eq 'GOLD'}">
+								<div class='medal' style="color: gold"><i class="fas fa-medal"></i></div>
+							</c:when>
+							<c:when test="${authentication.grade eq 'DIA'}">
+								<div class='medal' style="color: silver"><i class="fas fa-gem"></i></div>
+							</c:when>
+						</c:choose>
 				        <div class="mypage" style="cursor:pointer" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
 				        <div class="logout" style="cursor:pointer" onclick="location.href='/member/logout'">LOGOUT</div>
 	        		</div>
