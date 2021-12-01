@@ -179,48 +179,28 @@
 				</div>
 				<div class="content_list">
 					<div class="join_content">
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">싱크대 배수관 막혔어요ㅜㅜ <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 도봉구</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">침대 조립 도와주세요!! <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 강남구</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">싱크대 배수관 막혔어요ㅜㅜ <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 도봉구</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">침대 조립 도와주세요!! <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 강남구</div>
-						</div>
+						<c:forEach items="${requestList}" var="request">
+							<div class="content">
+								<div class="content_title">${request.reqContent} <img src="../../../resources/image/new_icon.png"></div>
+								<div class="content_loc">| ${request.oldAddress}</div>
+							</div>
+						</c:forEach>
 						
 					</div>
 					<div class="review_content">
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">싱크싱크 <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 강남구</div>
-							<div class="content_score">★★★★★</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">정말 감사드립니다!! <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 종로구</div>
-							<div class="content_score">★★★★☆</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">와..덕분에 살았어요ㅜㅜ <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 강남구</div>
-							<div class="content_score">★★★★★</div>
-						</div>
-						<div class="content">
-							<div style="cursor:pointer;" class="content_title">정말 감사드립니다!! <img src="../../../resources/image/new_icon.png"></div>
-							<div class="content_loc">| 서울시 도봉구</div>
-							<div class="content_score">★★★★☆</div>
-						</div>
+						<c:forEach items="${reviewList}" var="review">
+							<div class="content">
+								<div class="content_title">${review.company} <img src="../../../resources/image/new_icon.png"></div>
+								<div class="content_loc">| ${review.oldAddress}</div>
+								<div class="content_score">★ ${review.score}</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
+				<div class="request_view">
+					<i class="fas fa-plus" onclick="location.href='/help/main'">  신청하기</i>
+				</div>
 		</div>
 		<div class="buy_section">
 			<div class="buy_div">
@@ -229,33 +209,15 @@
 					<div class="buy_name">공동구매</div>
 				</div>
 				<div class="buy_body">
-					<div class="buy_content">
-						<img src='../../../resources/image/IU.jpg'>
-						<div class="buy_label">아이유입니다</div>
+					<c:forEach items="${purchaseList}" var="purchase">
+						<div class="buy_content">
+							<img src='/file/' + ${purchase.savePath} + ${purchase.reName} onclick="location.href='/purchase/detail?regIdx=' + ${purchase.regIdx}">
+						<div class="buy_label">${purchase.itemName}</div>
 					</div>
-					<div class="buy_content">
-						<img src='../../../resources/image/jo.jpg'>
-						<div class="buy_label">조정석입니다</div>
-					</div>
-					<div class="buy_content">
-						<img src="../../../resources/image/ad_img.jpg">
-						<div class="buy_label">공동구매의 제목이 이렇게도 길수 있구나를 보여주고 싶어요</div>
-					</div>
-					<div class="buy_content">
-						<img src="../../../resources/image/bee1.png">
-						<div class="buy_label">이호준</div>
-					</div>
-					<div class="buy_content">
-						<img src="../../../resources/image/bee2.png">
-						<div class="buy_label">이경민</div>
-					</div>
-					<div class="buy_content">
-						<img src="../../../resources/image/bee3.png">
-						<div class="buy_label">황륜수</div>
-					</div>
+					</c:forEach>
 				</div>
 				<div class="detail_view">
-					<i class="fas fa-plus">  더보기</i>
+					<i class="fas fa-plus" onclick="location.href='/purchase/main'">  더보기</i>
 				</div>
 			</div>
 		</div>
@@ -271,53 +233,54 @@
 							<i id="comu_icon" class="fas fa-gift"> 나눔</i>
 						</div>
 						<div id="frac_list" class="child_list">
-							<div>인기글1</div>
-							<div>인기글2</div>
-							<div>인기글3</div>
+							<c:forEach items="${boardList}" var="board">
+							<c:if test="${board.boardCategory eq '나눔'}">
+								<div class="board_title" onclick="location.href='/community/view?boardIdx=' + ${board.boardIdx}">${board.title}</div>
+							</c:if>
+							</c:forEach>
 						</div>	
 					</div>
 					<div id="mate_div" class="child_title">
 						<div id="mate_title">
-							<i id="comu_icon" class="fas fa-utensils-alt"> 밥메이트</i>
+							<i id="comu_icon" class="fas fa-utensils-alt"> 음식</i>
 						</div>
 						<div id="mate_list" class="child_list">
-							<div>인기글1</div>
-							<div>인기글2</div>
-							<div>인기글3</div>
+							<c:forEach items="${boardList}" var="board">
+							<c:if test="${board.boardCategory eq '음식'}">
+								<div class="board_title" onclick="location.href='/community/view?boardIdx=' + ${board.boardIdx}">${board.title}</div>
+							</c:if>
+							</c:forEach>
 						</div>
 					</div>
-					<div id="interior_div" class="child_title">
-						<div id="interior_title">
-							<i id="comu_icon" class="fas fa-home"> 인테리어</i>
+					<div id="recommend_div" class="child_title">
+						<div id="recommend_title">
+							<i id="comu_icon" class="fas fa-thumbs-up"> 추천</i>
 						</div>
-						<div id="interior_list" class="child_list">
-							<div>인기글1</div>
-							<div>인기글2</div>
-							<div>인기글3</div>
+						<div id="recommend_list" class="child_list">
+							<c:forEach items="${boardList}" var="board">
+							<c:if test="${board.boardCategory eq '추천'}">
+								<div class="board_title" onclick="location.href='/community/view?boardIdx=' + ${board.boardIdx}">${board.title}</div>
+							</c:if>
+							</c:forEach>
+						</div>
+					</div>
+					<div id="free_div" class="child_title">
+						<div id="free_title">
+							<i id="comu_icon" class="fas fa-paper-plane"> 잡담</i>
+						</div>
+						<div id="free_list" class="child_list">
+							<c:forEach items="${boardList}" var="board">
+							<c:if test="${board.boardCategory eq '잡담'}">
+								<div class="board_title" onclick="location.href='/community/view?boardIdx=' + ${board.boardIdx}">${board.title}</div>
+							</c:if>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class='footer'>
-	      <div class='footer_logo'><img src="../../../resources/image/footer_logo.png" class='logo-icon'></div>
-	      
-	      <div class='footer_text'>
-	         <div class='footer_title'><pre>project  자취해협  |  team  help!</pre></div>
-	         
-	          <div class='footer_content'>
-         <pre>Gwon Gu Hyun   |   kwon41147406@gmail.com
-Kim Hyun Soo   |   oooklyt@naver.com
-Hwang Ryun Soo   |   babyfox225@gmail.com
-Lee Kyung Min   |   alssgo70051@naver.com</pre>
-         <pre>Lee Joo Hyun   |   carinae4717@gmail.com
-Lee Ho Jun   |   lhj132824@naver.com
-Ko Hyuck Joon   |   akhj123akhj@naver.com
-Choi Min Seok   |   dktlfem3333@gmail.com</pre>
-         </div>
-
-	      </div>
-   		</div>
+		<!-- 자취해협 정보 footer -->
+	<%@ include file="/WEB-INF/views/include/footer/footer.jsp" %>
 		
 		
 	</div>
