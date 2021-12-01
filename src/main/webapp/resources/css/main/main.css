@@ -661,3 +661,7 @@ html, body{
    width: 40px;
 }
 
+.c3-line {
+    stroke-width: 5px;
+}
+

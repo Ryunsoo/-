@@ -5,11 +5,11 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head/main-head.jsp" %>
 <link rel='stylesheet' href="../../../resources/css/main/main.css">
+<link rel='stylesheet' href="../../../resources/css/main/c3.min.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../../../resources/slick/slick-theme.css">
 <script type="text/javascript" src="../../../resources/js/main/weather.js?ver=1"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 .nav_info {
