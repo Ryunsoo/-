@@ -100,9 +100,13 @@ public class AuthInterceptor implements HandlerInterceptor{
 
 	private void adminAuthorize(HttpServletRequest httpRequest, HttpServletResponse httpResponse, String[] uriArr) {
 		HttpSession session = httpRequest.getSession();
-		Admin admin = (Admin) session.getAttribute("authentication");
+		User user = (User) session.getAttribute("authentication");
 		
-		if (admin == null) {
+		if (user == null) {
+			throw new HandlableException(ErrorCode.ADMIN_LOGIN_ERROR);
+		}
+		
+		if(!(user instanceof Admin)) {
 			throw new HandlableException(ErrorCode.ADMIN_LOGIN_ERROR);
 		}
 		

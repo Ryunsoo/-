@@ -76,7 +76,12 @@ function alert(msg){
                         <div class="tr_inner_up_div">
                         	<div class="title_wrap">
 		                        <div class="board_kinds">${cl.boardCategory}</div>
-		                        <div class="board_title">${cl.title}</div>
+		                        <c:if test="${cl.isPrivate eq 1}">
+		                        	<div class="board_title">${cl.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
+		                        </c:if>
+		                        <c:if test="${cl.isPrivate eq 0}">
+		                        	<div class="board_title">${cl.title}</div>
+		                        </c:if>
 		                    </div>
 		                    <div class="id_wrap">
 		                        <div class="board_writer">${cl.nickname}</div>

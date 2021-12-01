@@ -2,25 +2,28 @@ package com.kh.hehyeop.community.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.hehyeop.common.code.ErrorCode;
+import com.kh.hehyeop.common.exception.HandlableException;
 import com.kh.hehyeop.common.util.paging.Paging;
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
 import com.kh.hehyeop.community.model.dto.Rereply;
 import com.kh.hehyeop.community.model.service.CommunityService;
+import com.kh.hehyeop.member.model.dto.Admin;
+import com.kh.hehyeop.member.model.dto.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -65,10 +68,20 @@ public class CommunityController {
 	}
 	
 	@GetMapping("view")
-	public void boardViewTest(@RequestParam(value="boardIdx") String boardIdx, Model model) {
+	public void boardViewTest(@RequestParam(value="boardIdx") String boardIdx, Model model, HttpSession session) {
 		
-		communityService.updateViewCnt(boardIdx);
 		Community board = communityService.selectBoardByIdx(boardIdx);
+		
+		if (board.getIsPrivate() == 1) {
+			
+			User user = (User) session.getAttribute("authentication");
+			
+			if(!(user instanceof Admin)) {
+				throw new HandlableException(ErrorCode.PRIVATE_ACCESS_ERROR);
+			}
+			
+		}
+		
 		List<Reply> replyList = communityService.selectReplyList(boardIdx);
 		List<Rereply> reReplyList = communityService.selectReReplyList();
 		int replyCnt = replyList.size();
@@ -88,6 +101,8 @@ public class CommunityController {
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("replyCnt", replyCnt);
 		model.addAttribute("reReplyList", reReplyList);
+		
+		communityService.updateViewCnt(boardIdx);
 	}
 	
 	@GetMapping("search")

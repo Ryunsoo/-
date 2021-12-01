@@ -89,8 +89,10 @@ public class AdminController {
 		List<CMember> modifyList = adminService.selectModifyRequest(paging);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 		
-		for (CMember cMember : modifyList) {
-			cMember.setParseDate(format.format(cMember.getPermitDate()));
+		if (modifyList.size() > 0) {
+			for (CMember cMember : modifyList) {
+				cMember.setParseDate(format.format(cMember.getPermitDate()));
+			}
 		}
 		
 		model.addAttribute("paging", paging);
