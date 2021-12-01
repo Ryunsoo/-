@@ -150,7 +150,9 @@
      
     <footer style="height: 100px;"></footer>
    </div>
-   
+   	<c:if test="${not empty message}">
+		<script>alert('${message}')</script>
+	</c:if>
    <!--wrap == container 끝-->
   
   <script type="text/javascript">
