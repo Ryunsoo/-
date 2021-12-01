@@ -1,32 +1,38 @@
-.view_body{
-	background-color: rgba(127, 127, 127, 0.06);
-	display: flex;
-	justify-content: center;
+.view_body {
+    width: 1130px;
+    /* height: 780px; */
+    border-radius: 20px;
+    background-color: rgba(127, 127, 127, 0.06);
+    /* position: relative; */
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
 }
 
 #view_body_container {
-	width: 900px;
-	padding-bottom: 50px;
-	margin: 20px 0 0 0;
+    width: 1060px;
+    padding-bottom: 30px;
+    margin: 30px 0 0 0;
 }
 
-#view_content{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 20px 0 10px 0;
-	border: 2px solid silver;
-	border-radius: 8px;
-	background-color: white;
+#view_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 20px 0 10px 0; */
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    background-color: white;
+    /* justify-content: center; */
 }
 
 #view_page_top_user_info {
-	display: flex;
-	justify-content: space-between;
-	width: 850px;
-	border-bottom: 1px solid gray;
-	background-color: white;
-	margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 980px;
+    border-bottom: 1px solid gray;
+    background-color: white;
+    margin-top: 10px;
 }
 
 #view_page_top_user_info>div{
@@ -40,26 +46,29 @@
 	margin-right: 10px;
 }
 
-#content_info>div{
-	margin: 5px 0 0 0;
-	font-size: 15px;
+#content_info>div {
+    margin: 5px 0 0 0;
+    font-size: 15px;
+    color: #454545;
+    font-weight: 900;
+    font-family: '나눔스퀘어_ac';
 }
 
 #medal_img {
-	margin: 5px 20px 0 0;
+    margin: 5px 20px 0 0;
+    color: #ffc760;
+    font-weight: bold;
 }
 
 #title_box {
-	font-size: 23px;
-	font-weight: bold;
-	color: navy;
+    font-size: 23px;
+    font-weight: bold;
+    color: #232338;
 }
 
-#view_contents {
-	display: block;
-	width: 850px;
-	margin-top: 50px;
-	margin-bottom: 50px;
+#view_comments {
+    width: 1053px;
+    display: flex;
 }
 
 #comment_wrap{
@@ -74,23 +83,25 @@
 	border: 1px solid silver;
 }
 
-#com_line_two{
-	width: 760px;
-	height: 0px;
-	margin: 15px 0 0 0;
-	border: 1px solid silver;
+#com_line_two {
+    width: 890px;
+    height: 0px;
+    margin: 15px 0 0 0;
+    border: 1px solid silver;
 }
 
-#comment_cnt{
-	width: 100px;
-	font-size: 22px;
-	font-weight: bold;
-	color: rgb(51, 51, 51);
+#comment_cnt {
+    width: 100px;
+    font-size: 22px;
+    font-weight: bold;
+    color: rgb(51 51 51 / 77%);
 }
 
 #view_comment_notice {
-	display: flex;
-	height: 60px;
+    display: flex;
+    height: 60px;
+    width: 1060px;
+    margin-top: 25px;
 }
 
 #view_comment_notice p {
@@ -102,40 +113,48 @@
 	display: block;
 }
 
-#comment_item{
-	display: flex;
-	width: 900px;
-	height: 75px;
-	margin-bottom: 15px;
-	border: 1px thin silver;
-	border-radius: 5px;
-	box-shadow: 0 0 1px 0;
-	background-color: white;
+#comment_item {
+    display: flex;
+    width: 1053px;
+    /* height: 75px; */
+    margin-bottom: 15px;
+    border: 1px thin silver;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 0;
+    background-color: white;
+    border: 1px solid lightgray;
 }
 
 #comment_item>div{
 	font-size: 18px;
 }
 
-#comment_user{
-	width: 110px;
-	margin-top: 25px;
-	margin-right: 10px;
-	margin-left: 20px;
+
+#comment_user {
+    width: 110px;
+    /* margin-top: 25px; */
+    margin-right: 10px;
+    margin-left: 20px;
+    align-self: center;
 }
 
-#item_line{
-	width: 0px;
-	height: 30px;
-	border: 1px solid silver;
-	margin-top: 25px;
-	margin-right: 15px;
+#item_line {
+    width: 0px;
+    /* height: 30px; */
+    border: 1px solid silver;
+    /* margin-top: 25px; */
+    margin-right: 15px;
+    /* align-items: center; */
+    vertical-align: middle;
+    line-height: 3;
 }
 
-.comment_content{
-	width: 585px;
-	margin-top: 25px;
-	margin-right: 10px;
+.comment_content {
+    width: 585px;
+    /* margin-top: 25px; */
+    margin-right: 10px;
+    /* vertical-align: middle; */
+    align-self: center;
 }
 
 #comment_date{
@@ -143,19 +162,19 @@
 	margin-right: 10px;
 }
 
-.comment-func{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-bottom: 10px;
-	margin-top: 10px;
+.comment-func {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-#edit_item{
-	display: flex;
-	width: 137px;
-	margin-top: 10px;
-	justify-content: space-around;
+#edit_item {
+    display: flex;
+    width: 98px;
+    margin-left: 10px;
+    justify-content: space-around;
 }
 
 #edit_item>div{
@@ -188,21 +207,24 @@
 	width: 550px;
 }
 
-#write_comment_notice{
-	margin-top: 20px;
+#write_comment_notice {
+    margin-top: 20px;
+    width: 1060px;
 }
 
-#write_comment_notice #com_line_two{
-	width: 740px;
-	margin-left: 10px;
+#write_comment_notice #com_line_two {
+    width: 890px;
+    margin-left: 10px;
 }
 
-#write_comment{
-	margin-top: 20px;
-	width: 900px;
-	height: 70px;
-	resize: none;
-	font-size: 18px;
+#write_comment {
+    border-radius: 7px;
+    margin-top: 20px;
+    width: 1053px;
+    height: 70px;
+    resize: none;
+    font-size: 18px;
+    border: 2px solid lightgray;
 }
 
 #submit_wrap{
@@ -210,15 +232,28 @@
 	justify-content: flex-end;
 }
 
-#submit_comment{
-	width: 60px;
-	height: 27px;
-	border-radius: 4px;
-	background-color: rgb(127, 127, 127);
-	margin-top: 20px;
-	color: white;
-	float: right;
+#submit_comment {
+    width: 90px;
+    height: 47px;
+    border-radius: 10px;
+    background-color: #e67e00;
+    margin-top: 20px;
+    color: white;
+    float: right;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
+    border: none;
 }
+
+#submit_comment:hover {
+	border: solid #ffc784de;
+	background-color: #d79444;
+}
+
+
+
 
 .modal{
 	box-shadow:none;
@@ -279,4 +314,16 @@
     font-weight: bold;
 }
 
+.bee {
+    margin-left: 10px;
+    width: 60px;
+    height: 60px;
+}
 
+#search_case {
+    width: 1130px;
+    height: 65px;
+    margin: 30px 0 9px 0;
+    display: flex;
+    justify-content: space-between;
+}

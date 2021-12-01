@@ -17,7 +17,7 @@
       <link rel="stylesheet" href="../../../resources/css/community/view_board.css"/>
       
       <div id="search_case">
-        <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
+        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
    	</div>
      <!--nav와 header 끝-->
      <div class="view_body">
@@ -148,8 +148,9 @@
    <!--view_body_container끝-->
    </div>
      
-   
+    <footer style="height: 100px;"></footer>
    </div>
+   
    <!--wrap == container 끝-->
   
   <script type="text/javascript">
