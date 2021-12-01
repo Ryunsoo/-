@@ -182,17 +182,19 @@
 	cursor: pointer;
 }
 
-#reply_item{
-	display: flex;
-	width: 850px;
-	height: 75px;
-	float: right;
-	margin-bottom: 15px;
-	border: 1px thin silver;
-	border-radius: 5px;
-	box-shadow: 0 0 1px 0;
-	background-color: white;
+#reply_item {
+    display: flex;
+    width: 850px;
+    height: 75px;
+    float: right;
+    margin-bottom: 15px;
+    border: 1px thin silver;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 0;
+    background-color: white;
+    border: 1px solid lightgray;
 }
+div {
 
 .reply_content{
 	width: 540px;

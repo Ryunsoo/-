@@ -33,10 +33,10 @@ html, body {
     height: 100%;
 }
 
-.main{
-	display: flex;
+.main {
+    display: flex;
+    position: relative;
 }
-
 .btn{
 	display: flex;
 	flex-direction: column;
@@ -173,35 +173,39 @@ html, body {
 	font-size: 17px;
 }
 
-.bell{
-	position: absolute;
-	font-size: 40px;
-	color: orange;
-	margin-left: 800px;
-	margin-top: 15px;
-	z-index: 10000;
-	cursor: pointer;
+.bell {
+    position: absolute;
+    font-size: 40px;
+    color: orange;
+    margin-left: 210px;
+    /* margin-right: 10px; */
+    margin-top: 15px;
+    z-index: 10000;
+    cursor: pointer;
+    /* display: flex; */
+    /* width: 500px; */
 }
 
-#popup{
-	min-width: 300px;
-	/* height: 40px; */
-	position: absolute;
-	background-color: rgb(241, 196, 15);
-	text-align: center;
-	font-weight: bold;
-	font-size:18px;
-	overflow: auto;
-	z-index: 2;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-content: center;
-	color: black;
-	right: 50px;
-	top:20px;
-	padding: 12px 10px 12px 10px;
-	border-radius: 15px;
+#popup {
+    /* min-width: 300px; */
+    /* height: 40px; */
+    /* position: absolute; */
+    background-color: rgb(241, 196, 15);
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    overflow: auto;
+    z-index: 2;
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    color: black;
+    /* right: 50px; */
+    /* top: 20px; */
+    padding: 12px 10px 12px 10px;
+    border-radius: 15px;
 }
 
 .input_wrap{

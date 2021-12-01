@@ -30,12 +30,12 @@
 				<div class="my_statistics" onclick="javascript:location.href='myAccountList'">My 통계</div>
 			</div>
 			<div class="bell" id="go">
+			<i class="fas fa-bell"></i>
 				<div id="popup" style="display:none">
 					<c:forEach items="${todayList}" var="list">
 						<div>오늘은 '${list}' 지출 날입니다!</div>
 					</c:forEach>
 				</div>
-				<i class="fas fa-bell"></i>
 				
 			</div>
 			
