@@ -108,10 +108,10 @@
 		<div class="info_section">
 				<div class="ad_list">
 					<div class="adds">
-						<div id="add_item"><img src="../../../resources/image/ad_img.jpg"></div>
-						<div id="add_item"><img src='../../../resources/image/엠마.jpg'></div>
-						<div id="add_item"><img src='../../../resources/image/IU.jpg'></div>
-						<div id="add_item"><img src='../../../resources/image/jo.jpg'></div>
+						<div id="add_item"><img src="../../../resources/image/메인1.jpg"></div>
+						<div id="add_item"><img src='../../../resources/image/메인2.jpg'></div>
+						<div id="add_item"><img src='../../../resources/image/메인3.jpg'></div>
+						<div id="add_item"><img src='../../../resources/image/메인4.jpg'></div>
 					</div>
 				</div>
 			<div class="today_weather_btn">
