@@ -11,18 +11,25 @@ html, body {
 	justify-content: center;
 }
 
-#search_case {
-	width: 1130px;
-	height: 65px;
-	margin: 20px 0 20px 0;
-	display: flex;
-	justify-content: space-between;
+.bee {
+    margin-left: 10px;
+    width: 60px;
+    height: 60px;
 }
 
+#search_case {
+    width: 1130px;
+    height: 65px;
+    margin: 30px 0 9px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 #search_case_inner_div_1 {
-	width: 200px;
-	margin-left: 50px;
-	font-weight: bold;
+    width: 200px;
+    margin-left: 50px;
+    display: flex;
 }
 
 #search_case_inner_div_3 {
@@ -59,3 +66,5 @@ html, body {
     height: 100%;
     background-color: white;
 }
+
+

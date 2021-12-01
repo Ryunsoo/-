@@ -21,7 +21,10 @@
      <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
-        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div></div>
+        <div id="search_case_inner_div_1">
+	        <h3 style="line-height: 2">소통해협</h3>
+	        <img class="bee" src="../../../resources/image/bee3.png">
+        </div>
     </div>
     
     <div class="write_body">
@@ -83,6 +86,7 @@
     </div>
     <!--//index페이지 body작업 끝-->
     </div>
+    <footer style="height: 100px;"></footer>
    </div>
    <script>
       $('#summernote').summernote({

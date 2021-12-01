@@ -3,18 +3,21 @@
     flex-direction: column;
 }
 
-.write_body{
-	display: flex;
-	justify-content: center;
-	height: 900px;
+.write_body {
+    width: 1130px;
+    height: 900px;
+    border-radius: 20px;
     background-color: rgba(127, 127, 127, 0.06);
+    position: relative;
 }
 
-#exp_of_write{
-	display: flex;
-    width:1000px;
-    height:40px;
-    text-align:center;
+#exp_of_write {
+    display: flex;
+    width: 1000px;
+    height: 30px;
+    text-align: center;
+    align-self: center;
+    margin-top: 20px;
 }
 
 #exp_of_write p {
@@ -29,30 +32,38 @@
     flex-direction: column;
 }
 
-#form_inner_select select{
-	width: 110px;
-    height: 35px;
+#form_inner_select select {
+    width: 140px;
+    height: 40px;
     font-size: 13px;
-    border-radius: 4px;
-    margin: 0 40px 0 0;	
+    border-radius: 7px;
+    margin: 0 20px 0 0;
+    border: 2px solid lightgray;
+    cursor: pointer;
 }
 
-#form_write_title input{
-	width: 600px;
-	height: 30px;
-	font-size: 13px;
-	border-radius: 4px;
+#form_write_title input {
+    width: 834px;
+    height: 34px;
+    font-size: 13px;
+    border-radius: 7px;
+    border: 2px solid lightgray;
 }
 
-#form_inner_top{
-    width:1000px;
-    height:50px;
-    margin: 40px 0 20px 0;
+#form_inner_top {
+    width: 1000px;
+    height: 50px;
+    margin: 40px 0px 20px;
+    display: flex;
+    align-self: center;
 }
 
-form{
-    width:1000px;
-    height:400px;
+
+
+form {
+    width: 1000px;
+    height: 400px;
+    align-self: center;
 }
 
 #cover_form{
@@ -92,8 +103,10 @@ form{
     color: white;
 }
 
-.private_txt{
-	margin: 10px 20px 0 0;
+.private_txt {
+    margin: 14px 20px 0 0;
+    font-weight: bold;
+    color: #585656;
 }
 
 .slider {

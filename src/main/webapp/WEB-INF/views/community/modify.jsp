@@ -35,7 +35,7 @@
     <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
-        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
+        <div id="search_case_inner_div_1"><h3 style="line-height: 2;font-size:18.72px; font-weight:bold;">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
    	</div>
     
     <div class="write_body">
@@ -43,8 +43,10 @@
     
     <!--index페이지 body작업시작-->
     <div id="write_body_container">
-         <div id="exp_of_write">
-            <p>게시글 수정하기</p>
+          <div id="exp_of_write" style="line-height: 52px;">
+         	<div id="title_line"></div>
+         	<p>게시글 수정하기</p>
+         	<div id="title_line_two"></div>
          </div>
          
          <div id="write_form">
@@ -64,31 +66,29 @@
                      </div>
 
                      <div id="form_write_title">
-                        <input type="text" name="title" placeholder="제목을 입력하세요." value="${board.title}"/>
+                        <input type="text" name="title" placeholder="제목을 입력하세요." value="${board.title}" style="height: 40px; width:843px;"/>
                      </div>
                   <!--select 끝-->
                </div>
             <!--카테고리,제목 끝-->
             <!--카테고리 밑 글쓰는공간 시작-->
-               <div id="cover_form">
-                  
-                 
-                 
+						<div id="cover_form">
 
-                  	  <textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
-                  	 <div class="private_txt" id="public">공개</div>
-                  	 <div class="private_txt" style="display: none;" id="private">비공개</div>
-                  	 <label class="switch">
-				  		<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1">
-				  		<span class="slider round"></span>
-					 </label>
-                     <input type="hidden" value="${param.section}">
-                     <input type="hidden" name="boardIdx" value="${board.boardIdx}">
-                     <input type="hidden" name="id" value="${authentication.id}">
-                     <button id="write_btn" type="submit">게시글 수정</button>
-                  </div>
-                     
-                  
+							<textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
+							<div class="footer">
+								<div class="private_txt" id="public">공개</div>
+								<div class="private_txt" style="display: none;" id="private">비공개</div>
+								<label class="switch"> 
+									<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1">
+									<span class="slider round"></span>
+								</label>
+								<input type="hidden" value="${param.section}"> 
+								<input type="hidden" name="boardIdx" value="${board.boardIdx}">
+								<input type="hidden" name="id" value="${authentication.id}">
+								<button id="write_btn" type="submit">게시글 수정</button>
+							</div>
+						</div>
+
 					</form>
                </div>
             <!--카테고리 밑 글쓰는공간 끝-->
@@ -97,6 +97,7 @@
          
     </div>
     <!--//index페이지 body작업 끝-->
+    <footer style="height: 100px;"></footer>
     </div>
    <!--wrap == container 끝-->
    
