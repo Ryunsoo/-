@@ -56,7 +56,6 @@ public class ChatController {
 	
 	@GetMapping("chatting")
 	public String chatting(HttpSession session) {
-		System.out.println(session.getAttribute("id"));
 		return "include/chat/chat-room";
 	}
 	

@@ -38,6 +38,7 @@ public class MainController {
 			}
 		}
 		
+
 		model.addAttribute("weekList", parseArr); 
 		
 		List<Purchase> purchaseList = mainService.selectPurchaseList();

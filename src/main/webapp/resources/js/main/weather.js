@@ -94,9 +94,9 @@ let getLocationTemp = async () => {
 	    },
 	    data: {
 	        columns: [
-	            ['min', Math.floor(chartTemp[0].temp.min), Math.floor(chartTemp[1].temp.min), Math.floor(chartTemp[2].temp.min), Math.floor(chartTemp[3].temp.min)
+	            ['최저기온', Math.floor(chartTemp[0].temp.min), Math.floor(chartTemp[1].temp.min), Math.floor(chartTemp[2].temp.min), Math.floor(chartTemp[3].temp.min)
 	            	, Math.floor(chartTemp[4].temp.min), Math.floor(chartTemp[5].temp.min), Math.floor(chartTemp[6].temp.min)],
-	            ['max', Math.floor(chartTemp[0].temp.max), Math.floor(chartTemp[1].temp.max), Math.floor(chartTemp[2].temp.max), Math.floor(chartTemp[3].temp.max)
+	            ['최고기온', Math.floor(chartTemp[0].temp.max), Math.floor(chartTemp[1].temp.max), Math.floor(chartTemp[2].temp.max), Math.floor(chartTemp[3].temp.max)
 	            	, Math.floor(chartTemp[4].temp.max), Math.floor(chartTemp[5].temp.max), Math.floor(chartTemp[6].temp.max)]
 	        ],
 	        labels: true

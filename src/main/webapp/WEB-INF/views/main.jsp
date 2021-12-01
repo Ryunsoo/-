@@ -198,9 +198,9 @@
 					</div>
 				</div>
 			</div>
-				<div class="request_view">
+			<div class="request_view">
 					<i class="fas fa-plus" onclick="location.href='/help/main'">  신청하기</i>
-				</div>
+			</div>
 		</div>
 		<div class="buy_section">
 			<div class="buy_div">

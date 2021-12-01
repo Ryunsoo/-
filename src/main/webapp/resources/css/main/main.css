@@ -372,7 +372,8 @@ html, body{
 .help_section{
 	height: 600px;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	background-color: #f2f2f2;
 }
 
@@ -404,6 +405,13 @@ html, body{
 	width: 400px;
 	margin-right: 150px;
 	
+}
+
+.request_view{
+    width: 100px;
+    position: relative;
+    top: 62px;
+    left: 495px;
 }
 
 .far{
