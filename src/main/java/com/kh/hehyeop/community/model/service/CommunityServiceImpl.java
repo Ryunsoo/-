@@ -9,7 +9,6 @@ import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.community.model.dto.Reply;
 import com.kh.hehyeop.community.model.dto.Rereply;
 import com.kh.hehyeop.community.model.repository.CommunityRepository;
-import com.kh.hehyeop.management.model.repository.ManagementRepository;
 
 import lombok.RequiredArgsConstructor;
 
