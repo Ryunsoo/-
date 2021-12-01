@@ -65,7 +65,7 @@
 	<div class="wrap_head">
 		<div class="main_bar">
 			<div class="main_header">
-				<img id="main_logo" src="../../../resources/image/main-logo.png">
+				<img id="main_logo" src="../../../resources/image/main-logo.png" onclick="location.href='/'">
 				<div class="info_wrap">
 				
 				<c:if test="${not empty authentication}">

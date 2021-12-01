@@ -63,7 +63,7 @@ html, body{
 .cate_wrap{
 	width: 1130px;
 	height: 100px;
-	margin-top: 10px;
+	margin-top: 15px;
 	display: flex;
 	justify-content: flex-start;
 }
@@ -79,7 +79,7 @@ html, body{
 	margin-top: 20px;
 	margin-left: 20px;
 	width: 250px;
-	height: 100px;
+	height: 95px;
 }
 
 #main_search{
