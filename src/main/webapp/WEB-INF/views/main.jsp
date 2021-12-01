@@ -113,10 +113,10 @@
 		<div class="info_section">
 				<div class="ad_list">
 					<div class="adds">
-						<div id="add_item"><img src="../../../resources/image/메인1.jpg"></div>
-						<div id="add_item"><img src='../../../resources/image/메인2.jpg'></div>
-						<div id="add_item"><img src='../../../resources/image/메인3.jpg'></div>
-						<div id="add_item"><img src='../../../resources/image/메인4.jpg'></div>
+						<div id="add_item"><img src="../../../resources/image/메인1.jpg" onclick="window.open('https://1in.seoul.go.kr/front/user/main.do')"></div>
+						<div id="add_item"><img src='../../../resources/image/메인2.jpg' onclick="window.open('https://1in.seoul.go.kr/front/user/main.do')"></div>
+						<div id="add_item"><img src='../../../resources/image/메인3.jpg' onclick="window.open('https://1in.seoul.go.kr/front/user/main.do')"></div>
+						<div id="add_item"><img src='../../../resources/image/메인4.jpg' onclick="window.open('https://1in.seoul.go.kr/front/user/main.do')"></div>
 					</div>
 				</div>
 			<div class="today_weather_btn">
@@ -314,6 +314,7 @@
 		  	autoplay: true,
 		  	autoplaySpeed: 2000
 		});
+		
 		
 	</script>
 </body>

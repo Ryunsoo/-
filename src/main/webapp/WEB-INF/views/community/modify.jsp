@@ -89,17 +89,15 @@
                   </div>
                      
                   
-
+					</form>
                </div>
             <!--카테고리 밑 글쓰는공간 끝-->
-            </form>
+            
          </div>
-
          
     </div>
     <!--//index페이지 body작업 끝-->
     </div>
-   </div>
    <!--wrap == container 끝-->
    
    <script>
