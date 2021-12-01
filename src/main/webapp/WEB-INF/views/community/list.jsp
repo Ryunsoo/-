@@ -32,6 +32,7 @@
     
     <!--index페이지 body작업시작-->
     <div id="index_body_container">
+    <i class="fas fa-pen-square" onclick="location.href = '/community/write'"></i>
         <table>
             <!--여기에 나중에 spring로 forEach문-->
             <!-- tr 샘플따기 시작 -->
