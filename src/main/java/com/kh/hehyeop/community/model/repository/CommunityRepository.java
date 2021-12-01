@@ -36,7 +36,7 @@ public interface CommunityRepository {
 	@Insert("insert into reply(reply_idx, board_idx, id, content, nickname) values(sc_reply_idx.nextval, #{boardIdx}, #{id}, #{content}, #{nickname})")
 	void insertReply(Reply reply);
 
-	@Select("select * from reply where board_idx = #{boardIdx} and is_del = 0 order by reply_idx desc")
+	@Select("select * from reply where board_idx = #{boardIdx} and is_del = 0 order by reg_date")
 	List<Reply> selectReplyList(String boardIdx);
 
 	@Update("update reply set content = #{content}, reg_date = current_date where reply_idx = #{replyIdx}")
