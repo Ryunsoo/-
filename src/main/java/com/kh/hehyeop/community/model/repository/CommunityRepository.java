@@ -57,4 +57,7 @@ public interface CommunityRepository {
 	@Update("update re_reply set is_del = 1 where re_reply_idx = #{reReplyIdx}")
 	void deleteReReply(String reReplyIdx);
 
+	@Update("update board set is_del = 1 where board_idx = #{boardIdx}")
+	void deleteBoard(String boardIdx);
+
 }

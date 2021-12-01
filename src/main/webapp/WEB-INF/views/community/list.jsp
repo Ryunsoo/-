@@ -7,9 +7,42 @@
 <link rel="stylesheet" href="../../../resources/css/community/index_css.css"/>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+function alert(msg){
+	let modal = initModal('modal', 3);
+	appendTitle(modal, '');
+	setButton(modal, '닫기');
+	setContent(modal, true, true);
+	modalBlock();
+	
+	let modalBody = $('<div class="alert">'+msg+'</div><br>')
+	.addClass('send_modal_content');
+	
+	$('.modal_content').append(modalBody);
+	
+	$('.modal_left_btn').click(function() {
+		modalNone();
+	})
+}
+
+</script>
+<style type="text/css">
+.alert {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.modal_content{
+	justify-content: center;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+<div id='modal'></div>
  <div class="wrap">
      <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
@@ -87,6 +120,10 @@
 		</c:if>
 	</div>
    </div>
+   
+   	<c:if test="${not empty message}">
+		<script>alert('${message}')</script>
+	</c:if>
    <!--wrap == container 끝-->
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>

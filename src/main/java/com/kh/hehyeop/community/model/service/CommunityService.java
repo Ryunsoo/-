@@ -37,4 +37,6 @@ public interface CommunityService {
 
 	void deleteReReply(String reReplyIdx);
 
+	void deleteBoard(String boardIdx);
+
 }

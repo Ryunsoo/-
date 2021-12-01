@@ -41,7 +41,7 @@
 			    <c:if test="${authentication.id eq board.id}">
 			    	<div id="dib">|</div>
 			    	<div id="modify" onClick="location.href ='http://localhost:9090/community/modify?boardIdx=${board.boardIdx}'">수정</div>
-			   	 	<div id="delete" onclick="deleteModal()">삭제</div> 
+			   	 	<div id="delete" style="cursor: pointer;" onclick="deleteModal('${board.boardIdx}')">삭제</div> 
 			    </c:if>
     		</div>
 	    </div>
@@ -154,7 +154,7 @@
   
   <script type="text/javascript">
   
-  deleteModal = () => {
+  function deleteModal(idx) {
       let sendModal = initModal('modal', 3);
       appendTitle(sendModal, '게시글을 삭제하시겠습니까?', true);
       setButton(sendModal, '취소', '삭제');
@@ -162,8 +162,13 @@
       modalBlock();
       	
       $('.modal_left_btn').click(function() {
-      modalNone();
-      	})
+      	modalNone();
+      })
+      
+      $('.modal_right_btn').click(function () {
+    	  modalNone();
+    	  location.href = '/community/delete-board?boardIdx='+idx;
+      })
       
   }
   

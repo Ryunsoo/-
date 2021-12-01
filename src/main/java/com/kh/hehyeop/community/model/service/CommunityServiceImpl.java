@@ -87,4 +87,9 @@ public class CommunityServiceImpl implements CommunityService {
 		communityRepository.deleteReReply(reReplyIdx);
 	}
 
+	@Override
+	public void deleteBoard(String boardIdx) {
+		communityRepository.deleteBoard(boardIdx);
+	}
+
 }

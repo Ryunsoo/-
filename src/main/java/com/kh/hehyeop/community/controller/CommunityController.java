@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,6 +112,15 @@ public class CommunityController {
 		return "redirect:/community/list";
 	}
 	
+	@GetMapping("delete-board")
+	public String deleteBoard(String boardIdx, RedirectAttributes redirectAttr) {
+		
+		communityService.deleteBoard(boardIdx);
+		redirectAttr.addFlashAttribute("message", "게시판이 삭제되었습니다.");
+		
+		return "redirect:/community/list";
+	}
+	
 	@PostMapping("write-board")
 	public String write(Community community, Model model) {
 		
@@ -121,10 +131,10 @@ public class CommunityController {
 	}
 	
 	@PostMapping("write-reply")
-	public String writeReply(Reply reply, RedirectAttributes redirctAttr) {
+	public String writeReply(Reply reply, RedirectAttributes redirectAttr) {
 		
 		if (reply.getContent().isEmpty()) {
-			redirctAttr.addFlashAttribute("message", "빈 칸을 입력할 수 없습니다.");
+			redirectAttr.addFlashAttribute("message", "빈 칸을 입력할 수 없습니다.");
 			return "redirect:/community/view?boardIdx="+reply.getBoardIdx(); 
 		}
 		
