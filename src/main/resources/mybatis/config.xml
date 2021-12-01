@@ -30,6 +30,7 @@
   		<mapper resource="mybatis/mapper/companyMapper.xml"/>
   		<mapper resource="mybatis/mapper/managementMapper.xml"/>
   		<mapper resource="mybatis/mapper/CommunityMapper.xml"/>
+  		<mapper resource="mybatis/mapper/mainMapper.xml"/>
   	</mappers>
 
   </configuration>

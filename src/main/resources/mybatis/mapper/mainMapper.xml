@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.hehyeop.main.model.repository.MainRepository"> 
+
+	<select id="selectRequestList" resultType="HelpRequest">
+		select req_content, old_address
+		from(
+		select rownum rnum, v.*
+		from(
+		select req_content, old_address
+		from help_request
+		order by reg_date desc)v)
+		where rnum between 1 and 4
+	</select>
+	
+	<select id="selectReviewList" resultType="Review">
+		select company, old_address, score
+		from(
+		select rownum rnum, v.*
+		from(
+		select company, old_address, score
+		from v_review
+		order by review_date desc)v)
+		where rnum between 1 and 4
+	</select>
+
+	<select id="selectBoardList" resultType="Community">
+		select board_idx,board_category, title
+		from(
+		select rownum rnum, v.*
+		from(
+		select board_idx,board_category, title
+		from board
+		where board_category = '나눔'
+		order by view_cnt)v)
+		where rnum between 1 and 3
+		
+		union
+		
+		select board_idx,board_category, title
+		from(
+		select rownum rnum, v.*
+		from(
+		select board_idx,board_category, title
+		from board
+		where board_category = '음식'
+		order by view_cnt)v)
+		where rnum between 1 and 3
+		
+		union
+		
+		select board_idx,board_category, title
+		from(
+		select rownum rnum, v.*
+		from(
+		select board_idx,board_category, title
+		from board
+		where board_category = '추천'
+		order by view_cnt)v)
+		where rnum between 1 and 3
+		
+		union
+		
+		select board_idx,board_category, title
+		from(
+		select rownum rnum, v.*
+		from(
+		select board_idx,board_category, title
+		from board
+		where board_category = '잡담'
+		order by view_cnt)v)
+		where rnum between 1 and 3
+	</select>
+
+</mapper>
