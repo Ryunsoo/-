@@ -56,8 +56,17 @@ public interface CommunityRepository {
 
 	@Update("update re_reply set is_del = 1 where re_reply_idx = #{reReplyIdx}")
 	void deleteReReply(String reReplyIdx);
+	
+	@Select("select count(*) from (select rownum rnumm, B.* from board B) where rnumm in (select rnum from (select rownum rnum, replace(title, ' ', '') title from board) where TITLE LIKE '%' || #{searchKeyword} || '%') and board_category LIKE '%' || #{boardCategory} || '%'")
+	Integer countBoardSearchList(@Param("boardCategory") String boardCategory, @Param("searchKeyword")String searchKeyword);
 
 	@Update("update board set is_del = 1 where board_idx = #{boardIdx}")
 	void deleteBoard(String boardIdx);
+	
+	@Select("select * from (select rownum rnum, v.* from ("
+			+ " select * from (select rownum rnumm, B.* from board B) where rnumm in "
+			+ " (select rnum from (select rownum rnum, replace(title, ' ', '') title from board) where TITLE LIKE '%' || #{searchKeyword} || '%') and board_category LIKE '%' || #{boardCategory} || '%' order by board_idx desc"
+			+ " ) v) where rnum between #{paging.start} and #{paging.end}")
+	List<Community> selectSearchList(@Param("boardCategory") String boardCategory, @Param("searchKeyword")  String searchKeyword, @Param("paging") Paging paging);
 
 }

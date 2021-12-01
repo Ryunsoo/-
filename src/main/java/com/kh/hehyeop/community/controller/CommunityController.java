@@ -105,7 +105,43 @@ public class CommunityController {
 	}
 	
 	@GetMapping("search")
-	public void boardSearchTest() {}
+	public void boardSearch (Model model, Paging paging, Community community, HttpSession session,
+			  @RequestParam(value="searchKeyword", required = false) String searchKeyword,
+			  @RequestParam(value="nowPage", required = false) String nowPage,
+			  @RequestParam(value="cntPerPage", required = false) String cntPerPage) {
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "6";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "6";
+		}
+		
+		if(community.getBoardCategory() == null) {
+			community.setBoardCategory("");
+		}
+		
+		System.out.println(community.toString() + searchKeyword);
+		
+		Integer total = communityService.countBoardSearchList(community.getBoardCategory(), searchKeyword.replaceAll(" ", ""));
+		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		List<Community> commuList = communityService.selectSearchList(community.getBoardCategory(), searchKeyword.replaceAll(" ", ""), paging);
+		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+		
+		
+		for (Community cm : commuList) {
+			cm.setParseDate(format.format(cm.getRegDate()));
+		}
+		
+		
+		model.addAttribute("commuList", commuList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("searchCount", total);
+		session.setAttribute("boardCategory", community.getBoardCategory());
+		session.setAttribute("searchKeyword", searchKeyword);
+	}
 	
 	@GetMapping("write")
 	public void boardWriteTest(Model model) {
@@ -120,9 +156,7 @@ public class CommunityController {
 	
 	@PostMapping("modify-board")
 	public String modifyBoard(Community community, Model model) {
-		System.out.println(community.toString());
 		communityService.modifyBoard(community);
-		
 		return "redirect:/community/list";
 	}
 	

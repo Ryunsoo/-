@@ -37,6 +37,10 @@ public interface CommunityService {
 
 	void deleteReReply(String reReplyIdx);
 
+	Integer countBoardSearchList(String boardCategory, String searchKeyword);
+	
 	void deleteBoard(String boardIdx);
+
+	List<Community> selectSearchList(String boardCategory, String searchKeyword, Paging paging);
 
 }

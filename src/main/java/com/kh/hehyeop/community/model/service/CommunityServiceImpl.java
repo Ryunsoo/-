@@ -88,8 +88,17 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
+	public Integer countBoardSearchList(String boardCategory, String searchKeyword) {
+		return communityRepository.countBoardSearchList(boardCategory, searchKeyword);
+	}
+	
 	public void deleteBoard(String boardIdx) {
 		communityRepository.deleteBoard(boardIdx);
+	}
+
+	@Override
+	public List<Community> selectSearchList(String boardCategory, String searchKeyword, Paging paging) {
+		return communityRepository.selectSearchList(boardCategory, searchKeyword, paging);
 	}
 
 }
