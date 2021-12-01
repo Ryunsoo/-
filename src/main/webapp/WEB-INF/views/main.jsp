@@ -204,7 +204,7 @@
 				</div>
 			</div>
 			<div class="request_view">
-					<i class="fas fa-plus" onclick="location.href='/help/main'">  신청하기</i>
+					<i class="fas fa-plus" style="cursor: pointer;" onclick="location.href='/help/main'">  신청하기</i>
 			</div>
 		</div>
 		<div class="buy_section">
