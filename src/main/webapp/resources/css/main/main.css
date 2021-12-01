@@ -415,6 +415,10 @@ html, body{
     left: 495px;
 }
 
+.request_view>i{
+	cursor: pointer;
+}
+
 .far{
 	font-size: 50px;
 	margin: 20px 0 0 20px;
@@ -583,6 +587,17 @@ html, body{
 	border-color: black;
 	border-style: hidden;
 	border-radius: 50px;
+}
+
+.comu_view{
+	font-weight: bold;
+	display: flex;
+	justify-content: flex-end;
+	margin: 30px 20px 0 0;
+}
+
+.comu_view>i{
+	cursor: pointer;
 }
 
 #frac_div, #free_div{

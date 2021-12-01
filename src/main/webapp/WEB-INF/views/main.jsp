@@ -282,6 +282,9 @@
 						</div>
 					</div>
 				</div>
+				<div class="comu_view">
+					<i class="fas fa-plus" onclick="location.href='/community/list'">  더보기</i>
+				</div>
 			</div>
 		</div>
 		<!-- 자취해협 정보 footer -->
