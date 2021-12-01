@@ -43,9 +43,9 @@
     
     <!--index페이지 body작업시작-->
     <div id="write_body_container">
-          <div id="exp_of_write" style="line-height: 52px;">
+          <div id="exp_of_write">
          	<div id="title_line"></div>
-         	<p>게시글 수정하기</p>
+         	<p style="line-height: 52px;">게시글 수정하기</p>
          	<div id="title_line_two"></div>
          </div>
          
