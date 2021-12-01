@@ -103,7 +103,7 @@ html, body{
 
 .info_section{
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 }
 
 .wrap_slide{
@@ -111,8 +111,8 @@ html, body{
 }
 
 .ad_list{
-	width: 900px;
-	height: 250px;
+	width: 867px;
+	height: 284px;
 	overflow: hidden;
 }
 
@@ -135,7 +135,7 @@ html, body{
 
 #add_item>img{
    width:873px;
-   height: 250px;
+   height: 265px;
 }
 
 /* 오늘 날씨 */
@@ -371,7 +371,7 @@ html, body{
 
 
 .help_section{
-	height: 600px;
+	height: 540px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -379,7 +379,7 @@ html, body{
 }
 
 .help_div{
-	margin-top: 130px;
+	margin-top: 77px;
 	width: 1000px;
 	height: 350px;
 	border: thin;
@@ -469,11 +469,11 @@ html, body{
 .buy_section{
 	display: flex;
 	justify-content: center;
-	height: 680px;
+	height: 643px;
 }
 
 .buy_div{
-	margin-top: 50px;
+	margin-top: 40px;
 	width: 1100px;
 	height: 600px;
 	text-align: center;
@@ -542,7 +542,7 @@ html, body{
 }
 
 .comu_div{
-	margin-top: 40px;
+	margin-top: 31px;
 	width: 1100px;
 	height: 600px;
 	text-align: center;
