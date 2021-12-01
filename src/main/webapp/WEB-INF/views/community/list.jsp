@@ -35,6 +35,10 @@ function alert(msg){
 	font-weight: bold;
 }
 
+#search{
+	cursor: pointer;
+}
+
 .modal_content{
 	justify-content: center;
 }
@@ -48,17 +52,19 @@ function alert(msg){
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
-        <div id="search_case_inner_div_3">
-           <SELECT NAME=sltSample SIZE=1>
-              <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
-              <OPTION VALUE="음식">음식</OPTION>
-              <OPTION VALUE="잡담">잡담</OPTION>
-              <OPTION VALUE="나눔">나눔</OPTION>
-              <OPTION VALUE="추천">추천</OPTION>
-           </SELECT>
-           <input type="text">
-           <i id="search" class="far fa-search"></i>
-        </div>
+        <form action="/community/search">
+	        <div id="search_case_inner_div_3">
+	           <SELECT id="selectCategory" NAME="boardCategory" SIZE=1>
+	              <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
+	              <OPTION VALUE="음식">음식</OPTION>
+	              <OPTION VALUE="잡담">잡담</OPTION>
+	              <OPTION VALUE="나눔">나눔</OPTION>
+	              <OPTION VALUE="추천">추천</OPTION>
+	           </SELECT>
+	           <input type="text" name="searchKeyword" id="searchKeyword">
+	           <i id="search" class="far fa-search" onclick="changeList()"></i>
+	        </div>
+        </form>
     </div>
     
     <div class="write_body">
@@ -134,6 +140,13 @@ function alert(msg){
 </body>
 
 <script type="text/javascript">
+
+function changeList(){
+	let category = document.getElementById("selectCategory").value;
+	let searchKeyword = document.getElementById("searchKeyword").value;
+	
+	location.href = "/community/search?boardCategory="+category+"&searchKeyword="+searchKeyword;
+}
 
 document.querySelectorAll("#test").forEach(e => {
 	console.dir(e);

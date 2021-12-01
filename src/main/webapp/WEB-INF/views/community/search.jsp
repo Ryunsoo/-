@@ -7,6 +7,18 @@
 <link rel="stylesheet" href="../../../resources/css/community/style.css"/>
 <link rel="stylesheet" href="../../../resources/css/community/search_page.css"/>
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+
+<style type="text/css">
+#search{
+	cursor: pointer;
+}
+
+.tr_inner_container {
+	cursor: pointer;
+}
+
+</style>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
@@ -16,15 +28,17 @@
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
         <div id="search_case_inner_div_3">
-	        <SELECT NAME=sltSample SIZE=1>
-	        	<option value="" disabled selected hidden>카테고리 선택</option>
-		        <OPTION VALUE=1>[음식]</OPTION>
-		        <OPTION VALUE=2>[잡담]</OPTION>
-		        <OPTION VALUE=3>3번 보기</OPTION>
-		        <OPTION VALUE=4>4번 보기</OPTION>
-	        </SELECT>
-	        <input type="text">
-        	<i id="search" class="far fa-search"></i>
+        <form action="/community/search">
+	        <SELECT NAME="boardCategory" id="selectCategory" SIZE=1 onchange="changeList()">
+	            <OPTION VALUE="" <c:if test="${boardCategory eq ''}">selected</c:if>>카테고리 선택</OPTION>
+	            <OPTION VALUE="음식" <c:if test="${boardCategory eq '음식'}">selected</c:if>>음식</OPTION>
+	            <OPTION VALUE="잡담" <c:if test="${boardCategory eq '잡담'}">selected</c:if>>잡담</OPTION>
+	            <OPTION VALUE="나눔" <c:if test="${boardCategory eq '나눔'}">selected</c:if>>나눔</OPTION>
+	            <OPTION VALUE="추천" <c:if test="${boardCategory eq '추천'}">selected</c:if>>추천</OPTION>
+          	</SELECT>
+	        <input type="text" name="searchKeyword" id="searchKeyword" <c:if test="${not empty searchKeyword}">value="${searchKeyword}"</c:if>> 
+        	<i id="search" class="far fa-search" onclick="changeList()"></i>
+        </form>
         </div>
     </div>
     <!--index페이지 body작업시작-->
@@ -32,77 +46,72 @@
 	    <div id="result_letter">
             <!--spring으로 작성시 전부 div로 갈아끼워야함 ex) [카테고리명] = [{인자값}]-->
             <div id="title_line"></div>
-            <p>카테고리 : [카테고리] | "<검색어>"에 대한 검색 결과 [숫자]</p>
+            <p>카테고리 : ${boardCategory}  |  키워드 : "${searchKeyword}"에 대한 검색 결과 [${searchCount}]</p>
             <div id="title_line_two"></div>
 	    </div>
 	    
-    	<div class="tr_inner_container">
+	    <c:forEach items="${commuList}" var="commuList">
+    	<div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${commuList.boardIdx}'">
     		<div class="tr_inner_up_div">
-    			<div class="board_kinds">음식</div>
-                <div class="board_title"><strong style="margin-right: 10px;">스프링</strong> 공부 내용 [2]</div>
-                <div class="board_writer">작성자</div>
-                <div class="board_date">21-11-04</div>
-                <div class="board_view_cnt">101</div>
+    			<div class="board_kinds">${commuList.boardCategory}</div>
+                <div class="board_title">${commuList.title}</div>
+                <div class="board_writer">${commuList.nickname}</div>
+                <div class="board_date">${commuList.parseDate}</div>
+                <div class="board_view_cnt">${commuList.viewCnt}</div>
     		</div>
     		<div class="tr_inner_under_div">
-    			<div class="tr_inner_under_div_contents">피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...</div>
+    			<div id="test" class="tr_inner_under_div_contents">
+    				${commuList.content}
+    			</div> 
     		</div>
     	</div>
+		</c:forEach>
     	
-    	<div class="tr_inner_container">
-    		<div class="tr_inner_up_div">
-    			<div class="board_kinds">음식</div>
-                <div class="board_title"><strong style="margin-right: 10px;">스프링</strong> 공부 내용 [2]</div>
-                <div class="board_writer">작성자</div>
-                <div class="board_date">21-11-04</div>
-                <div class="board_view_cnt">101</div>
-    		</div>
-    		<div class="tr_inner_under_div">
-    			<div class="tr_inner_under_div_contents">피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...</div>
-    		</div>
-    	</div>
-    	
-    	<div class="tr_inner_container">
-    		<div class="tr_inner_up_div">
-    			<div class="board_kinds">음식</div>
-                <div class="board_title"><strong style="margin-right: 10px;">스프링</strong> 공부 내용 [2]</div>
-                <div class="board_writer">작성자</div>
-                <div class="board_date">21-11-04</div>
-                <div class="board_view_cnt">101</div>
-    		</div>
-    		<div class="tr_inner_under_div">
-    			<div class="tr_inner_under_div_contents">열락의 새가 운다사랑의 ...</div>
-    		</div>
-    	</div>
-    	
-    	<div class="tr_inner_container">
-    		<div class="tr_inner_up_div">
-    			<div class="board_kinds">음식</div>
-                <div class="board_title"><strong style="margin-right: 10px;">스프링</strong> 공부 내용 [2]</div>
-                <div class="board_writer">작성자</div>
-                <div class="board_date">21-11-04</div>
-                <div class="board_view_cnt">101</div>
-    		</div>
-    		<div class="tr_inner_under_div">
-    			<div class="tr_inner_under_div_contents">피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 ...</div>
-    		</div>
-    	</div>
     </div>
     
 
     <!--footer은 글쓰기 페이지엔 존재하지 않으니 index, view_board에만 사용-->
-    <footer>
-        <div id="footer">
-                <div class='page'>
-						<i class="fas fa-caret-left"></i>&nbsp;
-						<div><span>1</span>&nbsp;<span>2</span>&nbsp;<span>3</span>&nbsp;<span>4</span>&nbsp;<span>5</span>&nbsp;<span>6</span>&nbsp;<span>7</span></div>&nbsp;
-						<i class="fas fa-caret-right"></i>
-				</div>
-        </div>
-        
-    </footer>
+    <div class='page'>
+		<c:if test="${paging.nowPage != 1}">
+			<i style="margin-right:20px;"  class="fas fa-caret-left" onclick="location.href = '/community/search?nowPage=${paging.nowPage-1}&cntPerPage=${paging.cntPerPage}&boardCategory=${boardCategory}&searchKeyword=${searchKeyword}'"></i>
+		</c:if>
+		<div>
+		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage}">
+					<span style="color:lightgray">${p}</span>
+				</c:when>
+				<c:otherwise>
+					<span onclick="location.href= '/community/search?nowPage=${p}&cntPerPage=${paging.cntPerPage}&boardCategory=${boardCategory}&searchKeyword=${searchKeyword}'">${p}</span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		</div>
+		<c:if test="${paging.nowPage != paging.lastPage}">
+			<i class="fas fa-caret-right" onclick="location.href= '/community/search?nowPage=${paging.nowPage + 1}&cntPerPage=${paging.cntPerPage}&boardCategory=${boardCategory}&searchKeyword=${searchKeyword}'"></i>
+		</c:if>
+	</div>
 
    </div>
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
+   <script type="text/javascript">
+   
+   function changeList(){
+		let category = document.getElementById("selectCategory").value;
+		let searchKeyword = document.getElementById("searchKeyword").value;
+		
+		location.href = "/community/search?boardCategory="+category+"&searchKeyword="+searchKeyword;
+	}
+   
+   document.querySelectorAll("#test").forEach(e => {
+		console.dir(e);
+		let originText = e.innerHTML;
+		let newText= originText.replace(/(<([^>]+)>)/ig,"");
+		
+		e.innerHTML = newText;
+	});
+   
+   
+   </script>
 </body>
 </html>

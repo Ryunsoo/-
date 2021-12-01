@@ -23,7 +23,6 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main(Model model) {
-		
 		String[] dateArr = {"일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"};
 		String[] parseArr = new String[7];
 		Date date = new Date();
@@ -38,6 +37,7 @@ public class MainController {
 			}
 		}
 		
+
 		model.addAttribute("weekList", parseArr); 
 		
 		List<Purchase> purchaseList = mainService.selectPurchaseList();

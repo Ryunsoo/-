@@ -125,22 +125,21 @@
 	border: solid transparent;
 }
 
-.page{
-	width: 300px;
-	height: 50px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	font-weight: bold;
-	font-size: 30px;
-	border: solid transparent;
+.page {
+    justify-content: center;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: auto;
 }
 
-.page>i{
-	font-size: 30px;
-	color: black;
+.page>i {
+    font-size: 25px;
+    color: #cccccc;
+    margin-top: 4px;
 }
-
 .page>i:hover{
 	color: #b3b3b3;
 	cursor: pointer;
@@ -148,17 +147,13 @@
 
 .page>div{
 	display: flex;
-	width: 150px;
-	justify-content: space-around;
-	border: solid transparent;
 }
 
 .page>div>span:hover{
 	color: #bfbfbf;
 	cursor: pointer;
-	border: solid transparent;
 }
 
-.page>footer_logo {
+.page>div>span{
 	margin-right: 20px;
 }
