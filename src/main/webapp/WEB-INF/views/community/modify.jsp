@@ -35,8 +35,8 @@
     <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
-        <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
-    </div>
+        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
+   	</div>
     
     <div class="write_body">
     
