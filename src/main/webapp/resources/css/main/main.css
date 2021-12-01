@@ -654,5 +654,7 @@ html, body{
 	cursor: pointer;
 }
 
-
+.c3-line {
+    stroke-width: 5px;
+}
 
