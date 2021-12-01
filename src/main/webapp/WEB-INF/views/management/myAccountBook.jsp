@@ -13,6 +13,11 @@
 <div id="bg" class="hidden"></div>
 	<div class="wrap">
 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp"%>
+		<c:if test="${not empty message}">
+			<script>
+				alert('${message}');
+			</script>
+		</c:if>
 		<div class="main">
 			<div class="btn">
 				<button class="icebox_btn" onclick="javascript:location.href='myIcebox'">
@@ -25,7 +30,11 @@
 				<div class="my_statistics" onclick="javascript:location.href='myAccountList'">My 통계</div>
 			</div>
 			<div class="bell" id="go">
-				<div class="hidden" id="popup">오늘은 월세를 지출하는 날 입니다!</div>
+				<div id="popup" style="display:none">
+					<c:forEach items="${todayList}" var="list">
+						<div>오늘은 '${list}' 지출 날입니다!</div>
+					</c:forEach>
+				</div>
 				<i class="fas fa-bell"></i>
 				
 			</div>
@@ -40,7 +49,7 @@
 						<button class="confirm" onclick='choice()'>확인</button>
 					</div>
 					
-					<form:form modelAttribute="personalForm" method="get" action="/management/personal-spend">
+					<form:form modelAttribute="personalForm" method="get" action="/management/personal-spend/save" class='personal_form'>
 						<div class="personal_input_wrap" id="personal_hidden"
 							<c:choose>
 								<c:when test="${not empty personalError}">
@@ -60,15 +69,51 @@
 									</c:if>
 								">
 									<option selected disabled>항목을 선택하세요.</option>
-									<option value='FOOD'>식비</option>
-									<option value='TRAFFIC'>교통비</option>
-									<option value='MEDICAL'>의료</option>
-									<option value='FINANCE'>금융</option>
-									<option value='SHOPPING'>쇼핑</option>
-									<option value='LEISURE'>여가</option>
-									<option value='LIVING'>생활</option>
-									<option value='EVENT'>경조사비</option>
-									<option value='OTHERS'>기타</option>
+									<option value='FOOD'
+										<c:if test="${empty personalError.category and personalForm.category eq 'FOOD'}">
+											selected
+										</c:if>
+									>식비</option>
+									<option value='TRAFFIC'
+										<c:if test="${empty personalError.category and personalForm.category eq 'TRAFFIC'}">
+											selected
+										</c:if>
+									>교통비</option>
+									<option value='MEDICAL'
+										<c:if test="${empty personalError.category and personalForm.category eq 'MEDICAL'}">
+											selected
+										</c:if>
+									>의료</option>
+									<option value='FINANCE'
+										<c:if test="${empty personalError.category and personalForm.category eq 'FINANCE'}">
+											selected
+										</c:if>
+									>금융</option>
+									<option value='SHOPPING'
+										<c:if test="${empty personalError.category and personalForm.category eq 'SHOPPING'}">
+											selected
+										</c:if>
+									>쇼핑</option>
+									<option value='LEISURE'
+										<c:if test="${empty personalError.category and personalForm.category eq 'LEISURE'}">
+											selected
+										</c:if>
+									>여가</option>
+									<option value='LIVING'
+										<c:if test="${empty personalError.category and personalForm.category eq 'LIVING'}">
+											selected
+										</c:if>
+									>생활</option>
+									<option value='EVENT'
+										<c:if test="${empty personalError.category and personalForm.category eq 'EVENT'}">
+											selected
+										</c:if>
+									>경조사비</option>
+									<option value='OTHERS'
+										<c:if test="${empty personalError.category and personalForm.category eq 'OTHERS'}">
+											selected
+										</c:if>
+									>기타</option>
 								</select>
 							<input type="text" class="personal_category personal_content" name='content'
 								<c:choose>
@@ -100,16 +145,25 @@
 								</c:when>
 								</c:choose>
 							placeholder="금액을 입력하세요." autocomplete="off" min='0' required>
-							<div class="personal_btn">
+							<div class="personal_btn"
+								<c:if test="${empty save}">
+									style="display: none"
+								</c:if>
+							>
 								<button class="personal_save">저장</button>
 							</div>
-							<div class="personal_btn_modify">
-								<button class="personal_delete">삭제</button>
-								<button class="personal_save">수정</button>
+							<div class="personal_btn_modify"
+								<c:if test="${not empty save}">
+									style="display: none"
+								</c:if>
+							>
+								<button type="button" class="personal_delete" onclick="deletePersonal()">삭제</button>
+								<button type="button" class="personal_save" onclick="modifyPersonal()">수정</button>
+								<input type="hidden" class='personal_expIdx' name='expIdx'>
 							</div>
 						</div>
 					</form:form>
-					<form:form modelAttribute="fixedForm" method="get" action="/management/fixed-spend">
+					<form:form modelAttribute="fixedForm" method="get" action="/management/fixed-spend/save" class='fixed_form'>
 						<div class="fixed_input_wrap" id="fixed_hidden"
 							<c:choose>
 								<c:when test="${not empty fixedError}">
@@ -178,12 +232,21 @@
 									</c:when>
 								</c:choose>
 							placeholder="금액 입력하세요." min='0' required>
-							<div class="fixed_btn">
+							<div class="fixed_btn"
+								<c:if test="${empty save}">
+									style="display: none"
+								</c:if>
+							>
 								<button class="fixed_save">저장</button>
 							</div>
-							<div class="fixed_btn_modify">
-								<button class="fixed_delete">삭제</button>
-								<button class="fixed_save">수정</button>
+							<div class="fixed_btn_modify"
+								<c:if test="${not empty save}">
+									style="display: none"
+								</c:if>
+							>
+								<button type="button" class="fixed_delete" onclick="deleteFixed()">삭제</button>
+								<button type="button" class="fixed_save" onclick="modifyFixed()">수정</button>
+								<input type="hidden" class='fixed_expIdx' name='fExpIdx'>
 							</div>
 						</div>
 					</form:form>

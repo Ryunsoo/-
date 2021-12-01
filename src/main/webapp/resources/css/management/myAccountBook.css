@@ -179,13 +179,13 @@ html, body {
 	color: orange;
 	margin-left: 800px;
 	margin-top: 15px;
-	z-index: 2001;
+	z-index: 10000;
 	cursor: pointer;
 }
 
 #popup{
-	width: 300px;
-	height: 40px;
+	min-width: 300px;
+	/* height: 40px; */
 	position: absolute;
 	background-color: rgb(241, 196, 15);
 	text-align: center;
@@ -193,13 +193,15 @@ html, body {
 	font-size:18px;
 	overflow: auto;
 	z-index: 2;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
 	color: black;
 	right: 50px;
 	top:20px;
-	padding-top: 12px;
+	padding: 12px 10px 12px 10px;
 	border-radius: 15px;
-	padding-left: 10px;
-	padding-right: 10px;
 }
 
 .input_wrap{

@@ -7,11 +7,11 @@
 
         go.addEventListener("mouseover",function(){
             bg.classList.remove("hidden");
-            popup.classList.remove("hidden");
+            popup.style.display = 'flex';
         });
         go.addEventListener("mouseout",function(){
             bg.classList.add("hidden");
-            popup.classList.add("hidden");
+            popup.style.display = 'none';
         });
         
 function choice() {
@@ -32,6 +32,7 @@ function choice() {
 			if(this.localName != 'select') {
 				$(this).val('');
 			}
+			$(this).css('border', 'solid thin lightgray');
 		})
 		
 		$('option').each(function(e) {
@@ -49,7 +50,7 @@ function choice() {
 		document.getElementById("fixed_hidden").style.display ="none";
 	}else{
 		$('.fixed_category').each(function() {
-			$(this).val('');
+			$(this).val('').css('border', 'solid thin lightgray');
 		})
 		$('#date2').val(date);
 		document.querySelector('.fixed_btn').style.display = "flex";
@@ -104,11 +105,16 @@ function choice() {
 				document.querySelector('.fixed_btn').style.display = "none";
 				document.querySelector('.fixed_btn_modify').style.display = "flex";
 				
+				$('.fixed_category').each(function() {
+					$(this).css('border', 'solid thin lightgray');
+				})
+				
 				$('.fixed_content').val(event.title);
 				$('.fixed_fixedDate').val(event.extendedProps.fixedDate);
 				$('.fixed_startDate').val(event.extendedProps.fixedStart);
 				$('.fixed_endDate').val(event.extendedProps.fixedEnd);
 				$('.fixed_price').val(event.extendedProps.price);
+				$('.fixed_expIdx').val(event.extendedProps.expIdx);
 				
 			}else {
 				document.getElementById("personal_hidden").style.display ="flex";
@@ -123,11 +129,15 @@ function choice() {
 						$(this).prop('selected', false);
 					}
 				})
-				console.dir(category);
+				
+				$('.personal_category').each(function() {
+					$(this).css('border', 'solid thin lightgray');
+				})
 				
 				$('.personal_content').val(event.title);
 				$('.personal_expDate').val(event.startStr);
 				$('.personal_price').val(event.extendedProps.price);
+				$('.personal_expIdx').val(event.extendedProps.expIdx);
 			}
 			
 		  }
@@ -158,6 +168,28 @@ let getHehyeopEvents = async (date) => {
 	
 	await getHehyeopEvents(month);
 })();
+
+let modifyPersonal = () => {
+	let expIdx = $('.personal_expIdx').val();
+	$('.personal_form').attr('action', "/management/personal-spend/modify");
+	$('.personal_form').submit();
+}
+
+let deletePersonal = () => {
+	let expIdx = $('.personal_expIdx').val();
+	location.href = '/management/personal-delete?expIdx=' + expIdx;
+}
+
+let modifyFixed = () => {
+	let expIdx = $('.fixed_expIdx').val();
+	$('.fixed_form').attr('action', "/management/fixed-spend/modify");
+	$('.fixed_form').submit();
+}
+
+let deleteFixed = () => {
+	let expIdx = $('.fixed_expIdx').val();
+	location.href = "/management/fixed-delete?expIdx=" + expIdx;
+}
 
 		$('.date').keydown(function(e) {
 			if(e.originalEvent.code != 'Tab') e.preventDefault();
@@ -213,14 +245,19 @@ let getHehyeopEvents = async (date) => {
 				});
 				
 		$(function() {
+					let firstDate = new Date();
+					firstDate.setDate(1);
+					let lastDate = new Date();
+					lastDate.setDate(28);
+					
 					$("#date4").datepicker(
 							{
 								dateFormat : "dd",
 								changeMonth : false,
 								showMonthAfterYear : false,
 								changeYear : false,
-								minDate : 1, //캘린더 범위에서 시작 날짜
-								maxDate : 28
+								minDate : firstDate, //캘린더 범위에서 시작 날짜
+								maxDate : lastDate
 					});
 					
 					$('#date4').datepicker($.datepicker.regional["ko"]);

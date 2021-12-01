@@ -102,7 +102,7 @@ html, body {
     height: 200px;
     left: 0;
     bottom: -190px;
-    z-index: 2002;
+    z-index: 100001;
 }
 
 .gnb__sub-category-wrap>div {

@@ -1,6 +1,10 @@
 package com.kh.hehyeop.management.model.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +171,34 @@ public class ManagementServiceImpl implements ManagementService{
 			eventList.add(map);
 		}
 		return eventList;
+	}
+
+	@Override
+	public void updatePersonalSpend(PersonalForm form) {
+		managementRepository.updatePersonalExpense(form);
+	}
+
+	@Override
+	public void updateFixedSpend(FixedForm form) {
+		managementRepository.updateFixedExpense(form);
+	}
+
+	@Override
+	public void deletePersonalSpend(String expIdx) {
+		managementRepository.deletePersonalExpense(expIdx);
+	}
+
+	@Override
+	public void deleteFixedSpend(String expIdx) {
+		managementRepository.deleteFixedExpense(expIdx);
+	}
+
+	@Override
+	public List<String> selectTodayFixedSpend(String id) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-");
+		String monthStr = format.format(new Date());
+		
+		return managementRepository.selectTodayFixedExpense(id, monthStr);
 	}
 
 }

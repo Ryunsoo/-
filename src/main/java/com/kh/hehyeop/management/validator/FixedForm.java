@@ -10,5 +10,6 @@ public class FixedForm {
 	private String startDate;
 	private String endDate;
 	private int price;
+	private String fExpIdx;
 	
 }

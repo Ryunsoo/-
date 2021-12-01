@@ -9,4 +9,5 @@ public class PersonalForm {
 	private String content;
 	private String expDate;
 	private int price;
+	private String expIdx;
 }

@@ -24,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,48 +170,77 @@ public class managementController {
 	}
 
 	@GetMapping("myAccountBook")
-	public void myAccountBookForm() {}
+	public void myAccountBookForm(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("authentication");
+		List<String> todayList = managementService.selectTodayFixedSpend(user.getId());
+		model.addAttribute("todayList", todayList);
+	}
 	
-	@GetMapping("personal-spend")
+	@GetMapping("personal-spend/{action}")
 	public String savePersonalSpend(@Validated PersonalForm form,
 						Errors errors,
+						@PathVariable(name = "action") String action,
 						Model model,
 						HttpSession session,
 						RedirectAttributes redirect) {
-		System.out.println(form.getContent());
+		System.out.println("form : " + form);
+		System.out.println("action : " + action);
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("personalError", vr.getError());
 		
 		if(errors.hasErrors()) {
 			vr.addErrors(errors);
+			if(action.equals("save")) {
+				model.addAttribute("save", "save");
+			}
 			return "management/myAccountBook";
 		}
 		
 		User user = (User) session.getAttribute("authentication");
-		managementService.insertPersonalSpend(user.getId(), form);
+		
+		if(action.equals("save")) {
+			managementService.insertPersonalSpend(user.getId(), form);
+			redirect.addFlashAttribute("message", "개인 지출 내역이 성공적으로 저장되었습니다.");
+		}else {
+			managementService.updatePersonalSpend(form);
+			redirect.addFlashAttribute("message", "개인 지출 내역이 성공적으로 수정되었습니다.");
+		}
 		
 		return "redirect:/management/myAccountBook";
 	}
 	
-	@GetMapping("fixed-spend")
+	@GetMapping("fixed-spend/{action}")
 	public String saveFixedSpend(@Validated FixedForm form,
 						Errors errors,
+						@PathVariable(name = "action") String action,
 						Model model,
-						HttpSession session) {
-		System.out.println(form.getEndDate());
+						HttpSession session,
+						RedirectAttributes redirect) {
+		System.out.println("form : " + form);
+		System.out.println("action : " + action);
 		
 		ValidateResult vr = new ValidateResult();
 		model.addAttribute("fixedError", vr.getError());
 		
 		if(errors.hasErrors()) {
 			vr.addErrors(errors);
+			if(action.equals("save")) {
+				model.addAttribute("save", "save");
+			}
 			return "management/myAccountBook";
 		}
 		
 		User user = (User) session.getAttribute("authentication");
 		if(form.getEndDate().equals("")) form.setEndDate(null);
-		managementService.insertFixedSpend(user.getId(), form);
+		
+		if(action.equals("save")) {
+			managementService.insertFixedSpend(user.getId(), form);
+			redirect.addFlashAttribute("message", "고정 지출 내역이 성공적으로 저장되었습니다.");
+		}else {
+			managementService.updateFixedSpend(form);
+			redirect.addFlashAttribute("message", "고정 지출 내역이 성공적으로 수정되었습니다.");
+		}
 		
 		return "redirect:/management/myAccountBook";
 	}
@@ -221,6 +251,22 @@ public class managementController {
 		System.out.println("date : " + date);
 		User user = (User) session.getAttribute("authentication");
 		return managementService.selectEvents(user.getId(), date);
+	}
+	
+	@GetMapping("personal-delete")
+	public String deletePersonalSpend(HttpSession session, String expIdx,
+										RedirectAttributes redirect) {
+		managementService.deletePersonalSpend(expIdx);
+		redirect.addFlashAttribute("message", "개인 지출 내역이 성공적으로 삭제되었습니다.");
+		return "redirect:/management/myAccountBook";
+	}
+	
+	@GetMapping("fixed-delete")
+	public String deleteFixedSpend(HttpSession session, String expIdx,
+										RedirectAttributes redirect) {
+		managementService.deleteFixedSpend(expIdx);
+		redirect.addFlashAttribute("message", "고정 지출 내역이 성공적으로 삭제되었습니다.");
+		return "redirect:/management/myAccountBook";
 	}
 
 	@GetMapping("myAccountList")

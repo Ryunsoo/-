@@ -65,9 +65,27 @@ public interface ManagementRepository {
 	List<Expense> selectPersonalExpense(@Param("id") String id, @Param("date") String date);
 	
 	@Select("select f_exp_idx, 'FIXED' as category, id, content, fixed_date, start_date, end_date, concat(concat(#{date}, '-'), fixed_date) as exp_date, price "
-			+ "from f_expense where id = #{id} and to_date(concat(#{date}, fixed_date)) >= to_date(start_date) "
-			+ "and to_date(concat(#{date}, fixed_date)) <= to_date(end_date)")
+			+ "from f_expense where id = #{id} and to_date(concat(concat(#{date}, '-'), fixed_date)) >= to_date(start_date) "
+			+ "and to_date(concat(concat(#{date}, '-'), fixed_date)) <= to_date(end_date)")
 	List<FExpense> selectFixedExpense(@Param("id") String id, @Param("date") String date);
+
+	@Update("update expense set category = #{form.category}, content = #{form.content}, price = #{form.price}, exp_date = #{form.expDate} where exp_idx = #{form.expIdx}")
+	void updatePersonalExpense(@Param("form") PersonalForm form);
+
+	@Update("update f_expense set content = #{form.content}, fixed_date = #{form.fixedDate}, "
+			+ "start_date = #{form.startDate}, end_date = #{form.endDate}, price = #{form.price} where f_exp_idx = #{form.fExpIdx}")
+	void updateFixedExpense(@Param("form") FixedForm form);
+
+	@Delete("delete from expense where exp_idx = #{expIdx}")
+	void deletePersonalExpense(@Param("expIdx") String expIdx);
+
+	@Delete("delete from f_expense where f_expense_idx = #{expIdx}")
+	void deleteFixedExpense(@Param("expIdx") String expIdx);
+
+	@Select("select content from f_expense where id = #{id} and concat(#{monthStr}, fixed_date) = to_char(current_date, 'YYYY-MM-DD') "
+			+ "and to_date(concat(#{monthStr}, fixed_date)) >= to_date(start_date) "
+			+ "and to_date(concat(#{monthStr}, fixed_date)) <= to_date(end_date)")
+	List<String> selectTodayFixedExpense(@Param("id") String id, @Param("monthStr") String monthStr);
 	
 	
 	

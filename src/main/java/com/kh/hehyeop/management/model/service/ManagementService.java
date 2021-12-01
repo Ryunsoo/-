@@ -41,4 +41,14 @@ public interface ManagementService {
 
 	List<Map<String, Object>> selectEvents(String id, String date);
 
+	void updatePersonalSpend(PersonalForm form);
+
+	void updateFixedSpend(FixedForm form);
+
+	void deletePersonalSpend(String expIdx);
+
+	void deleteFixedSpend(String expIdx);
+
+	List<String> selectTodayFixedSpend(String id);
+
 }
