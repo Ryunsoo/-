@@ -91,7 +91,7 @@ function alert(msg){
                         </div>
 
                         <div class="tr_inner_under_div">
-                            <div class="tr_inner_under_div_contents">
+                            <div id="test" class="tr_inner_under_div_contents">
                                 ${cl.content}
                             </div>
                         </div>
@@ -132,4 +132,16 @@ function alert(msg){
    <!--wrap == container 끝-->
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </body>
+
+<script type="text/javascript">
+
+document.querySelectorAll("#test").forEach(e => {
+	console.dir(e);
+	let originText = e.innerHTML;
+	let newText= originText.replace(/(<([^>]+)>)/ig,"");
+	
+	e.innerHTML = newText;
+});
+
+</script>
 </html>

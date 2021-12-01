@@ -58,7 +58,6 @@ public class CommunityController {
 		
 		
 		for (Community community : commuList) {
-			community.setContent(community.getContent().replaceAll("<(/)?(img|label|table|thead|tbody|tfoot|tr|td|p|br|div|span|font|strong|b)(.|\\s|\\t|\\n|\\r\\n)*?>", ""));
 			community.setParseDate(format.format(community.getRegDate()));
 		}
 		

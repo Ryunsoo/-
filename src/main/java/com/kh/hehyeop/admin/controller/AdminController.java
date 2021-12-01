@@ -91,7 +91,7 @@ public class AdminController {
 		
 		if (modifyList.size() > 0) {
 			for (CMember cMember : modifyList) {
-				cMember.setParseDate(format.format(cMember.getPermitDate()));
+				cMember.setParseDate(format.format(cMember.getModifyDate()));
 			}
 		}
 		
