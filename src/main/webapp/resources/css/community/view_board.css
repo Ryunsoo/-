@@ -103,7 +103,7 @@ div#view_comments2 {
 
 #view_comment_notice {
     display: flex;
-    height: 60px;
+    height: 35px;
     width: 1060px;
     margin-top: 25px;
 }
@@ -124,13 +124,13 @@ div#view_comments2 {
 #comment_item {
     display: flex;
     width: 1053px;
-    /* height: 75px; */
     margin-bottom: 15px;
     border: 1px thin silver;
     border-radius: 5px;
     box-shadow: 0 0 1px 0;
     background-color: white;
     border: 1px solid lightgray;
+    margin-top: 25px;
 }
 
 #comment_user {
