@@ -17,6 +17,31 @@
 	cursor: pointer;
 }
 
+.board_title {
+	width: 530px;
+	margin: 5px 20px 0 10px; 
+	font-size: 25px;
+	color: navy;
+}
+
+.board_kinds {
+	margin: 12px 10px 0 10px;
+	width: 35px;
+}
+
+.board_title {
+	width: 521px;
+	margin: 5px 20px 0 10px; 
+	font-size: 25px;
+	color: navy;
+}
+
+#nickname_date_count_wrapper {
+	width: 250px;
+	display: flex;
+	justify-content: space-between;
+}
+
 </style>
 
 </head>
@@ -54,10 +79,17 @@
     	<div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${commuList.boardIdx}'">
     		<div class="tr_inner_up_div">
     			<div class="board_kinds">${commuList.boardCategory}</div>
-                <div class="board_title">${commuList.title}</div>
-                <div class="board_writer">${commuList.nickname}</div>
-                <div class="board_date">${commuList.parseDate}</div>
-                <div class="board_view_cnt">${commuList.viewCnt}</div>
+                <c:if test="${commuList.isPrivate eq 1}">
+                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
+		        </c:if>
+		        <c:if test="${commuList.isPrivate eq 0}">
+                   	<div class="board_title">${commuList.title}</div>
+		        </c:if>
+		        <div id="nickname_date_count_wrapper">
+	                <div class="board_writer">${commuList.nickname}</div>
+	                <div class="board_date">${commuList.parseDate}</div>
+	                <div class="board_view_cnt">${commuList.viewCnt}</div>
+                </div>
     		</div>
     		<div class="tr_inner_under_div">
     			<div id="test" class="tr_inner_under_div_contents">
@@ -71,6 +103,7 @@
     
 
     <!--footer은 글쓰기 페이지엔 존재하지 않으니 index, view_board에만 사용-->
+    <c:if test="${searchCount ne '0'}">
     <div class='page'>
 		<c:if test="${paging.nowPage != 1}">
 			<i style="margin-right:20px;"  class="fas fa-caret-left" onclick="location.href = '/community/search?nowPage=${paging.nowPage-1}&cntPerPage=${paging.cntPerPage}&boardCategory=${boardCategory}&searchKeyword=${searchKeyword}'"></i>
@@ -91,7 +124,7 @@
 			<i class="fas fa-caret-right" onclick="location.href= '/community/search?nowPage=${paging.nowPage + 1}&cntPerPage=${paging.cntPerPage}&boardCategory=${boardCategory}&searchKeyword=${searchKeyword}'"></i>
 		</c:if>
 	</div>
-
+	</c:if>
    </div>
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
    <script type="text/javascript">
