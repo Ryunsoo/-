@@ -3,9 +3,14 @@ package com.kh.hehyeop.main.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.hehyeop.community.model.dto.Community;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
@@ -53,6 +58,18 @@ public class MainController {
 		model.addAttribute("reviewList", reviewList);
 		
 		return "main";
+	}
+	
+	@ResponseBody
+	@GetMapping("weather-confirm")
+	public ResponseEntity<String> weather(@RequestParam(value="main") String main, @RequestParam(value="temp") double temp) {
+		
+		String comments = mainService.confirmWeather(main, temp);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=UTF-8");
+		
+		return (new ResponseEntity<String>(comments, headers, HttpStatus.OK));
 	}
 
 }

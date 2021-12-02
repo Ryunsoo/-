@@ -74,5 +74,20 @@
 		order by view_cnt)v)
 		where rnum between 1 and 3
 	</select>
+	
+	<select id="confirmWeather" resultType="string">
+		select w_comment from v_weather where rownum = 1 
+		<choose>
+			<when test="main == 'Clear'">
+				and (status = #{main} or #{temp} > min_temp and #{temp} &lt;= max_temp)
+			</when>
+			<when test="main == 'Clouds'">
+				and (#{temp} > min_temp and #{temp} &lt;= max_temp)
+			</when>
+			<otherwise>
+				and status = #{main}
+			</otherwise>
+		</choose>
+	</select>
 
 </mapper>

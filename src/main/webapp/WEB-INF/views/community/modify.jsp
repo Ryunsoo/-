@@ -131,6 +131,12 @@
    <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
    
    <script type="text/javascript">
+   let checkArea = document.querySelector("#checkArea");
+   
+   if(checkArea.checked) {
+	   document.getElementById("private").style.display = "block";
+	   document.getElementById("public").style.display = "none";
+   }
 
    function viewTxt(){
 		

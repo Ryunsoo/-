@@ -147,7 +147,7 @@
 					</div>
 					<div id="detail_footer">
 						<img src="../../../resources/image/notice.png">
-						<div id="footer_msg">"추우니까 집 밖으로 <br>나오지 마세요!"</div>
+						<div id="footer_msg"></div>
 					</div>
 				</div>
 				<div style="display: none;" id="weak_weather">
