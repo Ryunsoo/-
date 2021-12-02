@@ -77,11 +77,11 @@
 							<textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
 							<div class="footer">
 								<div class="private_txt" id="public">공개</div>
-								<div class="private_txt" style="display: none;" id="private">비공개</div>
-								<label class="switch"> 
-									<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1">
-									<span class="slider round"></span>
-								</label>
+			                  	 <div class="private_txt" style="display: none;" id="private">비공개</div>
+			                  	 <label class="switch">
+				  					<input type="checkbox" id="checkArea" name="isPrivate" onchange="viewTxt()" value="1" <c:if test="${board.isPrivate eq 1}">checked</c:if>>
+							  		<span class="slider round"></span>
+								 </label>
 								<input type="hidden" value="${param.section}"> 
 								<input type="hidden" name="boardIdx" value="${board.boardIdx}">
 								<input type="hidden" name="id" value="${authentication.id}">
@@ -133,14 +133,16 @@
    <script type="text/javascript">
 
    function viewTxt(){
-   	
-   	if (document.getElementById("private").style.display == "none"){
-   		document.getElementById("private").style.display = "block";
-   		document.getElementById("public").style.display = "none";
-   	} else {
-   		document.getElementById("private").style.display = "none";
-   		document.getElementById("public").style.display = "block";
-   	}
+		
+		if (document.getElementById("private").style.display == "none"){
+			document.getElementById("private").style.display = "block";
+			document.getElementById("public").style.display = "none";
+		} else {
+			document.getElementById("private").style.display = "none";
+			document.getElementById("public").style.display = "block";
+		}
+		
+	}
    	
    </script>
 </body>
