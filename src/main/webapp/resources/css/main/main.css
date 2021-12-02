@@ -553,12 +553,12 @@ html, body{
 	cursor: pointer;
 }
 
-.comu_section {
-    display: flex;
-    justify-content: center;
-    height: 600px;
-    background-color: #f2f2f2;
-    border-radius: 30px;
+.comu_section{
+	display: flex;
+	justify-content: center;
+	height: 615px;
+	background-color: #f2f2f2;
+	border-radius: 30px;
 }
 
 .comu_div{
