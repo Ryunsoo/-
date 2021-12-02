@@ -106,6 +106,7 @@ div#view_comments2 {
     height: 35px;
     width: 1060px;
     margin-top: 25px;
+    margin-bottom: 20px;
 }
 
 #view_comment_notice p {
@@ -114,9 +115,7 @@ div#view_comments2 {
 
 .comment_content {
     width: 565px;
-    /* margin-top: 25px; */
     margin-right: 10px;
-    /* vertical-align: middle; */
     align-self: center;
     font-size: 18px;
 }
@@ -130,7 +129,6 @@ div#view_comments2 {
     box-shadow: 0 0 1px 0;
     background-color: white;
     border: 1px solid lightgray;
-    margin-top: 25px;
 }
 
 #comment_user {
