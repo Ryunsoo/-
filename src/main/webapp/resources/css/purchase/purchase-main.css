@@ -165,7 +165,7 @@ input:checked + .slider:before {
 .item-list-wrapper {
 	display: block;
 	width: 1073px;
-	height: 1000px;
+	height: 870px;
 }
 
 .item-list-wrapper> .item-list-line {

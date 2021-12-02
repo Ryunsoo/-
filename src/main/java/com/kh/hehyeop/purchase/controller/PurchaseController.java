@@ -133,11 +133,11 @@ public class PurchaseController {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "20";
+			cntPerPage = "12";
 		} else if (nowPage == null) {
 			nowPage = "1";
 		} else if (cntPerPage == null) {
-			cntPerPage = "20";
+			cntPerPage = "12";
 		}
 		
 		Member member = (Member) session.getAttribute("authentication");
