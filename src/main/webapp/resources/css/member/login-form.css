@@ -2,16 +2,18 @@
 
 html, body {
     width: 100%;
-    height: 830px;
+    height: 100%;
     min-width: 1130px;
     display: flex;
     justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
 .wrap{
 	justify-content: center;
 	align-self: center;
+	margin-top: 51px;
 }
 /* .topBlank */
 
@@ -34,7 +36,7 @@ html, body {
 
 
 .login-page-left {
-	height: 590px;
+	height: 541px;
 	width: 100%;
 	margin-right: 5px;
 	background-image: url('../../../resources/image/login-page-left.png');
@@ -98,16 +100,6 @@ html, body {
 	width: 393px;
 	height: 30px;
 	margin-bottom: 20px;
-	@
-	include
-	box-sizing(border-box);
-	&:
-	focus
-	{
-	z-index
-	:
-	2;
-	}
 }
 
 /* Login Button CSS */
