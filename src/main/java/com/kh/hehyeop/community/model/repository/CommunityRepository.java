@@ -65,7 +65,7 @@ public interface CommunityRepository {
 	
 	@Select("select * from (select rownum rnum, v.* from ("
 			+ " select * from (select rownum rnumm, B.* from board B) where rnumm in "
-			+ " (select rnum from (select rownum rnum, replace(title, ' ', '') title from board) where TITLE LIKE '%' || #{searchKeyword} || '%') and board_category LIKE '%' || #{boardCategory} || '%' order by board_idx desc"
+			+ " (select rnum from (select rownum rnum, replace(title, ' ', '') title from board) where TITLE LIKE '%' || #{searchKeyword} || '%') and board_category LIKE '%' || #{boardCategory} || '%' and is_del = 0 order by board_idx desc"
 			+ " ) v) where rnum between #{paging.start} and #{paging.end}")
 	List<Community> selectSearchList(@Param("boardCategory") String boardCategory, @Param("searchKeyword")  String searchKeyword, @Param("paging") Paging paging);
 
