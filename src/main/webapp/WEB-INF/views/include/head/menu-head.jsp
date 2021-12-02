@@ -69,8 +69,16 @@
       <div class="nav_group">
          <c:if test="${not empty authentication}">
 					<div class="nav_info">
-				    	<div class="userName">${authentication.nickname}</div>
-				        <div class="nim">님</div>
+						<c:choose>
+							<c:when test="${authentication.id eq 'admin'}">
+								<div class="userName"></div>
+				        		<div class="nim"></div>
+							</c:when>
+							<c:otherwise>
+						    	<div class="userName">${authentication.nickname}</div>
+						        <div class="nim">님</div>
+							</c:otherwise>
+						</c:choose>
 				        <c:choose>
 							<c:when test="${authentication.grade eq 'BRONZE'}">
 								<div class='medal' style="color: #cc9900"><i class="fas fa-medal"></i></div>
@@ -85,7 +93,14 @@
 								<div class='medal' style="color: silver"><i class="fas fa-gem"></i></div>
 							</c:when>
 						</c:choose>
-				        <div class="mypage" style="cursor:pointer" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+						<c:choose>
+							<c:when test="${authentication.id eq 'admin'}">
+								<div class="mypage" style="cursor:pointer" onclick="location.href='/admin/join-request'">관리자 페이지</div>
+							</c:when>
+							<c:otherwise>
+						    	 <div class="mypage" style="cursor:pointer" onclick="location.href='/mypage/mypage-common'">마이페이지</div>
+							</c:otherwise>
+						</c:choose>
 				        <div class="logout" style="cursor:pointer" onclick="location.href='/member/logout'">LOGOUT</div>
 	        		</div>
 				</c:if>
