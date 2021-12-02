@@ -818,7 +818,6 @@ html, body {
 #neighbor_wrap {
 	height: 33%;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	flex-shrink: 0;
 	flex-wrap: wrap;
@@ -834,6 +833,7 @@ html, body {
 	font-size: 20px;
 	font-weight: bolder;
 	color: black;
+	margin-left: 10px;
 }
 
 #input_memo_wrap {

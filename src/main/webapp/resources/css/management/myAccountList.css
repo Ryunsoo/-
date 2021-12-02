@@ -151,6 +151,7 @@ html, body {
 	margin-top: 10px;
 	cursor: pointer;
 	border-radius: 10px;
+	text-align: center;
 }
 
 .calendar1 {
@@ -162,6 +163,7 @@ html, body {
 	margin-top: 10px;
 	cursor: pointer;
 	border-radius: 10px;
+	text-align: center;
 }
 
 .line {
@@ -196,6 +198,7 @@ html, body {
 	color: white;
 	margin-top: 10px;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .search_btn:focus {
@@ -284,7 +287,7 @@ html, body {
 	width: 850px;
 	border-top: solid medium #ccc;
 	border-bottom: solid medium #ccc;
-	overflow: auto;
+	height: 240px;
 }
 
 .fixed_txt{
@@ -330,14 +333,14 @@ html, body {
 
 .fixed_total{
    display: flex;
-   width:100%;
+   width:850px;
    align-items: center;
    justify-content: center;
    height:35px;
    font-size: 16px;
    font-weight: bold;
-   border-bottom: 2px solid #e2e2e2;
-   color: #6c6a6a;
+   border-bottom: solid medium #ccc;
+   margin-left: 10px;
 }
 
 .list_line{
