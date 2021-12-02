@@ -3,6 +3,7 @@ package com.kh.hehyeop.main.model.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.kh.hehyeop.community.model.dto.Community;
@@ -24,4 +25,6 @@ public interface MainRepository {
 	List<HelpRequest> selectRequestList();
 
 	List<Review> selectReviewList();
+
+	String confirmWeather(@Param("main") String main, @Param("temp") double temp);
 }

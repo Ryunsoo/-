@@ -59,5 +59,23 @@ public class MainServiceImpl implements MainService{
 		
 		return reviewList;
 	}
+
+	@Override
+	public String confirmWeather(String main, double temp) {
+		
+		if (main.equals("Drizzle")) {
+			main = "Rain";
+		} else if (main.equals("Smoke") || main.equals("Sand") || main.equals("Ash")) {
+			main = "Dust";
+		} else if (main.equals("Mist") || main.equals("Haze")) {
+			main = "Fog";
+		} else if (main.equals("Clear")) {
+			main = "Clear";
+		} else {
+			main = "Clouds";
+		}
+		
+		return mainRepository.confirmWeather(main, temp);
+	}
 	
 }

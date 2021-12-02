@@ -18,4 +18,6 @@ public interface MainService {
 	List<HelpRequest> selectRequestList();
 
 	List<Review> selectReviewList();
+
+	String confirmWeather(String main, double temp);
 }

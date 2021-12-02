@@ -24,11 +24,12 @@ let getLocationTemp = async () => {
     console.dir(obj);
     
     return {
-       temp : obj.daily[0].temp.min,
+       temp : obj.daily[0].temp.day,
        temp_min : obj.daily[0].temp.min,
        temp_max : obj.daily[0].temp.max,
        place : tempObj.name,
        description : obj.daily[0].weather[0].description,
+       main : obj.daily[0].weather[0].main,
        statu :  obj.daily[0].weather[0].icon,
        tempArr : obj.daily
     }
@@ -62,6 +63,15 @@ let getLocationTemp = async () => {
     
     /* 지역과 기온 랜더링*/
    let locataionTemp = await getLocationTemp();
+   
+   let mainText = locataionTemp.main;
+   
+   fetch('/weather-confirm?main=' + mainText + '&temp=' + locataionTemp.temp)  	
+					.then(response => response.text())
+					.then(text => {
+							document.querySelector('#footer_msg').innerHTML = '"' + text + '"';
+					})
+					
     document.querySelector('.location').innerHTML = `<i class="fas fa-location"></i> ` + locataionTemp.place;
     document.querySelector('.weather_temp').innerHTML = Math.floor(locataionTemp.temp) + 'º ';
    document.querySelector('.weather_statu').innerHTML = locataionTemp.description;
