@@ -75,7 +75,7 @@ public class CommunityController {
 			
 			User user = (User) session.getAttribute("authentication");
 			
-			if(!(user instanceof Admin)) {
+			if(!(user instanceof Admin) && !user.getId().equals(board.getId())) {
 				throw new HandlableException(ErrorCode.PRIVATE_ACCESS_ERROR);
 			}
 			
