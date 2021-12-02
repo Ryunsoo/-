@@ -8,42 +8,6 @@
 <link rel="stylesheet" href="../../../resources/css/community/search_page.css"/>
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 
-<style type="text/css">
-#search{
-	cursor: pointer;
-}
-
-.tr_inner_container {
-	cursor: pointer;
-}
-
-.board_title {
-	width: 530px;
-	margin: 5px 20px 0 10px; 
-	font-size: 25px;
-	color: navy;
-}
-
-.board_kinds {
-	margin: 12px 10px 0 10px;
-	width: 35px;
-}
-
-.board_title {
-	width: 521px;
-	margin: 5px 20px 0 10px; 
-	font-size: 25px;
-	color: navy;
-}
-
-#nickname_date_count_wrapper {
-	width: 250px;
-	display: flex;
-	justify-content: space-between;
-}
-
-</style>
-
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
@@ -51,7 +15,7 @@
    	<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
      <!--nav와 header 끝-->
     <div id="search_case">
-        <div id="search_case_inner_div_1"><h3>소통해협</h3></div>
+        <div id="search_case_inner_div_1"><h3 style="line-height: 2">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>
         <div id="search_case_inner_div_3">
         <form action="/community/search">
 	        <SELECT NAME="boardCategory" id="selectCategory" SIZE=1 onchange="changeList()">
@@ -78,14 +42,16 @@
 	    <c:forEach items="${commuList}" var="commuList">
     	<div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${commuList.boardIdx}'">
     		<div class="tr_inner_up_div">
-    			<div class="board_kinds">${commuList.boardCategory}</div>
-                <c:if test="${commuList.isPrivate eq 1}">
-                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
-		        </c:if>
-		        <c:if test="${commuList.isPrivate eq 0}">
-                   	<div class="board_title">${commuList.title}</div>
-		        </c:if>
-		        <div id="nickname_date_count_wrapper">
+    			<div class="title_wrap">
+	    			<div class="board_kinds">${commuList.boardCategory}</div>
+	                <c:if test="${commuList.isPrivate eq 1}">
+	                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
+			        </c:if>
+			        <c:if test="${commuList.isPrivate eq 0}">
+	                   	<div class="board_title">${commuList.title}</div>
+			        </c:if>
+			        </div>
+		        <div class="id_wrap">
 	                <div class="board_writer">${commuList.nickname}</div>
 	                <div class="board_date">${commuList.parseDate}</div>
 	                <div class="board_view_cnt">${commuList.viewCnt}</div>
