@@ -8,6 +8,43 @@
 <link rel="stylesheet" href="../../../resources/css/community/search_page.css"/>
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 
+
+<style type="text/css">
+#search{
+	cursor: pointer;
+}
+
+.tr_inner_container {
+	cursor: pointer;
+}
+
+.board_title {
+	width: 530px;
+	margin: 5px 20px 0 10px; 
+	font-size: 25px;
+	color: navy;
+}
+
+.board_kinds {
+	margin: 12px 10px 0 10px;
+	width: 35px;
+}
+
+.board_title {
+	width: 521px;
+	margin: 5px 20px 0 10px; 
+	font-size: 25px;
+	color: navy;
+}
+
+#nickname_date_count_wrapper {
+	width: 250px;
+	display: flex;
+	justify-content: space-between;
+}
+
+</style>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
@@ -42,16 +79,14 @@
 	    <c:forEach items="${commuList}" var="commuList">
     	<div class="tr_inner_container" onclick="location.href = '/community/view?boardIdx=${commuList.boardIdx}'">
     		<div class="tr_inner_up_div">
-    			<div class="title_wrap">
-	    			<div class="board_kinds">${commuList.boardCategory}</div>
-	                <c:if test="${commuList.isPrivate eq 1}">
-	                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
-			        </c:if>
-			        <c:if test="${commuList.isPrivate eq 0}">
-	                   	<div class="board_title">${commuList.title}</div>
-			        </c:if>
-			        </div>
-		        <div class="id_wrap">
+    			<div class="board_kinds">${commuList.boardCategory}</div>
+                <c:if test="${commuList.isPrivate eq 1}">
+                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
+		        </c:if>
+		        <c:if test="${commuList.isPrivate eq 0}">
+                   	<div class="board_title">${commuList.title}</div>
+		        </c:if>
+		        <div id="nickname_date_count_wrapper">
 	                <div class="board_writer">${commuList.nickname}</div>
 	                <div class="board_date">${commuList.parseDate}</div>
 	                <div class="board_view_cnt">${commuList.viewCnt}</div>
