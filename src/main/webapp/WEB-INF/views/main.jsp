@@ -172,6 +172,7 @@
 		</div>
 		<div class="help_section">
 			<div class="help_div">
+			<div class="line"></div>
 				<div class="title_list">
 					<div class="join_div">
 						<i class="far fa-edit"></i>
@@ -186,7 +187,7 @@
 					<div class="join_content">
 						<c:forEach items="${requestList}" var="request">
 							<div class="content">
-								<div class="content_title">${request.reqContent} <img src="../../../resources/image/new_icon.png"></div>
+								<div class="content_title">${request.reqContent} <button class="new_btn">new</button></div>
 								<div class="content_loc">| ${request.oldAddress}</div>
 							</div>
 						</c:forEach>
@@ -195,7 +196,7 @@
 					<div class="review_content">
 						<c:forEach items="${reviewList}" var="review">
 							<div class="content">
-								<div class="content_title">${review.company} <img src="../../../resources/image/new_icon.png"></div>
+								<div class="content_title">${review.company} <button class="new_btn">new</button></div>
 								<div class="content_loc">| ${review.oldAddress}</div>
 								<div class="content_score">★ ${review.score}</div>
 							</div>
