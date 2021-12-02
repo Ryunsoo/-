@@ -70,17 +70,10 @@
 }
 
 .board_title {
-<<<<<<< HEAD
     height: 30px;
     margin: 12px 10px 0 10px;
     font-weight: bold;
     color: #232338;
-=======
-	width: 540px;
-	margin: 5px 20px 0 10px; 
-	font-size: 25px;
-	color: navy;
->>>>>>> refs/heads/dev
 }
 
 .board_writer {

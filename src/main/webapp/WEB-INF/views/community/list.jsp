@@ -97,9 +97,18 @@ function alert(msg){
                         </div>
 
                         <div class="tr_inner_under_div">
-                            <div id="test" class="tr_inner_under_div_contents">
-                                ${cl.content}
-                            </div>
+                        	<c:choose>
+                        		<c:when test="${cl.isPrivate eq 1}">
+                        			<div style="display: none;" id="test" class="tr_inner_under_div_contents">
+                                		${cl.content}
+                            		</div>
+                        		</c:when>
+                        		<c:otherwise>
+                        			<div id="test" class="tr_inner_under_div_contents">
+                                		${cl.content}
+                            		</div>
+                        		</c:otherwise>
+                        	</c:choose>
                         </div>
                     </div>
                 </td>
@@ -152,7 +161,7 @@ document.querySelectorAll("#test").forEach(e => {
 	console.dir(e);
 	let originText = e.innerHTML;
 	let newText= originText.replace(/(<([^>]+)>)/ig,"");
-	
+	console.dir(newText);
 	e.innerHTML = newText;
 });
 

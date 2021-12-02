@@ -99,6 +99,9 @@
     height: 37px;
     border: solid transparent;
     color: gray;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .board_kinds, .board_title, .board_writer, .board_date, .board_view_cnt

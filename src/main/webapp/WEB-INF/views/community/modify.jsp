@@ -73,7 +73,6 @@
             <!--카테고리,제목 끝-->
             <!--카테고리 밑 글쓰는공간 시작-->
 						<div id="cover_form">
-
 							<textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
 							<div class="footer">
 								<div class="private_txt" id="public">공개</div>
@@ -88,7 +87,6 @@
 								<button id="write_btn" type="submit">게시글 수정</button>
 							</div>
 						</div>
-
 					</form>
                </div>
             <!--카테고리 밑 글쓰는공간 끝-->
