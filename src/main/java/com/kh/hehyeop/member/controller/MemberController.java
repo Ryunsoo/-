@@ -72,6 +72,10 @@ public class MemberController {
 			session.setAttribute("id", certifiedUser.getNickname());
 			return "redirect:/"; 
 		} else if (certifiedCUser != null){
+			int isPermit =  certifiedCUser.getIsPermit();
+			if(isPermit == 0) {
+				return "redirect:/mypage/mypage-company"; 
+			}
 			session.setAttribute("authentication", certifiedCUser);
 			LinkMember linkedMember = mypageService.selectLink(certifiedCUser.getId());
 			if(linkedMember != null) {
