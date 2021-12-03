@@ -10,10 +10,13 @@
 		from (select *
         		from help_request
         		where ongoing = 0 and req_idx not in(select req_idx from help_response where id = #{id})
-        		and field in
-		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
+        		<if test="companyFieldList != null">
+     				and field in
+					<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
-		</foreach>
+					</foreach>   		
+        		</if>
+
 		<if test="area == null">
 		and old_address in
 		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">
@@ -47,11 +50,12 @@
 	<select id="countRequest" resultType="_int">
 		select count(*) from help_request
 		where ongoing = 0 and req_idx not in(select req_idx from help_response where id = #{id})
+		<if test="companyFieldList != null">
 		and field in
 		<foreach collection="companyFieldList" item="companyFieldList" open="(" close=")" separator=",">
 						#{companyFieldList.field}
 		</foreach>
-		
+		</if>
 		<if test="area == null">
 		and old_address in
 		<foreach collection="addressList" item="addressList" open="(" close=")" separator=",">

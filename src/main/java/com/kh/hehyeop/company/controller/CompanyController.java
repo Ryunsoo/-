@@ -126,6 +126,10 @@ public class CompanyController {
 		
 		List<CompanyField> companyFieldList = companyService.selectCompanyFieldListById(cmember.getId());
 		
+		if (companyFieldList.size() == 0) {
+			companyFieldList = null;
+		}
+		
 		int total = companyService.countRequest(addressList,companyFieldList,area, cmember.getId());
 		paging = new Paging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
