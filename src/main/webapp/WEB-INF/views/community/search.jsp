@@ -58,7 +58,6 @@
 	white-space: nowrap;
 }
 
-
 .header{
 	margin-left: 15px;
 }
