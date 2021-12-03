@@ -19,29 +19,34 @@
 }
 
 .board_title {
-	width: 530px;
+	width: 495px;
 	margin: 5px 20px 0 10px; 
 	font-size: 25px;
 	color: navy;
 }
 
 .board_kinds {
-	margin: 12px 10px 0 10px;
+	margin: 7px 10px 0 10px;
 	width: 35px;
 }
 
 .board_title {
 	width: 521px;
 	margin: 5px 20px 0 10px; 
-	font-size: 25px;
+	font-size: 18px;
+	font-weight: normal;
 	color: navy;
 }
 
 #nickname_date_count_wrapper {
-	width: 250px;
+	width: 285px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
+.board_writer {
+	margin: 10px 0px 0 8px;
+}
+
 
 </style>
 
@@ -81,7 +86,7 @@
     		<div class="tr_inner_up_div">
     			<div class="board_kinds">${commuList.boardCategory}</div>
                 <c:if test="${commuList.isPrivate eq 1}">
-                   	<div class="board_title">${commuList.title} <i style="margin: 8px 0 0 10px;" class="fas fa-lock"></i></div>
+                   	<div class="board_title">${commuList.title} <i style="margin: 11px 0 0 10px;" class="fas fa-lock"></i></div>
 		        </c:if>
 		        <c:if test="${commuList.isPrivate eq 0}">
                    	<div class="board_title">${commuList.title}</div>

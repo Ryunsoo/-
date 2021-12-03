@@ -63,13 +63,17 @@
 }
 
 .board_kinds {
-    margin: 12px 10px 0 10px;
+    margin: 7px 10px 0 10px;
     width: 35px;
     color: #ffc760;
     font-weight: bold;
 }
 
 .board_title {
+	width: 540px;
+	margin: -3px 20px 0 10px; 
+	font-size: 25px;
+	color: navy;
     height: 30px;
     margin: 12px 10px 0 10px;
     font-weight: bold;

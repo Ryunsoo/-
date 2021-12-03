@@ -39,7 +39,7 @@ input:focus {outline:none;}
 						
 						<div class="idMargin">
 							<label>* 이메일</label><form:errors path="email"/><br>								
-								<input type="text" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
+								<input type="text" id="email" class="form-control_all" name="email" placeholder="이메일을 입력하세요." 
 									<c:if test="${empty error.email}">
 										value = "${joinForm.email}"
 									</c:if>
