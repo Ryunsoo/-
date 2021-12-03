@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +8,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel='stylesheet' href="../../../resources/css/community/style.css">
 <link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
+<style type="text/css">
+.header{
+	margin-left: 15px;
+}
+
+.header_right{
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+</style>
 </head>
 <body>
 <div id="modal"></div>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
     <!--헤더자리-->
     <div class="wrap">
-      <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+      <c:choose>
+ 	 	<c:when test="${authentication.grade eq SUPER}">
+ 	 		<%@ include file="/WEB-INF/views/include/head/admin-head.jsp" %>
+ 	 	</c:when>
+ 	 	<c:otherwise>
+ 	 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+ 	 	</c:otherwise>
+ 	 </c:choose>
       <link rel="stylesheet" href="../../../resources/css/community/view_board.css"/>
       
       <div id="search_case">

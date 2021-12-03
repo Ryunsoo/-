@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,11 +29,28 @@
 		});
 	});
 </script>
+<style type="text/css">
+.header{
+	margin-left: 15px;
+}
+
+.header_right{
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 <div class="wrap">
-    <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+     <c:choose>
+ 	 	<c:when test="${authentication.grade eq SUPER}">
+ 	 		<%@ include file="/WEB-INF/views/include/head/admin-head.jsp" %>
+ 	 	</c:when>
+ 	 	<c:otherwise>
+ 	 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
+ 	 	</c:otherwise>
+ 	 </c:choose>
      <!--nav와 header 끝-->
     <div id="search_case">
         <div id="search_case_inner_div_1"><h3 style="line-height: 2;font-size:18.72px; font-weight:bold;">소통해협</h3><img class="bee" src="../../../resources/image/bee3.png"></div>

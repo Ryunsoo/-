@@ -92,7 +92,7 @@ public interface MemberRepository {
 	@Insert("insert into link_member(id, c_id, password) values(#{id}, #{cid}, #{password})")
 	void linkMember(@Param("id") String id, @Param("cid") String cid, @Param("password") String pw);
 
-	@Select("select password from admin where id = #{id}")
+	@Select("select * from admin where id = #{id}")
 	Admin selectAdmin(String id);
 
 }
