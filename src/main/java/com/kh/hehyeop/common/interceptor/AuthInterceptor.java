@@ -202,6 +202,18 @@ public class AuthInterceptor implements HandlerInterceptor{
 			}else if(user instanceof Member) {
 				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
 			}
+			break;
+		case "company-modifyInfo":
+			CMember cmember = (CMember) session.getAttribute("authentication");
+			
+			if(user == null) {
+				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
+			}else if(user instanceof Member) {
+				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
+			}else if(cmember.getIsPermit() == 0 || cmember.getIsPermit() == 2 || cmember.getIsModify() == 1) {
+				throw new HandlableException(ErrorCode.MYPAGE_ACCESS_ERROR);
+			}
+			break;
 		default:
 			break;
 		}

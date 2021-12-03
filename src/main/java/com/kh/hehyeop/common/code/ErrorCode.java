@@ -17,7 +17,7 @@ public enum ErrorCode {
 	MATCH_DATE_ERROR("거래 시간 이전에는 누를 수 없습니다.", "/purchase/main"),
 	EMPTY_JOIN_ERROR("이미 구매 확정이 완료된 게시글입니다.", "/purchase/main"),
 	ADMIN_LOGIN_ERROR("관리자만 이용 가능합니다.", "/member/login-form"),
-	MYPAGE_ACCESS_ERROR("수청 요청 상태일 때 수정을 할 수 없습니다.", "/mypage/mypage-company"),
+	MYPAGE_ACCESS_ERROR("승인 요청 상태일 때는 수정을 할 수 없습니다.", "/mypage/mypage-company"),
 	PRIVATE_ACCESS_ERROR("비밀글은 관리자만 접근할 수 있습니다.", "/community/list"),
 	REDIRECT("");
 	
