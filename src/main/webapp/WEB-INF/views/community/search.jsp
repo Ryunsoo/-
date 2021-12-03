@@ -48,6 +48,16 @@
 }
 
 
+.tr_inner_under_div_contents {
+    height: 37px;
+    border: solid transparent;
+    color: gray;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
 </style>
 
 </head>
@@ -98,9 +108,19 @@
                 </div>
     		</div>
     		<div class="tr_inner_under_div">
-    			<div id="test" class="tr_inner_under_div_contents">
-    				${commuList.content}
-    			</div> 
+    		<c:choose>
+                 <c:when test="${commuList.isPrivate eq 1}">
+    				<div id="test" class="tr_inner_under_div_contents">
+    				&nbsp
+    				</div> 
+    			 </c:when>
+    			 
+    			<c:otherwise>
+    				<div id="test" class="tr_inner_under_div_contents">
+                    ${commuList.content}
+                    </div>
+    			</c:otherwise>
+    		</c:choose>
     		</div>
     	</div>
 		</c:forEach>
