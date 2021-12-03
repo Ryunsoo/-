@@ -59,7 +59,7 @@ public interface AdminRepository {
 	@Update("update member_c set is_permit=3, is_modify=0 where id = #{id}")
 	void cancelApproval(String id);
 	
-	@Update("delete from member_c where id = #{id}")
+	
 	void rejectJoin(String id);
 
 	@Update("update member_c set is_permit=0, is_modify=3 where id = #{id}")
