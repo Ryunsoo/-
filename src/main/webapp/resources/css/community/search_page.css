@@ -31,7 +31,7 @@
 
 .tr_inner_container {
     width: 900px;
-    /* height: 90px; */
+    height: 90px;
     margin: 0 auto;
     display: flex;
     border: 1px solid lightgray;
@@ -71,7 +71,7 @@
 
 .board_title {
     height: 30px;
-    margin: 12px 10px 0 10px;
+    margin: 7px 10px 0 10px;
     font-weight: bold;
     color: #232338;
 }
@@ -84,7 +84,7 @@
 	margin: 10px 10px 0 10px;
 }
 
-.id_wrap {
+#id_wrap {
     color: #454545;
     font-weight: bold;
 }
