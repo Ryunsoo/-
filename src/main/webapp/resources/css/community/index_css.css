@@ -132,6 +132,7 @@
     font-weight: bold;
     font-size: 18px;
     margin: auto;
+    color: #cccccc;
 }
 
 .page>i {
@@ -140,8 +141,8 @@
     margin-top: 4px;
 }
 .page>i:hover{
-	color: #b3b3b3;
 	cursor: pointer;
+	color: #504b4b;
 }
 
 .page>div{
@@ -149,7 +150,7 @@
 }
 
 .page>div>span:hover{
-	color: #bfbfbf;
+	color: #504b4b;
 	cursor: pointer;
 }
 
@@ -234,5 +235,5 @@ i.fas.fa-pen-square {
 }
 
 i.fas.fa-pen-square:hover {
-	color: #d79444;
+	color: #ffd280;
 }

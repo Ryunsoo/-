@@ -127,7 +127,7 @@ function alert(msg){
 		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 			<c:choose>
 				<c:when test="${p == paging.nowPage}">
-					<span style="color:lightgray">${p}</span>
+					<span style="color: #504b4b;">${p}</span>
 				</c:when>
 				<c:otherwise>
 					<span onclick="location.href= '/community/list?nowPage=${p}&cntPerPage=${paging.cntPerPage}'">${p}</span>

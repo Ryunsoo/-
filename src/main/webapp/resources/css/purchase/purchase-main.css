@@ -31,17 +31,18 @@ body {
 	margin-bottom: 20px;
 }
 
-.search{
-	display: flex;
-	width: 400px;
-	justify-content: space-between;
-	margin-top: 30px;
-	margin-left: 50px;
+.search {
+    display: flex;
+    width: 620px;
+    justify-content: space-between;
+    margin-top: 35px;
+    margin-left: 50px;
 }
 .search> .this-page-name {
-	color: #b57033;
-	font-size: 19px;
-	font-weight: bold;
+    color: #b57033;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 1.6;
 }
 
 .search> .search-form {
@@ -51,16 +52,26 @@ body {
 	justify-content: space-between;
 }
 
-.search> .search-form> #search-input{
-	width: 250px;
-	height: 22px;
+.search> .search-form> #search-input {
+    width: 250px;
+    height: 28px;
+    border: 2px solid lightgray;
+    border-radius: 7px;
+    position: relative;
+    margin-left: 50px;
 }
-
 
 #title{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+#search-submit {
+    position: absolute;
+    left: 835px;
+    color: #181818bf;
+    top: 146px;
 }
 
 
@@ -137,28 +148,30 @@ input:checked + .slider:before {
 
 /* 검색 필터 */
 .search-filter {
-	height: 30px;
-	width : 330px;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 35px;
-	margin-right: 50px;
+    height: 30px;
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+    margin-right: 50px;
+    align-content: center;
+    align-items: center;
 }
 
-.search-filter> div{
-	font-size: 17px;
-}
-
-.search-filter> #grade-dropdown{
-	height: 23px;
-	width: 100px;
+.search-filter> div {
+    font-size: 17px;
+    font-weight: bold;
+    color: #534430;
 }
 
 
-
-
-
-
+.search-filter> #grade-dropdown {
+    height: 33px;
+    width: 100px;
+    border: solid lightgray 2px;
+    border-radius: 7px;
+    cursor: pointer;
+}
 
 /* 상품목록 */
 
@@ -383,20 +396,14 @@ input:checked + .slider:before {
     border:1px solid #333;
 }
 
-
-
-
-
-
-
-
-/* 섹션 끝 */
-
-
-
-
-/* 후터 */
 .hooter {
 	height: 200px;
 }
 
+.item-title-wrapper {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 210px;
+    text-align: center;
+}

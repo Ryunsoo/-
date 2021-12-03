@@ -45,7 +45,7 @@
                   
                   <!--select-->
                      <div id="form_inner_select">
-                        <SELECT NAME="boardCategory" SIZE=1>
+                        <SELECT NAME="boardCategory" SIZE=1 required="required">
 	                        <OPTION VALUE="" disabled selected>카테고리 선택</OPTION>
 	                        <OPTION VALUE="음식">음식</OPTION>
 	                        <OPTION VALUE="잡담">잡담</OPTION>
@@ -55,7 +55,7 @@
                      </div>
 
                      <div id="form_write_title">
-                        <input type="text" name="title" placeholder="제목을 입력하세요"/>
+                        <input type="text" name="title" placeholder="제목을 입력하세요" required/>
                      </div>
                   <!--select 끝-->
                </div>
@@ -63,7 +63,7 @@
             <!--카테고리 밑 글쓰는공간 시작-->
                <div id="cover_form">
                   
-                  <textarea style="background-color: white !important;" name="content" id="summernote"></textarea>
+                  <textarea style="background-color: white !important;" name="content" id="summernote" required="required"></textarea>
                   <div class="footer">
                   	 <div class="private_txt" id="public">공개</div>
                   	 <div class="private_txt" style="display: none;" id="private">비공개</div>
