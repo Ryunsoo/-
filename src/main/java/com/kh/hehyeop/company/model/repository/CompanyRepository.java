@@ -24,7 +24,7 @@ public interface CompanyRepository {
 	@Select("select address1, address2, address3 from my_area where id = #{id}")
 	MyAddress selectMyAreaList(String id);
 
-	@Select("select field from company_field where id = #{id}")
+	@Select("select field from company_field where id = #{id} and is_permit = 1")
 	List<CompanyField> selectCompanyFieldListById(String id);
 	
 	List<HelpRequest> selectRequestList(@Param("paging")Paging paging,@Param("addressList")List<String> addressList

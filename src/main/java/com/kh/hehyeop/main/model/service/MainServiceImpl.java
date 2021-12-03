@@ -39,8 +39,8 @@ public class MainServiceImpl implements MainService{
 		List<HelpRequest> requestList =  mainRepository.selectRequestList();
 		
 		for (HelpRequest helpRequest : requestList) {
-			if(helpRequest.getReqContent().length() > 16) {
-				helpRequest.setReqContent(helpRequest.getReqContent().substring(0, 16));
+			if(helpRequest.getReqContent().length() > 14) {
+				helpRequest.setReqContent(helpRequest.getReqContent().substring(0, 14) + "...");
 			}
 			helpRequest.setOldAddress(util.getDoSiAddress(helpRequest.getOldAddress()));
 		}

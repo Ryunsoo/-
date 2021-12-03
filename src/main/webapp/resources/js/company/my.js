@@ -76,7 +76,7 @@ function viewDetail(reqIdx) {
 		let inpTell = $('<input type="text" value="'+Detail.reqTell+'" readonly>');
 		let reqAddress = $('<div class="inp_title">* 주 소</div>');
 		let inpAddress = $('<input type="text" value="'+Detail.reqAddress+'" readonly>');
-		let reqTime = $('<div class="inp_title">* 원하는 시간</div>');
+		let reqTime2 = $('<div class="inp_title">* 원하는 시간</div>');
 		let inpTime = $('<input type="text" value="'+reqTime+'" readonly>');
 		let reqPay = $('<div class="inp_title">* 희망금액</div>');
 		let inpPay = $('<input type="text" value="'+Detail.reqPay+'" readonly>');
@@ -86,7 +86,7 @@ function viewDetail(reqIdx) {
 		contentRight.append(inpTell);
 		contentRight.append(reqAddress);
 		contentRight.append(inpAddress);
-		contentRight.append(reqTime);
+		contentRight.append(reqTime2);
 		contentRight.append(inpTime);
 		contentRight.append(reqPay);
 		contentRight.append(inpPay);

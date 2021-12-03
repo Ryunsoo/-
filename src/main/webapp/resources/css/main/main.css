@@ -469,6 +469,8 @@ html, body{
 .content_title{
 	width: 250px;
 	display: flex;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .content_loc{
