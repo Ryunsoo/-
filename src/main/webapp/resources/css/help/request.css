@@ -58,6 +58,7 @@ html, body {
 }
 
 .right_page {
+	position: relative;
 	width: 480px;
 	height: 800px;
 	padding: 20px;
@@ -211,4 +212,17 @@ html, body {
 
 #form-address {
 	margin-bottom: 10px;
+}
+
+#check_info {
+	position: absolute;
+	top: 0;
+	right: 141px;
+	display: flex;
+}
+
+#check_info>div {
+	color: black;
+	margin-left: 10px;
+	font-weight: bold;
 }

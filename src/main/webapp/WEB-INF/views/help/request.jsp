@@ -34,7 +34,7 @@
 				</div>
 				<div class='upload'>
 					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
-					<label class='upload_label' for="input-file">견적서 업로드</label>
+					<label class='upload_label' for="input-file">사진첨부</label>
 				</div>
 					<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' required style="visibility: hidden;">
 			</div>
@@ -43,16 +43,17 @@
 			</div>
 		</div>
 		<div class="right_page">
+			<div id="check_info"><input class="info_check" onclick="changeInfo()" type="checkbox"><div>내정보 입력</div></div>
 			<div class="text-area">
 				<div class="text-title">*성  함</div>
 				<div class="text-input">
-					<input type="text" name="reqName" required placeholder="이름을 입력해주세요.">
+					<input type="text" class="reqName" name="reqName" required placeholder="이름을 입력해주세요.">
 				</div>
 			</div>
 			<div class="text-area">
 				<div class="text-title">*연락처</div>
 				<div class="text-input">
-					<input type="text" name="reqTell" required placeholder="연락처를 입력해주세요.">
+					<input type="text" class="reqTell" name="reqTell" required placeholder="연락처를 입력해주세요.">
 				</div>
 				<form:errors path="reqTell" cssClass="valid-msg" id="valid-msg"/>
 			</div>	
@@ -63,7 +64,7 @@
 				</div>
 				<div class="text-input">
 					<input type="text" id="form-address" name="reqAddress" 
-					placeholder="도로명주소" readonly required autocomplete="off" />
+					placeholder="도로명주소" class="reqAddress" readonly required autocomplete="off"/>
 				</div>
 				<div class="text-input">
 					<input type="text" id="form-detailAddress" name="detailAddress" 
@@ -159,6 +160,19 @@
                 frm.submit();
             } 
         })
+        
+        let changeInfo = () => {
+        	let yChecked = $('input:checkbox[class=info_check]').is(":checked");
+        	if(yChecked) {
+        		$('.reqName').val('${authentication.name}');
+           		$('.reqTell').val('${authentication.tell}');
+           		$('.reqAddress').val('${authentication.address}');
+        	}else {
+        		$('.reqName').val('');
+           		$('.reqTell').val('');
+           		$('.reqAddress').val('');
+        	}
+        }
     </script>
 </body>
 

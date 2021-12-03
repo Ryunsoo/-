@@ -198,6 +198,7 @@ public class HelpController {
 
 	@GetMapping("request")
 	public String helpRequest(HttpSession session, String field, Model model) {
+		Member member = (Member) session.getAttribute("authentication");
 		session.setAttribute("field", field);
 		model.addAttribute(new RequestForm()).addAttribute("error", new ValidateResult().getError());
 		return "help/request";
