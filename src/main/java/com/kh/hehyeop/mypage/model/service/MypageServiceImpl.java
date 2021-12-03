@@ -160,8 +160,14 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public void updateAddress(Location location, String id) {
-
-		String inputAddress = location.getMajorKey() + " " + location.getCity() + " " + location.getTown();
+		
+		String inputAddress = "";
+		
+		if(location.getCity().equals("세종시")) {
+			inputAddress = location.getMajorKey() + " " + location.getTown();
+		} else {
+			inputAddress = location.getMajorKey() + " " + location.getCity() + " " + location.getTown();
+		}
 
 		MyAddress myAddress = mypageRepository.checkMyAddress(id);
 

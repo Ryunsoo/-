@@ -10,7 +10,7 @@
 		townKey="";
 	}
    
-   let doArr = ['강원', '경기', '경남', '경북', '광주', '대구', '대전', '부산', '서울', '세종', '울산', '인천', '전남', '전북', '충남', '충북'];
+   let doArr = ['강원', '경기', '경남', '경북', '광주', '대구', '대전', '부산', '서울', '세종', '울산', '인천', '전남', '전북', '충남', '충북', '제주'];
    let guArr = [];
    let dongArr = [];
    
@@ -138,6 +138,7 @@ let resetbutton = (element) => {
 let resetTownbutton = (element) => {
 	 for(i=0; i<element.length; i++){
       element[i].style.color = 'white';
+      element[i].style.backgroundColor= '#f29d2a';
    }
 }
 
@@ -148,7 +149,7 @@ let locationClick = () => {
       if(e.target!==e.currentTarget) {
          resetbutton(document.querySelectorAll(".do_text"));
          majorKey = e.target.innerHTML;
-         e.target.style.color = 'red';
+         e.target.style.color = '#FF69B4';
          locationFetchCityList(majorKey);
       }
       e.stopPropagation();
@@ -182,7 +183,7 @@ let locationCityClick = () => {
       if(e.target!==e.currentTarget) {
          resetbutton(document.querySelectorAll(".gu_text"));
          cityKey = e.target.innerHTML;
-         e.target.style.color = 'red';
+         e.target.style.color = '#FF69B4';
          locationFetchTownList(cityKey);
       }
    })
@@ -212,7 +213,7 @@ let locationTownClick = () => {
       if(e.target!==e.currentTarget) {
          resetTownbutton(document.querySelectorAll(".dong_text"));
          townKey = e.target.innerHTML;
-         e.target.style.color = 'red';
+         e.target.style.backgroundColor = '#FF69B4';
          $('.modal_right_btn').click(function() {
 		addressSubmit();
     })
