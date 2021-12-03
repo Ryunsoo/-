@@ -63,7 +63,6 @@ public class MainController {
 	@ResponseBody
 	@GetMapping("weather-confirm")
 	public ResponseEntity<String> weather(@RequestParam(value="main") String main, @RequestParam(value="temp") double temp) {
-		
 		String comments = mainService.confirmWeather(main, temp);
 		
 		HttpHeaders headers = new HttpHeaders();
