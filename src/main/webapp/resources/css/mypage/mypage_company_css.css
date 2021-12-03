@@ -236,6 +236,7 @@ html, body {
 }
 
 #field_info {
+	position: relative;
     font-size: 20px;
     margin-left: 10px;
     color: red;
@@ -245,8 +246,8 @@ html, body {
 .balloon4{
     display: none;
     position: absolute;
-    right: 372px;
-    top: 661px;
+    right: 28px;
+    top: 37px;
     width: 280px;
     height: 65px;
     background: gray;
