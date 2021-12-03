@@ -99,10 +99,11 @@ public class CompanyController {
 	}
 	
 	@GetMapping("main")
-	public void main(HttpSession session,Model model, Paging paging
+	public String main(HttpSession session,Model model, Paging paging
 						, @RequestParam(value = "nowPage", required = false) String nowPage
 						, @RequestParam(value = "cntPerPage", required = false) String cntPerPage
-						, @RequestParam(value = "area", required = false) String area) {
+						, @RequestParam(value = "area", required = false) String area
+						, RedirectAttributes redirectAttr) {
 				
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -114,6 +115,10 @@ public class CompanyController {
 		}
 		
 		CMember cmember = (CMember) session.getAttribute("authentication");
+		if(cmember.getIsPermit() != 1) {
+			redirectAttr.addFlashAttribute("message", "업체 승인 후 사용가능한 기능입니다.");
+			return "redirect:/mypage/mypage-company";
+		}
 		
 		List<String> addressList = new ArrayList<String>();
 		List<HelpRequest> requestList = new ArrayList<HelpRequest>();
@@ -138,7 +143,7 @@ public class CompanyController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("area", area);	
-		
+		return "company/main";
 	}
 	
 	@GetMapping("ongoing-help")
