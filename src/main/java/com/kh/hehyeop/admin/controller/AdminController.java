@@ -238,7 +238,7 @@ public class AdminController {
 
 		if (category.equals("modify")) {
 			
-			text = "[자취해협] 수정이 거절되었습니다. 다시 수정해주세요";
+			text = "[자취해협] 수정 승인이 거절되었습니다. 다시 수정해주세요";
 			HashMap<String, String> set = new HashMap<String, String>();
 			set.put("to", tell); // 수신번호
 			set.put("from", "01050211937"); // 발신번호 
@@ -251,7 +251,7 @@ public class AdminController {
 			return "redirect:/admin/modify-request";
 		} else if (category.equals("join")) {
 			
-			text = "[자취해협] 가입이 거절되었습니다. 다시 가입해주세요";
+			text = "[자취해협] 가입 승인이 거절되었습니다. 다시 수정해주세요";
 			HashMap<String, String> set = new HashMap<String, String>();
 			set.put("to", tell); // 수신번호
 			set.put("from", "01050211937"); // 발신번호 
