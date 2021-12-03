@@ -63,14 +63,18 @@ public class MainServiceImpl implements MainService{
 	@Override
 	public String confirmWeather(String main, double temp) {
 		
-		if (main.equals("Drizzle")) {
+		if (main.equals("Drizzle") || main.equals("Rain")) {
 			main = "Rain";
-		} else if (main.equals("Smoke") || main.equals("Sand") || main.equals("Ash")) {
+		} else if (main.equals("Smoke") || main.equals("Sand") || main.equals("Ash") || main.equals("Dust")) {
 			main = "Dust";
-		} else if (main.equals("Mist") || main.equals("Haze")) {
+		} else if (main.equals("Mist") || main.equals("Haze") || main.equals("Fog")) {
 			main = "Fog";
 		} else if (main.equals("Clear")) {
 			main = "Clear";
+		} else if (main.equals("Snow")){
+			main = "Snow";
+		} else if (main.equals("Thunderstorm")) {
+			main = "Thunderstorm";
 		} else {
 			main = "Clouds";
 		}
