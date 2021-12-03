@@ -72,7 +72,7 @@ public interface MypageRepository {
 	@Select("select distinct town from location where city = #{city} order by town")
 	List<Location> selectLocationTownList(Location location);
 
-	@Select("select field from company_field where id = #{id}")
+	@Select("select field from company_field where id = #{id} and is_permit = 1")
 	List<String> selectField(String id);
 
 	@Update("update my_area set address2 = #{address2} where id=#{id}")

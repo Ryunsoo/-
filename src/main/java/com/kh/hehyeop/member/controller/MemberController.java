@@ -267,7 +267,7 @@ public class MemberController {
 	@ResponseBody
 	public String idCheck(String id) {
 		Member member = memberService.selectMemberByUserId(id);
-		if (member != null) {
+		if (member != null || id.equals("admin")) {
 			logger.debug(member.toString());
 			return "disable";
 		} else {

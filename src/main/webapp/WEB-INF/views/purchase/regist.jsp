@@ -34,11 +34,11 @@
 				</div>
 				<div class="upload">
 					<label class='upload_icon' for="input-file"><img src='../../../resources/image/upload-folder.png'><!-- <i class="fas fa-folder-plus"></i> --></label>
-					<label class='upload_label' for="input-file"></label>
+					<label class='upload_label' for="input-file">이미지를 업로드해주세요</label>
 				</div>
 				<input type="file" name="files" id='input-file' accept="image/*,.pdf" onchange='setPreview(event);' style="visibility: hidden;" multiple>
 				<div class="submit-input-title">*어필해협</div>
-				<textarea id="appeal-help-content" name="content" placeholder="내용을 입력해주세요 ex)물 3개씩 구매하실 분만 신청해주세요 쌀: 구매개수 1개 = 1kg"></textarea>
+				<textarea id="appeal-help-content" name="content" required placeholder="내용을 입력해주세요 ex)물 3개씩 구매하실 분만 신청해주세요 쌀: 구매개수 1개 = 1kg"></textarea>
 			</div>
 			
 			
@@ -48,19 +48,19 @@
 			<br><br>
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*제품명</div>
-					<input class="text-input" type="text" placeholder="  제품명과 개수를 입력하세요" name="itemName"/>
+					<input class="text-input" type="text" required placeholder="  제품명과 개수를 입력하세요" name="itemName"/>
 				</div>
 				<br>
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*제품링크</div>
-					<input class="text-input" type="text" placeholder="  제품 링크를 추가해주세요." name="itemLink"/>
+					<input class="text-input" type="text" required placeholder="  제품 링크를 추가해주세요." name="itemLink"/>
 				</div>
 				<br>
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*거래위치 <div id="addrBtn" onclick="searchAddr()">주소찾기</div></div>
-					<input class="text-input" id="addr" placeholder="버튼을 클릭하세요" name="dealLoc" readonly/>
+					<input class="text-input" id="addr" required placeholder="버튼을 클릭하세요" name="dealLoc" readonly/>
 					<input style="display:none;" id="oldAddr" name="oldAddr"/>
 				</div>
 				<br>
@@ -70,13 +70,13 @@
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*거래시간</div>
 
-						<input class="text-input" id="startTime" type="datetime-local" placeholder="  시간을 입력하세요" name="dealTime"/>
+						<input class="text-input" id="startTime" type="datetime-local" required placeholder="  시간을 입력하세요" name="dealTime"/>
 
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*마감시간</div>
-						<input class="text-input" id="endTime" type="datetime-local" placeholder="  시간을 입력하세요" name="endTime"/>
+						<input class="text-input" id="endTime" type="datetime-local" required placeholder="  시간을 입력하세요" name="endTime"/>
 					</div>
 				</div>
 				<br>
@@ -84,19 +84,19 @@
 				
 				<div class="input-content-wrapper">
 					<div class="submit-input-title">*금액</div>
-					<input class="text-input" type="number" min="0.00" placeholder="금액을 입력하세요" name="price"/>
+					<input class="text-input" type="number" min="0.00" required placeholder="금액을 입력하세요" name="price"/>
 				</div>
 				<br>
 				
 				<div class="half-size-content-wrapper">
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*총 개수</div>
-						<input class="text-input" id="totalItem" type="number" placeholder="  물건의 총 개수를 입력" name="totalNum"/>
+						<input class="text-input" id="totalItem" type="number" min="0" required placeholder="  물건의 총 개수를 입력" name="totalNum"/>
 					</div>
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input class="text-input" id="myItem" type="number" min="0" placeholder="  본인이 구매할 개수를 입력" name="buyNum"/>
+						<input class="text-input" id="myItem" type="number" min="0" required placeholder="  본인이 구매할 개수를 입력" name="buyNum"/>
 					</div>
 				</div>
 				<br>
