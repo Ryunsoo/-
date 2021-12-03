@@ -74,7 +74,7 @@
                   
                   <!--select-->
                      <div id="form_inner_select">
-                        <SELECT NAME="boardCategory" SIZE=1>
+                        <SELECT NAME="boardCategory" SIZE=1 required>
 	                        <OPTION VALUE="" disabled>카테고리 선택</OPTION>
 	                        <OPTION VALUE="음식" <c:if test="${board.boardCategory eq '음식'}">selected</c:if>>음식</OPTION>
 	                        <OPTION VALUE="잡담" <c:if test="${board.boardCategory eq '잡담'}">selected</c:if>>잡담</OPTION>
@@ -84,14 +84,14 @@
                      </div>
 
                      <div id="form_write_title">
-                        <input type="text" name="title" placeholder="제목을 입력하세요." value="${board.title}" style="height: 40px; width:843px;"/>
+                        <input type="text" name="title" placeholder="제목을 입력하세요." value="${board.title}" required style="height: 40px; width:843px;"/>
                      </div>
                   <!--select 끝-->
                </div>
             <!--카테고리,제목 끝-->
             <!--카테고리 밑 글쓰는공간 시작-->
 						<div id="cover_form">
-							<textarea style="background-color: white !important;" name="content" id="summernote">${board.content}</textarea>
+							<textarea style="background-color: white !important;" name="content" id="summernote" required="required">${board.content}</textarea>
 							<div class="footer">
 								<div class="private_txt" id="public">공개</div>
 			                  	 <div class="private_txt" style="display: none;" id="private">비공개</div>
@@ -165,6 +165,12 @@
 		}
 		
 	}
+   
+   document.querySelector("#write_btn").addEventListener('click', e => {
+		if(!document.getElementById('text').innerHTML){
+			alert('내용을 입력해주세요.');
+		}
+	})
    	
    </script>
 </body>

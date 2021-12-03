@@ -74,6 +74,7 @@ public class MemberController {
 		} else if (certifiedCUser != null){
 			int isPermit =  certifiedCUser.getIsPermit();
 			if(isPermit == 0) {
+				session.setAttribute("authentication", certifiedCUser);
 				return "redirect:/mypage/mypage-company"; 
 			}
 			session.setAttribute("authentication", certifiedCUser);

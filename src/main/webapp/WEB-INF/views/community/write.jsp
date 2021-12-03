@@ -149,6 +149,11 @@ function viewTxt(){
 	
 }
 
+document.querySelector("#write_btn").addEventListener('click', e => {
+	if(!document.getElementById('text').innerHTML){
+		alert('내용을 입력해주세요.');
+	}
+})
 
 </script>
 </html>
