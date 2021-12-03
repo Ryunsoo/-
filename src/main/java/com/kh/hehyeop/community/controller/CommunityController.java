@@ -186,7 +186,12 @@ public class CommunityController {
 			return "redirect:/community/view?boardIdx="+reply.getBoardIdx(); 
 		}
 		
-		reply.setNickname(communityService.selectNickname(reply.getId()));
+		if (reply.getId().equals("admin")) {
+			reply.setNickname("관리자");
+		} else {
+			reply.setNickname(communityService.selectNickname(reply.getId()));
+		}
+		
 		communityService.insertReply(reply);
 
 		return "redirect:/community/view?boardIdx="+reply.getBoardIdx();
@@ -223,7 +228,12 @@ public class CommunityController {
 			return "redirect:/community/view?boardIdx="+boardIdx; 
 		}
 		
-		reReply.setNickname(communityService.selectNickname(reReply.getId()));
+		if (reReply.getId().equals("admin")) {
+			reReply.setNickname(communityService.selectNickname("관리자"));
+		} else {
+			reReply.setNickname(communityService.selectNickname(reReply.getId()));
+		}
+		
 		communityService.insertReReply(reReply);
 		return "redirect:/community/view?boardIdx="+boardIdx;
 	}
