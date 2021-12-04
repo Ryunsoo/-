@@ -50,6 +50,7 @@ body {
 	width: 300px;
 	font-size: 19px;
 	justify-content: space-between;
+	position: relative;
 }
 
 .search> .search-form> #search-input {
@@ -57,7 +58,6 @@ body {
     height: 28px;
     border: 2px solid lightgray;
     border-radius: 7px;
-    position: relative;
     margin-left: 50px;
 }
 
@@ -69,9 +69,9 @@ body {
 
 #search-submit {
     position: absolute;
-    left: 835px;
+    left: 268px;
     color: #181818bf;
-    top: 146px;
+    top: 3px;
 }
 
 
