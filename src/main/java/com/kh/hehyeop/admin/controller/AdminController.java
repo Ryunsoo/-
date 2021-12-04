@@ -133,13 +133,9 @@ public class AdminController {
 		
 		adminService.updatePermitedField(id, fields);
 		
-		//mypageService.updateCompanyField(id, fields);
-		
 		if (category.equals("modify")) {
-			adminService.updateModify(id);
 			return "redirect:/admin/modify-request";
 		} else if (category.equals("join")) {
-			adminService.updateJoin(id);
 			return "redirect:/admin/join-request";
 		}
 		

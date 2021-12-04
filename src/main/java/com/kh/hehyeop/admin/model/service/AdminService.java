@@ -20,8 +20,6 @@ public interface AdminService {
 
 	List<String> selectFieldListById(String id);
 
-	void updateModify(String id);
-	
 	List<CMember> selectJoinFinishList(Paging paging);
 	
 	int selectJoinFinishListCount();
@@ -32,8 +30,6 @@ public interface AdminService {
 
 	void cancelApproval(String id);
 	
-	void updateJoin(String id);
-
 	void rejectApproval(String id);
 
 	void modifyCancelApproval(String id);

@@ -2,6 +2,7 @@ package com.kh.hehyeop.admin.model.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -41,12 +42,6 @@ public interface AdminRepository {
 	@Select("select field from company_field where id = #{id} and is_permit = 0")
 	List<String> selectFieldListById(String id);
 
-	@Update("update member_c set is_permit = 1, is_modify = 2, permit_date = current_date where id = #{id}")
-	void updateModify(String id);
-
-	@Update("update member_c set is_permit = 1, permit_date = current_date where id = #{id}")
-	void updateJoin(String id);
-
 	@Update("update member_c set is_permit = 0, is_modify = 3, permit_date = current_date where id = #{id}")
 	void rejectModify(String id);
 
@@ -59,11 +54,16 @@ public interface AdminRepository {
 	@Update("update member_c set is_permit=3, is_modify=0 where id = #{id}")
 	void cancelApproval(String id);
 	
-	
-	void rejectJoin(String id);
-
 	@Update("update member_c set is_permit=0, is_modify=3 where id = #{id}")
 	void modifyCancelApproval(String id);
+
+	void updatePermitedField(@Param("id") String id, @Param("fields") List<String> fields);
+
+	@Delete("delete from company_field where id = #{id} and is_permit = 0")
+	void deleteNotPermitField(@Param("id") String id);
+
+	@Update("update member_c set is_permit = 1 where id = #{id}")
+	void updateIsPermitById(@Param("id") String id);
 
 
 }

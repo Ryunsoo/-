@@ -456,7 +456,7 @@ public class MypageController {
 			Member authentication = mypageService.authenticateUser(member);
 			session.setAttribute("authentication", authentication);
 			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
-			return "redirect:/mypage/modify-info";
+			return "redirect:/mypage/mypage-company";
 		}
 		
 		if (errors.hasErrors()) {

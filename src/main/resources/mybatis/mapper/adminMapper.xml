@@ -9,6 +9,10 @@
   		{call SP_REJECT_CMEMBER (#{id, mode=IN})}
   		</insert>
 
-
+		<update id="updatePermitedField" statementType="CALLABLE">
+			{call SP_UPDATE_COMPANY_FIELD (#{id, mode=IN}, 
+				#{fields, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.FieldTypeHandler})}
+		</update>
+		
 
 </mapper>
