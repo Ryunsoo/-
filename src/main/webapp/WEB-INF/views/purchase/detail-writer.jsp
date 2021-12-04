@@ -59,7 +59,7 @@
 				<!-- 제품링크 -->
 				<div class="product-link">
 					<div class="orange-color-subtitle">제품 링크</div>
-					<a href="http://${detailInfo.itemLink}">
+					<a href="${detailInfo.itemLink}">
 						${detailInfo.itemLink}
 					</a>
 				</div>
