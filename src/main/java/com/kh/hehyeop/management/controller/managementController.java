@@ -105,6 +105,8 @@ public class managementController {
 		Member member = (Member) session.getAttribute("authentication");
 		Map<String, List<ShoppingList>> shoppingList = managementService.selectShoppingListById(member.getId());
 		model.addAllAttributes(shoppingList);
+		selectIceboxBellList(session, model);
+		selectBellCnt(session, model);
 	}
 
 	@GetMapping("deleteItem")

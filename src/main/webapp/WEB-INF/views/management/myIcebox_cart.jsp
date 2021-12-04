@@ -57,14 +57,15 @@ function showResult(msg){
 			</div>
 			<div class="tape"></div>
 			<div class="bell" id="go">
-				<div class="bell_cnt">3</div>
+				<c:if test="${bellCnt > 0}"><div class="bell_cnt">${bellCnt}</div></c:if>
 				<i class="fas fa-bell"></i>
 			</div>
-				
-			<div class="cart" onclick="location.href='/management/myIcebox_cart'">
-				<div class="cart_cnt">3</div>
-				<i class="fas fa-shopping-cart"></i>
+			
+			<div class="cart" onclick="javascript:location.href='myIcebox_cart'">
+			<i class="fas fa-shopping-cart"></i>
 			</div>
+			
+			<%@ include file="/WEB-INF/views/management/bell.jsp" %>
 			<div class="main2">
 					
 				<div class="cart_icon">
