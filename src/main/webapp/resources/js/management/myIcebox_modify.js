@@ -38,9 +38,8 @@ let deleteItem = (iceIdx, item, category) => {
 	setButton(sendModal, '삭제', '추가');
 	setContent(sendModal, true, true);
 	modalBlock();
-        	
-	let modalBody = $('<div class="add">최근 소진 목록에 추가하시겠습니까?<div><br>')
-		.addClass('send_modal_content');
+    let modalBody = $('<div class="alertMessage">최근 소진 목록에 추가하시겠습니까?</div><br>')
+	.addClass('send_modal_content');    
 	$('.modal_content').append(modalBody);
         	
 	$('.modal_left_btn').click(function() {
@@ -80,9 +79,8 @@ let deleteItem = (iceIdx, item, category) => {
 				appendTitle(sendModal, '');
 				setButton(sendModal, '확인');
 				setContent(sendModal, true, true);
-				
 				let modalBody = $('<div class="alertMessage">최근 소진목록에 추가되었습니다.</div><br>')
-			    .addClass('send_modal_content');
+                .addClass('send_modal_content');
 			    $('.modal_content').append(modalBody);
 			    modalBlock();
 				
@@ -107,9 +105,8 @@ function plusItem(category){
 			appendTitle(sendModal, '');
 			setButton(sendModal, '확인');
 			setContent(sendModal, true, true);
-			
-			let modalBody = $('<div>냉장고에 품목이 추가되었습니다.<div>').height('10px').css("margin",'0 20px 0 20px');
-   			modalBody.css("padding-top",'5px');
+			let modalBody = $('<div class="alertMessage">냉장고에 품목이 추가되었습니다.</div><br>')
+ 		    .addClass('send_modal_content');
    			$('.modal_content').append(modalBody);
 			modalBlock();
 			
