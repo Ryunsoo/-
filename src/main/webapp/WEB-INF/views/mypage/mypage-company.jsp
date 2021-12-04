@@ -381,7 +381,7 @@ function alertMessage(msg){
 										<i class="fas fa-tags"></i>
 									</div>
 									<div id="basic">my전문분야</div>
-									<c:if test="${authentication.isPermit eq 0 or authentication.isPermit eq 2}">
+									<c:if test="${authentication.isPermit ne 1}">
 									<div id="field_info">
 										<i class="fas fa-exclamation-circle"></i>&nbsp; Look
 										<div class="balloon4">

@@ -1,5 +1,6 @@
 package com.kh.hehyeop.mypage.model.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.apache.ibatis.annotations.Update;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.LinkMember;
@@ -137,6 +139,9 @@ public interface MypageRepository {
 
 	@Select("select is_permit from member_c where id = #{id}")
 	int selectStatus(String id);
+
+	@Select("select * from pro_field where field not in(select field from company_field where id = #{id})")
+	ArrayList<FieldForm> selectFieldExceptPermit(@Param("id")String id);
 	
 	
 	

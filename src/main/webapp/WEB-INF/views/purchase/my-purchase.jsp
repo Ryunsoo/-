@@ -14,7 +14,7 @@
 
 #tempbody> td{
 	border: 0.5px solid #cccccc;
-	height: 100px;
+	height: 50px;
 	text-align: center;
 	font-size: 19px;
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.hehyeop.common.util.file.FileUtil;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.mypage.model.dto.Friend;
 import com.kh.hehyeop.mypage.model.dto.LinkMember;
 import com.kh.hehyeop.mypage.model.dto.Location;
@@ -21,7 +21,6 @@ import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 import com.kh.hehyeop.mypage.validator.JoinForm;
-import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 import lombok.RequiredArgsConstructor;
 
@@ -255,5 +254,10 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int selectStatus(String id) {
 		return mypageRepository.selectStatus(id);
+	}
+
+	@Override
+	public ArrayList<FieldForm> selectFieldExceptPermit(String id) {
+		return mypageRepository.selectFieldExceptPermit(id);
 	}
 }

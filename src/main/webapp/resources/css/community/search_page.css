@@ -94,9 +94,12 @@
 }
 
 .tr_inner_under_div_contents {
-    /* height: 37px; */
+    height: 37px;
     border: solid transparent;
     color: gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #result_letter {
@@ -144,6 +147,7 @@
     font-weight: bold;
     font-size: 18px;
     margin: auto;
+    color: #cccccc;
 }
 
 .page>i {
@@ -152,8 +156,8 @@
     margin-top: 4px;
 }
 .page>i:hover{
-	color: #b3b3b3;
 	cursor: pointer;
+	color: #504b4b;
 }
 
 .page>div{
@@ -161,7 +165,7 @@
 }
 
 .page>div>span:hover{
-	color: #bfbfbf;
+	color: #504b4b;
 	cursor: pointer;
 }
 

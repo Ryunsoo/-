@@ -14,7 +14,6 @@
 		<div class='aside'>
 			<button class="join_list" onclick="location.href='/admin/join-request'">가입 요청</button>
 			<button class="revision_list" onclick="location.href='/admin/modify-request'">수정 요청</button>
-			<button class="finished_list" onclick="location.href='/admin/join-finish-list'">완료 목록</button>
 		</div>
 		<!-- </aside> -->
 		<div class='section'>
