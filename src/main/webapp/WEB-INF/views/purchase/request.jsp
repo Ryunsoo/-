@@ -90,7 +90,7 @@
 					
 					<div class="input-content-wrapper">
 						<div class="submit-input-title">*내가 구매할 개수</div>
-						<input id="myBuyCnt" class="text-input myBuyCnt" name="buyNum" type="text" placeholder="  수량을 입력하세요" name="file"/>
+						<input id="myBuyCnt" class="text-input myBuyCnt" name="buyNum" type="number" min="0" placeholder="수량을 입력하세요"/>
 					</div>
 				</div>
 				<br>
