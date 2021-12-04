@@ -26,13 +26,11 @@
 							<div class="field">
 								<c:forEach items="${fieldList}" var="fl">
 									<c:if test="${cl eq fl.fieldCategory}">
-											<label><input class="checkBox" id="checkBox" 
 											<c:forEach items="${myField}" var="mf">
 												<c:if test="${mf eq fl.field}">
-													checked
+													<label><input class="checkBox" id="checkBox" checked type="checkbox" name="field" value="${fl.field}"> ${fl.field}</label>
 												</c:if>
 											</c:forEach>
-											 type="checkbox" name="field" value="${fl.field}"> ${fl.field}</label>
 									</c:if>
 								</c:forEach>
 							</div>

@@ -38,7 +38,7 @@ public interface AdminRepository {
 	@Select("select a.* from file_info a join member_c b on (a.type_idx = b.c_idx) where id = #{id} and file_category = 'MEMBER_C'")
 	List<FileDTO> selectFileInfoById(String id);
 
-	@Select("select field from company_field where id = #{id}")
+	@Select("select field from company_field where id = #{id} and is_permit = 0")
 	List<String> selectFieldListById(String id);
 
 	@Update("update member_c set is_permit = 1, is_modify = 2, permit_date = current_date where id = #{id}")
