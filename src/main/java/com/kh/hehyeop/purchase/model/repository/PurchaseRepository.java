@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
@@ -164,6 +165,11 @@ public interface PurchaseRepository {
 
 	@Select("select item_name from purchase_register where reg_idx = #{regIdx}" )
 	String selectItemName(String regIdx);
+
+	@Select("select done from purchase_register where reg_idx = #{regIdx}")
+	String selectDoneByRegIdx(@Param("regIdx")String regIdx);
+
+	List<User> selectJoinIdListByJoinIdx(@Param("joinIdxList")List<String> joinIdxList);
 
 	
 	

@@ -61,6 +61,11 @@
 
 <body>
 <%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
+<c:if test="${not empty message}">
+	<script>
+		alert('${message}');
+	</script>
+</c:if>
 <div class="wrap_content">
 	<div class="wrap_head">
 		<div class="main_bar">
@@ -288,6 +293,7 @@
 				</div>
 			</div>
 		</div>
+	
 		<!-- 자취해협 정보 footer -->
 	<%@ include file="/WEB-INF/views/include/footer/footer.jsp" %>
 		
@@ -318,6 +324,7 @@
 		
 		
 	</script>
+	
 </body>
 
 <script type="text/javascript">
@@ -353,7 +360,6 @@
 	function logout(){
 		location.href='/member/logout';
 	}
-	
 	
 </script>
 <script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>

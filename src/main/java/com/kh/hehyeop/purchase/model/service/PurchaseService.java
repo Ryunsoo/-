@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.common.util.paging.Paging;
+import com.kh.hehyeop.member.model.dto.Member;
 import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.purchase.model.dto.DetailInfo;
@@ -94,6 +95,10 @@ public interface PurchaseService {
 	void updateDone(String regIdx);
 
 	List<String> findChatList(String regIdx);
+
+	String selectDoneByRegIdx(String regIdx);
+
+	List<User> selectJoinIdListByJoinIdx(List<String> joinIdxList);
 
 
 

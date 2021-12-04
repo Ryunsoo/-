@@ -288,5 +288,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseRepository.findChatList(regIdx);
 	}
 
+	@Override
+	public String selectDoneByRegIdx(String regIdx) {
+		return purchaseRepository.selectDoneByRegIdx(regIdx);
+	}
+
+	@Override
+	public List<User> selectJoinIdListByJoinIdx(List<String> joinIdxList) {
+		return purchaseRepository.selectJoinIdListByJoinIdx(joinIdxList);
+	}
+
 
 }

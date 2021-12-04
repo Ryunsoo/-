@@ -20,6 +20,7 @@
   		<typeAlias alias="Community" type="com.kh.hehyeop.community.model.dto.Community"/>
   		<typeAlias alias="Expense" type="com.kh.hehyeop.management.model.dto.Expense"/>
   		<typeAlias alias="CMember" type="com.kh.hehyeop.admin.model.dto.CMember"/>
+  		<typeAlias alias="User" type="com.kh.hehyeop.member.model.dto.User"/>
   	</typeAliases>
   	
   	<mappers>
