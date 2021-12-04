@@ -94,9 +94,12 @@
 }
 
 .tr_inner_under_div_contents {
-    /* height: 37px; */
+    height: 37px;
     border: solid transparent;
     color: gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #result_letter {
