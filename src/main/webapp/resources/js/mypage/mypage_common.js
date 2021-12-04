@@ -15,7 +15,7 @@ let memo = document.querySelectorAll('#input_memo_wrap');
 			let friendId = id[i].innerText;
 			
 			memo_btn[i].addEventListener("click", () => {
-				memo[i].classList.remove("hidden");
+				memo[i].classList.toggle("hidden");
 			})
 			
 			delete_btn[i].addEventListener("click", () => {

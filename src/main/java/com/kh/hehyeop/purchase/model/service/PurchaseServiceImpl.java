@@ -1,5 +1,6 @@
 package com.kh.hehyeop.purchase.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	public List<MyPurchaseInfo> purchaseParticipantsList(String regIdx) {
-		return purchaseRepository.purchaseParticipantsList(regIdx);
+		List<MyPurchaseInfo> list = new ArrayList<MyPurchaseInfo>();
+		list.add(purchaseRepository.selectRegisterInfo(regIdx));
+		
+		List<MyPurchaseInfo> partList = purchaseRepository.purchaseParticipantsList(regIdx);
+		if(partList.get(0).getName() != null) {
+			list.addAll(partList);
+		}
+		return list;
 	}
 	
 	@Override

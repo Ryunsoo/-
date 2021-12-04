@@ -174,6 +174,7 @@ public class MemberController {
 		
 		if(certifiedUser != null) {
 			session.setAttribute("authentication", certifiedUser);
+			session.setAttribute("id", certifiedUser.getNickname());
 			return "redirect:/"; 
 		} else {
 			redirectAttr.addFlashAttribute("message", "아이디나 비밀번호가 정확하지 않습니다.");

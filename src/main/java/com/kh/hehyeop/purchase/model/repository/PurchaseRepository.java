@@ -171,6 +171,10 @@ public interface PurchaseRepository {
 
 	List<User> selectJoinIdListByJoinIdx(@Param("joinIdxList")List<String> joinIdxList);
 
+	@Select("select buy_num as join_buy_num, nickname, name, tell, id from purchase_register join member using(id) "
+			+ "where reg_idx = #{regIdx}")
+	MyPurchaseInfo selectRegisterInfo(@Param("regIdx") String regIdx);
+
 	
 	
 }
