@@ -34,10 +34,10 @@ public interface AdminService {
 	
 	void updateJoin(String id);
 
-	void rejectModify(String id);
-
-	void rejectJoin(String id);
+	void rejectApproval(String id);
 
 	void modifyCancelApproval(String id);
+
+	void updatePermitedField(String id, List<String> fields);
 
 }

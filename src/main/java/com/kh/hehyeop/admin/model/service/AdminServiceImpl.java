@@ -78,11 +78,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void rejectModify(String id) {
-		adminRepository.rejectModify(id);
-	}
-
-	@Override
 	public int selectModifyFinishListCount() {
 		return adminRepository.selectModifyFinishListCount();
 	}
@@ -92,7 +87,11 @@ public class AdminServiceImpl implements AdminService {
 		 adminRepository.cancelApproval(id);
 	}
 
-	public void rejectJoin(String id) {
+	public void rejectApproval(String id) {
+		//is_permit인 분야는 모두 삭제
+		
+		//MEMBER_C의 is_permit을 1로 변경
+		
 		adminRepository.rejectJoin(id);
 	}
 
@@ -100,6 +99,18 @@ public class AdminServiceImpl implements AdminService {
 	public void modifyCancelApproval(String id) {
 		adminRepository.modifyCancelApproval(id);
 		
+	}
+
+	@Override
+	public void updatePermitedField(String id, List<String> fields) {
+		//아이디로 is_permited가 0인 field 리스트를 가져온다
+		
+		
+		//넘어온 field 리스트와 비교해서 일치하지 않는 분야는 DB에서 삭제하고
+		
+		//일치하는 분야는 is_permit 1로 바꿔준다.
+		
+		//MEMBER_C의 is_permit을 1로 바꿔준다.
 	}
 
 }

@@ -115,10 +115,12 @@ public class CompanyController {
 		}
 		
 		CMember cmember = (CMember) session.getAttribute("authentication");
-		if(cmember.getIsPermit() != 1) {
-			redirectAttr.addFlashAttribute("message", "업체 승인 후 사용가능한 기능입니다.");
-			return "redirect:/mypage/mypage-company";
-		}
+		/*
+		 * if(cmember.getIsPermit() != 1) {
+		 * redirectAttr.addFlashAttribute("message", "업체 승인 후 사용가능한 기능입니다.");
+		 * return "redirect:/mypage/mypage-company";
+		 * }
+		 */
 		
 		List<String> addressList = new ArrayList<String>();
 		List<HelpRequest> requestList = new ArrayList<HelpRequest>();
@@ -132,7 +134,10 @@ public class CompanyController {
 		List<CompanyField> companyFieldList = companyService.selectCompanyFieldListById(cmember.getId());
 		
 		if (companyFieldList.size() == 0) {
-			companyFieldList = null;
+			model.addAttribute("paging", new Paging(0, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage)));
+			model.addAttribute("requestList", null);
+			model.addAttribute("area", area);
+			return "company/main";
 		}
 		
 		int total = companyService.countRequest(addressList,companyFieldList,area, cmember.getId());

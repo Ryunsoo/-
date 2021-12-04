@@ -210,7 +210,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 				throw new HandlableException(ErrorCode.BEFORE_LOGIN_ERROR);
 			}else if(user instanceof Member) {
 				throw new HandlableException(ErrorCode.NORMAL_LOGIN_ERROR);
-			}else if(cmember.getIsPermit() == 0 || cmember.getIsPermit() == 2 || cmember.getIsModify() == 1) {
+			}else if(cmember.getIsPermit() != 1) {
 				throw new HandlableException(ErrorCode.MYPAGE_ACCESS_ERROR);
 			}
 			break;
