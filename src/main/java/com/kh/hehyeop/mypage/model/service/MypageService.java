@@ -1,5 +1,6 @@
 package com.kh.hehyeop.mypage.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.validator.FieldForm;
 import com.kh.hehyeop.mypage.model.dto.Location;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.dto.Friend;
@@ -47,5 +49,6 @@ public interface MypageService {
 	List<Map<String, Object>> getReview(String id);
 	Map<String, String> getPurchaseCount(String id);
 	int selectStatus(String id);
+	ArrayList<FieldForm> selectFieldExceptPermit(String id);
 	
 }

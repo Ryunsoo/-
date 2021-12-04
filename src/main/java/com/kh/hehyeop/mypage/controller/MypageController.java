@@ -506,7 +506,7 @@ public class MypageController {
 			throw new HandlableException(ErrorCode.MYPAGE_ACCESS_ERROR);
 		}
 		
-		ArrayList<FieldForm> fieldList = memberService.selectField();
+		ArrayList<FieldForm> fieldList = mypageService.selectFieldExceptPermit(member.getId());
 		ArrayList<String> categoryList = memberService.selectCategory();
 		model.addAttribute(new JoinForm()).addAttribute("error", new ValidateResult().getError());
 
