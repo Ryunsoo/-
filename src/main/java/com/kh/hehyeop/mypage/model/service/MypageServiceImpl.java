@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +21,6 @@ import com.kh.hehyeop.mypage.model.dto.Token;
 import com.kh.hehyeop.mypage.model.dto.Wallet;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 import com.kh.hehyeop.mypage.validator.JoinForm;
-import com.kh.hehyeop.mypage.validator.ModifyCompany;
 
 import lombok.RequiredArgsConstructor;
 
