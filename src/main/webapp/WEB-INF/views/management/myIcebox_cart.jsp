@@ -133,45 +133,6 @@ function showResult(msg){
 					<div class="bell_cancel" id="exit"><i class="fas fa-times-circle"></i></div>
 				</div>
 				
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-				<div class="bell_txt_wrap">
-					<div class="bell_txt">- 삼겹살의 유통기한이 <div style="color:rgb(192, 57, 43); ">&nbsp3일</div>&nbsp남았습니다.</div>
-				</div>
-			
-				
-			
 			</div>
 		</div>
 		
