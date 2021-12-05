@@ -209,9 +209,11 @@ public class MemberController {
 			return "member/social-join-form";
 		}
 		
+		AddressUtil convertAddr = new AddressUtil();
+		
 		form.setId((String)session.getAttribute("id"));
 		form.setPassword(UUID.randomUUID().toString());
-		
+		form.setOldAddress(convertAddr.trimOldAddress(form.getOldAddress()));
 		
 		String token = UUID.randomUUID().toString();
 		session.setAttribute("persistUser", form);

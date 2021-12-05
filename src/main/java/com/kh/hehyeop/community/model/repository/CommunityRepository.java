@@ -51,7 +51,7 @@ public interface CommunityRepository {
 	@Insert("insert into re_reply(re_reply_idx, reply_idx, id, content, nickname) values(sc_re_reply_idx.nextval, #{replyIdx}, #{id}, #{content}, #{nickname})")
 	void insertReReply(Rereply reReply);
 
-	@Select("select * from re_reply where is_del = 0 order by re_reply_idx desc")
+	@Select("select * from re_reply where is_del = 0 order by re_reply_idx")
 	List<Rereply> selectReReplyList();
 
 	@Update("update re_reply set is_del = 1 where re_reply_idx = #{reReplyIdx}")
