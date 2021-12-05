@@ -70,7 +70,7 @@
 					<input type="text" id="form-detailAddress" name="detailAddress" 
 					placeholder="상세주소" required autocomplete="off"/>
 					<input type="hidden" id="form-oldAddress" name="oldAddress" 
-					placeholder="지번주소" readonly required autocomplete="off"/>
+					placeholder="지번주소" class="reqOldAddress" readonly required autocomplete="off"/>
 				</div>
 			</div>
 			<div class="text-area">
@@ -167,10 +167,12 @@
         		$('.reqName').val('${authentication.name}');
            		$('.reqTell').val('${authentication.tell}');
            		$('.reqAddress').val('${authentication.address}');
+           		$('.reqOldAddress').val('${authentication.oldAddress}');
         	}else {
         		$('.reqName').val('');
            		$('.reqTell').val('');
            		$('.reqAddress').val('');
+           		$('.reqOldAddress').val('');
         	}
         }
     </script>
