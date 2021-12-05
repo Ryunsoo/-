@@ -73,28 +73,7 @@ let btnNickCheck = document.querySelector("#btnNickCheck");
 
 	})
 	
-//
-//	
-//	
-//	/*제출버튼 검증*/
-//	let allInput = document.querySelectorAll('input');
-//	
-//	allInput.forEach( item => {
-//		
-//		let dom = document.querySelector('#next_btn');
-//		
-//		item.addEventListener('blur', event => {
-//			if(confirmPasswordCheck&confirmNameCheck&confirmTellCheck&confirmIdCheck) {
-//				dom.style.setProperty('background-color', '#384c60');
-//				dom.style.setProperty("pointer-events", "auto");
-//			} else {
-//				dom.style.backgroundColor = 'lightgray';
-//				dom.style.setProperty("pointer-events", "none");
-//			}
-//		})
-//	});
-	
-	
+
 
 
 
