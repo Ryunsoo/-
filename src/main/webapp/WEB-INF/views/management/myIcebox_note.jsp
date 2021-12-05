@@ -13,8 +13,12 @@
 		<%@ include file="/WEB-INF/views/include/head/menu-head.jsp"%>
 		<div class="main">
 			<div class="btn">
-				<button class="icebox_btn" onclick="javascript:location.href='myIcebox'">나의 냉장고</button>
-				<button class="house_btn" onclick="javascript:location.href='myIcebox5.html'">나의 가계부</button>
+				<button class="icebox_btn" onclick="javascript:location.href='myIcebox'">
+					나의 냉장고
+				</button>
+				<button class="house_btn" onclick="javascript:location.href='myAccountBook'">
+					나의 가계부
+				</button>
 			</div>
 
 			<div class="icebox">
