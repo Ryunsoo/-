@@ -6,7 +6,7 @@ document.querySelector(".myBuyCnt").addEventListener('input', e => {
 			
 		document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
 		document.querySelector('#submit-button').style.setProperty("pointer-events", "none");
-		
+		modalNone();
 		let modal = initModal('modal', 3);
 		appendTitle(modal, '');
 		setButton(modal, '닫기' , '이동');
@@ -36,7 +36,7 @@ document.querySelector(".myBuyCnt").addEventListener('input', e => {
 			
 		document.querySelector('#submit-button').style.setProperty('background-color', 'lightgray');
 		document.querySelector('#submit-button').style.setProperty("pointer-events", "none");
-		
+		modalNone();
 		let modal = initModal('modal', 3);
 		appendTitle(modal, '');
 		setButton(modal, '닫기');

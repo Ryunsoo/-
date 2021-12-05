@@ -41,7 +41,7 @@ let createChargingModal = () => {
 			merchant_uid: 'merchant_' + new Date().getTime(),
 			name: "캐쉬 충전",
 			amount: parseInt(cash),
-			buyer_name: document.querySelector(".userName").innerText,
+			buyer_name: document.querySelector(".user_id").innerText,
 			buyer_tel: '01041147406'
 		}, function(res) {
 			if (res.success) {

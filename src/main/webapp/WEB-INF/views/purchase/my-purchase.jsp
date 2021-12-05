@@ -233,16 +233,26 @@ let participantsList = (regIdx) => {
 	.then((response) => {
 		participants = response;
 		tbody.empty();
-		if(participants[0].name != null){
-			for(let i = 0; i<participants.length; i++) {
-				  tbody.append('<tr id="detail-table-body">'
+		
+		console.dir(participants);
+		
+		tbody.append('<tr id="detail-table-body">'
+				   + '<td>' + participants[0].nickname + ' (모집자)</td>'
+				   + '<td>' + participants[0].name + '</td>'
+				   + '<td>' + participants[0].tell + '</td>'
+				   + '<td>' + participants[0].joinBuyNum + '</td>'
+				   + '</tr>');
+		
+		if(participants.length != 1){
+			for(let i = 1; i<participants.length; i++) {
+				 tbody.append('<tr id="detail-table-body">'
 						   + '<td>' + participants[i].nickname + '</td>'
 						   + '<td>' + participants[i].name + '</td>'
 						   + '<td>' + participants[i].tell + '</td>'
 						   + '<td>' + participants[i].joinBuyNum + '</td>'
 						   + '</tr>');
 			 }
-		} else {
+		} else{
 			tbody.append('<tr id="tempbody"><td colspan="4">참여자가 없습니다</td></tr>');
 		}
 		tbody.append("<tr id='purchaseLink'><td colspan = '4'><div onclick='purchaseLink(" + regIdx + ")'>해당 공구 페이지로 이동</div></td></tr>");

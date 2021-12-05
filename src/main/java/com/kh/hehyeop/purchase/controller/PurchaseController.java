@@ -119,6 +119,9 @@ public class PurchaseController {
 		purchaseService.updateJoinStatus(joinIdxList, regIdx, sellerNickname);
 		redirectAttr.addFlashAttribute("message", "구매 확정이 완료되었습니다.");
 		
+		List<User> joinIdList = purchaseService.selectJoinIdListByJoinIdx(joinIdxList);
+		pushSender.send(joinIdList, "자취해협", "참여한 공동구매 건이 구매 확정 되었습니다. 거래가 종료되면 거래완료 버튼을 눌러주세요.");
+		
 		return "redirect:/purchase/detail-writer?regIdx="+regIdx;
 	}
 	
@@ -290,6 +293,13 @@ public class PurchaseController {
 		Member member = (Member) session.getAttribute("authentication");
 		String id = member.getId();
 		String nickname = member.getNickname();
+		
+		String done = purchaseService.selectDoneByRegIdx(regIdx);
+		
+		if(!done.equals("N")) {
+			redirectAttr.addFlashAttribute("message", "이미 진행중인 거래여서 참여가 불가능합니다.");
+			return "redirect:/purchase/main";
+		}
 		
 		purchaseService.purchaseRequest(buyNum, id); //purchase join 테이블
 		

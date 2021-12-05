@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 </head>
 <body>
+<c:if test="${not empty message}">
+	<script>
+		alert('${message}');
+	</script>
+</c:if>
+
 	<!-- 섹션 시작 -->
 	<div class="section">
 		
@@ -21,7 +27,7 @@
 				<div class="this-page-name">구매해협</div>
 				
 				<div class="search-form">
-					<input id="search-input" type="text" placeholder="검색어를 입력하세요.">
+					<input id="search-input" type="text" placeholder="검색어를 입력하세요." onkeypress="if(event.keyCode==13){changeList()}">
 					<div id="search-submit" onclick="changeList()">
 						<i class="fas fa-search"></i>
 					</div>

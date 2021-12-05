@@ -194,4 +194,14 @@
 		{call SP_UPDATE_ONGOING(#{regIdxList, mode=IN, typeHandler=com.kh.hehyeop.common.mybatis.IdxListTypeHandler})}
 	</update>
   
+  
+	<select id="selectJoinIdListByJoinIdx" resultType="User">
+		select id
+		from purchase_join
+		where join_idx in
+		<foreach collection="joinIdxList" item="list" open="(" close=")" separator=",">
+			#{list}
+		</foreach>
+		
+	</select>
 </mapper>  
