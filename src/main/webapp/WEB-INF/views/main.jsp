@@ -217,12 +217,12 @@
 			<div class="buy_div">
 				<div class="buy_title">
 					<i class="far fa-shopping-cart"></i>
-					<div class="buy_name">공동구매</div>
+					<div class="buy_name">공구해협</div>
 				</div>
 				<div class="buy_body">
 					<c:forEach items="${purchaseList}" var="purchase">
 						<div class="buy_content">
-							<img src='/file/' + ${purchase.savePath} + ${purchase.reName} onclick="location.href='/purchase/detail?regIdx=' + ${purchase.regIdx}">
+							<img src="/file/${purchase.savePath}${purchase.reName}" onclick="location.href='/purchase/detail?regIdx=' + ${purchase.regIdx}">
 						<div class="buy_label">${purchase.itemName}</div>
 					</div>
 					</c:forEach>
@@ -236,7 +236,7 @@
 			<div class="comu_div">
 				<div class="comu_title">
 					<i class="far fa-users"></i>
-					<div class="comu_name">커뮤니티</div>
+					<div class="comu_name">소통해협</div>
 				</div>
 				<div class="comu_body">
 					<div id="frac_div" class="child_title">
