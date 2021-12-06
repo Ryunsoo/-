@@ -202,7 +202,7 @@ let estimate = () => {
 	         //문의하기 버튼(활성화)
 	         let ask = $('<button>문의하기</button>').css('margin-left','2px');
 	         ask.addClass('list_btn');
-	         ask.attr('onclick',"chatCompany('" + id + "', '" + resIdx + "')");
+	         ask.attr('onclick',"chatCompany('" + id + "', '" + resIdx + "', '" + reqIdx + "')");
 	         //선택하기 버튼(비활성화)
 	         let selectLock = $('<button>선택하기</button>').css('margin-right','2px');
 	         selectLock.addClass('list_btn_disabled');
@@ -299,7 +299,7 @@ let selectCompany = (cid,resIdx,resPay,reqIdx) => {
 }
 
 //견적서 목록에서 문의하기 클릭시
-let chatCompany = (cId, resIdx) => {
+let chatCompany = (cId, resIdx, reqIdx) => {
    modalNone();
    let modal = initModal('modal', 3);
    appendTitle(modal,'문의하기');
@@ -321,8 +321,13 @@ let chatCompany = (cId, resIdx) => {
          .then(text => {
             if(text == 'success') {
                window.alert('채팅방이 생성되었습니다.');
+               fetch('/help/chat-push?friendId='+cId +'&reqIdx=' + reqIdx)
+		   		.then(response => {
+					console.dir('푸시완료');
+				})
             }
          })
+			
        modalNone();
    })
 }

@@ -9,6 +9,7 @@ import com.kh.hehyeop.help.model.dto.EstimateList;
 import com.kh.hehyeop.help.model.dto.HelpRequest;
 import com.kh.hehyeop.help.model.dto.MyHehyeop;
 import com.kh.hehyeop.help.model.dto.Review;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.common.util.file.FileDTO;
 import com.kh.hehyeop.common.util.paging.Paging;
@@ -57,5 +58,7 @@ public interface HelpService {
 	String choiceCompany(Map<String, Object> commandMap);
 
 	String selectReqNameByReqIdx(String reqIdx);
+
+	void chatPush(User friend, String reqIdx);
 
 }

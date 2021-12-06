@@ -23,6 +23,7 @@ import com.kh.hehyeop.help.model.dto.Review;
 import com.kh.hehyeop.help.model.repositroy.HelpRepository;
 import com.kh.hehyeop.member.model.dto.CMember;
 import com.kh.hehyeop.member.model.dto.Member;
+import com.kh.hehyeop.member.model.dto.User;
 import com.kh.hehyeop.mypage.model.dto.MyAddress;
 import com.kh.hehyeop.mypage.model.repository.MypageRepository;
 
@@ -356,5 +357,11 @@ public class HelpServiceImpl implements HelpService{
 	@Override
 	public String selectReqNameByReqIdx(String reqIdx) {
 		return helpRepository.selectReqNameByReqIdx(reqIdx);
+	}
+
+	@Override
+	public void chatPush(User friend, String reqIdx) {
+		String reqName = helpRepository.selectReqNameByReqIdx(reqIdx);
+		pushSender.send(friend, "자취해협", reqName + "님이 생성한 문의 채팅을 확인해보세요!");
 	}
 }

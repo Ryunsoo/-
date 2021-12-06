@@ -7,9 +7,11 @@
 <%@ include file="/WEB-INF/views/include/head/menu-head.jsp" %>
 <link href="../../../resources/css/include/head/menu_head.css" type="text/css" rel="stylesheet">
 <link rel='stylesheet' href="../../../resources/css/purchase/purchase-main.css">
+<link rel='stylesheet' href="../../../resources/css/include/chat/chat.css">
 <meta charset="UTF-8">
 </head>
 <body>
+<%@ include file="/WEB-INF/views/include/chat/chat.jsp" %>
 <c:if test="${not empty message}">
 	<script>
 		alert('${message}');
@@ -143,4 +145,5 @@ function changeList(){
 }
 
 </script>
+<script type="text/javascript" src="../../../resources/js/include/chat/chat.js"></script>
 </html>

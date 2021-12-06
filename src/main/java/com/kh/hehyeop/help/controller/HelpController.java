@@ -344,6 +344,14 @@ public class HelpController {
 		}
 	}
 	
+	@GetMapping("chat-push")
+	@ResponseBody
+	public void chatPush(String friendId, String reqIdx) {
+		User user = new User();
+		user.setId(friendId);
+		helpService.chatPush(user, reqIdx);
+	}
+	
 	
 	
 	
