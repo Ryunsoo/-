@@ -61,8 +61,11 @@ public interface CompanyRepository {
 	@Select("select id, ongoing from help_request where req_idx = #{reqIdx}")
 	HelpRequest selectIdAndOngoingByReqIdx(@Param("reqIdx") String reqIdx);
 	
-	@Select("select res_pay from help_response where req_idx = #{reqIdx}")
-	int selectResPayByReqIdx(@Param("reqIdx") String reqIdx);
+	@Select("select res_pay from help_response where req_idx = #{reqIdx} and ongoing=2")
+	int selectResPayByReqIdxComplete(@Param("reqIdx") String reqIdx);
+	
+	@Select("select res_pay from help_response where req_idx = #{reqIdx} and ongoing=3")
+	int selectResPayByReqIdxCancel(@Param("reqIdx") String reqIdx);
 	
 	@Update("update wallet set cash= cash + #{resPay} where id = #{id}")
 	void completeCashByReqIdx(@Param("id") String id, @Param("resPay") int resPay);

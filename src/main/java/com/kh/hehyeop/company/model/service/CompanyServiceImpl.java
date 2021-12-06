@@ -130,7 +130,7 @@ public class CompanyServiceImpl implements CompanyService{
 		
 		if(helpRequest.getOngoing() == 2) {
 			if(payStatus == 0) {
-				int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+				int resPay = companyRepository.selectResPayByReqIdxComplete(reqIdx);
 				//업체 cash + res_pay
 				companyRepository.completeCashByReqIdx(id,resPay);
 				mypageRepository.substractCashAndCashLock(helpRequest.getId(), resPay);
@@ -170,7 +170,7 @@ public class CompanyServiceImpl implements CompanyService{
 		
 		if(helpRequest.getOngoing() == 3) {
 			if(payStatus == 0) {
-				int resPay = companyRepository.selectResPayByReqIdx(reqIdx);
+				int resPay = companyRepository.selectResPayByReqIdxCancel(reqIdx);
 				companyRepository.cancelCashByReqIdx(helpRequest.getId(),resPay);
 			}
 			pushSender.send(member, "자취해협", company + " 업체와 진행중인 건이 최종 취소되었습니다.");
