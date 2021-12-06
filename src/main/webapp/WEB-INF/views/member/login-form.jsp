@@ -319,6 +319,8 @@ let createFindPwModal = () => {
 		console.dir(id);
 		console.dir(email);
 		
+		if(!name || !id || !email) return;
+		
 		modalNone();
 		
 		let modal = initModal('modal', 1);
