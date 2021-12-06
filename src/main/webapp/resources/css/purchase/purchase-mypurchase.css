@@ -46,7 +46,21 @@ body {
 
 /* 제목파트 끝 */
 
-
+#batch-notice{
+	display: flex;
+    font-size: 15px;
+    font-weight: normal;
+    color: black;
+    border: solid 2px;
+    border-radius: 7px;
+    margin-left: 12px;
+    margin-top: 10px;
+    border-color: #a47c02;
+    width: 994px;
+    height: 58px;
+    padding-top: 8px;
+    padding-left: 8px;
+}
 
 /* 테이블 파트 */
 .table-wrapper {

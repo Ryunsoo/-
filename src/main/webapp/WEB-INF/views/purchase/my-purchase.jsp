@@ -35,17 +35,14 @@
 	cursor: pointer;
 }
 
+#batch-notice{
+	font-size: 13px;
+	
+}
+
 </style>
 
 </head>
-
-
-
-
-
-
-
-
 <body>
 
 	<!-- 섹션 시작 -->
@@ -54,6 +51,11 @@
 		<!-- 작성해협 제목 -->
 		<div class="title">
 			<div id="this-page-name">&nbsp&nbspMY공구</div>
+			<span id="batch-notice" style="display: none;">
+				 거래 시간이 지난 공구는 거래 시간 7일 뒤,<br> 
+				 참여자들의 구매 확정 상태에 따라서 한 명이라도 안 눌렀을 때 참여자들에게 환불 처리가 됩니다.<br> 
+				 한 명이라도 구매 확정을 눌렀다면 공구는 거래 완료가 된 것으로 판단해 모집자에게 금액이 송금됩니다.<br>
+			</span>
 		</div>
 		
 		
@@ -288,6 +290,14 @@ function statusFiltering() {
 		location.href='/purchase/my-purchase';
 	}
 } 
+
+document.querySelector("#this-page-name").addEventListener("mouseenter", e => {
+	document.querySelector("#batch-notice").style.display = "flex";
+});
+
+document.querySelector("#this-page-name").addEventListener("mouseout", e => {
+	document.querySelector("#batch-notice").style.display = "none";
+});
 
 
 
