@@ -352,6 +352,7 @@ i.fas.fa-reply {
     flex-direction: row;
     justify-content: revert;
     align-self: center;
+    margin-bottom: 12px;
 }
 
 #modify{

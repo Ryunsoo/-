@@ -89,7 +89,7 @@
 						<div id="item_line"></div>
 						<div id="${rl.replyIdx}" class="comment_content">${rl.content}</div>
 						<c:choose>
-							<c:when test="${authentication.id eq rl.id}"> 
+							<c:when test="${authentication.id eq rl.id}">
 								<form id="form-${rl.replyIdx}" style="display: none;"
 									class="comment_content" action="/community/modify-reply"
 									method="post">
