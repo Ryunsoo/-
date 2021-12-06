@@ -2,25 +2,25 @@
 $(function(){
     let sc = Number(document.querySelector('#score_num').innerHTML*10);
     console.dir(sc);
-    if(sc <= 0) {
+    if(sc < 5) {
 		document.querySelector('.control_star').style.width = '0';	
-	}else if (sc <= 5){
+	}else if (sc < 10){
 		document.querySelector('.control_star').style.width = '10%'
-	}else if (sc <= 10){
+	}else if (sc < 15){
 		document.querySelector('.control_star').style.width = '20%'
-	}else if (sc <= 15){
+	}else if (sc < 20){
 		document.querySelector('.control_star').style.width = '30%'
-	}else if (sc <= 20){
+	}else if (sc < 25){
 		document.querySelector('.control_star').style.width = '40%'
-	}else if (sc <= 25){
+	}else if (sc < 30){
 		document.querySelector('.control_star').style.width = '50%'
-	}else if (sc <= 30){
+	}else if (sc < 35){
 		document.querySelector('.control_star').style.width = '60%'
-	}else if (sc <= 35){
+	}else if (sc < 40){
 		document.querySelector('.control_star').style.width = '70%'
-	}else if (sc <= 40){
+	}else if (sc < 45){
 		document.querySelector('.control_star').style.width = '80%'
-	}else if (sc <= 45){
+	}else if (sc < 50){
 		document.querySelector('.control_star').style.width = '90%'
 	}else {
 		document.querySelector('.control_star').style.width = '100%'
