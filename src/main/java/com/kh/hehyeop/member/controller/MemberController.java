@@ -389,7 +389,11 @@ public class MemberController {
 			, HttpSession session
 			, RedirectAttributes redirectAttrs) {
 		
-		if(!persistToken.equals(persistToken)) {
+		if(persistToken == null) {
+			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
+		
+		if(!token.equals(persistToken)) {
 			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 		}
 		
@@ -405,7 +409,11 @@ public class MemberController {
 			, HttpSession session
 			, RedirectAttributes redirectAttrs) {
 		
-		if(!persistToken.equals(persistToken)) {
+		if(persistToken == null) {
+			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
+		}
+		
+		if(!token.equals(persistToken)) {
 			throw new HandlableException(ErrorCode.AUTHENTICATION_FAILED_ERROR);
 		}
 		
