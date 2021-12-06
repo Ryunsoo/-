@@ -314,9 +314,7 @@ let createFindPwModal = () => {
 		let name = document.querySelector("#name").value;
 		let id = document.querySelector("#id").value;
 		let email = document.querySelector("#email").value;
-		console.dir(name);
-		console.dir(id);
-		console.dir(email);
+		
 		
 		modalNone();
 		

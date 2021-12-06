@@ -527,9 +527,13 @@ public class MypageController {
 		
 		List<String> fieldList = new ArrayList<String>();
 		String[] fieldParam = request.getParameterValues("fieldName");
-
-		for (String field : fieldParam) {
-			fieldList.add(field);
+		
+		if (fieldParam != null) {
+			for (String field : fieldParam) {
+				fieldList.add(field);
+			}
+			
+			mypageService.updateCompanyField(form.getId(), fieldList);
 		}
 		
 		if (!errors.hasErrors()) {
@@ -537,7 +541,6 @@ public class MypageController {
 			form.setOldAddress(autil.trimOldAddress(form.getOldAddress()));
 			mypageService.updateCompanyInfo(form);
 			
-			mypageService.updateCompanyField(form.getId(), fieldList);
 			member = (CMember) session.getAttribute("authentication");
 			mypageService.uploadFile(files, member.getCIdx());
 			System.out.println("Company info 바꼈냐");
