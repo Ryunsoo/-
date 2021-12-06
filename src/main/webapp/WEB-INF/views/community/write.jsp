@@ -137,6 +137,7 @@
 </body>
 <script type="text/javascript">
 
+
 function viewTxt(){
 	
 	if (document.getElementById("private").style.display == "none"){
@@ -150,7 +151,7 @@ function viewTxt(){
 }
 (()=>{
 document.querySelector("#write_btn").addEventListener('click', e => {
-	if(!document.getElementById('summernote').innerHTML){
+	if(!document.getElementById('summernote').value){
 		alert('내용을 입력해주세요.');
 	}
 })

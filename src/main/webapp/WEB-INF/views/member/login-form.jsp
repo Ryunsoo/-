@@ -314,7 +314,13 @@ let createFindPwModal = () => {
 		let name = document.querySelector("#name").value;
 		let id = document.querySelector("#id").value;
 		let email = document.querySelector("#email").value;
+
+		let emailUrl = email.split("@",2);
+		console.dir(name);
+		console.dir(id);
+		console.dir(email);
 		
+		if(!name || !id || !email) return;
 		
 		modalNone();
 		
@@ -350,7 +356,7 @@ let createFindPwModal = () => {
 		});
 		
 		$('.modal_right_btn').click(function(){
-			window.open("https://www.naver.com");
+			window.open("https://www." + emailUrl[1]);
 			modalNone();
 		})
 		
