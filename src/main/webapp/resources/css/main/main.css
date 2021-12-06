@@ -655,6 +655,9 @@ html, body{
     cursor: pointer;
     overflow: hidden;
     font-weight: bold;
+    width: 200px;
+    height: 20px;
+    margin-left: 10px;
 }
 
 .child_list>div:hover{
