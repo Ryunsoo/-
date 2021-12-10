@@ -544,7 +544,7 @@ public class MypageController {
 			member = (CMember) session.getAttribute("authentication");
 			mypageService.uploadFile(files, member.getCIdx());
 			System.out.println("Company info 바꼈냐");
-			
+			 
 			
 			session.removeAttribute("authentication");
 			session.removeAttribute("myField");
