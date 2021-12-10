@@ -138,13 +138,23 @@
 								<div id="reply_item">
 									<div id="comment_user">${rrl.nickname}</div>
 									<div id="item_line"></div>
-									<div class="reply_content">${rrl.content}</div>
+									<div id="re-${rrl.reReplyIdx}" class="reply_content">${rrl.content}</div>
 									<c:choose>
 										<c:when test="${authentication.id eq rrl.id}">
+											<form id="form-re-${rrl.reReplyIdx}" style="display: none;"
+												class="reReply_content" action="/community/modify-reReply"
+												method="post">
+												<input style="display: none;" type="text" name="replyIdx"
+													value="${board.boardIdx}" /> <input style="display: none;"
+													type="text" name="reReplyIdx" value="${rrl.reReplyIdx}"> <input
+													id="modify-reply-form" type="text" name="content">
+												<button id="modify-reply_btn" type="submit">수정</button>
+											</form>
 											<div class="comment-func">
 												<div id="edit_date">${rrl.parseDate}</div>
 												<div id="edit_item">
-													<div id="comment_modify">수정</div>
+													<div id="comment_modify"
+														onclick="modifyReReply('${rrl.reReplyIdx}')">수정</div>
 													<div id="comment_delete"
 														onclick="location.href='/community/delete-reReply?reReplyIdx=${rrl.reReplyIdx}&boardIdx=${board.boardIdx}'">삭제</div>
 												</div>
@@ -224,6 +234,18 @@ function modifyReply(id){
 	} else {
 		document.getElementById(id).style.display = 'block';
 		document.getElementById("form-"+id).style.display = 'none';
+	}
+	
+}
+
+function modifyReReply(id){
+	
+	if (document.getElementById("form-re-"+id).style.display == 'none'){
+		document.getElementById("re-"+id).style.display = 'none';
+		document.getElementById("form-re-"+id).style.display = 'block';
+	} else {
+		document.getElementById("re-"+id).style.display = 'block';
+		document.getElementById("form-re-"+id).style.display = 'none';
 	}
 	
 }

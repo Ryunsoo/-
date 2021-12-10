@@ -69,4 +69,7 @@ public interface CommunityRepository {
 			+ " ) v) where rnum between #{paging.start} and #{paging.end}")
 	List<Community> selectSearchList(@Param("boardCategory") String boardCategory, @Param("searchKeyword")  String searchKeyword, @Param("paging") Paging paging);
 
+	@Update("update re_reply set content = #{reReply.content}, reg_date = current_date where re_reply_idx = #{reReply.reReplyIdx}")
+	void updateReReply(@Param("reReply") Rereply reReply);
+
 }

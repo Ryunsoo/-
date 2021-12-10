@@ -246,6 +246,13 @@ public class CommunityController {
 		return "redirect:/community/view?boardIdx="+boardIdx;
 		
 	}
+	
+	@PostMapping("modify-reReply")
+	public String modifyReReply(Rereply reReply, RedirectAttributes redirctAttr) {
+		System.out.println("잘넘어오는지 봅시당 : " + reReply);
+		communityService.modifyReReply(reReply);
+		return "redirect:/community/view?boardIdx="+reReply.getReplyIdx();
+	}
 
 	
 }

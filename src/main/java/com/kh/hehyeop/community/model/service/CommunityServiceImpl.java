@@ -101,4 +101,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityRepository.selectSearchList(boardCategory, searchKeyword, paging);
 	}
 
+	@Override
+	public void modifyReReply(Rereply reReply) {
+		communityRepository.updateReReply(reReply);
+	}
+
 }

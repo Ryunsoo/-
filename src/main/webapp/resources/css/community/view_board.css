@@ -120,6 +120,13 @@ div#view_comments2 {
     font-size: 18px;
 }
 
+.reReply_content {
+    width: 524px;
+    margin-right: 10px;
+    align-self: center;
+    font-size: 18px;
+}
+
 #comment_item {
     display: flex;
     width: 1053px;

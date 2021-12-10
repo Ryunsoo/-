@@ -43,4 +43,6 @@ public interface CommunityService {
 
 	List<Community> selectSearchList(String boardCategory, String searchKeyword, Paging paging);
 
+	void modifyReReply(Rereply reReply);
+
 }
