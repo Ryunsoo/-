@@ -322,7 +322,6 @@ public class MemberController {
 
 	}
 	
-	// error 객체는 반드시 검증될 객체 바로 뒤에 작성
 	@PostMapping("cojoin-form-last")
 	public String coJoinLast(@Validated JoinForm form, Errors errors, Model model, HttpSession session) {
 		
