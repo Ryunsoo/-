@@ -379,7 +379,7 @@ public class MypageController {
 		Member member = new Member();
 		member.setId(id);
 		member.setPassword(password);
-		
+		 
 		if (!passwordEncoder.matches(confirmPw, cmember.getPassword())) {
 			redirectAttr.addFlashAttribute("message", "등록된 업체 비밀번호가 맞지 않습니다.");
 		} else if (memberService.authenticateUser(member) == null) {
