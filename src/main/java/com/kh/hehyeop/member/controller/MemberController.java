@@ -506,8 +506,7 @@ public class MemberController {
 	}
 
 	
-	
-	
+
 	
 	
 	
