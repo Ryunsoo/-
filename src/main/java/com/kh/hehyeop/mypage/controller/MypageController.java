@@ -553,7 +553,7 @@ public class MypageController {
 			session.setAttribute("authentication", authentication);
 			session.setAttribute("myField", myField);
 			     
-			  
+			   
 			redirectAttr.addFlashAttribute("message", "수정이 완료 되었습니다.");
 			return "redirect:/mypage/mypage-company";
 		}
